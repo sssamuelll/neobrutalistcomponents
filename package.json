@@ -17,10 +17,16 @@
     "dist"
   ],
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
+    "dev": "vite --config vite.site.config.ts",
+    "build:lib": "tsc -b && vite build",
+    "build:site": "vite build --config vite.site.config.ts",
+    "build": "npm run build:lib && npm run build:site",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "preview": "vite preview",
+    "prepublishOnly": "npm run build:lib"
   },
   "dependencies": {
     "react": "19.1.0",
