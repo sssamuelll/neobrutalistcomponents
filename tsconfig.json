@@ -27,8 +27,9 @@
     "resolveJsonModule": true,
     "isolatedModules": true
   },
-  // Incluye **SÓLO** la carpeta de tu librería
-  "include": ["src/lib"],
-  // Excluye resto de mierda que no necesitas
+  // Incluye la librería y el setup de tests (el setup aporta augmentaciones
+  // de tipo de jest-dom/vitest-axe que los tests en src/lib/**/*.test.tsx necesitan).
+  "include": ["src/lib", "src/test-setup.ts"],
+  // Excluye lo que no pertenece al build de la librería.
   "exclude": ["node_modules", "dist", "src/App.tsx", "src/main.tsx"]
 }
