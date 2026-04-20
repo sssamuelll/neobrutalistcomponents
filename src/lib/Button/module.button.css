@@ -1,0 +1,31 @@
+.neo-button {
+  background-color: #fff; /* White background */
+  border: 2px solid #000; /* Solid black border */
+  padding: 10px 20px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 4px 4px 0px #000; /* Hard shadow - key to neobrutalism */
+  transition: all 0.1s ease-in-out;
+  color: #000;
+  font-family: 'Arial', sans-serif; /* Or a more chunky/mono font */
+}
+
+.neo-button:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px #000;
+}
+
+.neo-button:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0px 0px 0px #000;
+}
+
+/* Example variants */
+.neo-button-primary {
+  background-color: #f0f0f0; /* Light gray or off-white */
+}
+
+.neo-button-secondary {
+  background-color: #ffff00; /* Bright yellow - common in neobrutalism */
+  /* You might add different border colors or shadow colors for variants */
+}

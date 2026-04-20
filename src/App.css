@@ -1,0 +1,18 @@
+/* src/App.css */
+
+.logo {
+  display: none; /* Podrías ocultar las logos de Vite/React o dejarlas, pero no cuadran con brutalismo puro */
+}
+
+/* Ajusta la “card” que usas en App.tsx: */
+.card {
+  background: #fff;
+  border: 4px solid #000;   /* Borde grueso */
+  box-shadow: 6px 6px 0px #000;
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 600px;
+}
+
+/* El <button> de dentro de la card (solo si quieres estilos adicionales),
+   pero tu Button de la librería ya tiene su propio CSS neobrutalista. */
