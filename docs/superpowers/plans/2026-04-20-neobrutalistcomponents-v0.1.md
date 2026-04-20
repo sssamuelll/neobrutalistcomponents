@@ -1885,9 +1885,34 @@ Set the following fields (leaving `scripts`, `dependencies`, `peerDependencies`,
 
 Drop the legacy `main` and `module` fields.
 
-- [ ] **Step 5: Move `vite-plugin-dts` from `dependencies` to `devDependencies`**
+- [ ] **Step 5: Fix `package.json` dependency layout for a library**
 
-It's a build-only tool. In `package.json`, cut it from `dependencies` and paste into `devDependencies`.
+This step corrects three pre-existing baseline issues (flagged during Phase 2 code review):
+
+1. **Move `vite-plugin-dts` from `dependencies` to `devDependencies`.** It's a build-only tool.
+
+2. **Remove `react` and `react-dom` from `dependencies` entirely.** A React component library must NOT include React in `dependencies` — doing so makes consumers install a second copy of React and silently breaks hooks (`Invalid hook call`) and context. React belongs only in `peerDependencies` (and implicitly in `devDependencies` via Vite/RTL transitively, which is fine).
+
+3. **Widen `peerDependencies` ranges.** Currently `"react": "19.1.0"` is exact-pinned. Change to `"react": "^19.0.0"` and `"react-dom": "^19.0.0"` so consumers on any 19.x release don't get peer-dep warnings.
+
+After this step, the relevant package.json blocks should read:
+```json
+"dependencies": {},
+"peerDependencies": {
+  "react": "^19.0.0",
+  "react-dom": "^19.0.0"
+}
+```
+(An empty `dependencies` block is fine; you can also delete the key entirely.)
+
+Also add `"vitest.config.ts"` to the `include` array of `tsconfig.node.json` so `npm run typecheck` covers it. The file should look like:
+```json
+{
+  "compilerOptions": { /* existing ... */ },
+  "include": ["vite.config.ts", "vitest.config.ts", "vite.site.config.ts"]
+}
+```
+(Include `vite.site.config.ts` proactively — it will exist by the time we run typecheck after Phase 9.)
 
 - [ ] **Step 6: Build the library**
 
