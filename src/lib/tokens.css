@@ -19,7 +19,10 @@
   --nbc-label-transform: none;
   --nbc-label-spacing: normal;
 
-  /* Color (semantic) */
+  /* Color (semantic)
+     NOTE: --nbc-primary and --nbc-danger may be gradients (see y2k theme).
+     Components must use these tokens only as `background` values.
+     For text/icon color on those surfaces, use --nbc-primary-fg / --nbc-danger-fg. */
   --nbc-fg: #111;
   --nbc-fg-muted: #666;
   --nbc-bg: #fff;
