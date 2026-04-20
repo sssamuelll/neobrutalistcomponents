@@ -1,0 +1,43 @@
+:root {
+  /* Spacing — invariant across themes */
+  --nbc-space-xs: 4px;
+  --nbc-space-sm: 8px;
+  --nbc-space-md: 12px;
+  --nbc-space-lg: 18px;
+  --nbc-space-xl: 24px;
+
+  /* Font sizes — invariant across themes */
+  --nbc-fs-xs: 12px;
+  --nbc-fs-sm: 14px;
+  --nbc-fs-md: 16px;
+  --nbc-fs-lg: 18px;
+
+  /* Typography — safe defaults (theme files override) */
+  --nbc-font-sans: system-ui, sans-serif;
+  --nbc-font-mono: ui-monospace, monospace;
+  --nbc-weight-label: 600;
+  --nbc-label-transform: none;
+  --nbc-label-spacing: normal;
+
+  /* Color (semantic) */
+  --nbc-fg: #111;
+  --nbc-fg-muted: #666;
+  --nbc-bg: #fff;
+  --nbc-surface: #fff;
+  --nbc-primary: #111;
+  --nbc-primary-fg: #fff;
+  --nbc-danger: #c00;
+  --nbc-danger-fg: #fff;
+  --nbc-border-color: #111;
+  --nbc-focus: #06f;
+
+  /* Shape */
+  --nbc-border-width: 2px;
+  --nbc-border-style: solid;
+  --nbc-radius: 0;
+
+  /* Effects */
+  --nbc-shadow: 3px 3px 0 var(--nbc-border-color);
+  --nbc-shadow-lg: 6px 6px 0 var(--nbc-border-color);
+  --nbc-rotate: 0deg;
+}
