@@ -1,0 +1,26 @@
+[data-theme="tech"] {
+  --nbc-font-sans: 'JetBrains Mono', ui-monospace, monospace;
+  --nbc-font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --nbc-weight-label: 600;
+  --nbc-label-transform: uppercase;
+  --nbc-label-spacing: 0.08em;
+
+  --nbc-fg: #00ff88;
+  --nbc-fg-muted: #4d7f66;
+  --nbc-bg: #0a0a0a;
+  --nbc-surface: #0f0f0f;
+  --nbc-primary: #0a0a0a;
+  --nbc-primary-fg: #00ff88;
+  --nbc-danger: #ff3355;
+  --nbc-danger-fg: #0a0a0a;
+  --nbc-border-color: #00ff88;
+  --nbc-focus: #00ff88;
+
+  --nbc-border-width: 1px;
+  --nbc-border-style: solid;
+  --nbc-radius: 0;
+
+  --nbc-shadow: 0 0 0 1px #00ff88, 4px 4px 0 #00ff88;
+  --nbc-shadow-lg: 0 0 0 1px #00ff88, 8px 8px 0 #00ff88;
+  --nbc-rotate: 0deg;
+}

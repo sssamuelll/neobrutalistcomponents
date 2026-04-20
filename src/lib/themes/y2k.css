@@ -1,0 +1,26 @@
+[data-theme="y2k"] {
+  --nbc-font-sans: 'Comic Sans MS', 'Chalkboard SE', cursive;
+  --nbc-font-mono: ui-monospace, monospace;
+  --nbc-weight-label: 700;
+  --nbc-label-transform: none;
+  --nbc-label-spacing: normal;
+
+  --nbc-fg: #3a0068;
+  --nbc-fg-muted: #7a5b92;
+  --nbc-bg: #fff0fb;
+  --nbc-surface: #fff;
+  --nbc-primary: linear-gradient(135deg, #ff6ec7, #ffd86b);
+  --nbc-primary-fg: #3a0068;
+  --nbc-danger: #ff3388;
+  --nbc-danger-fg: #fff;
+  --nbc-border-color: #3a0068;
+  --nbc-focus: #ff6ec7;
+
+  --nbc-border-width: 3px;
+  --nbc-border-style: dashed;
+  --nbc-radius: 14px;
+
+  --nbc-shadow: 5px 5px 0 var(--nbc-border-color);
+  --nbc-shadow-lg: 10px 10px 0 var(--nbc-border-color);
+  --nbc-rotate: -1.5deg;
+}

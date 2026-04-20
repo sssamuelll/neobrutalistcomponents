@@ -1,0 +1,26 @@
+[data-theme="swiss"] {
+  --nbc-font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --nbc-font-mono: ui-monospace, monospace;
+  --nbc-weight-label: 700;
+  --nbc-label-transform: uppercase;
+  --nbc-label-spacing: 0.15em;
+
+  --nbc-fg: #111;
+  --nbc-fg-muted: #666;
+  --nbc-bg: #fff;
+  --nbc-surface: #fff;
+  --nbc-primary: #fff;
+  --nbc-primary-fg: #111;
+  --nbc-danger: #111;
+  --nbc-danger-fg: #fff;
+  --nbc-border-color: #111;
+  --nbc-focus: #111;
+
+  --nbc-border-width: 2px;
+  --nbc-border-style: solid;
+  --nbc-radius: 0;
+
+  --nbc-shadow: none;
+  --nbc-shadow-lg: none;
+  --nbc-rotate: 0deg;
+}
