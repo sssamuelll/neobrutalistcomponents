@@ -1,24 +1,31 @@
 {
   "name": "neobrutalistcomponents",
   "private": false,
-  "version": "0.0.1",
-  "main": "./dist/neobrutalistcomponents.umd.js",
-  "module": "./dist/neobrutalistcomponents.es.js",
+  "version": "0.1.0",
+  "description": "Brutalist React components. Four flavors. One switch.",
+  "license": "MIT",
   "type": "module",
-  "exports": {
-    ".": {
-      "import": "./dist/neobrutalistcomponents.es.js",
-      "require": "./dist/neobrutalistcomponents.umd.js",
-      "types": "./dist/index.d.ts"
-    },
-    "./dist/style.css": "./dist/style.css"
-  },
+  "sideEffects": [
+    "**/*.css"
+  ],
   "files": [
     "dist"
   ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/neobrutalistcomponents.es.js",
+      "require": "./dist/neobrutalistcomponents.umd.js"
+    },
+    "./neobrutalistcomponents.css": "./dist/neobrutalistcomponents.css",
+    "./themes/classic.css": "./dist/themes/classic.css",
+    "./themes/tech.css": "./dist/themes/tech.css",
+    "./themes/swiss.css": "./dist/themes/swiss.css",
+    "./themes/y2k.css": "./dist/themes/y2k.css"
+  },
   "scripts": {
     "dev": "vite --config vite.site.config.ts",
-    "build:lib": "tsc -b && vite build",
+    "build:lib": "tsc -b && vite build && node scripts/copy-themes.mjs",
     "build:site": "vite build --config vite.site.config.ts",
     "build": "npm run build:lib && npm run build:site",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
@@ -28,14 +35,10 @@
     "preview": "vite preview",
     "prepublishOnly": "npm run build:lib"
   },
-  "dependencies": {
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "vite-plugin-dts": "^4.5.4"
-  },
+  "dependencies": {},
   "peerDependencies": {
-    "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
@@ -53,6 +56,7 @@
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.30.1",
     "vite": "^6.3.5",
+    "vite-plugin-dts": "^4.5.4",
     "vitest": "^2.1.9",
     "vitest-axe": "^0.1.0"
   }

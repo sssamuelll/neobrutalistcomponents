@@ -8,6 +8,7 @@ npm install neobrutalistcomponents
 
 ```tsx
 import { NeoProvider, Button } from 'neobrutalistcomponents';
+import 'neobrutalistcomponents/neobrutalistcomponents.css';
 import 'neobrutalistcomponents/themes/classic.css';
 
 export function App() {
