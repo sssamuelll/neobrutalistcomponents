@@ -12,6 +12,7 @@ export default defineConfig({
     dts({
       insertTypesEntry: true,
       include: ['src/lib'],
+      exclude: ['**/*.test.*', '**/*.spec.*'],
     }),
   ],
   build: {
@@ -21,6 +22,7 @@ export default defineConfig({
       formats: ['es', 'umd'],
       fileName: (format) => `neobrutalistcomponents.${format}.js`,
     },
+    copyPublicDir: false,
     cssCodeSplit: false,
     rollupOptions: {
       external: ['react', 'react-dom', 'react/jsx-runtime'],
