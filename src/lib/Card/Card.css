@@ -17,9 +17,10 @@
 .nbc-card--interactive {
   cursor: pointer;
   transition: none;
+  transform: rotate(var(--nbc-rotate));
 }
 .nbc-card--interactive:hover {
-  transform: translate(2px, 2px);
+  transform: translate(2px, 2px) rotate(var(--nbc-rotate));
   box-shadow: 3px 3px 0 var(--nbc-border-color);
 }
 
