@@ -19,7 +19,10 @@ export default defineConfig({
     lib: {
       entry: path.resolve(__dirname, 'src/lib/index.ts'),
       formats: ['es', 'cjs'],
-      fileName: (format) => `neobrutalistcomponents.${format}.js`,
+      fileName: (format) =>
+        format === 'es'
+          ? 'neobrutalistcomponents.js'
+          : 'neobrutalistcomponents.cjs',
     },
     copyPublicDir: false,
     cssCodeSplit: false,

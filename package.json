@@ -14,8 +14,8 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/neobrutalistcomponents.es.js",
-      "require": "./dist/neobrutalistcomponents.cjs.js"
+      "import": "./dist/neobrutalistcomponents.js",
+      "require": "./dist/neobrutalistcomponents.cjs"
     },
     "./neobrutalistcomponents.css": "./dist/neobrutalistcomponents.css",
     "./themes/classic.css": "./dist/themes/classic.css",
