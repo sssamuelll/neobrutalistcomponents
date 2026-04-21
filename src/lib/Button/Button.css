@@ -1,0 +1,96 @@
+.nbc-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--nbc-space-sm);
+  font-family: var(--nbc-font-sans);
+  font-weight: var(--nbc-weight-label);
+  text-transform: var(--nbc-label-transform);
+  letter-spacing: var(--nbc-label-spacing);
+  border-width: var(--nbc-border-width);
+  border-style: var(--nbc-border-style);
+  border-color: var(--nbc-border-color);
+  border-radius: var(--nbc-radius);
+  box-shadow: var(--nbc-shadow);
+  transform: rotate(var(--nbc-rotate));
+  cursor: pointer;
+  transition: none;
+  line-height: 1.2;
+  user-select: none;
+}
+
+.nbc-button:focus-visible {
+  outline: 3px solid var(--nbc-focus);
+  outline-offset: 2px;
+}
+
+.nbc-button:hover:not(:disabled) {
+  transform: translate(3px, 3px) rotate(var(--nbc-rotate));
+  box-shadow: 2px 2px 0 var(--nbc-border-color);
+}
+
+.nbc-button:disabled,
+.nbc-button--loading {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Variants */
+.nbc-button--primary {
+  background: var(--nbc-primary);
+  color: var(--nbc-primary-fg);
+}
+.nbc-button--secondary {
+  background: var(--nbc-surface);
+  color: var(--nbc-fg);
+}
+.nbc-button--danger {
+  background: var(--nbc-danger);
+  color: var(--nbc-danger-fg);
+}
+.nbc-button--ghost {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  color: var(--nbc-fg);
+}
+
+/* Sizes */
+.nbc-button--sm {
+  font-size: var(--nbc-fs-sm);
+  padding: var(--nbc-space-xs) var(--nbc-space-md);
+}
+.nbc-button--md {
+  font-size: var(--nbc-fs-md);
+  padding: var(--nbc-space-sm) var(--nbc-space-lg);
+}
+.nbc-button--lg {
+  font-size: var(--nbc-fs-lg);
+  padding: var(--nbc-space-md) var(--nbc-space-xl);
+}
+
+/* Full width */
+.nbc-button--full-width {
+  width: 100%;
+}
+
+/* Spinner */
+.nbc-button__spinner {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: nbc-button-spin 0.7s linear infinite;
+}
+
+@keyframes nbc-button-spin {
+  to { transform: rotate(360deg); }
+}
+
+.nbc-button__icon,
+.nbc-button__label {
+  display: inline-flex;
+  align-items: center;
+}
