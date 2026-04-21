@@ -15,7 +15,7 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/neobrutalistcomponents.es.js",
-      "require": "./dist/neobrutalistcomponents.umd.js"
+      "require": "./dist/neobrutalistcomponents.cjs.js"
     },
     "./neobrutalistcomponents.css": "./dist/neobrutalistcomponents.css",
     "./themes/classic.css": "./dist/themes/classic.css",

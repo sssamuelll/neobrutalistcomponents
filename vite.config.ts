@@ -18,8 +18,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, 'src/lib/index.ts'),
-      name: 'NeobrutalistComponents',
-      formats: ['es', 'umd'],
+      formats: ['es', 'cjs'],
       fileName: (format) => `neobrutalistcomponents.${format}.js`,
     },
     copyPublicDir: false,
@@ -27,11 +26,6 @@ export default defineConfig({
     rollupOptions: {
       external: ['react', 'react-dom', 'react/jsx-runtime'],
       output: {
-        globals: {
-          react: 'React',
-          'react-dom': 'ReactDOM',
-          'react/jsx-runtime': 'ReactJSXRuntime',
-        },
         assetFileNames: (asset) =>
           asset.name && asset.name.endsWith('.css')
             ? 'neobrutalistcomponents.css'
