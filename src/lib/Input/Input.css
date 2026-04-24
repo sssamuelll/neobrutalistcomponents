@@ -1,3 +1,6 @@
+/* ============================================================
+   Input — base (theme-agnostic) + per-theme overrides
+   ============================================================ */
 .nbc-input-wrap {
   display: flex;
   flex-direction: column;
@@ -21,15 +24,16 @@
   border-width: var(--nbc-border-width);
   border-style: var(--nbc-border-style);
   border-color: var(--nbc-border-color);
-  border-radius: var(--nbc-radius);
+  border-radius: var(--nbc-input-radius, var(--nbc-radius));
   box-shadow: var(--nbc-shadow);
   gap: var(--nbc-space-xs);
   padding: 0 var(--nbc-space-sm);
+  transition: box-shadow 80ms ease, border-color 80ms ease;
 }
 
 .nbc-input__field--error {
   border-color: var(--nbc-danger);
-  box-shadow: 4px 4px 0 var(--nbc-danger);
+  box-shadow: var(--nbc-input-shadow-error);
 }
 
 .nbc-input__field:focus-within {
@@ -54,6 +58,11 @@
 .nbc-input:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.nbc-input:read-only {
+  cursor: default;
+  color: var(--nbc-fg-muted);
 }
 
 .nbc-input-wrap--sm .nbc-input {
@@ -82,4 +91,88 @@
 .nbc-input__desc--error {
   color: var(--nbc-danger);
   font-weight: var(--nbc-weight-label);
+}
+
+/* ============================================================
+   Per-theme Input overrides
+   ============================================================ */
+
+/* --- CLASSIC: display-font label, slightly larger --- */
+[data-theme="classic"] .nbc-input__label {
+  font-family: var(--nbc-font-display);
+  font-size: 14px;
+}
+
+/* --- TECH: blinking caret on label; focus = inverse (text-selection) --- */
+[data-theme="tech"] .nbc-input__label::after {
+  content: "_";
+  display: inline-block;
+  margin-left: 4px;
+  color: var(--nbc-primary);
+  animation: nbc-tech-blink 1s steps(2) infinite;
+}
+[data-theme="tech"] .nbc-input__field {
+  background: #0a0f0c;
+}
+[data-theme="tech"] .nbc-input__field:focus-within {
+  outline: none;
+  background: var(--nbc-primary);
+  color: var(--nbc-primary-fg);
+  box-shadow: 0 0 0 1px var(--nbc-primary);
+}
+[data-theme="tech"] .nbc-input__field:focus-within .nbc-input,
+[data-theme="tech"] .nbc-input__field:focus-within .nbc-input__icon {
+  color: var(--nbc-primary-fg);
+}
+[data-theme="tech"] .nbc-input__field:focus-within .nbc-input::placeholder {
+  color: #06100a88;
+}
+[data-theme="tech"] .nbc-input__field--error .nbc-input__label::after,
+[data-theme="tech"] .nbc-input__desc--error {
+  color: var(--nbc-danger);
+}
+
+/* --- SWISS: hairline only. Focus + error use inset 2px lines. --- */
+[data-theme="swiss"] .nbc-input__field {
+  box-shadow: none;
+}
+[data-theme="swiss"] .nbc-input__field:focus-within {
+  outline: none;
+  box-shadow: inset 0 0 0 2px var(--nbc-focus);
+  border-color: var(--nbc-focus);
+}
+[data-theme="swiss"] .nbc-input__field--error {
+  box-shadow: inset 0 0 0 2px var(--nbc-danger);
+  border-color: var(--nbc-danger);
+}
+[data-theme="swiss"] .nbc-input__label {
+  font-size: 10px;
+  font-weight: 600;
+}
+[data-theme="swiss"] .nbc-input__label::before {
+  content: "— ";
+  color: var(--nbc-primary-accent);
+}
+
+/* --- Y2K: pill input with inner bevel highlight + holo-text label --- */
+[data-theme="y2k"] .nbc-input__field {
+  background: var(--nbc-surface);
+  position: relative;
+}
+[data-theme="y2k"] .nbc-input__field::before {
+  content: "";
+  position: absolute;
+  inset: 2px 4px auto 4px;
+  height: 35%;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0));
+  pointer-events: none;
+}
+[data-theme="y2k"] .nbc-input__label {
+  font-family: var(--nbc-font-display);
+  font-size: 14px;
+  background: linear-gradient(90deg, #ff6ec7, #a78bfa, #7ee8fa);
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

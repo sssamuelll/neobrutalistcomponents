@@ -1,26 +1,55 @@
+/* ============================================================
+   TECH — terminal sophistication
+   Graphite (not pure black). Phosphor green + magenta secondary.
+   Focus is inverted text-selection, not a glow. 1px grid under
+   translucent surfaces (see components for consumption).
+   ============================================================ */
 [data-theme="tech"] {
-  --nbc-font-sans: 'JetBrains Mono', ui-monospace, monospace;
+  --nbc-font-sans: 'Geist Mono', 'JetBrains Mono', ui-monospace, monospace;
   --nbc-font-mono: 'JetBrains Mono', ui-monospace, monospace;
-  --nbc-weight-label: 600;
+  --nbc-font-display: 'Geist Mono', 'JetBrains Mono', ui-monospace, monospace;
+  --nbc-weight-label: 500;
   --nbc-label-transform: uppercase;
-  --nbc-label-spacing: 0.08em;
+  --nbc-label-spacing: 0.12em;
 
-  --nbc-fg: #00ff88;
-  --nbc-fg-muted: #4d7f66;
-  --nbc-bg: #0a0a0a;
-  --nbc-surface: #0f0f0f;
-  --nbc-primary: #0a0a0a;
-  --nbc-primary-fg: #00ff88;
-  --nbc-danger: #ff3355;
-  --nbc-danger-fg: #0a0a0a;
-  --nbc-border-color: #00ff88;
-  --nbc-focus: #00ff88;
+  --nbc-fg: #c9f7dc;            /* softened phosphor — readable */
+  --nbc-fg-muted: #6a8a78;
+  --nbc-bg: #0c0f0d;            /* near-black with green undertone */
+  --nbc-surface: #12161382;     /* translucent so grid shows through */
+  --nbc-surface-alt: #1a201c;
+
+  --nbc-primary: #39ff88;       /* phosphor — muted-bright */
+  --nbc-primary-fg: #06100a;
+  --nbc-primary-accent: #39ff88;
+  --nbc-secondary: #ff4ecd;     /* magenta — anti-cliché accent */
+  --nbc-secondary-fg: #06100a;
+
+  --nbc-danger: #ff5a7a;
+  --nbc-danger-fg: #06100a;
+
+  --nbc-border-color: #39ff88;
+  --nbc-focus: #39ff88;
 
   --nbc-border-width: 1px;
   --nbc-border-style: solid;
-  --nbc-radius: 0;
+  --nbc-radius: 2px;            /* un-sharp, not rounded */
+  --nbc-button-radius: 2px;
+  --nbc-input-radius: 2px;
 
-  --nbc-shadow: 0 0 0 1px #00ff88, 4px 4px 0 #00ff88;
-  --nbc-shadow-lg: 0 0 0 1px #00ff88, 8px 8px 0 #00ff88;
+  /* Flat offset, no blur. Ring + offset composite. */
+  --nbc-shadow:    0 0 0 1px #39ff88, 3px 3px 0 #39ff8844;
+  --nbc-shadow-lg: 0 0 0 1px #39ff88, 6px 6px 0 #39ff8855, 0 0 40px #39ff8822;
+  --nbc-button-shadow-hover: 0 0 0 1px #ff4ecd, 2px 2px 0 #ff4ecd66;
+  --nbc-input-shadow-error: 0 0 0 1px var(--nbc-danger), 3px 3px 0 #ff5a7a66;
+
   --nbc-rotate: 0deg;
+  --nbc-hairline: 1px solid #39ff8833;
+
+  /* 1px repeating grid — shows through translucent surfaces */
+  --nbc-grid-overlay:
+    linear-gradient(to right, #39ff8811 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(to bottom, #39ff8811 1px, transparent 1px) 0 0 / 24px 24px;
+
+  --nbc-card-header-bg: #0e1310;
+  --nbc-card-padding-content: 18px;
 }

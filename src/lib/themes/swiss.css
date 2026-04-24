@@ -1,26 +1,50 @@
+/* ============================================================
+   SWISS — precision, not plainness
+   Inter Tight as Helvetica Neue stand-in. ONE saturated accent:
+   oxblood #8a0f1c. 1px hairline borders. No drop shadows — focus
+   and error states use inset 2px lines instead.
+   ============================================================ */
 [data-theme="swiss"] {
-  --nbc-font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --nbc-font-mono: ui-monospace, monospace;
-  --nbc-weight-label: 700;
+  --nbc-font-sans: 'Inter Tight', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --nbc-font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --nbc-font-display: 'Inter Tight', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --nbc-weight-label: 500;
   --nbc-label-transform: uppercase;
-  --nbc-label-spacing: 0.15em;
+  --nbc-label-spacing: 0.18em;
 
-  --nbc-fg: #111;
-  --nbc-fg-muted: #666;
-  --nbc-bg: #fff;
-  --nbc-surface: #fff;
-  --nbc-primary: #fff;
-  --nbc-primary-fg: #111;
-  --nbc-danger: #111;
-  --nbc-danger-fg: #fff;
-  --nbc-border-color: #111;
-  --nbc-focus: #111;
+  --nbc-fg: #0a0a0a;
+  --nbc-fg-muted: #7a7a7a;
+  --nbc-bg: #fafafa;
+  --nbc-surface: #ffffff;
+  --nbc-surface-alt: #f0f0f0;
 
-  --nbc-border-width: 2px;
+  --nbc-primary: #0a0a0a;
+  --nbc-primary-fg: #ffffff;
+  --nbc-primary-accent: #8a0f1c;      /* oxblood — the single accent */
+  --nbc-secondary: #ffffff;
+  --nbc-secondary-fg: #0a0a0a;
+
+  --nbc-danger: #8a0f1c;
+  --nbc-danger-fg: #ffffff;
+
+  --nbc-border-color: #0a0a0a;
+  --nbc-focus: #8a0f1c;
+
+  --nbc-border-width: 1px;             /* hairline — everything 1px */
   --nbc-border-style: solid;
   --nbc-radius: 0;
+  --nbc-button-radius: 0;
+  --nbc-input-radius: 0;
 
+  /* No drop shadows. Error uses inset 1px line. */
   --nbc-shadow: none;
   --nbc-shadow-lg: none;
+  --nbc-button-shadow-hover: none;
+  --nbc-input-shadow-error: inset 0 0 0 1px var(--nbc-danger);
+
   --nbc-rotate: 0deg;
+  --nbc-hairline: 1px solid #0a0a0a;
+
+  --nbc-card-header-bg: #ffffff;
+  --nbc-card-padding-content: 24px;
 }

@@ -1,26 +1,48 @@
+/* ============================================================
+   CLASSIC — "this decision is final"
+   Inter body + Space Grotesk display. Double-stack shadow
+   (black core + coral offset). Deliberate asymmetry — primary
+   button micro-tilts -0.5deg (handled in Button.css overrides).
+   ============================================================ */
 [data-theme="classic"] {
-  --nbc-font-sans: 'Inter', system-ui, sans-serif;
+  --nbc-font-sans: 'Inter', 'Inter Display', system-ui, sans-serif;
+  --nbc-font-display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
   --nbc-font-mono: 'JetBrains Mono', ui-monospace, monospace;
-  --nbc-weight-label: 800;
+  --nbc-weight-label: 900;
   --nbc-label-transform: none;
-  --nbc-label-spacing: -0.01em;
+  --nbc-label-spacing: -0.02em;
 
-  --nbc-fg: #111;
-  --nbc-fg-muted: #666;
-  --nbc-bg: #f5f0e8;
-  --nbc-surface: #fff;
+  --nbc-fg: #0a0a0a;
+  --nbc-fg-muted: #5c5751;
+  --nbc-bg: #f2ede3;
+  --nbc-surface: #ffffff;
+  --nbc-surface-alt: #e8e0d0;
+
   --nbc-primary: #ffd500;
-  --nbc-primary-fg: #111;
-  --nbc-danger: #ff5a5a;
-  --nbc-danger-fg: #fff;
-  --nbc-border-color: #111;
+  --nbc-primary-fg: #0a0a0a;
+  --nbc-primary-accent: #ff5a5a;      /* coral — the "second shadow" */
+  --nbc-secondary: #1a6cf2;           /* cobalt — ghost/tertiary accent */
+  --nbc-secondary-fg: #ffffff;
+
+  --nbc-danger: #ff3b30;
+  --nbc-danger-fg: #ffffff;
+
+  --nbc-border-color: #0a0a0a;
   --nbc-focus: #ffd500;
 
   --nbc-border-width: 3px;
   --nbc-border-style: solid;
   --nbc-radius: 0;
+  --nbc-button-radius: 0;
 
-  --nbc-shadow: 5px 5px 0 var(--nbc-border-color);
-  --nbc-shadow-lg: 8px 8px 0 var(--nbc-border-color);
+  /* Double-stack shadow: black core + coral offset 2px further */
+  --nbc-shadow:    5px 5px 0 #0a0a0a, 7px 7px 0 var(--nbc-primary-accent);
+  --nbc-shadow-lg: 8px 8px 0 #0a0a0a, 12px 12px 0 var(--nbc-primary-accent);
+  --nbc-button-shadow-hover: 2px 2px 0 #0a0a0a, 3px 3px 0 var(--nbc-primary-accent);
+  --nbc-input-shadow-error: 5px 5px 0 var(--nbc-danger), 7px 7px 0 #0a0a0a;
+
   --nbc-rotate: 0deg;
+  --nbc-hairline: 2px solid #0a0a0a;
+  --nbc-card-header-bg: #fff8d6;
+  --nbc-card-padding-content: 22px;
 }

@@ -1,20 +1,38 @@
+/* ============================================================
+   neobrutalistcomponents — base tokens
+   ============================================================
+   Theme-agnostic defaults + per-component override surface.
+   Themes (classic · tech · swiss · y2k) override these under
+   `[data-theme="<name>"]` selectors — see src/lib/themes/.
+
+   Font loading note:
+   This file declares font families but does NOT load any font
+   files. Consumers are responsible for loading the families
+   their chosen theme expects (via @fontsource/*, Google Fonts
+   link tags, or self-hosted @font-face). See README.md#fonts.
+   ============================================================ */
+
 :root {
-  /* Spacing — invariant across themes */
+  /* Spacing — invariant */
   --nbc-space-xs: 4px;
   --nbc-space-sm: 8px;
   --nbc-space-md: 12px;
   --nbc-space-lg: 18px;
   --nbc-space-xl: 24px;
+  --nbc-space-2xl: 36px;
 
-  /* Font sizes — invariant across themes */
+  /* Font sizes — invariant */
   --nbc-fs-xs: 12px;
   --nbc-fs-sm: 14px;
   --nbc-fs-md: 16px;
   --nbc-fs-lg: 18px;
+  --nbc-fs-xl: 24px;
+  --nbc-fs-2xl: 32px;
 
   /* Typography — safe defaults (theme files override) */
   --nbc-font-sans: system-ui, sans-serif;
   --nbc-font-mono: ui-monospace, monospace;
+  --nbc-font-display: var(--nbc-font-sans);
   --nbc-weight-label: 600;
   --nbc-label-transform: none;
   --nbc-label-spacing: normal;
@@ -27,8 +45,12 @@
   --nbc-fg-muted: #666;
   --nbc-bg: #fff;
   --nbc-surface: #fff;
+  --nbc-surface-alt: #f5f5f5;
   --nbc-primary: #111;
   --nbc-primary-fg: #fff;
+  --nbc-primary-accent: var(--nbc-primary);
+  --nbc-secondary: var(--nbc-primary);
+  --nbc-secondary-fg: var(--nbc-primary-fg);
   --nbc-danger: #c00;
   --nbc-danger-fg: #fff;
   --nbc-border-color: #111;
@@ -38,9 +60,22 @@
   --nbc-border-width: 2px;
   --nbc-border-style: solid;
   --nbc-radius: 0;
+  --nbc-button-radius: var(--nbc-radius);
+  --nbc-input-radius: var(--nbc-radius);
 
   /* Effects */
   --nbc-shadow: 3px 3px 0 var(--nbc-border-color);
   --nbc-shadow-lg: 6px 6px 0 var(--nbc-border-color);
   --nbc-rotate: 0deg;
+
+  /* Per-component override surface (themes may redefine) */
+  --nbc-button-shadow-hover: 2px 2px 0 var(--nbc-border-color);
+  --nbc-input-shadow-error: 4px 4px 0 var(--nbc-danger);
+  --nbc-card-header-bg: transparent;
+  --nbc-card-padding-content: var(--nbc-space-lg);
+
+  /* Atmosphere (themes may redefine) */
+  --nbc-grid-overlay: none;
+  --nbc-holo-gradient: none;
+  --nbc-hairline: 1px solid var(--nbc-border-color);
 }
