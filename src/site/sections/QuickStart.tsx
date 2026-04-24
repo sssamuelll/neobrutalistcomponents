@@ -2,7 +2,7 @@ import { CodeBlock } from './CodeBlock';
 
 export function QuickStart() {
   return (
-    <section className="site-section">
+    <section className="site-section" id="quick-start">
       <h2>Quick start</h2>
       <div className="site-showcase-grid">
         <div>

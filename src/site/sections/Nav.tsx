@@ -21,6 +21,8 @@ export function Nav({
             type="button"
             className="site-nav__theme-chip"
             data-active={t === current}
+            aria-pressed={t === current}
+            aria-label={`Switch to ${t} theme`}
             onClick={() => onChange(t)}
           >
             {t}

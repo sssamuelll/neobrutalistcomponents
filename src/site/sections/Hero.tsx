@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { Button } from '../../lib';
 
+const GITHUB_URL =
+  'https://github.com/samueldarioballesteros/neobrutalistcomponents';
+
 export function Hero() {
   const [count, setCount] = useState(0);
   return (
@@ -11,8 +14,21 @@ export function Hero() {
         <Button onClick={() => setCount((c) => c + 1)}>
           count is {count}
         </Button>
-        <Button variant="secondary">Docs</Button>
-        <Button variant="ghost">View source ↗</Button>
+        <Button
+          variant="secondary"
+          onClick={() => {
+            const el = document.getElementById('quick-start');
+            el?.scrollIntoView({ behavior: 'smooth' });
+          }}
+        >
+          Docs
+        </Button>
+        <Button
+          variant="ghost"
+          onClick={() => window.open(GITHUB_URL, '_blank', 'noopener')}
+        >
+          View source ↗
+        </Button>
       </div>
     </section>
   );
