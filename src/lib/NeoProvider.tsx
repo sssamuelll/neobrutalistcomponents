@@ -29,6 +29,7 @@ export function NeoProvider({
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useTheme(): NeoTheme | undefined {
   return useContext(ThemeContext);
 }
