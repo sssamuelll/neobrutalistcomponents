@@ -105,13 +105,13 @@ body {
 .hero-tile__inner { position: relative; z-index: 2; width: 100%; max-width: 420px; }
 
 /* Per-theme hero atmospherics — stage dressing, not library tokens */
-.hero-tile[data-theme-wrap="classic"] .hero-tile__bg {
+.hero-tile[data-theme="classic"] .hero-tile__bg {
   position: absolute; inset: 0;
   background:
     radial-gradient(circle at 85% 15%, #ffd50033 0, transparent 40%),
     repeating-linear-gradient(45deg, transparent 0 18px, #0a0a0a08 18px 19px);
 }
-.hero-tile[data-theme-wrap="tech"] .hero-tile__bg {
+.hero-tile[data-theme="tech"] .hero-tile__bg {
   position: absolute; inset: 0;
   background:
     var(--nbc-grid-overlay),
@@ -119,24 +119,25 @@ body {
     radial-gradient(ellipse at 80% 10%, #ff4ecd22 0, transparent 45%),
     #0c0f0d;
 }
-.hero-tile[data-theme-wrap="swiss"] .hero-tile__bg {
+.hero-tile[data-theme="swiss"] .hero-tile__bg {
   position: absolute; inset: 0;
   background: #fafafa;
   border-left: 1px solid #0a0a0a;
   background-image:
-    linear-gradient(to right, #0a0a0a 0 1px, transparent 1px 100%);
-  background-size: 1px 100%;
+    linear-gradient(to right, #0a0a0a 0 1px, transparent 1px 100%),
+    linear-gradient(to bottom, transparent calc(100% - 1px), #0a0a0a calc(100% - 1px));
+  background-size: 100% 100%;
   background-position: 120px 0;
   background-repeat: no-repeat;
 }
-.hero-tile[data-theme-wrap="swiss"]::before {
+.hero-tile[data-theme="swiss"]::before {
   content: "01 / 04"; position: absolute; top: 18px; right: 24px;
   font-family: var(--nbc-font-sans);
   font-size: 11px; letter-spacing: 0.2em;
   color: #0a0a0a; z-index: 3;
   font-variant-numeric: tabular-nums;
 }
-.hero-tile[data-theme-wrap="swiss"]::after {
+.hero-tile[data-theme="swiss"]::after {
   content: ""; position: absolute;
   left: 0; bottom: 0;
   width: 0; height: 0;
@@ -144,7 +145,7 @@ body {
   border-bottom: 80px solid #8a0f1c;
   z-index: 1;
 }
-.hero-tile[data-theme-wrap="y2k"] .hero-tile__bg {
+.hero-tile[data-theme="y2k"] .hero-tile__bg {
   position: absolute; inset: 0;
   background:
     radial-gradient(circle at 15% 20%, #ff6ec755 0, transparent 40%),
@@ -152,7 +153,7 @@ body {
     radial-gradient(circle at 50% 50%, #ffd86b33 0, transparent 60%),
     linear-gradient(180deg, #e8f0ff 0%, #fff0fb 100%);
 }
-.hero-tile[data-theme-wrap="y2k"]::after {
+.hero-tile[data-theme="y2k"]::after {
   content: "✧ ✦ ✧"; position: absolute;
   top: 20px; left: 20px;
   font-family: 'VT323', monospace;
@@ -177,15 +178,15 @@ body {
   overflow: hidden;
 }
 .mx-canvas__bg { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
-.mx-canvas[data-theme-wrap="tech"] .mx-canvas__bg {
+.mx-canvas[data-theme="tech"] .mx-canvas__bg {
   background: var(--nbc-grid-overlay);
 }
-.mx-canvas[data-theme-wrap="y2k"] .mx-canvas__bg {
+.mx-canvas[data-theme="y2k"] .mx-canvas__bg {
   background:
     radial-gradient(circle at 90% 10%, #ff6ec744 0, transparent 40%),
     radial-gradient(circle at 10% 90%, #7ee8fa44 0, transparent 40%);
 }
-.mx-canvas[data-theme-wrap="classic"] .mx-canvas__bg {
+.mx-canvas[data-theme="classic"] .mx-canvas__bg {
   background: repeating-linear-gradient(45deg, transparent 0 22px, #0a0a0a06 22px 23px);
 }
 
@@ -212,10 +213,10 @@ body {
   line-height: 1;
   color: var(--nbc-fg);
 }
-.mx-canvas[data-theme-wrap="classic"] .mx-canvas__theme {
+.mx-canvas[data-theme="classic"] .mx-canvas__theme {
   font-family: var(--nbc-font-display);
 }
-.mx-canvas[data-theme-wrap="y2k"] .mx-canvas__theme {
+.mx-canvas[data-theme="y2k"] .mx-canvas__theme {
   font-family: var(--nbc-font-display);
   font-size: 56px;
   background: linear-gradient(135deg, #ff6ec7, #a78bfa, #7ee8fa, #ffd86b);
@@ -224,12 +225,12 @@ body {
   -webkit-text-fill-color: transparent;
   font-weight: 400;
 }
-.mx-canvas[data-theme-wrap="swiss"] .mx-canvas__theme {
+.mx-canvas[data-theme="swiss"] .mx-canvas__theme {
   font-size: 40px;
   letter-spacing: -0.02em;
   font-weight: 500;
 }
-.mx-canvas[data-theme-wrap="swiss"] .mx-canvas__theme::after {
+.mx-canvas[data-theme="swiss"] .mx-canvas__theme::after {
   content: " ·"; color: #8a0f1c;
 }
 
@@ -288,19 +289,19 @@ body {
   transform: translate(3px, 3px) rotate(var(--nbc-rotate));
   box-shadow: var(--nbc-button-shadow-hover);
 }
-.mx-canvas[data-theme-wrap="swiss"] .is-hover.nbc-button--primary:not(:disabled) {
+.mx-canvas[data-theme="swiss"] .is-hover.nbc-button--primary:not(:disabled) {
   background: var(--nbc-primary-accent);
   color: #fff; border-color: var(--nbc-primary-accent);
   transform: rotate(0);
 }
-.mx-canvas[data-theme-wrap="tech"] .is-hover.nbc-button--primary:not(:disabled) {
+.mx-canvas[data-theme="tech"] .is-hover.nbc-button--primary:not(:disabled) {
   background: var(--nbc-primary); color: var(--nbc-primary-fg);
 }
 .mx-canvas .is-focus.nbc-button {
   outline: 3px solid var(--nbc-focus);
   outline-offset: 2px;
 }
-.mx-canvas[data-theme-wrap="swiss"] .is-focus.nbc-button {
+.mx-canvas[data-theme="swiss"] .is-focus.nbc-button {
   outline: none;
   box-shadow: inset 0 0 0 2px var(--nbc-focus);
 }
@@ -308,14 +309,14 @@ body {
   outline: 3px solid var(--nbc-focus);
   outline-offset: 2px;
 }
-.mx-canvas[data-theme-wrap="tech"] .is-focus .nbc-input__field {
+.mx-canvas[data-theme="tech"] .is-focus .nbc-input__field {
   outline: none;
   background: var(--nbc-primary);
   color: var(--nbc-primary-fg);
   box-shadow: 0 0 0 1px var(--nbc-primary);
 }
-.mx-canvas[data-theme-wrap="tech"] .is-focus .nbc-input { color: var(--nbc-primary-fg); }
-.mx-canvas[data-theme-wrap="swiss"] .is-focus .nbc-input__field {
+.mx-canvas[data-theme="tech"] .is-focus .nbc-input { color: var(--nbc-primary-fg); }
+.mx-canvas[data-theme="swiss"] .is-focus .nbc-input__field {
   outline: none;
   box-shadow: inset 0 0 0 2px var(--nbc-focus);
   border-color: var(--nbc-focus);
@@ -372,16 +373,3 @@ body {
   white-space: pre;
 }
 
-/* ---------- Footer ---------- */
-.site-footer {
-  padding: 24px 22px;
-  border-top: 1px solid var(--chrome-border);
-  background: #0b0b0b;
-  color: var(--chrome-muted);
-  text-align: center;
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
-  font-size: 11px;
-  letter-spacing: 0.05em;
-}
-.site-footer a { color: #f3f3f3; text-decoration: none; }
-.site-footer a:hover { text-decoration: underline; }

@@ -6,7 +6,7 @@ import { Icon } from './Icon';
 export function HeroTile({ themeId }: { themeId: NeoTheme }) {
   const [email, setEmail] = useState('');
   return (
-    <NeoProvider theme={themeId} className="hero-tile" data-theme-wrap={themeId}>
+    <NeoProvider theme={themeId} className="hero-tile">
       <div className="hero-tile__bg" />
       <div className="hero-tile__inner">
         <Card variant="elevated">

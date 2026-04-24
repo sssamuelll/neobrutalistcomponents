@@ -39,7 +39,7 @@ const INPUT_SIZES: readonly InputSize[] = ['sm', 'md', 'lg'];
 
 export function MatrixCanvas({ themeId }: { themeId: NeoTheme }) {
   return (
-    <NeoProvider theme={themeId} className="mx-canvas" data-theme-wrap={themeId}>
+    <NeoProvider theme={themeId} className="mx-canvas">
       <div className="mx-canvas__bg" />
       <div className="mx-canvas__head">
         <div className="mx-canvas__kicker">neobrutalistcomponents v0.2 · full matrix</div>

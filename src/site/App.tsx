@@ -4,7 +4,6 @@ import { NEO_THEMES } from '../lib';
 import { HeroesStrip } from './sections/HeroesStrip';
 import { MatrixCanvas } from './sections/MatrixCanvas';
 import { GetStarted } from './sections/GetStarted';
-import { Footer } from './sections/Footer';
 import './site.css';
 
 type View = 'heroes' | NeoTheme | 'get-started';
@@ -17,7 +16,7 @@ export function App() {
       <header className="app__head">
         <div className="app__title">
           <span className="app__brand">neobrutalistcomponents</span>
-          <span className="app__ver">v0.2.0</span>
+          <span className="app__ver">v0.2 redesign</span>
         </div>
         <nav className="app__nav" aria-label="View">
           <button
@@ -56,8 +55,6 @@ export function App() {
           </div>
         )}
       </main>
-
-      <Footer />
     </div>
   );
 }
