@@ -29,7 +29,7 @@ export function Nav({
           </button>
         ))}
         <a
-          href="https://github.com/samueldarioballesteros/neobrutalistcomponents"
+          href="https://github.com/sssamuelll/neobrutalistcomponents"
           className="site-nav__theme-chip"
           target="_blank"
           rel="noreferrer"

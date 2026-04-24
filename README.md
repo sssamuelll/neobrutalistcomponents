@@ -24,7 +24,7 @@ export function App() {
 
 **Components in v0.1:** `Button`, `Input`, `Card`.
 
-**Live demo:** https://samueldarioballesteros.github.io/neobrutalistcomponents (deployed after Phase 10).
+**Live demo:** https://sssamuelll.github.io/neobrutalistcomponents
 
 ## Development
 

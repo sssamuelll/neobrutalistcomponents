@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button } from '../../lib';
 
 const GITHUB_URL =
-  'https://github.com/samueldarioballesteros/neobrutalistcomponents';
+  'https://github.com/sssamuelll/neobrutalistcomponents';
 
 export function Hero() {
   const [count, setCount] = useState(0);

@@ -2,7 +2,7 @@ export function Footer() {
   return (
     <footer className="site-footer">
       MIT · Samuel Ballesteros · 2026 ·{' '}
-      <a href="https://github.com/samueldarioballesteros/neobrutalistcomponents" style={{ color: 'inherit' }}>
+      <a href="https://github.com/sssamuelll/neobrutalistcomponents" style={{ color: 'inherit' }}>
         github
       </a>{' '}
       ·{' '}
