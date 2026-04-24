@@ -91,6 +91,12 @@
   width: 100%;
 }
 
+/* Icon-only (utility class — consumer applies via className when button has no label) */
+.nbc-button--icon-only {
+  aspect-ratio: 1 / 1;
+  padding: var(--nbc-space-sm);
+}
+
 /* Spinner */
 .nbc-button__spinner {
   display: inline-block;

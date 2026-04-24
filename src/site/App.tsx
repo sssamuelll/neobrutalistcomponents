@@ -1,32 +1,63 @@
 import { useState } from 'react';
-import { NeoProvider } from '../lib';
 import type { NeoTheme } from '../lib';
-import { Nav } from './sections/Nav';
-import { Hero } from './sections/Hero';
-import { ThemesExplain } from './sections/ThemesExplain';
-import { ButtonShowcase } from './sections/ButtonShowcase';
-import { InputShowcase } from './sections/InputShowcase';
-import { CardShowcase } from './sections/CardShowcase';
-import { BYOTheme } from './sections/BYOTheme';
-import { QuickStart } from './sections/QuickStart';
+import { NEO_THEMES } from '../lib';
+import { HeroesStrip } from './sections/HeroesStrip';
+import { MatrixCanvas } from './sections/MatrixCanvas';
+import { GetStarted } from './sections/GetStarted';
 import { Footer } from './sections/Footer';
 import './site.css';
 
+type View = 'heroes' | NeoTheme | 'get-started';
+
 export function App() {
-  const [theme, setTheme] = useState<NeoTheme>('classic');
+  const [view, setView] = useState<View>('heroes');
+
   return (
-    <NeoProvider theme={theme} className="site-root">
-      <Nav current={theme} onChange={setTheme} />
-      <main className="site-main">
-        <Hero />
-        <ThemesExplain />
-        <ButtonShowcase />
-        <InputShowcase />
-        <CardShowcase />
-        <BYOTheme />
-        <QuickStart />
+    <div className="app">
+      <header className="app__head">
+        <div className="app__title">
+          <span className="app__brand">neobrutalistcomponents</span>
+          <span className="app__ver">v0.2.0</span>
+        </div>
+        <nav className="app__nav" aria-label="View">
+          <button
+            type="button"
+            className={view === 'heroes' ? 'is-active' : ''}
+            onClick={() => setView('heroes')}
+          >
+            Heroes
+          </button>
+          {NEO_THEMES.map((t) => (
+            <button
+              key={t}
+              type="button"
+              className={view === t ? 'is-active' : ''}
+              onClick={() => setView(t)}
+            >
+              {t.toUpperCase()}
+            </button>
+          ))}
+          <button
+            type="button"
+            className={view === 'get-started' ? 'is-active' : ''}
+            onClick={() => setView('get-started')}
+          >
+            Get started
+          </button>
+        </nav>
+      </header>
+
+      <main className="app__main">
+        {view === 'heroes' && <HeroesStrip />}
+        {view === 'get-started' && <GetStarted />}
+        {view !== 'heroes' && view !== 'get-started' && (
+          <div className="matrix-wrap">
+            <MatrixCanvas themeId={view} />
+          </div>
+        )}
       </main>
+
       <Footer />
-    </NeoProvider>
+    </div>
   );
 }
