@@ -19,3 +19,12 @@ jobs:
       - run: npm run typecheck
       - run: npm run test
       - run: npm run build
+      - name: Verify site bundle artifacts
+        run: |
+          test -f site-dist/favicon.svg
+          test -f site-dist/index.html
+          if grep -rq "vite.svg" site-dist/; then
+            echo "::error::Stale reference to vite.svg found in site-dist/"
+            grep -rn "vite.svg" site-dist/
+            exit 1
+          fi
