@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import type { ReactNode, JSX } from 'react';
+import type { ReactNode, JSX, ElementType } from 'react';
 import type { NeoTheme } from './themes';
 
 const ThemeContext = createContext<NeoTheme | undefined>(undefined);
@@ -19,7 +19,7 @@ export function NeoProvider({
   as = 'div',
   className,
 }: NeoProviderProps) {
-  const Tag = as as React.ElementType;
+  const Tag: ElementType = as;
   return (
     <ThemeContext.Provider value={theme}>
       <Tag data-theme={theme} className={className}>
