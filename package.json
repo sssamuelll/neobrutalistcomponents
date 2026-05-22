@@ -4,6 +4,14 @@
   "version": "0.2.1",
   "description": "Brutalist React components. Four flavors. One switch.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sssamuelll/neobrutalistcomponents.git"
+  },
+  "homepage": "https://sssamuelll.github.io/neobrutalistcomponents",
+  "bugs": {
+    "url": "https://github.com/sssamuelll/neobrutalistcomponents/issues"
+  },
   "type": "module",
   "sideEffects": [
     "**/*.css"
