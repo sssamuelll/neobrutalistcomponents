@@ -1,0 +1,26 @@
+/* Swiss: a hairline box on plain paper. No tint, no stripe — the status lives
+   in the solid square chip, and the title becomes a tracked uppercase caption. */
+
+@scope ([data-theme="swiss"]) to ([data-theme]:not([data-theme="swiss"])) {
+  .nbc-alert {
+    background: var(--nbc-surface);
+    border-inline-start: var(--nbc-border-width) var(--nbc-border-style) var(--nbc-border-color);
+  }
+
+  .nbc-alert__title {
+    font-size: var(--nbc-fs-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .nbc-alert__description {
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (hover: hover) {
+    .nbc-alert__dismiss:hover {
+      color: var(--nbc-bg);
+      background: var(--nbc-fg);
+    }
+  }
+}

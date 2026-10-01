@@ -1,0 +1,40 @@
+/* Classic: the status stripe is a slab, and a warning is a solid amber warning
+   slab with ink text (the whole message switches to --nbc-warning-fg so it
+   stays readable in light and dark). */
+
+@scope ([data-theme="classic"]) to ([data-theme]:not([data-theme="classic"])) {
+  .nbc-alert {
+    --_stripe: 12px;
+  }
+
+  .nbc-alert__title {
+    font-variation-settings: 'opsz' 96;
+  }
+
+  .nbc-alert--warning {
+    color: var(--nbc-warning-fg);
+    background: var(--nbc-warning);
+    border-inline-start-color: var(--nbc-warning-fg);
+  }
+
+  .nbc-alert--warning .nbc-alert__title,
+  .nbc-alert--warning .nbc-alert__description {
+    color: var(--nbc-warning-fg);
+  }
+
+  .nbc-alert--warning .nbc-alert__icon {
+    color: var(--nbc-warning);
+    background: var(--nbc-warning-fg);
+  }
+
+  .nbc-alert--warning .nbc-alert__dismiss {
+    color: var(--nbc-warning-fg);
+  }
+
+  @media (hover: hover) {
+    .nbc-alert--warning .nbc-alert__dismiss:hover {
+      color: var(--nbc-warning);
+      background: var(--nbc-warning-fg);
+    }
+  }
+}

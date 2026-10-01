@@ -1,0 +1,46 @@
+/* Tech: every alert opens like a log line. A tiny inverted chip in the status
+   color carries the level — [INFO], [OK], [WARN], [ERR] — before the title
+   (or before the text when there is no title). The text stays in --nbc-fg. */
+
+@scope ([data-theme="tech"]) to ([data-theme]:not([data-theme="tech"])) {
+  .nbc-alert__title::before,
+  .nbc-alert__body > .nbc-alert__description:first-child::before {
+    content: '[LOG]' / '';
+    display: inline-block;
+    margin-inline-end: var(--nbc-space-sm);
+    padding: 0 6px;
+    font-family: var(--nbc-font-mono);
+    font-size: var(--nbc-fs-xs);
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: 0.08em;
+    vertical-align: 0.05em;
+    color: var(--_c-fg);
+    background: var(--_c);
+    border-radius: var(--nbc-radius-small);
+  }
+
+  .nbc-alert--info .nbc-alert__title::before,
+  .nbc-alert--info .nbc-alert__body > .nbc-alert__description:first-child::before {
+    content: '[INFO]' / '';
+  }
+
+  .nbc-alert--success .nbc-alert__title::before,
+  .nbc-alert--success .nbc-alert__body > .nbc-alert__description:first-child::before {
+    content: '[OK]' / '';
+  }
+
+  .nbc-alert--warning .nbc-alert__title::before,
+  .nbc-alert--warning .nbc-alert__body > .nbc-alert__description:first-child::before {
+    content: '[WARN]' / '';
+  }
+
+  .nbc-alert--danger .nbc-alert__title::before,
+  .nbc-alert--danger .nbc-alert__body > .nbc-alert__description:first-child::before {
+    content: '[ERR]' / '';
+  }
+
+  .nbc-alert__title {
+    font-size: var(--nbc-fs-sm);
+  }
+}
