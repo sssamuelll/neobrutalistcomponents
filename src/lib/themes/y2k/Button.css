@@ -1,31 +1,38 @@
 /* Y2K: drifting holo foil, a glossy capsule highlight, a dashed glass ghost. */
-[data-theme="y2k"] .nbc-button--primary {
-  overflow: hidden;
-  background-size: 220% 220%;
-  animation: nbc-y2k-holo 6s ease-in-out infinite;
-}
-[data-theme="y2k"] .nbc-button--primary::after,
-[data-theme="y2k"] .nbc-button--danger::after {
-  content: '';
-  position: absolute;
-  inset: 2px 12px auto;
-  block-size: 42%;
-  border-radius: 999px;
-  background: linear-gradient(180deg, #ffffffb3, #ffffff00);
-  pointer-events: none;
-}
-[data-theme="y2k"] .nbc-button--danger {
-  overflow: hidden;
-}
-[data-theme="y2k"] .nbc-button--ghost {
-  border: 2px dashed var(--nbc-border-color);
-  background: color-mix(in srgb, var(--nbc-surface) 45%, transparent);
-  backdrop-filter: blur(6px);
-}
-[data-theme="y2k"] .nbc-button__spinner {
-  border: 0;
-  background: conic-gradient(from 0deg, #ff6ec7, #a78bfa, #7ee8fa, #ffd86b, #ff6ec7);
-  mask: radial-gradient(circle, transparent 40%, #000 44%);
+
+@scope ([data-theme="y2k"]) to ([data-theme]:not([data-theme="y2k"])) {
+  .nbc-button--primary {
+    overflow: hidden;
+    background-size: 220% 220%;
+    animation: nbc-y2k-holo 6s ease-in-out infinite;
+  }
+
+  .nbc-button--primary::after,
+  .nbc-button--danger::after {
+    content: '';
+    position: absolute;
+    inset: 2px 12px auto;
+    block-size: 42%;
+    border-radius: 999px;
+    background: linear-gradient(180deg, #ffffffb3, #ffffff00);
+    pointer-events: none;
+  }
+
+  .nbc-button--danger {
+    overflow: hidden;
+  }
+
+  .nbc-button--ghost {
+    border: 2px dashed var(--nbc-border-color);
+    background: color-mix(in srgb, var(--nbc-surface) 45%, transparent);
+    backdrop-filter: blur(6px);
+  }
+
+  .nbc-button__spinner {
+    border: 0;
+    background: conic-gradient(from 0deg, #ff6ec7, #a78bfa, #7ee8fa, #ffd86b, #ff6ec7);
+    mask: radial-gradient(circle, transparent 40%, #000 44%);
+  }
 }
 
 @keyframes nbc-y2k-holo {

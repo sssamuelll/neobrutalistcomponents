@@ -1,42 +1,58 @@
 /* Y2K: a glossy bubble — capsule highlight, drifting holo foil when checked, a dark pearl that springs in. */
-[data-theme="y2k"] .nbc-radio__box::before {
-  content: '';
-  position: absolute;
-  inset: 1px 18% auto;
-  block-size: 36%;
-  border-radius: 999px;
-  background: linear-gradient(180deg, light-dark(#ffffffb3, #ffffff33), #ffffff00);
-  pointer-events: none;
-}
 
-[data-theme="y2k"] .nbc-radio__box:has(.nbc-radio__control:checked) {
-  background-size: 220% 220%;
-  animation: nbc-y2k-radio-shimmer 6s ease-in-out infinite;
-}
-[data-theme="y2k"] .nbc-radio__box:has(.nbc-radio__control:checked)::before {
-  background: linear-gradient(180deg, #ffffffb3, #ffffff00);
-}
+@scope ([data-theme="y2k"]) to ([data-theme]:not([data-theme="y2k"])) {
+  .nbc-radio__box::before {
+    content: '';
+    position: absolute;
+    inset: 1px 18% auto;
+    block-size: 36%;
+    border-radius: 999px;
+    background: linear-gradient(180deg, light-dark(#ffffffb3, #ffffff33), #ffffff00);
+    pointer-events: none;
+  }
 
-[data-theme="y2k"] .nbc-radio__dot {
-  background: radial-gradient(circle at 34% 30%, #ffffff 0 14%, var(--nbc-primary-fg) 48%);
-  scale: 0.2;
-  transition-duration: var(--nbc-duration-slow);
-}
-[data-theme="y2k"] .nbc-radio__control:checked ~ .nbc-radio__dot {
-  scale: 1;
-}
+  .nbc-radio__box:has(.nbc-radio__control:checked) {
+    background-size: 220% 220%;
+    animation: nbc-y2k-radio-shimmer 6s ease-in-out infinite;
+  }
 
-/* The legend is printed in holo foil, like every field label (dark enough stops to stay legible). */
-[data-theme="y2k"] .nbc-radio-group__label {
-  background: linear-gradient(
-    90deg,
-    light-dark(#c2125a, #ff9fd2),
-    light-dark(#6d28d9, #c4b5fd),
-    light-dark(#0a64a6, #9ef0ff)
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  .nbc-radio__box:has(.nbc-radio__control:checked)::before {
+    background: linear-gradient(180deg, #ffffffb3, #ffffff00);
+  }
+
+  .nbc-radio__dot {
+    background: radial-gradient(circle at 34% 30%, #ffffff 0 14%, var(--nbc-primary-fg) 48%);
+    scale: 0.2;
+    transition-duration: var(--nbc-duration-slow);
+  }
+
+  .nbc-radio__control:checked ~ .nbc-radio__dot {
+    scale: 1;
+  }
+
+  /* The legend is printed in holo foil, like every field label (dark enough stops to stay legible). */
+
+  .nbc-radio-group__label {
+    background: linear-gradient(
+      90deg,
+      light-dark(#c2125a, #ff9fd2),
+      light-dark(#6d28d9, #c4b5fd),
+      light-dark(#0a64a6, #9ef0ff)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  @media (forced-colors: active) {
+    .nbc-radio__dot {
+      background: Highlight;
+    }
+    .nbc-radio-group__label {
+      background: none;
+      color: CanvasText;
+    }
+  }
 }
 
 @keyframes nbc-y2k-radio-shimmer {
@@ -46,15 +62,5 @@
   }
   50% {
     background-position: 100% 50%;
-  }
-}
-
-@media (forced-colors: active) {
-  [data-theme="y2k"] .nbc-radio__dot {
-    background: Highlight;
-  }
-  [data-theme="y2k"] .nbc-radio-group__label {
-    background: none;
-    color: CanvasText;
   }
 }

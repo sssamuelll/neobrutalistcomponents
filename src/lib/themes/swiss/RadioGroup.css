@@ -1,47 +1,54 @@
 /* Swiss: a hairline circle holding one solid oxblood dot. Nothing moves. */
-[data-theme="swiss"] .nbc-radio__box:has(.nbc-radio__control:checked) {
-  background: var(--nbc-surface-fill);
-}
-[data-theme="swiss"] .nbc-radio__dot {
-  inline-size: calc(var(--_box) * 0.5);
-  block-size: calc(var(--_box) * 0.5);
-  background: var(--nbc-accent);
-  scale: 1;
-  transition-property: opacity;
-}
 
-@media (hover: hover) {
-  [data-theme="swiss"] .nbc-radio:not(.nbc-radio--disabled) .nbc-radio__box:has(.nbc-radio__control:not(:checked)):hover,
-  [data-theme="swiss"] .nbc-radio:not(.nbc-radio--disabled):has(.nbc-radio__label:hover)
-    .nbc-radio__box:has(.nbc-radio__control:not(:checked)) {
-    background: color-mix(in srgb, var(--nbc-accent) 14%, var(--nbc-surface));
-    border-color: var(--nbc-accent);
+@scope ([data-theme="swiss"]) to ([data-theme]:not([data-theme="swiss"])) {
+  .nbc-radio__box:has(.nbc-radio__control:checked) {
+    background: var(--nbc-surface-fill);
   }
-}
 
-/* No shadows in this theme, so the base invalid ring has nothing to ride on:
-   a second 1px danger line outside the hairline does the job. */
-[data-theme="swiss"] .nbc-radio-group--invalid .nbc-radio__box {
-  box-shadow: 0 0 0 1px var(--nbc-danger);
-}
+  .nbc-radio__dot {
+    inline-size: calc(var(--_box) * 0.5);
+    block-size: calc(var(--_box) * 0.5);
+    background: var(--nbc-accent);
+    scale: 1;
+    transition-property: opacity;
+  }
 
-/* A small oxblood square marks the legend, like every field label. */
-[data-theme="swiss"] .nbc-radio-group__label::before {
-  content: '';
-  display: inline-block;
-  inline-size: 0.5em;
-  block-size: 0.5em;
-  margin-inline-end: 0.6em;
-  vertical-align: 0.1em;
-  background: var(--nbc-accent);
-}
-[data-theme="swiss"] .nbc-radio__description,
-[data-theme="swiss"] .nbc-radio-group__message {
-  font-variant-numeric: tabular-nums;
-}
+  @media (hover: hover) {
+    .nbc-radio:not(.nbc-radio--disabled) .nbc-radio__box:has(.nbc-radio__control:not(:checked)):hover,
+    .nbc-radio:not(.nbc-radio--disabled):has(.nbc-radio__label:hover)
+      .nbc-radio__box:has(.nbc-radio__control:not(:checked)) {
+      background: color-mix(in srgb, var(--nbc-accent) 14%, var(--nbc-surface));
+      border-color: var(--nbc-accent);
+    }
+  }
 
-@media (forced-colors: active) {
-  [data-theme="swiss"] .nbc-radio__dot {
-    background: Highlight;
+  /* No shadows in this theme, so the base invalid ring has nothing to ride on:
+     a second 1px danger line outside the hairline does the job. */
+
+  .nbc-radio-group--invalid .nbc-radio__box {
+    box-shadow: 0 0 0 1px var(--nbc-danger);
+  }
+
+  /* A small oxblood square marks the legend, like every field label. */
+
+  .nbc-radio-group__label::before {
+    content: '';
+    display: inline-block;
+    inline-size: 0.5em;
+    block-size: 0.5em;
+    margin-inline-end: 0.6em;
+    vertical-align: 0.1em;
+    background: var(--nbc-accent);
+  }
+
+  .nbc-radio__description,
+  .nbc-radio-group__message {
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (forced-colors: active) {
+    .nbc-radio__dot {
+      background: Highlight;
+    }
   }
 }

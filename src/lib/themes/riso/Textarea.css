@@ -1,12 +1,17 @@
 /* Riso: the textarea is printed on the same grainy stock; selected text gets a
    pink highlighter swipe. */
-[data-theme="riso"] .nbc-textarea {
-  background: var(--nbc-texture), var(--nbc-surface);
-}
-[data-theme="riso"] .nbc-textarea:read-only:not(:disabled) {
-  background: var(--nbc-texture), var(--nbc-surface-alt);
-}
-[data-theme="riso"] .nbc-textarea::selection {
-  background: var(--nbc-primary);
-  color: var(--nbc-primary-fg);
+
+@scope ([data-theme="riso"]) to ([data-theme]:not([data-theme="riso"])) {
+  .nbc-textarea {
+    background: var(--nbc-texture), var(--nbc-surface);
+  }
+
+  .nbc-textarea:read-only:not(:disabled) {
+    background: var(--nbc-texture), var(--nbc-surface-alt);
+  }
+
+  .nbc-textarea::selection {
+    background: var(--nbc-primary);
+    color: var(--nbc-primary-fg);
+  }
 }

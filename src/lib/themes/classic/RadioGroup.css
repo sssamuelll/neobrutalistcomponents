@@ -1,20 +1,25 @@
 /* Classic: a thick ring around an ink dot on sun-yellow; once chosen, the dot is stamped
    with a double stack — ink core, cobalt edge — as if the decision were final. */
-[data-theme="classic"] .nbc-radio__box {
-  --_bw: calc(var(--nbc-border-width) + 1px);
 
-  border-width: var(--_bw);
-}
-/* The invisible control still covers the whole (thicker) ring. */
-[data-theme="classic"] .nbc-radio__control {
-  inset: calc(-1 * var(--_bw));
-  inline-size: calc(100% + 2 * var(--_bw));
-  block-size: calc(100% + 2 * var(--_bw));
-}
+@scope ([data-theme="classic"]) to ([data-theme]:not([data-theme="classic"])) {
+  .nbc-radio__box {
+    --_bw: calc(var(--nbc-border-width) + 1px);
 
-[data-theme="classic"] .nbc-radio:not(.nbc-radio--disabled) .nbc-radio__box:has(.nbc-radio__control:checked:not(:active)) {
-  box-shadow:
-    var(--_ring),
-    3px 3px 0 light-dark(#14110f, #000000),
-    5px 5px 0 var(--nbc-accent);
+    border-width: var(--_bw);
+  }
+
+  /* The invisible control still covers the whole (thicker) ring. */
+
+  .nbc-radio__control {
+    inset: calc(-1 * var(--_bw));
+    inline-size: calc(100% + 2 * var(--_bw));
+    block-size: calc(100% + 2 * var(--_bw));
+  }
+
+  .nbc-radio:not(.nbc-radio--disabled) .nbc-radio__box:has(.nbc-radio__control:checked:not(:active)) {
+    box-shadow:
+      var(--_ring),
+      3px 3px 0 light-dark(#14110f, #000000),
+      5px 5px 0 var(--nbc-accent);
+  }
 }

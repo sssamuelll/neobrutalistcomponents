@@ -1,57 +1,64 @@
 /* Tech: a phosphor prompt in front of the value; keyboard focus inverts the
    field like a text selection. The open list is a command menu: the current
    line carries the prompt, the rest are indented under it. */
-[data-theme="tech"] .nbc-select::before {
-  content: '>' / '';
-  display: flex;
-  align-items: center;
-  margin-inline-start: var(--_px);
-  color: var(--nbc-primary);
-  font-family: var(--nbc-font-mono);
-  line-height: 1;
-}
-[data-theme="tech"] .nbc-select__control {
-  padding-inline-start: var(--nbc-space-sm);
-  caret-color: var(--nbc-accent);
-}
 
-[data-theme="tech"] .nbc-select:has(.nbc-select__control:focus-visible) {
-  background: var(--nbc-primary);
-  color: var(--nbc-primary-fg);
-}
-[data-theme="tech"] .nbc-select:has(.nbc-select__control:focus-visible)::before,
-[data-theme="tech"] .nbc-select:has(.nbc-select__control:focus-visible) .nbc-select__chevron {
-  color: var(--nbc-primary-fg);
-}
-[data-theme="tech"] .nbc-select:has(.nbc-select__control:focus-visible) .nbc-select__control:has(option[value=""]:checked) {
-  color: color-mix(in srgb, var(--nbc-primary-fg) 70%, transparent);
-}
-
-@supports (appearance: base-select) {
-  /* The dark surface is translucent; a listbox over page content must not be. */
-  [data-theme="tech"] .nbc-select__control::picker(select) {
-    background: var(--nbc-bg);
-    border-color: var(--nbc-primary);
-  }
-  [data-theme="tech"] .nbc-select__control option {
-    font-family: var(--nbc-font-mono);
-  }
-  [data-theme="tech"] .nbc-select__control option::before {
-    content: '' / '';
-    flex: none;
-    inline-size: 1ch;
-  }
-  [data-theme="tech"] .nbc-select__control option:checked:not(:disabled)::before {
+@scope ([data-theme="tech"]) to ([data-theme]:not([data-theme="tech"])) {
+  .nbc-select::before {
     content: '>' / '';
+    display: flex;
+    align-items: center;
+    margin-inline-start: var(--_px);
+    color: var(--nbc-primary);
+    font-family: var(--nbc-font-mono);
+    line-height: 1;
   }
-  [data-theme="tech"] .nbc-select__control option::checkmark {
-    display: none;
+
+  .nbc-select__control {
+    padding-inline-start: var(--nbc-space-sm);
+    caret-color: var(--nbc-accent);
   }
-}
-@media (hover: hover) {
+
+  .nbc-select:has(.nbc-select__control:focus-visible) {
+    background: var(--nbc-primary);
+    color: var(--nbc-primary-fg);
+  }
+
+  .nbc-select:has(.nbc-select__control:focus-visible)::before,
+  .nbc-select:has(.nbc-select__control:focus-visible) .nbc-select__chevron {
+    color: var(--nbc-primary-fg);
+  }
+
+  .nbc-select:has(.nbc-select__control:focus-visible) .nbc-select__control:has(option[value=""]:checked) {
+    color: color-mix(in srgb, var(--nbc-primary-fg) 70%, transparent);
+  }
+
   @supports (appearance: base-select) {
-    [data-theme="tech"] .nbc-select__control option:not(:disabled):hover::before {
+    /* The dark surface is translucent; a listbox over page content must not be. */
+    .nbc-select__control::picker(select) {
+      background: var(--nbc-bg);
+      border-color: var(--nbc-primary);
+    }
+    .nbc-select__control option {
+      font-family: var(--nbc-font-mono);
+    }
+    .nbc-select__control option::before {
+      content: '' / '';
+      flex: none;
+      inline-size: 1ch;
+    }
+    .nbc-select__control option:checked:not(:disabled)::before {
       content: '>' / '';
+    }
+    .nbc-select__control option::checkmark {
+      display: none;
+    }
+  }
+
+  @media (hover: hover) {
+    @supports (appearance: base-select) {
+      .nbc-select__control option:not(:disabled):hover::before {
+        content: '>' / '';
+      }
     }
   }
 }

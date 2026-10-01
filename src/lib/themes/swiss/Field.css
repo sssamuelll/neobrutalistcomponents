@@ -1,13 +1,17 @@
 /* Swiss: a small oxblood square marks every label. */
-[data-theme="swiss"] .nbc-field__label::before {
-  content: '';
-  display: inline-block;
-  inline-size: 0.5em;
-  block-size: 0.5em;
-  margin-inline-end: 0.6em;
-  vertical-align: 0.1em;
-  background: var(--nbc-accent);
-}
-[data-theme="swiss"] .nbc-field__message {
-  font-variant-numeric: tabular-nums;
+
+@scope ([data-theme="swiss"]) to ([data-theme]:not([data-theme="swiss"])) {
+  .nbc-field__label::before {
+    content: '';
+    display: inline-block;
+    inline-size: 0.5em;
+    block-size: 0.5em;
+    margin-inline-end: 0.6em;
+    vertical-align: 0.1em;
+    background: var(--nbc-accent);
+  }
+
+  .nbc-field__message {
+    font-variant-numeric: tabular-nums;
+  }
 }

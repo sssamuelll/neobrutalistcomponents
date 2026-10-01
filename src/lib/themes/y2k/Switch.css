@@ -1,46 +1,70 @@
 /* Y2K: a glossy gel pill. Holo foil fills the track when on and slowly shimmers, a capsule
    highlight rides its top edge, and the thumb is a glass bubble that overshoots and squashes
    on the bouncy y2k easing. */
-[data-theme="y2k"] .nbc-switch__track {
-  background: var(--nbc-surface-fill);
-}
-[data-theme="y2k"] .nbc-switch__track::before {
-  content: '';
-  position: absolute;
-  inset: 1px 4px auto;
-  block-size: 40%;
-  border-radius: 999px;
-  background: linear-gradient(180deg, light-dark(#ffffffb3, #ffffff33), #ffffff00);
-  pointer-events: none;
-}
 
-[data-theme="y2k"] .nbc-switch__track:has(.nbc-switch__control:checked) {
-  background: var(--nbc-primary-fill);
-  background-size: 220% 220%;
-  animation: nbc-y2k-switch-shimmer 6s ease-in-out infinite;
-}
-[data-theme="y2k"] .nbc-switch__track:has(.nbc-switch__control:checked)::before {
-  background: linear-gradient(180deg, #ffffffb3, #ffffff00);
-}
+@scope ([data-theme="y2k"]) to ([data-theme]:not([data-theme="y2k"])) {
+  .nbc-switch__track {
+    background: var(--nbc-surface-fill);
+  }
 
-[data-theme="y2k"] .nbc-switch__thumb {
-  background: radial-gradient(
-    circle at 34% 28%,
-    #ffffff 0%,
-    light-dark(#ffffff, #f1eaff) 40%,
-    light-dark(#d9ccff, #a99ae6) 100%
-  );
-  box-shadow: inset 0 -2px 3px #7c3aed40, 0 1px 2px #1a0a3e40;
-  transition-property: inset-inline-start, background-color, border-color, box-shadow, scale;
-  transition-duration: var(--nbc-duration-slow);
-}
-[data-theme="y2k"] .nbc-switch:not(.nbc-switch--disabled) .nbc-switch__track:has(.nbc-switch__control:active) .nbc-switch__thumb {
-  scale: 1.15 0.9;
-}
+  .nbc-switch__track::before {
+    content: '';
+    position: absolute;
+    inset: 1px 4px auto;
+    block-size: 40%;
+    border-radius: 999px;
+    background: linear-gradient(180deg, light-dark(#ffffffb3, #ffffff33), #ffffff00);
+    pointer-events: none;
+  }
 
-@media (hover: hover) {
-  [data-theme="y2k"] .nbc-switch:not(.nbc-switch--disabled) .nbc-switch__track:has(.nbc-switch__control:not(:checked)):hover {
-    filter: brightness(0.96) saturate(1.2);
+  .nbc-switch__track:has(.nbc-switch__control:checked) {
+    background: var(--nbc-primary-fill);
+    background-size: 220% 220%;
+    animation: nbc-y2k-switch-shimmer 6s ease-in-out infinite;
+  }
+
+  .nbc-switch__track:has(.nbc-switch__control:checked)::before {
+    background: linear-gradient(180deg, #ffffffb3, #ffffff00);
+  }
+
+  .nbc-switch__thumb {
+    background: radial-gradient(
+      circle at 34% 28%,
+      #ffffff 0%,
+      light-dark(#ffffff, #f1eaff) 40%,
+      light-dark(#d9ccff, #a99ae6) 100%
+    );
+    box-shadow: inset 0 -2px 3px #7c3aed40, 0 1px 2px #1a0a3e40;
+    transition-property: inset-inline-start, background-color, border-color, box-shadow, scale;
+    transition-duration: var(--nbc-duration-slow);
+  }
+
+  .nbc-switch:not(.nbc-switch--disabled) .nbc-switch__track:has(.nbc-switch__control:active) .nbc-switch__thumb {
+    scale: 1.15 0.9;
+  }
+
+  @media (hover: hover) {
+    .nbc-switch:not(.nbc-switch--disabled) .nbc-switch__track:has(.nbc-switch__control:not(:checked)):hover {
+      filter: brightness(0.96) saturate(1.2);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .nbc-switch__track {
+      background: Canvas;
+    }
+    .nbc-switch__track::before {
+      display: none;
+    }
+    .nbc-switch__track:has(.nbc-switch__control:checked) {
+      background: Highlight;
+    }
+    .nbc-switch__thumb {
+      background: ButtonText;
+    }
+    .nbc-switch__control:checked ~ .nbc-switch__thumb {
+      background: HighlightText;
+    }
   }
 }
 
@@ -51,23 +75,5 @@
   }
   50% {
     background-position: 100% 50%;
-  }
-}
-
-@media (forced-colors: active) {
-  [data-theme="y2k"] .nbc-switch__track {
-    background: Canvas;
-  }
-  [data-theme="y2k"] .nbc-switch__track::before {
-    display: none;
-  }
-  [data-theme="y2k"] .nbc-switch__track:has(.nbc-switch__control:checked) {
-    background: Highlight;
-  }
-  [data-theme="y2k"] .nbc-switch__thumb {
-    background: ButtonText;
-  }
-  [data-theme="y2k"] .nbc-switch__control:checked ~ .nbc-switch__thumb {
-    background: HighlightText;
   }
 }

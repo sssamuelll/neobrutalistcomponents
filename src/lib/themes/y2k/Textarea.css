@@ -1,15 +1,20 @@
 /* Y2K: a glossy bevel across the top of the textarea, layered over the surface. */
-[data-theme="y2k"] .nbc-textarea {
-  background:
-    linear-gradient(180deg, light-dark(#ffffffcc, #ffffff26), #ffffff00) 8px 2px / calc(100% - 16px) 18px no-repeat,
-    var(--nbc-surface);
-}
-[data-theme="y2k"] .nbc-textarea:read-only:not(:disabled) {
-  background:
-    linear-gradient(180deg, light-dark(#ffffffcc, #ffffff26), #ffffff00) 8px 2px / calc(100% - 16px) 18px no-repeat,
-    var(--nbc-surface-alt);
-}
-[data-theme="y2k"] .nbc-textarea::selection {
-  background: var(--nbc-primary);
-  color: var(--nbc-primary-fg);
+
+@scope ([data-theme="y2k"]) to ([data-theme]:not([data-theme="y2k"])) {
+  .nbc-textarea {
+    background:
+      linear-gradient(180deg, light-dark(#ffffffcc, #ffffff26), #ffffff00) 8px 2px / calc(100% - 16px) 18px no-repeat,
+      var(--nbc-surface);
+  }
+
+  .nbc-textarea:read-only:not(:disabled) {
+    background:
+      linear-gradient(180deg, light-dark(#ffffffcc, #ffffff26), #ffffff00) 8px 2px / calc(100% - 16px) 18px no-repeat,
+      var(--nbc-surface-alt);
+  }
+
+  .nbc-textarea::selection {
+    background: var(--nbc-primary);
+    color: var(--nbc-primary-fg);
+  }
 }

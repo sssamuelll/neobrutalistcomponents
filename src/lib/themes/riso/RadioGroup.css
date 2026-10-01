@@ -1,46 +1,52 @@
 /* Riso: the dot is printed on the same grain; checked is pink ink with a navy dot, and the
    blue plate lands a hair off as a second ring. */
-[data-theme="riso"] .nbc-radio__box {
-  background: var(--nbc-texture), var(--nbc-surface-fill);
-}
-[data-theme="riso"] .nbc-radio__box:has(.nbc-radio__control:checked) {
-  background: var(--nbc-texture), var(--nbc-primary-fill);
-}
 
-/* Misregistered blue ring: only the checked option gets the second ink. */
-[data-theme="riso"] .nbc-radio__box::after {
-  content: '';
-  position: absolute;
-  inset: calc(-1 * var(--nbc-border-width) - 2px);
-  border: 2px solid var(--nbc-accent);
-  border-radius: 50%;
-  opacity: 0;
-  scale: 0.8;
-  translate: 2px 1px;
-  pointer-events: none;
-  transition-property: opacity, scale;
-  transition-duration: var(--nbc-duration);
-  transition-timing-function: var(--nbc-ease);
-}
-[data-theme="riso"] .nbc-radio__box:has(.nbc-radio__control:checked)::after {
-  opacity: 1;
-  scale: 1;
-}
-
-@media (hover: hover) {
-  [data-theme="riso"] .nbc-radio:not(.nbc-radio--disabled) .nbc-radio__box:has(.nbc-radio__control:not(:checked)):hover,
-  [data-theme="riso"] .nbc-radio:not(.nbc-radio--disabled):has(.nbc-radio__label:hover)
-    .nbc-radio__box:has(.nbc-radio__control:not(:checked)) {
-    background: var(--nbc-texture), var(--nbc-surface-alt);
+@scope ([data-theme="riso"]) to ([data-theme]:not([data-theme="riso"])) {
+  .nbc-radio__box {
+    background: var(--nbc-texture), var(--nbc-surface-fill);
   }
-}
 
-@media (forced-colors: active) {
-  [data-theme="riso"] .nbc-radio__box:has(.nbc-radio__control:checked) {
-    background: Canvas;
-    border-color: Highlight;
+  .nbc-radio__box:has(.nbc-radio__control:checked) {
+    background: var(--nbc-texture), var(--nbc-primary-fill);
   }
-  [data-theme="riso"] .nbc-radio__box::after {
-    border-color: Highlight;
+
+  /* Misregistered blue ring: only the checked option gets the second ink. */
+
+  .nbc-radio__box::after {
+    content: '';
+    position: absolute;
+    inset: calc(-1 * var(--nbc-border-width) - 2px);
+    border: 2px solid var(--nbc-accent);
+    border-radius: 50%;
+    opacity: 0;
+    scale: 0.8;
+    translate: 2px 1px;
+    pointer-events: none;
+    transition-property: opacity, scale;
+    transition-duration: var(--nbc-duration);
+    transition-timing-function: var(--nbc-ease);
+  }
+
+  .nbc-radio__box:has(.nbc-radio__control:checked)::after {
+    opacity: 1;
+    scale: 1;
+  }
+
+  @media (hover: hover) {
+    .nbc-radio:not(.nbc-radio--disabled) .nbc-radio__box:has(.nbc-radio__control:not(:checked)):hover,
+    .nbc-radio:not(.nbc-radio--disabled):has(.nbc-radio__label:hover)
+      .nbc-radio__box:has(.nbc-radio__control:not(:checked)) {
+      background: var(--nbc-texture), var(--nbc-surface-alt);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .nbc-radio__box:has(.nbc-radio__control:checked) {
+      background: Canvas;
+      border-color: Highlight;
+    }
+    .nbc-radio__box::after {
+      border-color: Highlight;
+    }
   }
 }

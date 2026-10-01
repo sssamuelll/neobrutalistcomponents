@@ -39,51 +39,24 @@ function parseImports(file: string) {
   }));
 }
 
-/** Top-level rule preludes, descending into @media / @supports / @container blocks. */
-function rulePreludes(css: string): string[] {
-  const preludes: string[] = [];
-  const src = stripComments(css);
+/** Top-level blocks (`prelude { … }`) of a comment-free stylesheet. */
+function topLevelBlocks(css: string): string[] {
+  const blocks: string[] = [];
   let depth = 0;
-  let buf = '';
-  const atStack: boolean[] = [];
-  for (const ch of src) {
-    if (ch === '{') {
-      const prelude = buf.trim();
-      const parentIsConditional = depth === 0 || atStack[depth - 1];
-      const isConditional = /^@(media|supports|container|layer)\b/.test(prelude);
-      if (parentIsConditional && !/^@(keyframes|font-face|property)\b/.test(prelude)) {
-        if (!isConditional && prelude) preludes.push(prelude);
-      }
-      atStack[depth] = isConditional;
-      depth += 1;
-      buf = '';
-    } else if (ch === '}') {
+  let start = -1;
+  for (let i = 0; i < css.length; i += 1) {
+    const ch = css[i];
+    if (depth === 0 && start === -1 && !/\s/.test(ch)) start = i;
+    if (ch === '{') depth += 1;
+    if (ch === '}') {
       depth -= 1;
-      buf = '';
-    } else if (ch === ';') {
-      buf = '';
-    } else {
-      buf += ch;
+      if (depth === 0) {
+        blocks.push(css.slice(start, i + 1).trim());
+        start = -1;
+      }
     }
   }
-  return preludes;
-}
-
-/** Splits a selector list on top-level commas (not the ones inside :not(), :is()…). */
-function splitSelectors(prelude: string): string[] {
-  const out: string[] = [];
-  let depth = 0;
-  let buf = '';
-  for (const ch of prelude) {
-    if (ch === '(') depth += 1;
-    if (ch === ')') depth -= 1;
-    if (ch === ',' && depth === 0) {
-      out.push(buf.trim());
-      buf = '';
-    } else buf += ch;
-  }
-  out.push(buf.trim());
-  return out;
+  return blocks;
 }
 
 describe('CSS conventions', () => {
@@ -143,22 +116,25 @@ describe('CSS conventions', () => {
     }
   });
 
-  it('theme partials scope every rule to their own theme', () => {
+  it('theme partials wrap every rule in their donut @scope; keyframes stay top-level', () => {
     for (const theme of NEO_THEMES) {
       const dir = join(THEMES_DIR, theme);
+      const prelude = `@scope ([data-theme="${theme}"]) to ([data-theme]:not([data-theme="${theme}"]))`;
       for (const name of readdirSync(dir)) {
-        if (name === 'index.css' || name === 'fonts.css' || !name.endsWith('.css')) continue;
-        const css = readFileSync(join(dir, name), 'utf8');
-        for (const prelude of rulePreludes(css)) {
-          for (const selector of splitSelectors(prelude)) {
-            expect(
-              new RegExp(`^\\[data-theme=(["'])${theme}\\1\\]`).test(selector),
-              `themes/${theme}/${name}: selector "${selector}" must start with [data-theme="${theme}"]`,
-            ).toBe(true);
-          }
-        }
-        for (const m of css.matchAll(/@keyframes\s+([\w-]+)/g)) {
-          expect(m[1], `themes/${theme}/${name}: keyframes name`).toMatch(new RegExp(`^nbc-${theme}-`));
+        if (['index.css', 'fonts.css', 'tokens.css'].includes(name) || !name.endsWith('.css')) continue;
+        const where = `themes/${theme}/${name}`;
+        const css = stripComments(readFileSync(join(dir, name), 'utf8'));
+        const blocks = topLevelBlocks(css);
+        const scopes = blocks.filter((b) => b.startsWith('@scope'));
+        expect(scopes.length, `${where}: exactly one @scope block`).toBe(1);
+        expect(scopes[0].slice(0, scopes[0].indexOf('{')).trim(), `${where}: @scope prelude`).toBe(prelude);
+        expect(scopes[0], `${where}: selectors inside @scope must not repeat [data-theme]`).not.toMatch(
+          /\{[^{}]*\[data-theme|^\s*\[data-theme/m,
+        );
+        for (const block of blocks.filter((b) => !b.startsWith('@scope'))) {
+          const kf = block.match(/^@keyframes\s+([\w-]+)/);
+          expect(kf, `${where}: only @keyframes may live outside @scope, found "${block.slice(0, 40)}"`).not.toBeNull();
+          expect(kf![1], `${where}: keyframes name`).toMatch(new RegExp(`^nbc-${theme}-`));
         }
       }
     }

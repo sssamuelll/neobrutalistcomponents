@@ -1,82 +1,92 @@
 /* Tech: the dot is a pair of ( ) printed in mono; checked prints a glowing phosphor dot between them. */
-[data-theme="tech"] .nbc-radio__box {
-  --_paren: var(--nbc-fg-muted);
 
-  inline-size: calc(var(--_box) * 1.5);
-  background: transparent;
-  border-color: transparent;
-  border-radius: var(--nbc-radius-control);
-  box-shadow: none;
-}
-[data-theme="tech"] .nbc-radio__control {
-  border-radius: var(--nbc-radius-control);
-}
+@scope ([data-theme="tech"]) to ([data-theme]:not([data-theme="tech"])) {
+  .nbc-radio__box {
+    --_paren: var(--nbc-fg-muted);
 
-/* Brackets are decorative: alt-text syntax keeps them out of accessible names. */
-[data-theme="tech"] .nbc-radio__box::before,
-[data-theme="tech"] .nbc-radio__box::after {
-  position: absolute;
-  inset-block: 0;
-  display: grid;
-  place-items: center;
-  inline-size: 0.6em;
-  font-family: var(--nbc-font-mono);
-  font-size: calc(var(--_box) * 0.8);
-  line-height: 1;
-  color: var(--_paren);
-  pointer-events: none;
-  transition: color var(--nbc-duration) var(--nbc-ease);
-}
-[data-theme="tech"] .nbc-radio__box::before {
-  content: '(' / '';
-  inset-inline-start: 1px;
-}
-[data-theme="tech"] .nbc-radio__box::after {
-  content: ')' / '';
-  inset-inline-end: 1px;
-}
-
-[data-theme="tech"] .nbc-radio__box:has(.nbc-radio__control:checked) {
-  --_paren: var(--nbc-primary);
-}
-/* Invalid speaks through the brackets, not an outer ring. Declared after
-   the checked rule at equal specificity so it wins. */
-[data-theme="tech"] .nbc-radio-group--invalid .nbc-radio__box:has(.nbc-radio__control) {
-  --_paren: var(--nbc-danger);
-}
-
-[data-theme="tech"] .nbc-radio__dot {
-  inline-size: calc(var(--_box) * 0.4);
-  block-size: calc(var(--_box) * 0.4);
-  background: var(--nbc-primary);
-  box-shadow: 0 0 8px color-mix(in srgb, var(--nbc-primary) 70%, transparent);
-}
-
-@media (hover: hover) {
-  [data-theme="tech"] .nbc-radio:not(.nbc-radio--disabled) .nbc-radio__box:has(.nbc-radio__control:not(:checked)):hover,
-  [data-theme="tech"] .nbc-radio:not(.nbc-radio--disabled):has(.nbc-radio__label:hover)
-    .nbc-radio__box:has(.nbc-radio__control:not(:checked)) {
-    background: color-mix(in srgb, var(--nbc-primary) 18%, transparent);
+    inline-size: calc(var(--_box) * 1.5);
+    background: transparent;
+    border-color: transparent;
+    border-radius: var(--nbc-radius-control);
+    box-shadow: none;
   }
-}
 
-/* The legend gets the same blinking caret as every other field label. */
-[data-theme="tech"] .nbc-radio-group__label::after {
-  content: '_' / '';
-  margin-inline-start: 0.3em;
-  color: var(--nbc-primary);
-  animation: nbc-tech-radio-caret 1s steps(2, jump-none) infinite;
+  .nbc-radio__control {
+    border-radius: var(--nbc-radius-control);
+  }
+
+  /* Brackets are decorative: alt-text syntax keeps them out of accessible names. */
+
+  .nbc-radio__box::before,
+  .nbc-radio__box::after {
+    position: absolute;
+    inset-block: 0;
+    display: grid;
+    place-items: center;
+    inline-size: 0.6em;
+    font-family: var(--nbc-font-mono);
+    font-size: calc(var(--_box) * 0.8);
+    line-height: 1;
+    color: var(--_paren);
+    pointer-events: none;
+    transition: color var(--nbc-duration) var(--nbc-ease);
+  }
+
+  .nbc-radio__box::before {
+    content: '(' / '';
+    inset-inline-start: 1px;
+  }
+
+  .nbc-radio__box::after {
+    content: ')' / '';
+    inset-inline-end: 1px;
+  }
+
+  .nbc-radio__box:has(.nbc-radio__control:checked) {
+    --_paren: var(--nbc-primary);
+  }
+
+  /* Invalid speaks through the brackets, not an outer ring. Declared after
+     the checked rule at equal specificity so it wins. */
+
+  .nbc-radio-group--invalid .nbc-radio__box:has(.nbc-radio__control) {
+    --_paren: var(--nbc-danger);
+  }
+
+  .nbc-radio__dot {
+    inline-size: calc(var(--_box) * 0.4);
+    block-size: calc(var(--_box) * 0.4);
+    background: var(--nbc-primary);
+    box-shadow: 0 0 8px color-mix(in srgb, var(--nbc-primary) 70%, transparent);
+  }
+
+  @media (hover: hover) {
+    .nbc-radio:not(.nbc-radio--disabled) .nbc-radio__box:has(.nbc-radio__control:not(:checked)):hover,
+    .nbc-radio:not(.nbc-radio--disabled):has(.nbc-radio__label:hover)
+      .nbc-radio__box:has(.nbc-radio__control:not(:checked)) {
+      background: color-mix(in srgb, var(--nbc-primary) 18%, transparent);
+    }
+  }
+
+  /* The legend gets the same blinking caret as every other field label. */
+
+  .nbc-radio-group__label::after {
+    content: '_' / '';
+    margin-inline-start: 0.3em;
+    color: var(--nbc-primary);
+    animation: nbc-tech-radio-caret 1s steps(2, jump-none) infinite;
+  }
+
+  @media (forced-colors: active) {
+    .nbc-radio__dot {
+      background: Highlight;
+      box-shadow: none;
+    }
+  }
 }
 
 @keyframes nbc-tech-radio-caret {
   50% {
     opacity: 0;
-  }
-}
-
-@media (forced-colors: active) {
-  [data-theme="tech"] .nbc-radio__dot {
-    background: Highlight;
-    box-shadow: none;
   }
 }

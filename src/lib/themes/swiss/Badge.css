@@ -1,47 +1,57 @@
 /* Swiss: a caption, not a sticker. The hairline goes quiet, the tint is a
    flat grey, and status is one small accent square before the word. */
-[data-theme="swiss"] .nbc-badge {
-  font-variant-numeric: tabular-nums;
-  border-color: transparent; /* keeps a visible edge in forced-colors mode */
-}
-[data-theme="swiss"] .nbc-badge--neutral,
-[data-theme="swiss"] .nbc-badge--accent,
-[data-theme="swiss"] .nbc-badge--info,
-[data-theme="swiss"] .nbc-badge--success,
-[data-theme="swiss"] .nbc-badge--warning,
-[data-theme="swiss"] .nbc-badge--danger {
-  background: var(--nbc-surface-alt);
-  color: var(--nbc-fg);
-}
-[data-theme="swiss"] .nbc-badge--accent {
-  --_status: var(--nbc-accent);
-}
-[data-theme="swiss"] .nbc-badge--info {
-  --_status: var(--nbc-info);
-}
-[data-theme="swiss"] .nbc-badge--success {
-  --_status: var(--nbc-success);
-}
-[data-theme="swiss"] .nbc-badge--warning {
-  --_status: var(--nbc-warning);
-}
-[data-theme="swiss"] .nbc-badge--danger {
-  --_status: var(--nbc-danger);
-}
-[data-theme="swiss"] .nbc-badge--accent::before,
-[data-theme="swiss"] .nbc-badge--info::before,
-[data-theme="swiss"] .nbc-badge--success::before,
-[data-theme="swiss"] .nbc-badge--warning::before,
-[data-theme="swiss"] .nbc-badge--danger::before {
-  content: '';
-  flex: none;
-  inline-size: 6px;
-  block-size: 6px;
-  background: var(--_status);
-}
 
-@media (forced-colors: active) {
-  [data-theme="swiss"] .nbc-badge::before {
-    background: CanvasText;
+@scope ([data-theme="swiss"]) to ([data-theme]:not([data-theme="swiss"])) {
+  .nbc-badge {
+    font-variant-numeric: tabular-nums;
+    border-color: transparent; /* keeps a visible edge in forced-colors mode */
+  }
+
+  .nbc-badge--neutral,
+  .nbc-badge--accent,
+  .nbc-badge--info,
+  .nbc-badge--success,
+  .nbc-badge--warning,
+  .nbc-badge--danger {
+    background: var(--nbc-surface-alt);
+    color: var(--nbc-fg);
+  }
+
+  .nbc-badge--accent {
+    --_status: var(--nbc-accent);
+  }
+
+  .nbc-badge--info {
+    --_status: var(--nbc-info);
+  }
+
+  .nbc-badge--success {
+    --_status: var(--nbc-success);
+  }
+
+  .nbc-badge--warning {
+    --_status: var(--nbc-warning);
+  }
+
+  .nbc-badge--danger {
+    --_status: var(--nbc-danger);
+  }
+
+  .nbc-badge--accent::before,
+  .nbc-badge--info::before,
+  .nbc-badge--success::before,
+  .nbc-badge--warning::before,
+  .nbc-badge--danger::before {
+    content: '';
+    flex: none;
+    inline-size: 6px;
+    block-size: 6px;
+    background: var(--_status);
+  }
+
+  @media (forced-colors: active) {
+    .nbc-badge::before {
+      background: CanvasText;
+    }
   }
 }

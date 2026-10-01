@@ -1,26 +1,31 @@
 /* Riso: the box is printed on the same grain; checked is a pink ink fill with a navy tick
    whose second (blue) ink lands a pixel off. */
-[data-theme="riso"] .nbc-checkbox__box {
-  border-radius: var(--nbc-radius-control);
-  background: var(--nbc-texture), var(--nbc-surface-fill);
-}
-[data-theme="riso"] .nbc-checkbox__box:has(.nbc-checkbox__control:checked, .nbc-checkbox__control:indeterminate) {
-  background: var(--nbc-texture), var(--nbc-primary-fill);
-}
-[data-theme="riso"] .nbc-checkbox__check,
-[data-theme="riso"] .nbc-checkbox__dash {
-  stroke-width: 4;
-  filter: drop-shadow(1px 1px 0 var(--nbc-accent));
-}
 
-@media (hover: hover) {
-  [data-theme="riso"] .nbc-checkbox:not(.nbc-checkbox--disabled) .nbc-checkbox__box:has(.nbc-checkbox__control:not(:checked, :indeterminate)):hover {
-    background: var(--nbc-texture), var(--nbc-surface-alt);
+@scope ([data-theme="riso"]) to ([data-theme]:not([data-theme="riso"])) {
+  .nbc-checkbox__box {
+    border-radius: var(--nbc-radius-control);
+    background: var(--nbc-texture), var(--nbc-surface-fill);
   }
-}
 
-@media (forced-colors: active) {
-  [data-theme="riso"] .nbc-checkbox__box:has(.nbc-checkbox__control:checked, .nbc-checkbox__control:indeterminate) {
-    background: Highlight;
+  .nbc-checkbox__box:has(.nbc-checkbox__control:checked, .nbc-checkbox__control:indeterminate) {
+    background: var(--nbc-texture), var(--nbc-primary-fill);
+  }
+
+  .nbc-checkbox__check,
+  .nbc-checkbox__dash {
+    stroke-width: 4;
+    filter: drop-shadow(1px 1px 0 var(--nbc-accent));
+  }
+
+  @media (hover: hover) {
+    .nbc-checkbox:not(.nbc-checkbox--disabled) .nbc-checkbox__box:has(.nbc-checkbox__control:not(:checked, :indeterminate)):hover {
+      background: var(--nbc-texture), var(--nbc-surface-alt);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .nbc-checkbox__box:has(.nbc-checkbox__control:checked, .nbc-checkbox__control:indeterminate) {
+      background: Highlight;
+    }
   }
 }

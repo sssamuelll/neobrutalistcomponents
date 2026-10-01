@@ -1,46 +1,52 @@
 /* Tech: outlined commands with a prompt; they fill like a selection on hover.
    Loading is a blinking block cursor, not a spinner. */
-[data-theme="tech"] .nbc-button--primary {
-  background: transparent;
-  color: var(--nbc-primary);
-  border-color: var(--nbc-primary);
-}
-[data-theme="tech"] .nbc-button--primary::before {
-  content: '>' / '';
-  opacity: 0.75;
-}
-[data-theme="tech"] .nbc-button--danger {
-  background: transparent;
-  color: var(--nbc-danger);
-  border-color: var(--nbc-danger);
-}
-[data-theme="tech"] .nbc-button--secondary {
-  background: transparent;
-  border-color: var(--nbc-fg-muted);
-}
 
-@media (hover: hover) {
-  [data-theme="tech"] .nbc-button--primary:hover:not(:disabled, [aria-disabled="true"]) {
-    background: var(--nbc-primary);
-    color: var(--nbc-primary-fg);
+@scope ([data-theme="tech"]) to ([data-theme]:not([data-theme="tech"])) {
+  .nbc-button--primary {
+    background: transparent;
+    color: var(--nbc-primary);
+    border-color: var(--nbc-primary);
   }
-  [data-theme="tech"] .nbc-button--danger:hover:not(:disabled, [aria-disabled="true"]) {
-    background: var(--nbc-danger);
-    color: var(--nbc-danger-fg);
-  }
-  [data-theme="tech"] .nbc-button--secondary:hover:not(:disabled, [aria-disabled="true"]) {
-    border-color: var(--nbc-accent);
-    color: var(--nbc-accent);
-  }
-}
 
-[data-theme="tech"] .nbc-button--loading .nbc-button__spinner {
-  inline-size: 0.6em;
-  block-size: 1.1em;
-  border: 0;
-  border-radius: 0;
-  background: currentColor;
-  animation: nbc-tech-blink 900ms steps(2, jump-none) infinite;
+  .nbc-button--primary::before {
+    content: '>' / '';
+    opacity: 0.75;
+  }
+
+  .nbc-button--danger {
+    background: transparent;
+    color: var(--nbc-danger);
+    border-color: var(--nbc-danger);
+  }
+
+  .nbc-button--secondary {
+    background: transparent;
+    border-color: var(--nbc-fg-muted);
+  }
+
+  @media (hover: hover) {
+    .nbc-button--primary:hover:not(:disabled, [aria-disabled="true"]) {
+      background: var(--nbc-primary);
+      color: var(--nbc-primary-fg);
+    }
+    .nbc-button--danger:hover:not(:disabled, [aria-disabled="true"]) {
+      background: var(--nbc-danger);
+      color: var(--nbc-danger-fg);
+    }
+    .nbc-button--secondary:hover:not(:disabled, [aria-disabled="true"]) {
+      border-color: var(--nbc-accent);
+      color: var(--nbc-accent);
+    }
+  }
+
+  .nbc-button--loading .nbc-button__spinner {
+    inline-size: 0.6em;
+    block-size: 1.1em;
+    border: 0;
+    border-radius: 0;
+    background: currentColor;
+    animation: nbc-tech-blink 900ms steps(2, jump-none) infinite;
+  }
 }
 
 @keyframes nbc-tech-blink {

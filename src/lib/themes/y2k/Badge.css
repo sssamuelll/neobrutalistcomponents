@@ -1,27 +1,33 @@
 /* Y2K: a holographic sticker pressed onto the card — tilted, glossy, and the
    primary one drifts through the foil. The gloss sits behind the text. */
-[data-theme="y2k"] .nbc-badge {
-  position: relative;
-  isolation: isolate;
-  rotate: -2deg;
-  box-shadow: -1px 0 0 #00e5ff88, 1px 0 0 #ff00a888;
-}
-[data-theme="y2k"] .nbc-badge::before {
-  content: '';
-  position: absolute;
-  inset: 1px 6px auto;
-  block-size: 42%;
-  z-index: -1;
-  border-radius: 999px;
-  background: linear-gradient(180deg, #ffffffb3, #ffffff00);
-  pointer-events: none;
-}
-[data-theme="y2k"] .nbc-badge--neutral {
-  background: var(--nbc-surface-fill);
-}
-[data-theme="y2k"] .nbc-badge--primary {
-  background-size: 220% 220%;
-  animation: nbc-y2k-badge-shimmer 6s ease-in-out infinite;
+
+@scope ([data-theme="y2k"]) to ([data-theme]:not([data-theme="y2k"])) {
+  .nbc-badge {
+    position: relative;
+    isolation: isolate;
+    rotate: -2deg;
+    box-shadow: -1px 0 0 #00e5ff88, 1px 0 0 #ff00a888;
+  }
+
+  .nbc-badge::before {
+    content: '';
+    position: absolute;
+    inset: 1px 6px auto;
+    block-size: 42%;
+    z-index: -1;
+    border-radius: 999px;
+    background: linear-gradient(180deg, #ffffffb3, #ffffff00);
+    pointer-events: none;
+  }
+
+  .nbc-badge--neutral {
+    background: var(--nbc-surface-fill);
+  }
+
+  .nbc-badge--primary {
+    background-size: 220% 220%;
+    animation: nbc-y2k-badge-shimmer 6s ease-in-out infinite;
+  }
 }
 
 @keyframes nbc-y2k-badge-shimmer {
