@@ -1,0 +1,66 @@
+/* Y2K: a candy-striped holo capsule. The bar is a glossy pill with barber-pole
+   stripes marching across it; the gloss sits on top of the stripes. */
+
+@scope ([data-theme="y2k"]) to ([data-theme]:not([data-theme="y2k"])) {
+  .nbc-progress__track {
+    border-radius: 999px;
+    box-shadow: var(--nbc-shadow-press);
+  }
+
+  .nbc-progress__bar {
+    isolation: isolate;
+    border-radius: 999px;
+  }
+
+  .nbc-progress__bar::before {
+    content: '' / '';
+    position: absolute;
+    inset: 1px 6px auto;
+    z-index: 1;
+    block-size: 42%;
+    border-radius: 999px;
+    background: linear-gradient(180deg, #ffffffb3, #ffffff00);
+    pointer-events: none;
+  }
+
+  /* Replaces the base end-cap: the stripes are the texture, the pill is the edge. */
+  .nbc-progress__bar::after {
+    inset: 0;
+    inline-size: auto;
+    border-radius: inherit;
+    background: linear-gradient(
+        135deg,
+        #ffffff59 25%,
+        transparent 25%,
+        transparent 50%,
+        #ffffff59 50%,
+        #ffffff59 75%,
+        transparent 75%
+      )
+      0 0 / 28px 28px;
+    animation: nbc-y2k-progress-stripes 1s linear infinite;
+  }
+
+  .nbc-progress__value {
+    font-size: calc(var(--_fs) + 4px);
+    line-height: 1;
+    color: var(--nbc-fg);
+  }
+
+  @media (forced-colors: active) {
+    .nbc-progress__bar {
+      background: Highlight;
+    }
+
+    .nbc-progress__bar::before,
+    .nbc-progress__bar::after {
+      display: none;
+    }
+  }
+}
+
+@keyframes nbc-y2k-progress-stripes {
+  to {
+    background-position: 28px 0;
+  }
+}

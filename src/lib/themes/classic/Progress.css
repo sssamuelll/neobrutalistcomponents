@@ -1,0 +1,29 @@
+/* Classic: a poured slab. The track casts the double stack like any other
+   slab, and the bar is cut with diagonal formwork hatching. */
+
+@scope ([data-theme="classic"]) to ([data-theme]:not([data-theme="classic"])) {
+  .nbc-progress__track {
+    box-shadow: var(--nbc-shadow-press);
+  }
+
+  .nbc-progress--sm .nbc-progress__track {
+    box-shadow: 2px 2px 0 var(--nbc-border-color);
+  }
+
+  .nbc-progress__bar {
+    background:
+      repeating-linear-gradient(-45deg, #14110f33 0 5px, transparent 5px 10px),
+      var(--_bar);
+  }
+
+  .nbc-progress__value {
+    font-weight: 800;
+    color: var(--nbc-fg);
+  }
+
+  @media (forced-colors: active) {
+    .nbc-progress__bar {
+      background: Highlight;
+    }
+  }
+}
