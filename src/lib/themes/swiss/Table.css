@@ -1,0 +1,48 @@
+/* Swiss: no shadow, ink hairlines between rows, a bare header over a 2px rule
+   with one oxblood square, wider gutters, and an inverted row on hover. */
+
+@scope ([data-theme="swiss"]) to ([data-theme]:not([data-theme="swiss"])) {
+  .nbc-table__cell,
+  .nbc-table__header-cell {
+    padding-inline: var(--nbc-space-lg);
+  }
+
+  .nbc-table__cell,
+  .nbc-table__header-cell[scope='row'] {
+    border-block-end-color: var(--nbc-border-color);
+  }
+
+  .nbc-table__head .nbc-table__header-cell {
+    background: transparent;
+    border-block-end-width: 2px;
+  }
+
+  .nbc-table__head .nbc-table__header-cell:first-child::before {
+    content: '' / '';
+    display: inline-block;
+    inline-size: 6px;
+    block-size: 6px;
+    margin-inline-end: var(--nbc-space-sm);
+    vertical-align: 0.05em;
+    background: var(--nbc-accent);
+  }
+
+  .nbc-table__foot .nbc-table__cell,
+  .nbc-table__foot .nbc-table__header-cell {
+    background: transparent;
+    border-block-start-width: 2px;
+  }
+
+  @media (hover: hover) {
+    .nbc-table__body > .nbc-table__row:hover {
+      background: var(--nbc-fg);
+      color: var(--nbc-surface);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .nbc-table__head .nbc-table__header-cell:first-child::before {
+      background: CanvasText;
+    }
+  }
+}

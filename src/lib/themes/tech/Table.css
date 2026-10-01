@@ -1,0 +1,30 @@
+/* Tech: the header is an inverted status line, rows are separated by dashed
+   rules, zeros are slashed, and the hovered row grows a prompt marker. */
+
+@scope ([data-theme="tech"]) to ([data-theme]:not([data-theme="tech"])) {
+  .nbc-table__head .nbc-table__header-cell {
+    color: var(--nbc-primary-fg);
+    background: var(--nbc-primary);
+    border-block-end-color: var(--nbc-primary);
+  }
+
+  .nbc-table__cell,
+  .nbc-table__header-cell[scope='row'] {
+    border-block-end-style: dashed;
+    border-block-end-color: color-mix(in srgb, var(--nbc-border-color) 45%, transparent);
+  }
+
+  .nbc-table__cell--numeric {
+    font-variant-numeric: tabular-nums slashed-zero;
+  }
+
+  @media (hover: hover) {
+    .nbc-table__body > .nbc-table__row:hover {
+      background: color-mix(in srgb, var(--nbc-primary) 14%, var(--nbc-surface));
+    }
+
+    .nbc-table__body > .nbc-table__row:hover > :first-child {
+      box-shadow: inset 2px 0 0 var(--nbc-primary);
+    }
+  }
+}

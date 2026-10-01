@@ -1,0 +1,158 @@
+/* Table — theme-agnostic. A scroll wrapper owns the slab (border, radius, shadow,
+   surface); the native <table> inside stays unstyled box-wise so wide tables scroll
+   instead of squashing. Personality lives in themes/<t>/Table.css. */
+.nbc-table {
+  --_row-h: 48px;
+  --_py: var(--nbc-space-md);
+  --_px: var(--nbc-space-md);
+  --_rule: 1px solid color-mix(in srgb, var(--nbc-border-color) 25%, transparent);
+  --_hover: color-mix(in srgb, var(--nbc-surface-alt) 70%, var(--nbc-surface));
+
+  box-sizing: border-box;
+  max-inline-size: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  color: var(--nbc-fg);
+  font-family: var(--nbc-font-sans);
+  background: var(--nbc-texture), var(--nbc-surface-fill);
+  border: var(--nbc-border-width) var(--nbc-border-style) var(--nbc-border-color);
+  border-radius: var(--nbc-radius);
+  box-shadow: var(--nbc-shadow);
+}
+
+.nbc-table--compact {
+  --_row-h: 36px;
+  --_py: var(--nbc-space-xs);
+}
+
+/* Striped rows are already surface-alt, so hover must go darker, not lighter. */
+.nbc-table--striped {
+  --_hover: color-mix(in srgb, var(--nbc-fg) 8%, var(--nbc-surface-alt));
+}
+
+/* Scrollers are keyboard-focusable in modern browsers; show where focus is. */
+.nbc-table:focus-visible {
+  outline: var(--nbc-focus-width) solid var(--nbc-focus);
+  outline-offset: var(--nbc-focus-offset);
+}
+
+.nbc-table__table {
+  inline-size: 100%;
+  margin: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: var(--nbc-fs-sm);
+  line-height: 1.4;
+  color: inherit;
+}
+
+/* ---- Cells (data and header share one box model) ---- */
+.nbc-table__cell,
+.nbc-table__header-cell {
+  box-sizing: border-box;
+  block-size: var(--_row-h);
+  padding-block: var(--_py);
+  padding-inline: var(--_px);
+  vertical-align: middle;
+  text-align: start;
+}
+
+.nbc-table__cell {
+  border-block-end: var(--_rule);
+}
+
+.nbc-table__header-cell {
+  font-size: var(--nbc-fs-xs);
+  font-weight: var(--nbc-weight-label);
+  line-height: 1.3;
+  letter-spacing: var(--nbc-label-spacing);
+  text-transform: var(--nbc-label-transform);
+  white-space: nowrap;
+  color: var(--nbc-fg);
+  background: var(--nbc-surface-alt);
+  border-block-end: var(--nbc-border-width) var(--nbc-border-style) var(--nbc-border-color);
+}
+
+/* A row header (scope="row") labels its row: it reads like body text, not like a column title. */
+.nbc-table__header-cell[scope='row'] {
+  font-size: var(--nbc-fs-sm);
+  line-height: inherit;
+  letter-spacing: normal;
+  text-transform: none;
+  white-space: normal;
+  color: inherit;
+  background: transparent;
+  border-block-end: var(--_rule);
+}
+
+/* The slab's own border closes the table; the last body row needs no rule of its own. */
+.nbc-table__body > .nbc-table__row:last-child > .nbc-table__cell,
+.nbc-table__body > .nbc-table__row:last-child > .nbc-table__header-cell {
+  border-block-end: 0;
+}
+
+/* ---- Foot ---- */
+.nbc-table__foot .nbc-table__cell,
+.nbc-table__foot .nbc-table__header-cell {
+  font-weight: var(--nbc-weight-label);
+  background: var(--nbc-surface-alt);
+  border-block-start: var(--nbc-border-width) var(--nbc-border-style) var(--nbc-border-color);
+  border-block-end: 0;
+}
+
+/* ---- Caption ---- */
+.nbc-table__caption {
+  caption-side: bottom;
+  padding: var(--nbc-space-sm) var(--nbc-space-md);
+  text-align: start;
+  font-size: var(--nbc-fs-sm);
+  color: var(--nbc-fg-muted);
+  border-block-start: var(--_rule);
+}
+
+/* ---- Stripes + hover ---- */
+.nbc-table--striped .nbc-table__body > .nbc-table__row:nth-child(even) {
+  background: var(--nbc-surface-alt);
+}
+
+.nbc-table__body > .nbc-table__row {
+  transition: background-color var(--nbc-duration) var(--nbc-ease);
+}
+@media (hover: hover) {
+  .nbc-table .nbc-table__body > .nbc-table__row:hover {
+    background: var(--_hover);
+  }
+}
+
+/* ---- Alignment (explicit alignment is emitted for every value, so it always beats `numeric`) ---- */
+.nbc-table__cell--numeric {
+  font-variant-numeric: tabular-nums;
+  text-align: end;
+  white-space: nowrap;
+}
+.nbc-table__cell--start,
+.nbc-table__header-cell--start {
+  text-align: start;
+}
+.nbc-table__cell--center,
+.nbc-table__header-cell--center {
+  text-align: center;
+}
+.nbc-table__cell--end,
+.nbc-table__header-cell--end {
+  text-align: end;
+}
+
+/* Backgrounds vanish in forced colors: keep rows separable and hover visible with lines. */
+@media (forced-colors: active) {
+  .nbc-table__cell {
+    border-block-end: 1px solid CanvasText;
+  }
+  .nbc-table__header-cell:not([scope='row']) {
+    border-block-end: 2px solid CanvasText;
+  }
+  .nbc-table__body > .nbc-table__row:hover {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
+  }
+}

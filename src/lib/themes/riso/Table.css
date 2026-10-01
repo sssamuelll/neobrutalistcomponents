@@ -1,0 +1,31 @@
+/* Riso: the header is printed in pink ink with grain; the blue plate slipped, so
+   its rule starts a few pixels in. Hovered rows get a pale pink swipe. */
+
+@scope ([data-theme="riso"]) to ([data-theme]:not([data-theme="riso"])) {
+  .nbc-table__head {
+    background:
+      linear-gradient(var(--nbc-accent), var(--nbc-accent)) 5px 100% / 100% 3px no-repeat,
+      var(--nbc-texture),
+      var(--nbc-primary);
+  }
+
+  .nbc-table__head .nbc-table__header-cell {
+    font-stretch: 80%;
+    color: var(--nbc-primary-fg);
+    background: transparent;
+    border-block-end-width: 3px;
+    border-block-end-color: transparent;
+  }
+
+  @media (hover: hover) {
+    .nbc-table__body > .nbc-table__row:hover {
+      background: color-mix(in srgb, var(--nbc-primary) 20%, transparent);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .nbc-table__head .nbc-table__header-cell {
+      border-block-end-color: CanvasText;
+    }
+  }
+}
