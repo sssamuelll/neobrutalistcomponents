@@ -1,87 +1,53 @@
-import type { HTMLAttributes } from 'react';
-import './Card.css';
+import type { ComponentProps, ElementType, Ref } from 'react';
+import { cx } from '../internal/cx';
 
 export type CardVariant = 'default' | 'elevated' | 'interactive';
 
-export interface CardProps extends HTMLAttributes<HTMLDivElement> {
+export interface CardProps extends Omit<ComponentProps<'div'>, 'ref'> {
+  /** `elevated` lifts the slab; `interactive` makes the whole card follow its title link. */
   variant?: CardVariant;
+  /** Element to render. Use `li` inside lists, `article` for standalone items. */
+  as?: 'div' | 'article' | 'section' | 'li';
+  ref?: Ref<HTMLElement>;
 }
 
-function CardRoot({
-  variant = 'default',
-  className,
-  children,
-  ...rest
-}: CardProps) {
-  const classes = ['nbc-card', `nbc-card--${variant}`, className]
-    .filter(Boolean)
-    .join(' ');
-  return (
-    <div className={classes} {...rest}>
-      {children}
-    </div>
-  );
+function CardRoot({ variant = 'default', as = 'div', className, ...rest }: CardProps) {
+  const Tag = as as ElementType;
+  return <Tag {...rest} className={cx('nbc-card', `nbc-card--${variant}`, className)} />;
 }
 
-function CardHeader({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
-  return (
-    <div
-      className={['nbc-card__header', className].filter(Boolean).join(' ')}
-      {...rest}
-    />
-  );
+function CardHeader({ className, ...rest }: ComponentProps<'div'>) {
+  return <div {...rest} className={cx('nbc-card__header', className)} />;
 }
 
-function CardTitle({ className, ...rest }: HTMLAttributes<HTMLHeadingElement>) {
-  return (
-    <h3
-      className={['nbc-card__title', className].filter(Boolean).join(' ')}
-      {...rest}
-    />
-  );
+export interface CardTitleProps extends Omit<ComponentProps<'h3'>, 'ref'> {
+  /** Heading level. Defaults to `h3`; pick the level that fits the page outline. */
+  as?: 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+  ref?: Ref<HTMLHeadingElement>;
 }
 
-function CardDescription({
-  className,
-  ...rest
-}: HTMLAttributes<HTMLParagraphElement>) {
-  return (
-    <p
-      className={['nbc-card__description', className].filter(Boolean).join(' ')}
-      {...rest}
-    />
-  );
+function CardTitle({ as = 'h3', className, ...rest }: CardTitleProps) {
+  const Tag = as as ElementType;
+  return <Tag {...rest} className={cx('nbc-card__title', className)} />;
 }
 
-function CardContent({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
-  return (
-    <div
-      className={['nbc-card__content', className].filter(Boolean).join(' ')}
-      {...rest}
-    />
-  );
+function CardDescription({ className, ...rest }: ComponentProps<'p'>) {
+  return <p {...rest} className={cx('nbc-card__description', className)} />;
 }
 
-function CardFooter({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
-  return (
-    <div
-      className={['nbc-card__footer', className].filter(Boolean).join(' ')}
-      {...rest}
-    />
-  );
+function CardContent({ className, ...rest }: ComponentProps<'div'>) {
+  return <div {...rest} className={cx('nbc-card__content', className)} />;
 }
 
-type CardComponent = typeof CardRoot & {
-  Header: typeof CardHeader;
-  Title: typeof CardTitle;
-  Description: typeof CardDescription;
-  Content: typeof CardContent;
-  Footer: typeof CardFooter;
-};
+function CardFooter({ className, ...rest }: ComponentProps<'div'>) {
+  return <div {...rest} className={cx('nbc-card__footer', className)} />;
+}
 
-export const Card = CardRoot as CardComponent;
-Card.Header = CardHeader;
-Card.Title = CardTitle;
-Card.Description = CardDescription;
-Card.Content = CardContent;
-Card.Footer = CardFooter;
+/** A bordered slab that groups related content. Compose with Card.Header, Card.Title, Card.Description, Card.Content and Card.Footer. */
+export const Card = Object.assign(CardRoot, {
+  Header: CardHeader,
+  Title: CardTitle,
+  Description: CardDescription,
+  Content: CardContent,
+  Footer: CardFooter,
+});

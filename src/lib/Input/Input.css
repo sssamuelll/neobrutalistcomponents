@@ -1,178 +1,94 @@
-/* ============================================================
-   Input — base (theme-agnostic) + per-theme overrides
-   ============================================================ */
-.nbc-input-wrap {
-  display: flex;
-  flex-direction: column;
-  gap: var(--nbc-space-xs);
-  font-family: var(--nbc-font-sans);
-  color: var(--nbc-fg);
-}
+/* Input — the bordered box holds icons and the native <input>. */
+.nbc-input {
+  --_h: var(--nbc-control-h-md);
+  --_fs: var(--nbc-fs-md);
+  --_px: var(--nbc-space-md);
 
-.nbc-input__label {
-  font-weight: var(--nbc-weight-label);
-  font-size: var(--nbc-fs-sm);
-  color: var(--nbc-fg);
-  text-transform: var(--nbc-label-transform);
-  letter-spacing: var(--nbc-label-spacing);
-}
-
-.nbc-input__field {
+  position: relative;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
+  gap: var(--nbc-space-sm);
+  min-block-size: var(--_h);
+  padding-inline: var(--_px);
+  font-size: var(--_fs);
+  color: var(--nbc-fg);
   background: var(--nbc-surface);
-  border-width: var(--nbc-border-width);
-  border-style: var(--nbc-border-style);
-  border-color: var(--nbc-border-color);
-  border-radius: var(--nbc-input-radius, var(--nbc-radius));
+  border: var(--nbc-border-width) var(--nbc-border-style) var(--nbc-border-color);
+  border-radius: var(--nbc-radius-control);
   box-shadow: var(--nbc-shadow);
-  gap: var(--nbc-space-xs);
-  padding: 0 var(--nbc-space-sm);
-  transition: box-shadow 80ms ease, border-color 80ms ease;
+  transition-property: box-shadow, border-color, background-color, color;
+  transition-duration: var(--nbc-duration);
+  transition-timing-function: var(--nbc-ease);
+  cursor: text;
 }
 
-.nbc-input__field--error {
+.nbc-input--sm {
+  --_h: var(--nbc-control-h-sm);
+  --_fs: var(--nbc-fs-sm);
+  --_px: var(--nbc-space-sm);
+}
+.nbc-input--lg {
+  --_h: var(--nbc-control-h-lg);
+  --_fs: var(--nbc-fs-lg);
+  --_px: var(--nbc-space-lg);
+}
+
+.nbc-input:focus-within {
+  outline: var(--nbc-focus-width) solid var(--nbc-focus);
+  outline-offset: var(--nbc-focus-offset);
+}
+
+/* Invalid: the edge thickens by 1px in the danger color. Works for every
+   theme, including those without shadows; border-box keeps the size. */
+.nbc-input--invalid {
   border-color: var(--nbc-danger);
-  box-shadow: var(--nbc-input-shadow-error);
+  border-width: calc(var(--nbc-border-width) + 1px);
 }
 
-.nbc-input__field:focus-within {
-  outline: 3px solid var(--nbc-focus);
-  outline-offset: 2px;
-}
-
-.nbc-input {
-  flex: 1;
-  background: transparent;
-  border: none;
-  outline: none;
-  font: inherit;
-  color: inherit;
-}
-
-.nbc-input::placeholder {
-  color: var(--nbc-fg-muted);
-  opacity: 1;
-}
-
-.nbc-input:disabled {
-  opacity: 0.5;
+.nbc-input--disabled {
+  opacity: 0.55;
+  box-shadow: none;
   cursor: not-allowed;
 }
 
-.nbc-input:read-only {
-  cursor: default;
-  color: var(--nbc-fg-muted);
+.nbc-input:has(.nbc-input__control:read-only:not(:disabled)) {
+  background: var(--nbc-surface-alt);
+  box-shadow: none;
 }
 
-.nbc-input-wrap--sm .nbc-input {
-  font-size: var(--nbc-fs-sm);
-  padding: var(--nbc-space-xs) 0;
+.nbc-input__control {
+  flex: 1;
+  align-self: stretch;
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font: inherit;
+  font-family: var(--nbc-font-sans);
+  line-height: 1.2;
+  color: inherit;
 }
-.nbc-input-wrap--md .nbc-input {
-  font-size: var(--nbc-fs-md);
-  padding: var(--nbc-space-sm) 0;
+.nbc-input__control::placeholder {
+  color: var(--nbc-fg-muted);
+  opacity: 1;
 }
-.nbc-input-wrap--lg .nbc-input {
-  font-size: var(--nbc-fs-lg);
-  padding: var(--nbc-space-md) 0;
+.nbc-input__control:disabled {
+  cursor: not-allowed;
+}
+.nbc-input__control:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 100vmax var(--nbc-surface) inset;
+  -webkit-text-fill-color: var(--nbc-fg);
 }
 
 .nbc-input__icon {
-  color: var(--nbc-fg-muted);
   display: inline-flex;
-  align-items: center;
-}
-
-.nbc-input__desc {
-  font-size: var(--nbc-fs-xs);
+  flex: none;
   color: var(--nbc-fg-muted);
 }
-.nbc-input__desc--error {
-  color: var(--nbc-danger);
-  font-weight: var(--nbc-weight-label);
-}
-
-/* ============================================================
-   Per-theme Input overrides
-   ============================================================ */
-
-/* --- CLASSIC: display-font label, slightly larger --- */
-[data-theme="classic"] .nbc-input__label {
-  font-family: var(--nbc-font-display);
-  font-size: 14px;
-}
-
-/* --- TECH: blinking caret on label; focus = inverse (text-selection) --- */
-[data-theme="tech"] .nbc-input__label::after {
-  content: "_";
-  display: inline-block;
-  margin-left: 4px;
-  color: var(--nbc-primary);
-  animation: nbc-tech-blink 1s steps(2) infinite;
-}
-[data-theme="tech"] .nbc-input__field {
-  background: #0a0f0c;
-}
-[data-theme="tech"] .nbc-input__field:focus-within {
-  outline: none;
-  background: var(--nbc-primary);
-  color: var(--nbc-primary-fg);
-  box-shadow: 0 0 0 1px var(--nbc-primary);
-}
-[data-theme="tech"] .nbc-input__field:focus-within .nbc-input,
-[data-theme="tech"] .nbc-input__field:focus-within .nbc-input__icon {
-  color: var(--nbc-primary-fg);
-}
-[data-theme="tech"] .nbc-input__field:focus-within .nbc-input::placeholder {
-  color: #06100a88;
-}
-[data-theme="tech"] .nbc-input__field--error .nbc-input__label::after,
-[data-theme="tech"] .nbc-input__desc--error {
-  color: var(--nbc-danger);
-}
-
-/* --- SWISS: hairline only. Focus + error use inset 2px lines. --- */
-[data-theme="swiss"] .nbc-input__field {
-  box-shadow: none;
-}
-[data-theme="swiss"] .nbc-input__field:focus-within {
-  outline: none;
-  box-shadow: inset 0 0 0 2px var(--nbc-focus);
-  border-color: var(--nbc-focus);
-}
-[data-theme="swiss"] .nbc-input__field--error {
-  box-shadow: inset 0 0 0 2px var(--nbc-danger);
-  border-color: var(--nbc-danger);
-}
-[data-theme="swiss"] .nbc-input__label {
-  font-size: 10px;
-  font-weight: 600;
-}
-[data-theme="swiss"] .nbc-input__label::before {
-  content: "— ";
-  color: var(--nbc-primary-accent);
-}
-
-/* --- Y2K: pill input with inner bevel highlight + holo-text label --- */
-[data-theme="y2k"] .nbc-input__field {
-  background: var(--nbc-surface);
-  position: relative;
-}
-[data-theme="y2k"] .nbc-input__field::before {
-  content: "";
-  position: absolute;
-  inset: 2px 4px auto 4px;
-  height: 35%;
-  border-radius: 999px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0));
-  pointer-events: none;
-}
-[data-theme="y2k"] .nbc-input__label {
-  font-family: var(--nbc-font-display);
-  font-size: 14px;
-  background: linear-gradient(90deg, #ff6ec7, #a78bfa, #7ee8fa);
-  -webkit-background-clip: text;
-          background-clip: text;
-  -webkit-text-fill-color: transparent;
+.nbc-input__icon > svg {
+  inline-size: 1.1em;
+  block-size: 1.1em;
 }

@@ -1,0 +1,4 @@
+/* Classic: card titles use Bricolage's display optical size — tight and chunky. */
+[data-theme="classic"] .nbc-card__title {
+  font-variation-settings: 'opsz' 96;
+}

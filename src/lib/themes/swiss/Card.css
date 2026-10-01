@@ -1,0 +1,14 @@
+/* Swiss: an engineered header — description becomes a tracked caption under a hairline. */
+[data-theme="swiss"] .nbc-card__description {
+  margin-block-start: var(--nbc-space-sm);
+  padding-block-start: var(--nbc-space-sm);
+  border-block-start: 1px solid var(--nbc-border-color);
+  font-size: var(--nbc-fs-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--nbc-fg);
+}
+[data-theme="swiss"] .nbc-card__footer {
+  justify-content: space-between;
+  background: transparent;
+}

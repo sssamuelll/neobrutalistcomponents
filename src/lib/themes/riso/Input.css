@@ -1,0 +1,4 @@
+/* Riso: fields are printed on the same grainy stock. */
+[data-theme="riso"] .nbc-input {
+  background: var(--nbc-texture), var(--nbc-surface);
+}

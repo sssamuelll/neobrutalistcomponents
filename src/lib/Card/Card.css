@@ -1,17 +1,18 @@
-/* ============================================================
-   Card — base (theme-agnostic) + per-theme overrides
-   ============================================================ */
+/* Card — a bordered slab. The interactive variant uses the stretched-link
+   pattern: the title's link covers the card, no clickable <div>s. */
 .nbc-card {
-  background: var(--nbc-surface);
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+  overflow: hidden;
   color: var(--nbc-fg);
   font-family: var(--nbc-font-sans);
-  border-width: var(--nbc-border-width);
-  border-style: var(--nbc-border-style);
-  border-color: var(--nbc-border-color);
+  background: var(--nbc-texture), var(--nbc-surface-fill);
+  border: var(--nbc-border-width) var(--nbc-border-style) var(--nbc-border-color);
   border-radius: var(--nbc-radius);
   box-shadow: var(--nbc-shadow);
-  overflow: hidden;
-  position: relative;
 }
 
 .nbc-card--elevated {
@@ -19,149 +20,88 @@
 }
 
 .nbc-card--interactive {
-  cursor: pointer;
-  transition: transform 100ms ease-out, box-shadow 100ms ease-out;
-  transform: rotate(var(--nbc-rotate));
+  transform: translate(0, 0) rotate(var(--nbc-rotate));
+  transition-property: transform, box-shadow;
+  transition-duration: var(--nbc-duration);
+  transition-timing-function: var(--nbc-ease);
 }
-.nbc-card--interactive:hover {
-  transform: translate(3px, 3px) rotate(var(--nbc-rotate));
-  box-shadow: 2px 2px 0 var(--nbc-border-color);
+.nbc-card--interactive:has(.nbc-card__title a) {
+  cursor: pointer;
+}
+@media (hover: hover) {
+  .nbc-card--interactive:hover {
+    transform: translate(var(--nbc-press), var(--nbc-press)) rotate(var(--nbc-rotate));
+    box-shadow: var(--nbc-shadow-press);
+  }
+}
+.nbc-card--interactive:has(.nbc-card__title a:focus-visible) {
+  outline: var(--nbc-focus-width) solid var(--nbc-focus);
+  outline-offset: var(--nbc-focus-offset);
+}
+.nbc-card--interactive .nbc-card__title a {
+  color: inherit;
+  text-decoration: none;
+  outline: none;
+}
+.nbc-card--interactive .nbc-card__title a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.nbc-card--interactive .nbc-card__footer {
+  position: relative;
+  z-index: 2;
 }
 
 .nbc-card__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--nbc-space-xs);
   padding: var(--nbc-space-lg);
-  border-bottom-width: var(--nbc-border-width);
-  border-bottom-style: var(--nbc-border-style);
-  border-bottom-color: var(--nbc-border-color);
-  background: var(--nbc-card-header-bg);
+}
+.nbc-card__header:not(:last-child) {
+  border-block-end: var(--nbc-border-width) var(--nbc-border-style) var(--nbc-border-color);
 }
 
 .nbc-card__title {
-  margin: 0 0 var(--nbc-space-xs);
-  font-size: var(--nbc-fs-lg);
-  font-weight: 900;
-  letter-spacing: -0.02em;
+  margin: 0;
+  font-family: var(--nbc-font-display);
+  font-size: var(--nbc-fs-xl);
+  font-weight: var(--nbc-weight-display);
+  font-stretch: var(--nbc-display-stretch);
+  line-height: 1.15;
+  letter-spacing: var(--nbc-display-spacing);
+  text-transform: var(--nbc-display-transform);
+  text-wrap: balance;
   color: inherit;
 }
 
 .nbc-card__description {
   margin: 0;
   font-size: var(--nbc-fs-sm);
+  line-height: 1.45;
+  text-wrap: pretty;
   color: var(--nbc-fg-muted);
 }
 
 .nbc-card__content {
-  padding: var(--nbc-card-padding-content);
+  flex: 1;
+  padding: var(--nbc-space-lg);
   font-size: var(--nbc-fs-md);
   line-height: 1.55;
 }
 
 .nbc-card__footer {
-  padding: var(--nbc-space-md) var(--nbc-space-lg);
-  border-top-width: var(--nbc-border-width);
-  border-top-style: var(--nbc-border-style);
-  border-top-color: var(--nbc-border-color);
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   justify-content: flex-end;
   gap: var(--nbc-space-sm);
-  background: var(--nbc-surface);
+  padding: var(--nbc-space-md) var(--nbc-space-lg);
+  background: var(--nbc-surface-alt);
+  border-block-start: var(--nbc-border-width) var(--nbc-border-style) var(--nbc-border-color);
 }
-
-/* ============================================================
-   Per-theme Card overrides
-   ============================================================ */
-
-/* --- CLASSIC: display-font titles (Space Grotesk, tighter) --- */
-[data-theme="classic"] .nbc-card__title {
-  font-family: var(--nbc-font-display);
-  font-weight: 700;
-  font-size: 22px;
-  letter-spacing: -0.03em;
-}
-
-/* --- TECH: translucent surface over grid, terminal-prompt title --- */
-[data-theme="tech"] .nbc-card {
-  background:
-    linear-gradient(#12161380, #12161380),
-    var(--nbc-grid-overlay),
-    #0c0f0d;
-  backdrop-filter: blur(2px);
-}
-[data-theme="tech"] .nbc-card__title::before {
-  content: "$ ";
-  color: var(--nbc-secondary);
-  font-weight: 400;
-}
-[data-theme="tech"] .nbc-card__header {
-  background: #0e1310;
-}
-[data-theme="tech"] .nbc-card--interactive:hover {
-  border-color: var(--nbc-secondary);
-}
-
-/* --- SWISS: engineered header (hairline rule + uppercase description) --- */
-[data-theme="swiss"] .nbc-card__header {
-  padding: 20px 24px 14px;
-}
-[data-theme="swiss"] .nbc-card__title {
-  font-weight: 600;
-  font-size: 20px;
-  letter-spacing: -0.01em;
-}
-[data-theme="swiss"] .nbc-card__description {
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: var(--nbc-fg);
-  border-top: 1px solid var(--nbc-border-color);
-  padding-top: 8px;
-  margin-top: 10px;
-}
-[data-theme="swiss"] .nbc-card__footer {
-  border-top: 1px solid var(--nbc-border-color);
-  padding: 14px 24px;
-  justify-content: space-between;
-}
-
-/* --- Y2K: holo wash, display title, sticker badge on elevated cards --- */
-[data-theme="y2k"] .nbc-card {
-  background:
-    var(--nbc-holo-gradient),
-    var(--nbc-surface);
-  background-size: 400% 400%, auto;
-  animation: nbc-y2k-shimmer 10s ease-in-out infinite;
-}
-@keyframes nbc-y2k-shimmer {
-  0%, 100% { background-position: 0% 50%, center; }
-  50%      { background-position: 100% 50%, center; }
-}
-[data-theme="y2k"] .nbc-card__title {
-  font-family: var(--nbc-font-display);
-  font-size: 24px;
-  font-weight: 400;
-  letter-spacing: 0.01em;
-}
-[data-theme="y2k"] .nbc-card--elevated {
-  overflow: visible;
-}
-[data-theme="y2k"] .nbc-card--elevated::after {
-  content: "★";
-  position: absolute;
-  top: -14px;
-  right: -14px;
-  width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--nbc-primary);
-  background-size: 200% 200%;
-  color: #1a0a3e;
-  border: 2px solid #1a0a3e;
-  border-radius: 50%;
-  font-size: 18px;
-  animation: nbc-y2k-holo 6s ease-in-out infinite;
-  transform: rotate(12deg);
-  box-shadow: 2px 2px 0 #1a0a3e;
-  pointer-events: none;
+.nbc-card__header + .nbc-card__footer {
+  border-block-start: 0;
 }

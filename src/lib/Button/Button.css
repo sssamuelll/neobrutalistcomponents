@@ -1,63 +1,77 @@
-/* ============================================================
-   Button — base (theme-agnostic) + per-theme overrides
-   ============================================================ */
+/* Button — theme-agnostic. Reads tokens only; personality lives in themes/<t>/Button.css. */
 .nbc-button {
+  --_h: var(--nbc-control-h-md);
+  --_px: var(--nbc-space-lg);
+  --_fs: var(--nbc-fs-md);
+
   position: relative;
+  box-sizing: border-box;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  white-space: nowrap;
   gap: var(--nbc-space-sm);
+  min-block-size: var(--_h);
+  margin: 0;
+  padding-block: 0;
+  padding-inline: var(--_px);
+
   font-family: var(--nbc-font-sans);
+  font-size: var(--_fs);
   font-weight: var(--nbc-weight-label);
-  text-transform: var(--nbc-label-transform);
+  line-height: 1.1;
   letter-spacing: var(--nbc-label-spacing);
-  border-width: var(--nbc-border-width);
-  border-style: var(--nbc-border-style);
-  border-color: var(--nbc-border-color);
-  border-radius: var(--nbc-button-radius, var(--nbc-radius));
-  box-shadow: var(--nbc-shadow);
-  transform: rotate(var(--nbc-rotate));
-  cursor: pointer;
-  transition: transform 60ms ease-out, box-shadow 60ms ease-out, background 120ms ease;
-  line-height: 1.2;
-  user-select: none;
+  text-transform: var(--nbc-label-transform);
+  text-decoration: none;
+  white-space: nowrap;
+
   color: var(--nbc-fg);
-  background: var(--nbc-surface);
+  background: var(--nbc-surface-fill);
+  border: var(--nbc-border-width) var(--nbc-border-style) var(--nbc-border-color);
+  border-radius: var(--nbc-radius-button);
+  box-shadow: var(--nbc-shadow);
+  transform: translate(0, 0) rotate(var(--nbc-rotate));
+
+  transition-property: transform, box-shadow, background-color, color, border-color;
+  transition-duration: var(--nbc-duration);
+  transition-timing-function: var(--nbc-ease);
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.nbc-button:focus-visible {
-  outline: 3px solid var(--nbc-focus);
-  outline-offset: 2px;
+/* ---- Sizes (heights shared with every control) ---- */
+.nbc-button--sm {
+  --_h: var(--nbc-control-h-sm);
+  --_px: var(--nbc-space-md);
+  --_fs: var(--nbc-fs-sm);
+  gap: var(--nbc-space-xs);
+}
+.nbc-button--lg {
+  --_h: var(--nbc-control-h-lg);
+  --_px: var(--nbc-space-xl);
+  --_fs: var(--nbc-fs-lg);
+}
+.nbc-button--icon-only {
+  inline-size: var(--_h);
+  padding-inline: 0;
+}
+.nbc-button--full-width {
+  display: flex;
+  inline-size: 100%;
 }
 
-.nbc-button:hover:not(:disabled) {
-  transform: translate(3px, 3px) rotate(var(--nbc-rotate));
-  box-shadow: var(--nbc-button-shadow-hover);
-}
-
-.nbc-button:active:not(:disabled) {
-  transform: translate(5px, 5px) rotate(var(--nbc-rotate));
-  box-shadow: 0 0 0 0 transparent;
-}
-
-.nbc-button:disabled,
-.nbc-button--loading {
-  opacity: 0.45;
-  cursor: not-allowed;
-}
-
-/* Variants */
+/* ---- Variants ---- */
 .nbc-button--primary {
-  background: var(--nbc-primary);
+  background: var(--nbc-primary-fill);
   color: var(--nbc-primary-fg);
 }
 .nbc-button--secondary {
-  background: var(--nbc-surface);
+  background: var(--nbc-surface-fill);
   color: var(--nbc-fg);
 }
 .nbc-button--danger {
-  background: var(--nbc-danger);
+  background: var(--nbc-danger-fill);
   color: var(--nbc-danger-fg);
 }
 .nbc-button--ghost {
@@ -66,201 +80,67 @@
   box-shadow: none;
   color: var(--nbc-fg);
 }
-.nbc-button--ghost:hover:not(:disabled) {
-  background: var(--nbc-surface-alt);
+
+/* ---- Interaction: the slab presses into its own shadow ---- */
+@media (hover: hover) {
+  .nbc-button:hover:not(:disabled, [aria-disabled='true']) {
+    transform: translate(var(--nbc-press), var(--nbc-press)) rotate(var(--nbc-rotate));
+    box-shadow: var(--nbc-shadow-press);
+  }
+  .nbc-button--ghost:hover:not(:disabled, [aria-disabled='true']) {
+    transform: rotate(var(--nbc-rotate));
+    background: var(--nbc-surface-alt);
+    box-shadow: none;
+  }
+}
+.nbc-button:active:not(:disabled, [aria-disabled='true']) {
+  transform: translate(var(--nbc-press-active), var(--nbc-press-active)) rotate(var(--nbc-rotate));
   box-shadow: none;
+}
+.nbc-button--ghost:active:not(:disabled, [aria-disabled='true']) {
   transform: rotate(var(--nbc-rotate));
+  background: var(--nbc-surface-alt);
 }
 
-/* Sizes */
-.nbc-button--sm {
-  font-size: var(--nbc-fs-sm);
-  padding: var(--nbc-space-xs) var(--nbc-space-md);
-}
-.nbc-button--md {
-  font-size: var(--nbc-fs-md);
-  padding: var(--nbc-space-sm) var(--nbc-space-lg);
-}
-.nbc-button--lg {
-  font-size: var(--nbc-fs-lg);
-  padding: var(--nbc-space-md) var(--nbc-space-xl);
+.nbc-button:focus-visible {
+  outline: var(--nbc-focus-width) solid var(--nbc-focus);
+  outline-offset: var(--nbc-focus-offset);
 }
 
-/* Full width */
-.nbc-button--full-width {
-  width: 100%;
+.nbc-button:disabled,
+.nbc-button[aria-disabled='true'] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.nbc-button.nbc-button--loading {
+  cursor: progress;
+  opacity: 1;
 }
 
-/* Icon-only (utility class — consumer applies via className when button has no label) */
-.nbc-button--icon-only {
-  aspect-ratio: 1 / 1;
-  padding: var(--nbc-space-sm);
-}
-
-/* Spinner */
-.nbc-button__spinner {
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  border: 2px solid currentColor;
-  border-right-color: transparent;
-  border-radius: 50%;
-  animation: nbc-button-spin 0.7s linear infinite;
-}
-
-@keyframes nbc-button-spin {
-  to { transform: rotate(360deg); }
-}
-
-.nbc-button__icon,
-.nbc-button__label {
+/* ---- Parts ---- */
+.nbc-button__label,
+.nbc-button__icon {
   display: inline-flex;
   align-items: center;
 }
-
-/* ============================================================
-   Per-theme Button overrides
-   ============================================================ */
-
-/* --- CLASSIC: primary micro-tilts; spinner uses coral accent --- */
-[data-theme="classic"] .nbc-button--primary {
-  transform: rotate(-0.5deg);
+.nbc-button__icon > svg {
+  inline-size: 1.15em;
+  block-size: 1.15em;
+  flex: none;
 }
-[data-theme="classic"] .nbc-button--primary:hover:not(:disabled) {
-  transform: translate(3px, 3px) rotate(-0.5deg);
-}
-[data-theme="classic"] .nbc-button--primary:active:not(:disabled) {
-  transform: translate(5px, 5px) rotate(-0.5deg);
-}
-[data-theme="classic"] .nbc-button__spinner {
-  border-right-color: var(--nbc-primary-accent);
-  animation-duration: 0.9s;
-}
-
-/* --- TECH: flips to magenta on hover; scanning caret, not spinner --- */
-[data-theme="tech"] .nbc-button--primary {
-  background: var(--nbc-surface);
-  color: var(--nbc-primary);
-  border-color: var(--nbc-primary);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-}
-[data-theme="tech"] .nbc-button--primary::before {
-  content: "> ";
-  opacity: 0.7;
-}
-[data-theme="tech"] .nbc-button--primary:hover:not(:disabled) {
-  background: var(--nbc-primary);
-  color: var(--nbc-primary-fg);
-}
-[data-theme="tech"] .nbc-button--danger {
-  background: transparent;
-  color: var(--nbc-danger);
-  border-color: var(--nbc-danger);
-}
-[data-theme="tech"] .nbc-button--danger:hover:not(:disabled) {
-  background: var(--nbc-danger);
-  color: var(--nbc-danger-fg);
-}
-[data-theme="tech"] .nbc-button--secondary {
-  background: transparent;
-  color: var(--nbc-fg);
-  border-color: var(--nbc-fg-muted);
-}
-[data-theme="tech"] .nbc-button--secondary:hover:not(:disabled) {
-  border-color: var(--nbc-secondary);
-  color: var(--nbc-secondary);
-  box-shadow: 0 0 0 1px var(--nbc-secondary), 2px 2px 0 #ff4ecd66;
-}
-/* Tech loading: scanning caret, not a spinner */
-[data-theme="tech"] .nbc-button--loading {
-  opacity: 1;
-}
-[data-theme="tech"] .nbc-button--loading .nbc-button__spinner {
-  width: 0.6em;
-  height: 1.1em;
-  border: none;
-  background: currentColor;
-  border-radius: 0;
-  animation: nbc-tech-blink 0.9s steps(2) infinite;
-}
-@keyframes nbc-tech-blink {
-  50% { opacity: 0; }
-}
-
-/* --- SWISS: flat invert, no translate, inset focus ring --- */
-[data-theme="swiss"] .nbc-button {
-  transition: background 80ms linear, color 80ms linear;
-  font-variant-numeric: tabular-nums;
-  font-feature-settings: "tnum" 1, "ss01" 1;
-}
-[data-theme="swiss"] .nbc-button:hover:not(:disabled) {
-  transform: rotate(var(--nbc-rotate));
-  box-shadow: none;
-}
-[data-theme="swiss"] .nbc-button:active:not(:disabled) {
-  transform: rotate(var(--nbc-rotate));
-}
-[data-theme="swiss"] .nbc-button--primary:hover:not(:disabled) {
-  background: var(--nbc-primary-accent);
-  color: #fff;
-  border-color: var(--nbc-primary-accent);
-}
-[data-theme="swiss"] .nbc-button--secondary:hover:not(:disabled) {
-  background: var(--nbc-fg);
-  color: var(--nbc-bg);
-}
-[data-theme="swiss"] .nbc-button--ghost:hover:not(:disabled) {
-  background: transparent;
-  color: var(--nbc-primary-accent);
-}
-[data-theme="swiss"] .nbc-button:focus-visible {
-  outline: none;
-  box-shadow: inset 0 0 0 2px var(--nbc-focus);
-}
-[data-theme="swiss"] .nbc-button__spinner {
-  border: 1px solid currentColor;
-  border-right-color: transparent;
-  animation-duration: 1.2s;
-}
-
-/* --- Y2K: holo fill, pill shape, bevel highlight, dashed-ghost --- */
-[data-theme="y2k"] .nbc-button--primary {
-  background: var(--nbc-primary);
-  background-size: 200% 200%;
-  animation: nbc-y2k-holo 6s ease-in-out infinite;
-  position: relative;
-  overflow: hidden;
-}
-[data-theme="y2k"] .nbc-button--primary::after {
-  content: "";
-  position: absolute;
-  top: 2px;
-  left: 6px;
-  right: 6px;
-  height: 40%;
-  border-radius: 999px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.65), rgba(255,255,255,0));
-  pointer-events: none;
-}
-@keyframes nbc-y2k-holo {
-  0%, 100% { background-position: 0% 50%; }
-  50%      { background-position: 100% 50%; }
-}
-[data-theme="y2k"] .nbc-button--secondary {
-  background: var(--nbc-secondary);
-}
-[data-theme="y2k"] .nbc-button--ghost {
-  border: 2px dashed var(--nbc-border-color);
-  background: rgba(255,255,255,0.4);
-  box-shadow: none;
-  backdrop-filter: blur(6px);
-}
-[data-theme="y2k"] .nbc-button__spinner {
-  border: 2px solid transparent;
-  background: conic-gradient(from 0deg, #ff6ec7, #a78bfa, #7ee8fa, #ffd86b, #ff6ec7);
-  -webkit-mask: radial-gradient(circle, transparent 45%, #000 48%);
-          mask: radial-gradient(circle, transparent 45%, #000 48%);
+.nbc-button__spinner {
+  flex: none;
+  inline-size: 1em;
+  block-size: 1em;
+  box-sizing: border-box;
+  border: 2px solid currentColor;
+  border-inline-end-color: transparent;
   border-radius: 50%;
-  animation: nbc-button-spin 1s linear infinite;
+  animation: nbc-spin 700ms linear infinite;
+}
+
+@keyframes nbc-spin {
+  to {
+    transform: rotate(1turn);
+  }
 }

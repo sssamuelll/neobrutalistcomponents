@@ -1,0 +1,30 @@
+/* Swiss: nothing moves. Hover inverts — black to oxblood, white to black. */
+[data-theme="swiss"] .nbc-button {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (hover: hover) {
+  [data-theme="swiss"] .nbc-button--primary:hover:not(:disabled, [aria-disabled="true"]) {
+    background: var(--nbc-accent);
+    border-color: var(--nbc-accent);
+    color: var(--nbc-accent-fg);
+  }
+  [data-theme="swiss"] .nbc-button--secondary:hover:not(:disabled, [aria-disabled="true"]),
+  [data-theme="swiss"] .nbc-button--danger:hover:not(:disabled, [aria-disabled="true"]) {
+    background: var(--nbc-fg);
+    border-color: var(--nbc-fg);
+    color: var(--nbc-bg);
+  }
+  [data-theme="swiss"] .nbc-button--ghost:hover:not(:disabled, [aria-disabled="true"]) {
+    background: transparent;
+    color: var(--nbc-accent);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.3em;
+  }
+}
+
+[data-theme="swiss"] .nbc-button__spinner {
+  border-width: 1px;
+  animation-duration: 1200ms;
+}

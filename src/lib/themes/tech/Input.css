@@ -1,0 +1,12 @@
+/* Tech: focus inverts the field like a text selection. */
+[data-theme="tech"] .nbc-input:focus-within {
+  background: var(--nbc-primary);
+  color: var(--nbc-primary-fg);
+}
+[data-theme="tech"] .nbc-input:focus-within .nbc-input__icon,
+[data-theme="tech"] .nbc-input:focus-within .nbc-input__control::placeholder {
+  color: color-mix(in srgb, var(--nbc-primary-fg) 70%, transparent);
+}
+[data-theme="tech"] .nbc-input__control {
+  caret-color: var(--nbc-accent);
+}

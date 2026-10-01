@@ -1,0 +1,8 @@
+/* Classic: the primary slab sits a half-degree off — a deliberate, final gesture. */
+[data-theme="classic"] .nbc-button--primary {
+  --nbc-rotate: -0.5deg;
+}
+[data-theme="classic"] .nbc-button__spinner {
+  border-inline-end-color: var(--nbc-accent);
+  animation-duration: 900ms;
+}

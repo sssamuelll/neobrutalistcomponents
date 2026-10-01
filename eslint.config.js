@@ -32,6 +32,12 @@ export default defineConfig(
     },
   },
   {
+    // Library code: compound components (Card.Title…) are objects; Fast
+    // Refresh constraints only matter for the docs site.
+    files: ['src/lib/**/*.{ts,tsx}'],
+    rules: { 'react-refresh/only-export-components': 'off' },
+  },
+  {
     files: ['scripts/**/*.mjs', '*.config.{js,ts}'],
     extends: [js.configs.recommended],
     languageOptions: { globals: globals.node },

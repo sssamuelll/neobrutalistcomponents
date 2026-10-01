@@ -1,68 +1,80 @@
 import { describe, it, expect } from 'vitest';
+import { createRef } from 'react';
 import { render, screen } from '@testing-library/react';
 import { axe } from '../../test-utils';
 import { Card } from './Card';
 
 describe('Card', () => {
-  it('renders children inside the root', () => {
-    render(<Card>hello</Card>);
-    expect(screen.getByText('hello')).toBeInTheDocument();
-  });
-
-  it.each(['default', 'elevated', 'interactive'] as const)(
-    'applies variant class %s',
-    (variant) => {
-      const { container } = render(<Card variant={variant}>x</Card>);
-      expect(container.firstChild).toHaveClass(`nbc-card--${variant}`);
-    },
-  );
-
-  it('defaults to variant=default', () => {
+  it('renders a div with the default variant', () => {
     const { container } = render(<Card>x</Card>);
-    expect(container.firstChild).toHaveClass('nbc-card--default');
+    expect(container.firstElementChild?.tagName).toBe('DIV');
+    expect(container.firstElementChild).toHaveClass('nbc-card', 'nbc-card--default');
   });
 
-  it('composes sub-components with correct semantics', () => {
+  it.each(['default', 'elevated', 'interactive'] as const)('applies variant %s', (variant) => {
+    const { container } = render(<Card variant={variant}>x</Card>);
+    expect(container.firstElementChild).toHaveClass(`nbc-card--${variant}`);
+  });
+
+  it.each(['article', 'section', 'li'] as const)('renders as <%s>', (as) => {
+    const { container } = render(as === 'li' ? <ul><Card as="li">x</Card></ul> : <Card as={as}>x</Card>);
+    expect(container.querySelector('.nbc-card')?.tagName).toBe(as.toUpperCase());
+  });
+
+  it('composes header, title (h3 by default), description, content, footer', () => {
     render(
       <Card>
         <Card.Header>
-          <Card.Title>Title</Card.Title>
-          <Card.Description>Desc</Card.Description>
+          <Card.Title>Plan</Card.Title>
+          <Card.Description>Monthly</Card.Description>
         </Card.Header>
         <Card.Content>Body</Card.Content>
         <Card.Footer>Foot</Card.Footer>
       </Card>,
     );
-    const heading = screen.getByRole('heading', { level: 3 });
-    expect(heading).toHaveTextContent('Title');
-    expect(screen.getByText('Desc')).toBeInTheDocument();
-    expect(screen.getByText('Body')).toBeInTheDocument();
-    expect(screen.getByText('Foot')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3, name: 'Plan' })).toHaveClass('nbc-card__title');
+    expect(screen.getByText('Monthly')).toHaveClass('nbc-card__description');
+    expect(screen.getByText('Body')).toHaveClass('nbc-card__content');
+    expect(screen.getByText('Foot')).toHaveClass('nbc-card__footer');
   });
 
-  it('forwards arbitrary props to the root element', () => {
-    const { container } = render(<Card data-testid="c">x</Card>);
-    expect(container.firstChild).toHaveAttribute('data-testid', 'c');
+  it('title level is configurable', () => {
+    render(<Card.Title as="h2">Big</Card.Title>);
+    expect(screen.getByRole('heading', { level: 2, name: 'Big' })).toBeInTheDocument();
   });
 
-  it('merges consumer className with internal classes', () => {
-    const { container } = render(<Card className="mine">x</Card>);
-    expect(container.firstChild).toHaveClass('mine');
-    expect((container.firstChild as HTMLElement).className).toMatch(/nbc-card/);
-  });
-
-  it('has no a11y violations', async () => {
+  it('forwards ref, className and props', () => {
+    const ref = createRef<HTMLElement>();
     const { container } = render(
-      <Card>
-        <Card.Header>
-          <Card.Title>Heading</Card.Title>
-          <Card.Description>Subtitle</Card.Description>
-        </Card.Header>
-        <Card.Content>Body copy.</Card.Content>
-        <Card.Footer>Footer</Card.Footer>
+      <Card ref={ref} className="mine" data-testid="c" aria-label="Plan">
+        x
       </Card>,
     );
-    const results = await axe(container);
-    expect(results).toHaveNoViolations();
+    expect(ref.current).toBe(container.firstElementChild);
+    expect(container.firstElementChild).toHaveClass('mine', 'nbc-card');
+    expect(container.firstElementChild).toHaveAttribute('aria-label', 'Plan');
+  });
+
+  it('has no axe violations, including the interactive stretched-link pattern', async () => {
+    const { container } = render(
+      <div>
+        <Card>
+          <Card.Header>
+            <Card.Title>Heading</Card.Title>
+            <Card.Description>Subtitle</Card.Description>
+          </Card.Header>
+          <Card.Content>Body copy.</Card.Content>
+        </Card>
+        <Card variant="interactive" as="article">
+          <Card.Header>
+            <Card.Title>
+              <a href="/projects/acme">Acme relaunch</a>
+            </Card.Title>
+          </Card.Header>
+          <Card.Content>Due Friday.</Card.Content>
+        </Card>
+      </div>,
+    );
+    expect(await axe(container)).toHaveNoViolations();
   });
 });

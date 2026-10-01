@@ -1,0 +1,10 @@
+/* Riso: ink sits on grain — the texture prints through solid fills. */
+[data-theme="riso"] .nbc-button {
+  font-stretch: 88%;
+}
+[data-theme="riso"] .nbc-button--primary {
+  background: var(--nbc-texture), var(--nbc-primary-fill);
+}
+[data-theme="riso"] .nbc-button--danger {
+  background: var(--nbc-texture), var(--nbc-danger-fill);
+}

@@ -39,7 +39,6 @@ export function NeoProvider({ theme, mode, as = 'div', className, children, ...r
 }
 
 /** The nearest provider's `{ theme, mode }`, or `undefined` outside any provider. */
-// eslint-disable-next-line react-refresh/only-export-components
 export function useTheme(): NeoContextValue | undefined {
   return use(NeoContext);
 }

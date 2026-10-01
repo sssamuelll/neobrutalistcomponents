@@ -1,0 +1,12 @@
+/* Tech: titles are shell prompts; the header is a darker status bar. */
+[data-theme="tech"] .nbc-card__title::before {
+  content: '$ ' / '';
+  color: var(--nbc-accent);
+  font-weight: 400;
+}
+[data-theme="tech"] .nbc-card__header {
+  background: light-dark(#e9f1e3, #0e1310);
+}
+[data-theme="tech"] .nbc-card__title {
+  font-size: var(--nbc-fs-lg);
+}

@@ -1,82 +1,83 @@
-import { useId } from 'react';
-import type { InputHTMLAttributes, ReactNode } from 'react';
-import './Input.css';
+import type { ComponentProps, ReactNode } from 'react';
+import { cx, isPresent } from '../internal/cx';
+import { FieldShell } from '../internal/Field';
+import type { FieldSize } from '../internal/Field';
+import { useField } from '../internal/useField';
 
-export type InputVariant = 'default' | 'error';
-export type InputSize = 'sm' | 'md' | 'lg';
+export type InputSize = FieldSize;
 
-export interface InputProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
-  variant?: InputVariant;
+export interface InputProps extends Omit<ComponentProps<'input'>, 'size'> {
+  /** Height 32 / 40 / 48px — the same scale as Button. */
   size?: InputSize;
+  /** Visible label, associated with the input. */
   label?: ReactNode;
-  helperText?: ReactNode;
-  errorMessage?: ReactNode;
+  /** Help text under the input, linked with `aria-describedby`. */
+  description?: ReactNode;
+  /** Invalid state. A message replaces the description; `true` keeps it. */
+  error?: ReactNode | boolean;
+  /** Decorative icon at the start of the box (hidden from assistive tech). */
   leftIcon?: ReactNode;
+  /** Decorative icon at the end of the box (hidden from assistive tech). */
   rightIcon?: ReactNode;
 }
 
+/** Single-line text field with label, description and error built in. */
 export function Input({
-  variant = 'default',
   size = 'md',
   label,
-  helperText,
-  errorMessage,
+  description,
+  error,
   leftIcon,
   rightIcon,
-  id: idProp,
+  id,
   className,
+  disabled,
+  required,
+  'aria-describedby': describedBy,
   ...rest
 }: InputProps) {
-  const autoId = useId();
-  const id = idProp ?? `nbc-input-${autoId}`;
-  const isError = variant === 'error';
-
-  const descText: ReactNode = isError ? errorMessage : helperText;
-  const descId = descText != null && descText !== '' ? `${id}-desc` : undefined;
-
-  const wrapClasses = [
-    'nbc-input-wrap',
-    `nbc-input-wrap--${size}`,
-    className,
-  ]
-    .filter(Boolean)
-    .join(' ');
-
+  const field = useField(id, { description, error });
   return (
-    <div className={wrapClasses}>
-      {label != null && (
-        <label className="nbc-input__label" htmlFor={id}>
-          {label}
-        </label>
-      )}
-      <div className={`nbc-input__field nbc-input__field--${variant}`}>
-        {leftIcon && (
+    <FieldShell
+      id={field.id}
+      label={label}
+      required={required}
+      message={field.message}
+      messageId={field.messageId}
+      isError={field.isError}
+      invalid={field.invalid}
+      disabled={disabled}
+      size={size}
+      className={className}
+    >
+      <div
+        className={cx(
+          'nbc-input',
+          `nbc-input--${size}`,
+          field.invalid && 'nbc-input--invalid',
+          disabled && 'nbc-input--disabled',
+        )}
+      >
+        {isPresent(leftIcon) && (
           <span className="nbc-input__icon" aria-hidden="true">
             {leftIcon}
           </span>
         )}
         <input
-          id={id}
-          className="nbc-input"
-          aria-invalid={isError || undefined}
-          aria-describedby={descId}
           {...rest}
+          id={field.id}
+          className="nbc-input__control"
+          disabled={disabled}
+          required={required}
+          aria-invalid={field.invalid || undefined}
+          aria-describedby={cx(field.messageId, describedBy) || undefined}
         />
-        {rightIcon && (
+        {isPresent(rightIcon) && (
           <span className="nbc-input__icon" aria-hidden="true">
             {rightIcon}
           </span>
         )}
       </div>
-      {descText != null && descText !== '' && (
-        <span
-          id={descId}
-          className={`nbc-input__desc nbc-input__desc--${isError ? 'error' : 'helper'}`}
-        >
-          {descText}
-        </span>
-      )}
-    </div>
+    </FieldShell>
   );
 }
