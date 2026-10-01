@@ -13,3 +13,7 @@
 @import './RadioGroup/RadioGroup.css' layer(nbc.components);
 @import './Badge/Badge.css' layer(nbc.components);
 @import './Switch/Switch.css' layer(nbc.components);
+@import './Alert/Alert.css' layer(nbc.components);
+@import './Progress/Progress.css' layer(nbc.components);
+@import './Table/Table.css' layer(nbc.components);
+@import './Kbd/Kbd.css' layer(nbc.components);

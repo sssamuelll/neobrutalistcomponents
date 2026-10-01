@@ -8,3 +8,7 @@
 @import './RadioGroup.css' layer(nbc.flourish);
 @import './Badge.css' layer(nbc.flourish);
 @import './Switch.css' layer(nbc.flourish);
+@import './Alert.css' layer(nbc.flourish);
+@import './Progress.css' layer(nbc.flourish);
+@import './Table.css' layer(nbc.flourish);
+@import './Kbd.css' layer(nbc.flourish);

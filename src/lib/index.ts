@@ -34,3 +34,15 @@ export type { BadgeProps, BadgeVariant, BadgeSize } from './Badge';
 
 export { Switch } from './Switch';
 export type { SwitchProps, SwitchSize } from './Switch';
+
+export { Alert } from './Alert';
+export type { AlertProps, AlertVariant } from './Alert';
+
+export { Progress } from './Progress';
+export type { ProgressProps, ProgressSize, ProgressVariant } from './Progress';
+
+export { Table } from './Table';
+export type { TableProps, TableDensity, TableAlign, TableHeaderCellProps, TableCellProps } from './Table';
+
+export { Kbd } from './Kbd';
+export type { KbdProps, KbdSize } from './Kbd';
