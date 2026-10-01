@@ -114,6 +114,13 @@
     appearance: base-select;
   }
 
+  /* The base-select button lays its content out from the top; center it so
+     the value sits exactly where Input's text does. */
+  .nbc-select__control {
+    display: flex;
+    align-items: center;
+  }
+
   /* We draw our own chevron. */
   .nbc-select__control::picker-icon {
     display: none;
