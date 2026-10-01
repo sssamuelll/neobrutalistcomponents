@@ -10,3 +10,8 @@ export function cx(...parts: Array<string | false | null | undefined | 0>): stri
 export function toSafeId(value: string): string {
   return value.replace(/[^A-Za-z0-9_-]/g, '_');
 }
+
+/** True for anything React would visibly render as content. */
+export function isPresent(node: unknown): boolean {
+  return node != null && node !== false && node !== '';
+}

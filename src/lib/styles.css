@@ -3,6 +3,7 @@
 @layer nbc.tokens, nbc.theme, nbc.base, nbc.components, nbc.flourish;
 @import './tokens.css' layer(nbc.tokens);
 @import './base.css' layer(nbc.base);
+@import './internal/Field.css' layer(nbc.components);
 @import './Button/Button.css' layer(nbc.components);
 @import './Input/Input.css' layer(nbc.components);
 @import './Card/Card.css' layer(nbc.components);
