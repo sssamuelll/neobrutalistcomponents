@@ -1,0 +1,39 @@
+/* Tech: a status line, not a pill. Outlined in the status color, a solid
+   block as the indicator, text stays phosphor-neutral for contrast. */
+[data-theme="tech"] .nbc-badge {
+  --_status: var(--nbc-fg-muted);
+  background: transparent;
+  color: var(--nbc-fg);
+  border-color: var(--_status);
+}
+[data-theme="tech"] .nbc-badge--primary {
+  --_status: var(--nbc-primary);
+}
+[data-theme="tech"] .nbc-badge--accent {
+  --_status: var(--nbc-accent);
+}
+[data-theme="tech"] .nbc-badge--info {
+  --_status: var(--nbc-info);
+}
+[data-theme="tech"] .nbc-badge--success {
+  --_status: var(--nbc-success);
+}
+[data-theme="tech"] .nbc-badge--warning {
+  --_status: var(--nbc-warning);
+}
+[data-theme="tech"] .nbc-badge--danger {
+  --_status: var(--nbc-danger);
+}
+[data-theme="tech"] .nbc-badge::before {
+  content: '';
+  flex: none;
+  inline-size: 0.55em;
+  block-size: 0.55em;
+  background: var(--_status);
+}
+
+@media (forced-colors: active) {
+  [data-theme="tech"] .nbc-badge::before {
+    background: CanvasText;
+  }
+}

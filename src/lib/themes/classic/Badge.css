@@ -1,0 +1,9 @@
+/* Classic: a sticker slapped on the slab — it carries its own small stack,
+   and the "New" one went on slightly crooked. */
+[data-theme="classic"] .nbc-badge {
+  box-shadow: var(--nbc-shadow-press);
+  font-variation-settings: 'opsz' 14;
+}
+[data-theme="classic"] .nbc-badge--primary {
+  rotate: -1deg;
+}
