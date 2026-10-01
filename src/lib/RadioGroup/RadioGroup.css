@@ -1,0 +1,222 @@
+/* RadioGroup — a fieldset of native radios, each laid invisibly over a drawn dot.
+   Theme-agnostic: tokens only; personality lives in themes/<t>/RadioGroup.css.
+   Radios stay round in every theme so they are never mistaken for checkboxes. */
+.nbc-radio-group {
+  --_box: 22px;
+  --_fs: var(--nbc-fs-md);
+  --_fs-desc: var(--nbc-fs-sm);
+  --_ring: 0 0 0 0 transparent;
+
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: var(--nbc-font-sans);
+  font-size: var(--_fs);
+  color: var(--nbc-fg);
+}
+
+.nbc-radio-group--sm {
+  --_box: 18px;
+  --_fs: var(--nbc-fs-sm);
+  --_fs-desc: var(--nbc-fs-xs);
+}
+
+/* ---- Legend: the same voice as .nbc-field__label ---- */
+.nbc-radio-group__label {
+  inline-size: fit-content;
+  max-inline-size: 100%;
+  margin-block-end: var(--nbc-space-sm);
+  padding: 0;
+  font-size: var(--nbc-fs-sm);
+  font-weight: var(--nbc-weight-label);
+  line-height: 1.3;
+  text-transform: var(--nbc-label-transform);
+  letter-spacing: var(--nbc-label-spacing);
+  color: var(--nbc-fg);
+}
+.nbc-radio-group--sm .nbc-radio-group__label {
+  font-size: var(--nbc-fs-xs);
+}
+.nbc-radio-group:disabled .nbc-radio-group__label {
+  opacity: 0.6;
+}
+
+.nbc-radio-group__required {
+  margin-inline-start: 0.2em;
+  color: var(--nbc-danger);
+}
+
+/* ---- Options ---- */
+.nbc-radio-group__items {
+  display: flex;
+  align-items: flex-start;
+  min-inline-size: 0;
+}
+.nbc-radio-group--vertical .nbc-radio-group__items {
+  flex-direction: column;
+  gap: var(--nbc-space-sm);
+}
+.nbc-radio-group--horizontal .nbc-radio-group__items {
+  flex-flow: row wrap;
+  gap: var(--nbc-space-lg);
+}
+
+.nbc-radio {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--nbc-space-sm);
+  min-inline-size: 0;
+  max-inline-size: 100%;
+}
+
+/* ---- The drawn dot ---- */
+.nbc-radio__box {
+  position: relative;
+  box-sizing: border-box;
+  flex: none;
+  inline-size: var(--_box);
+  block-size: var(--_box);
+  background: var(--nbc-surface-fill);
+  border: var(--nbc-border-width) var(--nbc-border-style) var(--nbc-border-color);
+  border-radius: 50%;
+  box-shadow: var(--_ring), var(--nbc-shadow-press);
+  transition-property: transform, box-shadow, background-color, border-color;
+  transition-duration: var(--nbc-duration);
+  transition-timing-function: var(--nbc-ease);
+}
+
+/* The native control covers the whole box (border included): it is the hit
+   target, stays focusable and stays in the accessibility tree. */
+.nbc-radio__control {
+  position: absolute;
+  inset: calc(-1 * var(--nbc-border-width));
+  box-sizing: border-box;
+  inline-size: calc(100% + 2 * var(--nbc-border-width));
+  block-size: calc(100% + 2 * var(--nbc-border-width));
+  margin: 0;
+  border-radius: 50%;
+  opacity: 0;
+  cursor: pointer;
+}
+.nbc-radio__control:disabled {
+  cursor: not-allowed;
+}
+
+/* Centered in the padding box, hidden until checked. */
+.nbc-radio__dot {
+  position: absolute;
+  inset: 0;
+  inline-size: calc(var(--_box) * 0.45);
+  block-size: calc(var(--_box) * 0.45);
+  margin: auto;
+  border-radius: 50%;
+  background: var(--nbc-primary-fg);
+  opacity: 0;
+  scale: 0.4;
+  pointer-events: none;
+  transition-property: opacity, scale;
+  transition-duration: var(--nbc-duration);
+  transition-timing-function: var(--nbc-ease);
+}
+
+/* Checked: the primary fill with the matching -fg dot (the Checkbox language). */
+.nbc-radio__box:has(.nbc-radio__control:checked) {
+  background: var(--nbc-primary-fill);
+}
+.nbc-radio__control:checked ~ .nbc-radio__dot {
+  opacity: 1;
+  scale: 1;
+}
+
+/* ---- Interaction ---- */
+@media (hover: hover) {
+  .nbc-radio:not(.nbc-radio--disabled) .nbc-radio__box:has(.nbc-radio__control:not(:checked)):hover,
+  .nbc-radio:not(.nbc-radio--disabled):has(.nbc-radio__label:hover)
+    .nbc-radio__box:has(.nbc-radio__control:not(:checked)) {
+    background: var(--nbc-surface-alt);
+  }
+}
+
+/* A press nudges the dot into its own small shadow. */
+.nbc-radio:not(.nbc-radio--disabled) .nbc-radio__box:has(.nbc-radio__control:active) {
+  transform: translate(calc(var(--nbc-press) / 3), calc(var(--nbc-press) / 3));
+  box-shadow: var(--_ring);
+}
+
+.nbc-radio__box:has(.nbc-radio__control:focus-visible) {
+  outline: var(--nbc-focus-width) solid var(--nbc-focus);
+  outline-offset: var(--nbc-focus-offset);
+}
+
+/* ---- Text ---- */
+.nbc-radio__text {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--nbc-space-xs) / 2);
+  min-inline-size: 0;
+}
+
+/* line-height equals the dot so the first line is centered on it. */
+.nbc-radio__label {
+  inline-size: fit-content;
+  max-inline-size: 100%;
+  font-size: var(--_fs);
+  font-weight: var(--nbc-weight-body);
+  line-height: var(--_box);
+  color: var(--nbc-fg);
+  cursor: pointer;
+}
+
+.nbc-radio__description {
+  margin: 0;
+  font-size: var(--_fs-desc);
+  line-height: 1.4;
+  color: var(--nbc-fg-muted);
+}
+
+/* ---- Group message ---- */
+.nbc-radio-group__message {
+  margin: var(--nbc-space-sm) 0 0;
+  font-size: var(--nbc-fs-sm);
+  line-height: 1.4;
+  color: var(--nbc-fg-muted);
+}
+.nbc-radio-group--sm .nbc-radio-group__message {
+  font-size: var(--nbc-fs-xs);
+}
+.nbc-radio-group__message--error {
+  color: var(--nbc-danger);
+  font-weight: var(--nbc-weight-label);
+}
+
+/* ---- States ---- */
+/* Invalid: a danger edge plus a 1px outer ring, so it reads in shadowless themes too. */
+.nbc-radio-group--invalid {
+  --_ring: 0 0 0 1px var(--nbc-danger);
+}
+.nbc-radio-group--invalid .nbc-radio__box {
+  border-color: var(--nbc-danger);
+}
+
+.nbc-radio--disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.nbc-radio--disabled .nbc-radio__box {
+  box-shadow: var(--_ring);
+}
+.nbc-radio--disabled .nbc-radio__label {
+  cursor: not-allowed;
+}
+
+/* ---- Forced colors: state is drawn with backgrounds, so keep it visible ---- */
+@media (forced-colors: active) {
+  .nbc-radio__box:has(.nbc-radio__control:checked) {
+    background: Canvas;
+    border-color: Highlight;
+  }
+  .nbc-radio__dot {
+    background: Highlight;
+  }
+}
