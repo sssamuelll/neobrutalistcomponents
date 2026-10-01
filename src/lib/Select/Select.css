@@ -1,0 +1,205 @@
+/* Select — the same bordered box as Input, holding a native <select> and a
+   drawn chevron. Where `appearance: base-select` exists the open list is
+   themed as well; the native path above it stands on its own. */
+.nbc-select {
+  --_h: var(--nbc-control-h-md);
+  --_fs: var(--nbc-fs-md);
+  --_px: var(--nbc-space-md);
+
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  align-items: stretch;
+  min-block-size: var(--_h);
+  font-size: var(--_fs);
+  color: var(--nbc-fg);
+  background: var(--nbc-surface);
+  border: var(--nbc-border-width) var(--nbc-border-style) var(--nbc-border-color);
+  border-radius: var(--nbc-radius-control);
+  box-shadow: var(--nbc-shadow);
+  transition-property: box-shadow, border-color, background-color, color;
+  transition-duration: var(--nbc-duration);
+  transition-timing-function: var(--nbc-ease);
+  cursor: pointer;
+}
+
+.nbc-select--sm {
+  --_h: var(--nbc-control-h-sm);
+  --_fs: var(--nbc-fs-sm);
+  --_px: var(--nbc-space-sm);
+}
+.nbc-select--lg {
+  --_h: var(--nbc-control-h-lg);
+  --_fs: var(--nbc-fs-lg);
+  --_px: var(--nbc-space-lg);
+}
+
+.nbc-select:has(.nbc-select__control:focus-visible) {
+  outline: var(--nbc-focus-width) solid var(--nbc-focus);
+  outline-offset: var(--nbc-focus-offset);
+}
+
+/* Invalid: the edge thickens by 1px in the danger color, like Input. */
+.nbc-select--invalid {
+  border-color: var(--nbc-danger);
+  border-width: calc(var(--nbc-border-width) + 1px);
+}
+
+.nbc-select--disabled {
+  opacity: 0.55;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+/* The native control fills the box; the chevron's room is padding. */
+.nbc-select__control {
+  flex: 1;
+  min-inline-size: 0;
+  margin: 0;
+  padding-block: 0;
+  padding-inline: var(--_px) calc(var(--_px) + 1.1em + var(--nbc-space-sm));
+  appearance: none;
+  border: 0;
+  border-radius: 0;
+  outline: 0;
+  background: transparent;
+  font: inherit;
+  font-family: var(--nbc-font-sans);
+  line-height: 1.2;
+  color: inherit;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+.nbc-select__control:disabled {
+  cursor: not-allowed;
+}
+
+/* The native list opens in the platform's colors: give it the theme's, so
+   inherited light text never lands on a white popup in dark mode. */
+.nbc-select__control option,
+.nbc-select__control optgroup {
+  background-color: var(--nbc-bg);
+  color: var(--nbc-fg);
+}
+
+/* While the (empty-valued) placeholder is the selection, the value reads muted. */
+.nbc-select__control:has(option[value=""]:checked) {
+  color: var(--nbc-fg-muted);
+}
+
+.nbc-select__chevron {
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-end: var(--_px);
+  inline-size: 1.1em;
+  block-size: 1.1em;
+  translate: 0 -50%;
+  color: var(--nbc-fg-muted);
+  pointer-events: none;
+  transition-property: color, rotate;
+  transition-duration: var(--nbc-duration);
+  transition-timing-function: var(--nbc-ease);
+}
+
+@media (hover: hover) {
+  .nbc-select:hover:not(.nbc-select--disabled) .nbc-select__chevron {
+    color: var(--nbc-fg);
+  }
+}
+
+/* Progressive enhancement: a fully themed picker (Chromium 135+). Additive only. */
+@supports (appearance: base-select) {
+  .nbc-select__control,
+  .nbc-select__control::picker(select) {
+    appearance: base-select;
+  }
+
+  /* We draw our own chevron. */
+  .nbc-select__control::picker-icon {
+    display: none;
+  }
+
+  .nbc-select__control:open ~ .nbc-select__chevron {
+    rotate: 180deg;
+  }
+
+  .nbc-select__control::picker(select) {
+    box-sizing: border-box;
+    margin-block: 6px;
+    padding: var(--nbc-space-xs);
+    color: var(--nbc-fg);
+    background: var(--nbc-surface-fill);
+    border: var(--nbc-border-width) var(--nbc-border-style) var(--nbc-border-color);
+    border-radius: var(--nbc-radius-control);
+    box-shadow: var(--nbc-shadow-lg);
+    font-family: var(--nbc-font-sans);
+    font-size: var(--_fs);
+  }
+
+  .nbc-select__control optgroup {
+    background: transparent;
+    color: var(--nbc-fg-muted);
+    font-size: var(--nbc-fs-xs);
+    font-weight: var(--nbc-weight-label);
+    text-transform: var(--nbc-label-transform);
+    letter-spacing: var(--nbc-label-spacing);
+  }
+
+  .nbc-select__control option {
+    display: flex;
+    align-items: center;
+    gap: var(--nbc-space-sm);
+    box-sizing: border-box;
+    min-block-size: var(--nbc-control-h-sm);
+    padding: var(--nbc-space-xs) var(--nbc-space-md);
+    border-radius: calc(var(--nbc-radius-control) - var(--nbc-space-xs));
+    background: transparent;
+    color: var(--nbc-fg);
+    font-size: var(--_fs);
+    font-weight: var(--nbc-weight-label);
+    text-transform: var(--nbc-label-transform);
+    letter-spacing: var(--nbc-label-spacing);
+    cursor: pointer;
+  }
+
+  .nbc-select__control option:disabled {
+    color: var(--nbc-fg-muted);
+    cursor: not-allowed;
+  }
+
+  .nbc-select__control option:checked:not(:disabled) {
+    background: var(--nbc-primary-fill);
+    color: var(--nbc-primary-fg);
+  }
+
+  .nbc-select__control option:not(:checked, :disabled):focus-visible {
+    background: var(--nbc-surface-alt);
+  }
+  @media (hover: hover) {
+    .nbc-select__control option:not(:checked, :disabled):hover {
+      background: var(--nbc-surface-alt);
+    }
+  }
+
+  /* Keyboard position: an inset ring, visible on any fill. */
+  .nbc-select__control option:focus-visible {
+    outline: var(--nbc-focus-width) solid var(--nbc-focus);
+    outline-offset: calc(var(--nbc-focus-width) * -1);
+  }
+
+  /* The checkmark stays (selection is not color alone), moved to the end. */
+  .nbc-select__control option::checkmark {
+    order: 1;
+    margin-inline-start: auto;
+  }
+  .nbc-select__control option:disabled::checkmark {
+    display: none;
+  }
+
+  @media (forced-colors: active) {
+    .nbc-select__control option:checked:not(:disabled) {
+      background: Highlight;
+      color: HighlightText;
+    }
+  }
+}

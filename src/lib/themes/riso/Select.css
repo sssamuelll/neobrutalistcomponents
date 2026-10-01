@@ -1,0 +1,23 @@
+/* Riso: the field is printed on the same grainy stock. The chevron is a
+   misregistered two-ink print — navy with a pink copy knocked off-register.
+   The open list is a grainy sheet; the current value gets the pink swipe. */
+[data-theme="riso"] .nbc-select {
+  background: var(--nbc-texture), var(--nbc-surface);
+}
+[data-theme="riso"] .nbc-select__chevron {
+  stroke-width: 3;
+  color: var(--nbc-fg);
+  filter: drop-shadow(1.5px 1.5px 0 var(--nbc-primary));
+}
+
+@supports (appearance: base-select) {
+  [data-theme="riso"] .nbc-select__control::picker(select) {
+    background: var(--nbc-texture), var(--nbc-surface-fill);
+  }
+  [data-theme="riso"] .nbc-select__control option {
+    font-stretch: 88%;
+  }
+  [data-theme="riso"] .nbc-select__control option:checked:not(:disabled) {
+    background: var(--nbc-texture), var(--nbc-primary-fill);
+  }
+}
