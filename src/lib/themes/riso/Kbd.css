@@ -1,0 +1,7 @@
+/* Riso: grainy paper key with a pink bottom edge. */
+@scope ([data-theme="riso"]) to ([data-theme]:not([data-theme="riso"])) {
+  .nbc-kbd {
+    background: var(--nbc-texture), var(--nbc-surface);
+    box-shadow: 0 3px 0 #ff48b0;
+  }
+}

@@ -1,0 +1,24 @@
+.nbc-kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-inline-size: 24px;
+  min-block-size: 24px;
+  padding-inline: 6px;
+  font: 600 var(--nbc-fs-xs) / 1 var(--nbc-font-mono);
+  color: var(--nbc-fg);
+  background: var(--nbc-surface);
+  border: min(var(--nbc-border-width), 2px) var(--nbc-border-style) var(--nbc-border-color);
+  border-radius: var(--nbc-radius-small);
+  box-shadow: 0 2px 0 var(--nbc-border-color);
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.nbc-kbd--sm {
+  min-inline-size: 20px;
+  min-block-size: 20px;
+  padding-inline: 4px;
+  font-size: 11px;
+}
