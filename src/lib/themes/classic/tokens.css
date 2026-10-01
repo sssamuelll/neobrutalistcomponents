@@ -1,0 +1,73 @@
+/* ============================================================
+   CLASSIC — "This decision is final."
+   Brutalism comes from béton brut: the page is raw concrete,
+   surfaces are white slabs with 3px ink edges, and every slab
+   casts a double-stack shadow — ink core, cobalt offset.
+   Sun-yellow primary. Bricolage Grotesque everywhere, leaning
+   on its optical sizes (tight display, open text).
+   Dark: night concrete, chalk edges, the stack stays.
+   ============================================================ */
+[data-theme="classic"] {
+  --nbc-scheme: light;
+
+  --nbc-font-sans: 'Bricolage Grotesque', 'Inter', system-ui, sans-serif;
+  --nbc-font-display: 'Bricolage Grotesque', 'Inter', system-ui, sans-serif;
+  --nbc-font-mono: 'Geist Mono', ui-monospace, 'SFMono-Regular', monospace;
+  --nbc-weight-body: 400;
+  --nbc-weight-label: 700;
+  --nbc-weight-display: 800;
+  --nbc-label-transform: none;
+  --nbc-label-spacing: -0.01em;
+  --nbc-display-transform: none;
+  --nbc-display-spacing: -0.035em;
+
+  --nbc-bg: light-dark(#e7e6e1, #191817);
+  --nbc-fg: light-dark(#14110f, #f3f1ea);
+  --nbc-fg-muted: light-dark(#524d47, #b3ada3);
+  --nbc-surface: light-dark(#ffffff, #24221f);
+  --nbc-surface-alt: light-dark(#f3f1ea, #302d29);
+  --nbc-border-color: light-dark(#14110f, #f3f1ea);
+
+  --nbc-primary: #ffd23f;
+  --nbc-primary-fg: #14110f;
+  --nbc-accent: light-dark(#2b59ff, #7d9bff);
+  --nbc-accent-fg: light-dark(#ffffff, #14110f);
+
+  --nbc-info: light-dark(#2b59ff, #7d9bff);
+  --nbc-info-fg: light-dark(#ffffff, #14110f);
+  --nbc-success: light-dark(#17733f, #5fd68f);
+  --nbc-success-fg: light-dark(#ffffff, #14110f);
+  --nbc-warning: #ffb020;
+  --nbc-warning-fg: #14110f;
+  --nbc-danger: light-dark(#d1241c, #ff7a6b);
+  --nbc-danger-fg: light-dark(#ffffff, #14110f);
+  --nbc-focus: light-dark(#2b59ff, #7d9bff);
+
+  --nbc-primary-fill: var(--nbc-primary);
+  --nbc-danger-fill: var(--nbc-danger);
+  --nbc-surface-fill: var(--nbc-surface);
+  --nbc-texture: none;
+
+  --nbc-border-width: 3px;
+  --nbc-border-style: solid;
+  --nbc-radius: 0px;
+  --nbc-radius-control: 0px;
+  --nbc-radius-button: 0px;
+  --nbc-radius-small: 0px;
+
+  /* Double stack: the ink core sits 5px out, the cobalt edge 7px.
+     Pressing translates by --nbc-press and shrinks both layers by
+     the same amount, so the outer silhouette never moves. */
+  --nbc-shadow: 5px 5px 0 light-dark(#14110f, #000000), 7px 7px 0 var(--nbc-accent);
+  --nbc-shadow-lg: 8px 8px 0 light-dark(#14110f, #000000), 11px 11px 0 var(--nbc-accent);
+  --nbc-shadow-press: 2px 2px 0 light-dark(#14110f, #000000), 4px 4px 0 var(--nbc-accent);
+  --nbc-press: 3px;
+  --nbc-press-active: 5px;
+  --nbc-rotate: 0deg;
+  --nbc-focus-width: 3px;
+  --nbc-focus-offset: 3px;
+
+  --nbc-duration: 110ms;
+  --nbc-duration-slow: 220ms;
+  --nbc-ease: cubic-bezier(0.2, 0.9, 0.25, 1);
+}

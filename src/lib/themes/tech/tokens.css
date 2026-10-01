@@ -1,0 +1,71 @@
+/* ============================================================
+   TECH — terminal sophistication.
+   Dark (native): graphite with a green undertone, phosphor
+   lines, magenta as the anti-cliché second signal, a faint 24px
+   grid behind every surface, stepped motion like a redraw.
+   Light: green-bar paper — the continuous-form stock line
+   printers used; stripes become the alternate surface.
+   ============================================================ */
+[data-theme="tech"] {
+  --nbc-scheme: dark;
+
+  --nbc-font-sans: 'Geist Mono', 'JetBrains Mono', ui-monospace, monospace;
+  --nbc-font-display: 'Martian Mono', 'Geist Mono', ui-monospace, monospace;
+  --nbc-font-mono: 'Geist Mono', 'JetBrains Mono', ui-monospace, monospace;
+  --nbc-weight-body: 400;
+  --nbc-weight-label: 500;
+  --nbc-weight-display: 700;
+  --nbc-label-transform: uppercase;
+  --nbc-label-spacing: 0.1em;
+  --nbc-display-transform: none;
+  --nbc-display-spacing: -0.04em;
+
+  --nbc-bg: light-dark(#f2f6ee, #0b0e0c);
+  --nbc-fg: light-dark(#0d2416, #c9f7dc);
+  --nbc-fg-muted: light-dark(#46604f, #80a08d);
+  --nbc-surface: light-dark(#ffffff, #121613d9);
+  --nbc-surface-alt: light-dark(#e2eed9, #1a221c);
+  --nbc-border-color: light-dark(#0d2416, #3dff8c);
+
+  --nbc-primary: light-dark(#0a7a3d, #3dff8c);
+  --nbc-primary-fg: light-dark(#ffffff, #04110a);
+  --nbc-accent: light-dark(#b0168f, #ff4fd0);
+  --nbc-accent-fg: light-dark(#ffffff, #12040e);
+
+  --nbc-info: light-dark(#0b62a8, #5cc8ff);
+  --nbc-info-fg: light-dark(#ffffff, #04111a);
+  --nbc-success: light-dark(#0a7a3d, #3dff8c);
+  --nbc-success-fg: light-dark(#ffffff, #04110a);
+  --nbc-warning: light-dark(#ffb000, #ffcc33);
+  --nbc-warning-fg: #1a1200;
+  --nbc-danger: light-dark(#c4123a, #ff5c7a);
+  --nbc-danger-fg: light-dark(#ffffff, #12040a);
+  --nbc-focus: light-dark(#0a7a3d, #3dff8c);
+
+  --nbc-primary-fill: var(--nbc-primary);
+  --nbc-danger-fill: var(--nbc-danger);
+  --nbc-surface-fill: var(--nbc-surface);
+  --nbc-texture:
+    linear-gradient(to right, light-dark(#0d24160f, #3dff8c12) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(to bottom, light-dark(#0d24160f, #3dff8c12) 1px, transparent 1px) 0 0 / 24px 24px;
+
+  --nbc-border-width: 1px;
+  --nbc-border-style: solid;
+  --nbc-radius: 2px;
+  --nbc-radius-control: 2px;
+  --nbc-radius-button: 2px;
+  --nbc-radius-small: 2px;
+
+  --nbc-shadow: 3px 3px 0 light-dark(#0d241638, #3dff8c45);
+  --nbc-shadow-lg: 6px 6px 0 light-dark(#0d241638, #3dff8c45), 0 0 36px light-dark(#0a7a3d14, #3dff8c1f);
+  --nbc-shadow-press: 1px 1px 0 light-dark(#0d241638, #3dff8c45);
+  --nbc-press: 2px;
+  --nbc-press-active: 3px;
+  --nbc-rotate: 0deg;
+  --nbc-focus-width: 2px;
+  --nbc-focus-offset: 2px;
+
+  --nbc-duration: 90ms;
+  --nbc-duration-slow: 180ms;
+  --nbc-ease: steps(3, jump-end);
+}

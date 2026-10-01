@@ -1,0 +1,3 @@
+/* Theme entry: tokens (nbc.theme) + component flourishes (nbc.flourish). */
+@layer nbc.tokens, nbc.theme, nbc.base, nbc.components, nbc.flourish;
+@import './tokens.css' layer(nbc.theme);

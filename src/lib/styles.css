@@ -1,0 +1,8 @@
+/* neobrutalistcomponents — core stylesheet (tokens + base + components).
+   Pair it with one theme: neobrutalistcomponents/themes/<name>.css */
+@layer nbc.tokens, nbc.theme, nbc.base, nbc.components, nbc.flourish;
+@import './tokens.css' layer(nbc.tokens);
+@import './base.css' layer(nbc.base);
+@import './Button/Button.css' layer(nbc.components);
+@import './Input/Input.css' layer(nbc.components);
+@import './Card/Card.css' layer(nbc.components);

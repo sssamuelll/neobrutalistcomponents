@@ -1,0 +1,69 @@
+/* ============================================================
+   SWISS — precision, not plainness.
+   Pure white, pure black, one oxblood accent. Every edge is a
+   1px hairline; nothing casts a shadow. Focus and error are
+   drawn as 2px lines inside the hairline (negative outline
+   offset), so the grid never shifts. Tabular figures.
+   Dark: true black, white hairlines, oxblood brightened.
+   ============================================================ */
+[data-theme="swiss"] {
+  --nbc-scheme: light;
+
+  --nbc-font-sans: 'Inter Tight', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --nbc-font-display: 'Inter Tight', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --nbc-font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', monospace;
+  --nbc-weight-body: 400;
+  --nbc-weight-label: 500;
+  --nbc-weight-display: 600;
+  --nbc-label-transform: uppercase;
+  --nbc-label-spacing: 0.12em;
+  --nbc-display-transform: none;
+  --nbc-display-spacing: -0.03em;
+
+  --nbc-bg: light-dark(#ffffff, #000000);
+  --nbc-fg: light-dark(#000000, #ffffff);
+  --nbc-fg-muted: light-dark(#5c5c5c, #a3a3a3);
+  --nbc-surface: light-dark(#ffffff, #000000);
+  --nbc-surface-alt: light-dark(#f2f2f2, #161616);
+  --nbc-border-color: light-dark(#000000, #ffffff);
+
+  --nbc-primary: light-dark(#000000, #ffffff);
+  --nbc-primary-fg: light-dark(#ffffff, #000000);
+  --nbc-accent: light-dark(#a3131f, #ff4757);
+  --nbc-accent-fg: light-dark(#ffffff, #000000);
+
+  --nbc-info: light-dark(#1d3fbb, #7b9cff);
+  --nbc-info-fg: light-dark(#ffffff, #000000);
+  --nbc-success: light-dark(#14713b, #46c97a);
+  --nbc-success-fg: light-dark(#ffffff, #000000);
+  --nbc-warning: light-dark(#f2b705, #f2b705);
+  --nbc-warning-fg: #000000;
+  --nbc-danger: light-dark(#a3131f, #ff4757);
+  --nbc-danger-fg: light-dark(#ffffff, #000000);
+  --nbc-focus: light-dark(#a3131f, #ff4757);
+
+  --nbc-primary-fill: var(--nbc-primary);
+  --nbc-danger-fill: var(--nbc-danger);
+  --nbc-surface-fill: var(--nbc-surface);
+  --nbc-texture: none;
+
+  --nbc-border-width: 1px;
+  --nbc-border-style: solid;
+  --nbc-radius: 0px;
+  --nbc-radius-control: 0px;
+  --nbc-radius-button: 0px;
+  --nbc-radius-small: 0px;
+
+  --nbc-shadow: none;
+  --nbc-shadow-lg: none;
+  --nbc-shadow-press: none;
+  --nbc-press: 0px;
+  --nbc-press-active: 0px;
+  --nbc-rotate: 0deg;
+  --nbc-focus-width: 2px;
+  --nbc-focus-offset: -2px;
+
+  --nbc-duration: 80ms;
+  --nbc-duration-slow: 160ms;
+  --nbc-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+}

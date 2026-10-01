@@ -9,7 +9,7 @@ export default defineConfig({
   plugins: [react()],
   build: {
     lib: {
-      entry: fileURLToPath(new URL('./src/lib/index.ts', import.meta.url)),
+      entry: fileURLToPath(new URL('./src/lib/entry.ts', import.meta.url)),
       formats: ['es'],
       fileName: () => 'index.js',
       cssFileName: 'styles',
@@ -19,6 +19,10 @@ export default defineConfig({
     sourcemap: true,
     rollupOptions: {
       external: ['react', 'react-dom', 'react/jsx-runtime'],
+      // Every export is interactive (hooks, context, event handlers): mark the
+      // bundle as a client module so it can be imported from React Server
+      // Components (Next.js App Router) without a wrapper.
+      output: { banner: "'use client';" },
     },
   },
 });

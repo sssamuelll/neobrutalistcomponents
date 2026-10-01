@@ -8,6 +8,13 @@
     "rootDir": "src/lib",
     "types": []
   },
-  "include": ["src/lib"],
-  "exclude": ["src/lib/**/*.test.ts", "src/lib/**/*.test.tsx"]
+  "include": [
+    "src/lib"
+  ],
+  "exclude": [
+    "src/lib/**/*.test.ts",
+    "src/lib/**/*.test.tsx",
+    "src/lib/entry.ts",
+    "src/lib/themes/color.ts"
+  ]
 }

@@ -1,0 +1,65 @@
+/* ============================================================
+   neobrutalistcomponents — base (layer: nbc.base)
+   ============================================================
+   Sits after nbc.theme, so the rules here can override theme
+   tokens when the user's environment demands it (mode choice,
+   reduced motion).
+   ============================================================ */
+
+/* ---- Color scheme ---------------------------------------------
+   Each theme declares its native scheme through --nbc-scheme.
+   NeoProvider's `mode` prop (data-mode) overrides it. A nested
+   provider without `mode` falls back to its own theme's scheme,
+   not the outer provider's mode. */
+[data-theme] {
+  color-scheme: var(--nbc-scheme);
+}
+[data-theme][data-mode="light"] {
+  color-scheme: light;
+}
+[data-theme][data-mode="dark"] {
+  color-scheme: dark;
+}
+[data-theme][data-mode="system"] {
+  color-scheme: light dark;
+}
+
+/* ---- Root painting (NeoProvider adds .nbc-root) -------------- */
+.nbc-root {
+  background-color: var(--nbc-bg);
+  color: var(--nbc-fg);
+  font-family: var(--nbc-font-sans);
+  font-weight: var(--nbc-weight-body);
+  font-size: var(--nbc-fs-md);
+  line-height: 1.5;
+  accent-color: var(--nbc-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+.nbc-root ::selection {
+  background-color: var(--nbc-primary);
+  color: var(--nbc-primary-fg);
+}
+
+/* ---- Reduced motion -------------------------------------------
+   Kill press translations and transitions through the tokens,
+   then stop every infinite animation the themes add. */
+@media (prefers-reduced-motion: reduce) {
+  :root,
+  [data-theme] {
+    --nbc-press: 0px;
+    --nbc-press-active: 0px;
+    --nbc-duration: 0ms;
+    --nbc-duration-slow: 0ms;
+  }
+
+  [class*="nbc-"],
+  [class*="nbc-"]::before,
+  [class*="nbc-"]::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
