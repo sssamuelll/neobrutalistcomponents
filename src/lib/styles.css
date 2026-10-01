@@ -7,3 +7,9 @@
 @import './Button/Button.css' layer(nbc.components);
 @import './Input/Input.css' layer(nbc.components);
 @import './Card/Card.css' layer(nbc.components);
+@import './Textarea/Textarea.css' layer(nbc.components);
+@import './Checkbox/Checkbox.css' layer(nbc.components);
+@import './Select/Select.css' layer(nbc.components);
+@import './RadioGroup/RadioGroup.css' layer(nbc.components);
+@import './Badge/Badge.css' layer(nbc.components);
+@import './Switch/Switch.css' layer(nbc.components);
