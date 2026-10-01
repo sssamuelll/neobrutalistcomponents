@@ -1,0 +1,33 @@
+/* Riso: the track is printed on the same grain as the page, flooded with pink ink when on.
+   The thumb is the second print run: a navy outline with the blue plate landing a hair off. */
+[data-theme="riso"] .nbc-switch__track {
+  background: var(--nbc-texture), var(--nbc-surface-alt);
+}
+[data-theme="riso"] .nbc-switch__track:has(.nbc-switch__control:checked) {
+  background: var(--nbc-texture), var(--nbc-primary-fill);
+}
+[data-theme="riso"] .nbc-switch__thumb {
+  background: var(--nbc-texture), var(--nbc-surface);
+  box-shadow: 2px 2px 0 var(--nbc-accent);
+}
+
+@media (hover: hover) {
+  [data-theme="riso"] .nbc-switch:not(.nbc-switch--disabled) .nbc-switch__track:has(.nbc-switch__control:not(:checked)):hover {
+    background: var(--nbc-texture), color-mix(in srgb, var(--nbc-fg) 12%, var(--nbc-surface-alt));
+  }
+}
+
+@media (forced-colors: active) {
+  [data-theme="riso"] .nbc-switch__track {
+    background: Canvas;
+  }
+  [data-theme="riso"] .nbc-switch__track:has(.nbc-switch__control:checked) {
+    background: Highlight;
+  }
+  [data-theme="riso"] .nbc-switch__thumb {
+    background: ButtonText;
+  }
+  [data-theme="riso"] .nbc-switch__control:checked ~ .nbc-switch__thumb {
+    background: HighlightText;
+  }
+}

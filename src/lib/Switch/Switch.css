@@ -1,0 +1,168 @@
+/* Switch — a real <input type="checkbox" role="switch"> laid invisibly over a drawn track and thumb.
+   Theme-agnostic: tokens only; personality lives in themes/<t>/Switch.css.
+
+   Geometry: the track is --_w x --_h including its border. The thumb is positioned
+   against the track's padding box, so it sits --_gap from the inner edge on every side.
+   It slides with inset-inline-start, which follows the writing direction for free. */
+.nbc-switch {
+  --_w: 46px;
+  --_h: 26px;
+  --_gap: 2px;
+  --_fs: var(--nbc-fs-md);
+  --_fs-msg: var(--nbc-fs-sm);
+  --_thumb: calc(var(--_h) - 2 * var(--nbc-border-width) - 2 * var(--_gap));
+
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--nbc-space-md);
+  max-inline-size: 100%;
+  font-family: var(--nbc-font-sans);
+  font-size: var(--_fs);
+  color: var(--nbc-fg);
+}
+
+.nbc-switch--sm {
+  --_w: 36px;
+  --_h: 20px;
+  --_fs: var(--nbc-fs-sm);
+  --_fs-msg: var(--nbc-fs-xs);
+}
+
+/* ---- The drawn track ---- */
+.nbc-switch__track {
+  position: relative;
+  box-sizing: border-box;
+  flex: none;
+  inline-size: var(--_w);
+  block-size: var(--_h);
+  background: var(--nbc-surface-alt);
+  border: var(--nbc-border-width) var(--nbc-border-style) var(--nbc-border-color);
+  border-radius: var(--nbc-radius-button);
+  box-shadow: var(--nbc-shadow-press);
+  transition-property: transform, box-shadow, background-color, border-color;
+  transition-duration: var(--nbc-duration);
+  transition-timing-function: var(--nbc-ease);
+}
+
+.nbc-switch__track:has(.nbc-switch__control:checked) {
+  background: var(--nbc-primary-fill);
+}
+
+/* The native control covers the whole track (border included): it is the hit
+   target, stays focusable and stays in the accessibility tree. It sits above
+   the thumb so the thumb never swallows a click. */
+.nbc-switch__control {
+  position: absolute;
+  inset: calc(-1 * var(--nbc-border-width));
+  z-index: 1;
+  box-sizing: border-box;
+  inline-size: calc(100% + 2 * var(--nbc-border-width));
+  block-size: calc(100% + 2 * var(--nbc-border-width));
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.nbc-switch__control:disabled {
+  cursor: not-allowed;
+}
+
+/* ---- The thumb ---- */
+.nbc-switch__thumb {
+  position: absolute;
+  inset-block-start: var(--_gap);
+  inset-inline-start: var(--_gap);
+  box-sizing: border-box;
+  inline-size: var(--_thumb);
+  block-size: var(--_thumb);
+  background: var(--nbc-surface);
+  border: var(--nbc-border-width) var(--nbc-border-style) var(--nbc-border-color);
+  border-radius: var(--nbc-radius-button);
+  pointer-events: none;
+  transition-property: inset-inline-start, background-color, border-color, box-shadow;
+  transition-duration: var(--nbc-duration-slow);
+  transition-timing-function: var(--nbc-ease);
+}
+
+/* Checked: the thumb rests against the end of the track. */
+.nbc-switch__control:checked ~ .nbc-switch__thumb {
+  inset-inline-start: calc(100% - var(--_gap) - var(--_thumb));
+}
+
+/* ---- Interaction ---- */
+@media (hover: hover) {
+  .nbc-switch:not(.nbc-switch--disabled) .nbc-switch__track:has(.nbc-switch__control:not(:checked)):hover {
+    background: color-mix(in srgb, var(--nbc-fg) 12%, var(--nbc-surface-alt));
+  }
+  .nbc-switch:not(.nbc-switch--disabled) .nbc-switch__track:has(.nbc-switch__control:checked):hover {
+    filter: brightness(0.95);
+  }
+}
+
+/* A press nudges the track into its own small shadow, like Checkbox. */
+.nbc-switch:not(.nbc-switch--disabled) .nbc-switch__track:has(.nbc-switch__control:active) {
+  transform: translate(calc(var(--nbc-press) / 3), calc(var(--nbc-press) / 3));
+  box-shadow: 0 0 0 0 transparent;
+}
+
+.nbc-switch__track:has(.nbc-switch__control:focus-visible) {
+  outline: var(--nbc-focus-width) solid var(--nbc-focus);
+  outline-offset: var(--nbc-focus-offset);
+}
+
+/* ---- Text ---- */
+.nbc-switch__text {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--nbc-space-xs) / 2);
+  min-inline-size: 0;
+}
+
+/* line-height equals the track so the first line is centered on it. */
+.nbc-switch__label {
+  inline-size: fit-content;
+  max-inline-size: 100%;
+  font-size: var(--_fs);
+  font-weight: var(--nbc-weight-body);
+  line-height: var(--_h);
+  color: var(--nbc-fg);
+  cursor: pointer;
+}
+
+.nbc-switch__description {
+  margin: 0;
+  font-size: var(--_fs-msg);
+  line-height: 1.4;
+  color: var(--nbc-fg-muted);
+}
+
+/* ---- States ---- */
+.nbc-switch--disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.nbc-switch--disabled .nbc-switch__track {
+  box-shadow: 0 0 0 0 transparent;
+}
+.nbc-switch--disabled .nbc-switch__label {
+  cursor: not-allowed;
+}
+
+/* ---- Forced colors: state is drawn with backgrounds, so keep it visible ---- */
+@media (forced-colors: active) {
+  .nbc-switch__track {
+    background: Canvas;
+    border-color: ButtonText;
+  }
+  .nbc-switch__thumb {
+    background: ButtonText;
+    border-color: ButtonText;
+  }
+  .nbc-switch__track:has(.nbc-switch__control:checked) {
+    background: Highlight;
+    border-color: Highlight;
+  }
+  .nbc-switch__control:checked ~ .nbc-switch__thumb {
+    background: HighlightText;
+    border-color: HighlightText;
+  }
+}
