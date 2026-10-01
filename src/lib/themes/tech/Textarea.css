@@ -1,0 +1,21 @@
+/* Tech: a focused textarea gets a phosphor cursor gutter and a faint green wash
+   (a full inversion would be too heavy under a paragraph of text); selecting text
+   inverts it like a terminal selection. */
+[data-theme="tech"] .nbc-textarea {
+  caret-color: var(--nbc-accent);
+  caret-shape: block;
+}
+[data-theme="tech"] .nbc-textarea:focus {
+  background:
+    linear-gradient(var(--nbc-primary), var(--nbc-primary)) 0 0 / 3px 100% no-repeat,
+    color-mix(in srgb, var(--nbc-primary) 14%, var(--nbc-surface));
+}
+[data-theme="tech"] .nbc-textarea--invalid:focus {
+  background:
+    linear-gradient(var(--nbc-danger), var(--nbc-danger)) 0 0 / 3px 100% no-repeat,
+    color-mix(in srgb, var(--nbc-danger) 12%, var(--nbc-surface));
+}
+[data-theme="tech"] .nbc-textarea::selection {
+  background: var(--nbc-primary);
+  color: var(--nbc-primary-fg);
+}
