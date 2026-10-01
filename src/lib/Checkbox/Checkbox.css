@@ -1,0 +1,173 @@
+/* Checkbox — a real <input type="checkbox"> laid invisibly over a drawn box.
+   Theme-agnostic: tokens only; personality lives in themes/<t>/Checkbox.css. */
+.nbc-checkbox {
+  --_box: 22px;
+  --_fs: var(--nbc-fs-md);
+  --_fs-msg: var(--nbc-fs-sm);
+  --_ring: 0 0 0 0 transparent;
+
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--nbc-space-sm);
+  max-inline-size: 100%;
+  font-family: var(--nbc-font-sans);
+  font-size: var(--_fs);
+  color: var(--nbc-fg);
+}
+
+.nbc-checkbox--sm {
+  --_box: 18px;
+  --_fs: var(--nbc-fs-sm);
+  --_fs-msg: var(--nbc-fs-xs);
+}
+
+/* ---- The drawn box ---- */
+.nbc-checkbox__box {
+  position: relative;
+  box-sizing: border-box;
+  flex: none;
+  inline-size: var(--_box);
+  block-size: var(--_box);
+  color: var(--nbc-primary-fg);
+  background: var(--nbc-surface-fill);
+  border: var(--nbc-border-width) var(--nbc-border-style) var(--nbc-border-color);
+  border-radius: var(--nbc-radius-small);
+  box-shadow: var(--_ring), var(--nbc-shadow-press);
+  transition-property: transform, box-shadow, background-color, border-color;
+  transition-duration: var(--nbc-duration);
+  transition-timing-function: var(--nbc-ease);
+}
+
+/* The native control covers the whole box (border included): it is the hit
+   target, stays focusable and stays in the accessibility tree. */
+.nbc-checkbox__control {
+  position: absolute;
+  inset: calc(-1 * var(--nbc-border-width));
+  box-sizing: border-box;
+  inline-size: calc(100% + 2 * var(--nbc-border-width));
+  block-size: calc(100% + 2 * var(--nbc-border-width));
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.nbc-checkbox__control:disabled {
+  cursor: not-allowed;
+}
+
+/* ---- Glyphs: hidden until checked / indeterminate ---- */
+.nbc-checkbox__check,
+.nbc-checkbox__dash {
+  position: absolute;
+  inset: -1px;
+  inline-size: calc(100% + 2px);
+  block-size: calc(100% + 2px);
+  stroke-width: 3.5;
+  opacity: 0;
+  scale: 0.6;
+  pointer-events: none;
+  transition-property: opacity, scale;
+  transition-duration: var(--nbc-duration);
+  transition-timing-function: var(--nbc-ease);
+}
+
+.nbc-checkbox__box:has(.nbc-checkbox__control:checked, .nbc-checkbox__control:indeterminate) {
+  background: var(--nbc-primary-fill);
+}
+.nbc-checkbox__control:checked ~ .nbc-checkbox__check {
+  opacity: 1;
+  scale: 1;
+}
+/* Mixed wins over checked: show the dash, not the tick. */
+.nbc-checkbox__control:indeterminate ~ .nbc-checkbox__check {
+  opacity: 0;
+  scale: 0.6;
+}
+.nbc-checkbox__control:indeterminate ~ .nbc-checkbox__dash {
+  opacity: 1;
+  scale: 1;
+}
+
+/* ---- Interaction ---- */
+@media (hover: hover) {
+  .nbc-checkbox:not(.nbc-checkbox--disabled) .nbc-checkbox__box:has(.nbc-checkbox__control:not(:checked, :indeterminate)):hover {
+    background: var(--nbc-surface-alt);
+  }
+}
+
+/* A press nudges the box into its own small shadow. */
+.nbc-checkbox:not(.nbc-checkbox--disabled) .nbc-checkbox__box:has(.nbc-checkbox__control:active) {
+  transform: translate(calc(var(--nbc-press) / 3), calc(var(--nbc-press) / 3));
+  box-shadow: var(--_ring);
+}
+
+.nbc-checkbox__box:has(.nbc-checkbox__control:focus-visible) {
+  outline: var(--nbc-focus-width) solid var(--nbc-focus);
+  outline-offset: var(--nbc-focus-offset);
+}
+
+/* ---- Text ---- */
+.nbc-checkbox__text {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--nbc-space-xs) / 2);
+  min-inline-size: 0;
+}
+
+/* line-height equals the box so the first line is centered on it. */
+.nbc-checkbox__label {
+  inline-size: fit-content;
+  max-inline-size: 100%;
+  font-size: var(--_fs);
+  font-weight: var(--nbc-weight-body);
+  line-height: var(--_box);
+  color: var(--nbc-fg);
+  cursor: pointer;
+}
+
+.nbc-checkbox__required {
+  margin-inline-start: 0.2em;
+  color: var(--nbc-danger);
+}
+
+.nbc-checkbox__message {
+  margin: 0;
+  font-size: var(--_fs-msg);
+  line-height: 1.4;
+  color: var(--nbc-fg-muted);
+}
+.nbc-checkbox__message--error {
+  color: var(--nbc-danger);
+  font-weight: var(--nbc-weight-label);
+}
+
+/* ---- States ---- */
+/* Invalid: a danger edge plus a 1px outer ring, so it reads in shadowless themes too. */
+.nbc-checkbox--invalid {
+  --_ring: 0 0 0 1px var(--nbc-danger);
+}
+.nbc-checkbox--invalid .nbc-checkbox__box {
+  border-color: var(--nbc-danger);
+}
+
+.nbc-checkbox--disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.nbc-checkbox--disabled .nbc-checkbox__box {
+  box-shadow: var(--_ring);
+}
+.nbc-checkbox--disabled .nbc-checkbox__label {
+  cursor: not-allowed;
+}
+
+/* ---- Forced colors: state is drawn with backgrounds, so keep it visible ---- */
+@media (forced-colors: active) {
+  .nbc-checkbox__box:has(.nbc-checkbox__control:checked, .nbc-checkbox__control:indeterminate) {
+    background: Highlight;
+    border-color: Highlight;
+  }
+  .nbc-checkbox__check,
+  .nbc-checkbox__dash {
+    color: HighlightText;
+  }
+}

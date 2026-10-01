@@ -1,0 +1,34 @@
+/* Swiss: a hairline square that fills with the one oxblood accent. Nothing moves. */
+[data-theme="swiss"] .nbc-checkbox__box:has(.nbc-checkbox__control:checked, .nbc-checkbox__control:indeterminate) {
+  color: var(--nbc-accent-fg);
+  background: var(--nbc-accent);
+  border-color: var(--nbc-accent);
+}
+[data-theme="swiss"] .nbc-checkbox__check,
+[data-theme="swiss"] .nbc-checkbox__dash {
+  stroke-width: 3;
+  scale: 1;
+  transition-property: opacity;
+}
+
+@media (hover: hover) {
+  [data-theme="swiss"] .nbc-checkbox:not(.nbc-checkbox--disabled) .nbc-checkbox__box:has(.nbc-checkbox__control:not(:checked, :indeterminate)):hover {
+    background: color-mix(in srgb, var(--nbc-accent) 14%, var(--nbc-surface));
+    border-color: var(--nbc-accent);
+  }
+}
+
+[data-theme="swiss"] .nbc-checkbox--invalid .nbc-checkbox__box {
+  border-color: var(--nbc-danger);
+}
+
+[data-theme="swiss"] .nbc-checkbox__message {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (forced-colors: active) {
+  [data-theme="swiss"] .nbc-checkbox__box:has(.nbc-checkbox__control:checked, .nbc-checkbox__control:indeterminate) {
+    background: Highlight;
+    border-color: Highlight;
+  }
+}
