@@ -31,7 +31,7 @@ export const THEME_INFO: Record<NeoBuiltinTheme, NeoThemeInfo> = {
     name: 'Classic',
     tagline: 'This decision is final.',
     nativeScheme: 'light',
-    fonts: ['Bricolage Grotesque', 'Geist', 'Geist Mono'],
+    fonts: ['Bricolage Grotesque', 'Geist Mono'],
     swatch: ['#ffd23f', '#ff6b4a', '#14110f', '#f4efe6'],
   },
   tech: {
@@ -39,7 +39,7 @@ export const THEME_INFO: Record<NeoBuiltinTheme, NeoThemeInfo> = {
     name: 'Tech',
     tagline: 'Terminal sophistication.',
     nativeScheme: 'dark',
-    fonts: ['Geist Mono', 'JetBrains Mono'],
+    fonts: ['Martian Mono', 'Geist Mono'],
     swatch: ['#3dff8c', '#ff4fd0', '#0b0e0c', '#c9f7dc'],
   },
   swiss: {
@@ -55,7 +55,7 @@ export const THEME_INFO: Record<NeoBuiltinTheme, NeoThemeInfo> = {
     name: 'Y2K',
     tagline: 'Holographic trading-card energy.',
     nativeScheme: 'light',
-    fonts: ['Sixtyfour', 'VT323'],
+    fonts: ['Sixtyfour', 'M PLUS Rounded 1c', 'VT323'],
     swatch: ['#ff6ec7', '#a78bfa', '#7ee8fa', '#ffd86b'],
   },
   riso: {
