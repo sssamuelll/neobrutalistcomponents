@@ -120,7 +120,7 @@ function DialogTitle({ className, id, ...rest }: ComponentProps<'h2'>) {
     setHasTitle?.(true);
     return () => setHasTitle?.(false);
   }, [setHasTitle]);
-  return <h2 {...rest} id={id ?? context?.titleId} className={cx('nbc-dialog__title', className)} />;
+  return <h2 {...rest} id={context?.titleId ?? id} className={cx('nbc-dialog__title', className)} />;
 }
 
 function DialogDescription({ className, id, ...rest }: ComponentProps<'p'>) {
@@ -130,7 +130,7 @@ function DialogDescription({ className, id, ...rest }: ComponentProps<'p'>) {
     setHasDescription?.(true);
     return () => setHasDescription?.(false);
   }, [setHasDescription]);
-  return <p {...rest} id={id ?? context?.descriptionId} className={cx('nbc-dialog__description', className)} />;
+  return <p {...rest} id={context?.descriptionId ?? id} className={cx('nbc-dialog__description', className)} />;
 }
 
 function DialogContent({ className, ...rest }: ComponentProps<'div'>) {
