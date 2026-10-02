@@ -1,0 +1,15 @@
+/* Classic: chunky slab tabs; the active one is yellow and lifts on the double-stack shadow. */
+@scope ([data-theme="classic"]) to ([data-theme]:not([data-theme="classic"])) {
+  .nbc-tabs__tab {
+    font-weight: 800;
+  }
+  .nbc-tabs__tab--active {
+    background: var(--nbc-primary-fill);
+    color: var(--nbc-primary-fg);
+    border-block-end-color: var(--nbc-border-color);
+    box-shadow: var(--nbc-shadow);
+    transform: translateY(-2px);
+    position: relative;
+    z-index: 1;
+  }
+}

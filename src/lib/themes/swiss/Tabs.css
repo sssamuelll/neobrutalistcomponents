@@ -1,0 +1,13 @@
+/* Swiss: no folders, just text with a hairline rule and a 2px oxblood underline. */
+@scope ([data-theme="swiss"]) to ([data-theme]:not([data-theme="swiss"])) {
+  .nbc-tabs__tab {
+    font-variant-numeric: tabular-nums;
+    border-color: transparent;
+    background: transparent;
+  }
+  .nbc-tabs__tab--active {
+    background: transparent;
+    border-color: transparent;
+    box-shadow: inset 0 -2px 0 var(--nbc-accent);
+  }
+}
