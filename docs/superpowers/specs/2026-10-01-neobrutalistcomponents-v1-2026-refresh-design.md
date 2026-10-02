@@ -231,3 +231,16 @@ Pixel-baseline visual regression stays out (font rendering differs macOS ↔ Lin
 
 ## 6. Out of scope for this pass
 Publishing to npm, merging to `main` (would redeploy Pages), closing GitHub issues, Toast/Menu/Combobox, icon package, pixel baselines.
+
+---
+
+## 7. Implementation notes (decisions taken while building)
+
+- **Donut `@scope` for flourishes.** `[data-theme="x"] .nbc-…` matched any descendant, so a theme's flourishes leaked into nested islands of another theme (caught on the Themes page). Every `themes/<t>/<Component>.css` is wrapped in `@scope ([data-theme="t"]) to ([data-theme]:not([data-theme="t"]))` with plain selectors (inside `@scope` selectors are relative to the root, so the prefix must go); keyframes stay top-level. Enforced by `styles.test.ts`; `scripts/scope-flourishes.mjs` converts legacy files.
+- **Layer statement only in entry files** (`styles.css`, `themes/<t>/index.css`); partials get their layer from `@import … layer()`.
+- **Five layers**, not four: `nbc.tokens < nbc.theme < nbc.base < nbc.components < nbc.flourish`, so reduced-motion and `mode` rules in `nbc.base` beat theme tokens.
+- **Defaults declared on `:root, [data-theme]`** so derived tokens (`--nbc-primary-fill: var(--nbc-primary)`) re-resolve inside each island.
+- **`--nbc-display-stretch`** added as an optional token (riso's condensed display).
+- **Dialog is controlled-only** (`open` + `onOpenChange` required).
+- **jsdom pinned to 29** (30 needs Node ≥ 22.22.2); **TypeScript 6.0** (typescript-eslint peers < 6.1).
+- **Metadata collected with `import.meta.glob`** so adding a component never edits a shared index.
