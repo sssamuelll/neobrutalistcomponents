@@ -18,7 +18,9 @@ body {
   min-block-size: 100dvh;
 }
 
-.site :where(a) {
+.site :where(a:not([class*='nbc-'])) {
+  /* Unlayered site CSS beats the library's layers by design — so leave
+     component-styled links (Button asChild) alone. */
   color: inherit;
   text-underline-offset: 0.18em;
   text-decoration-thickness: 0.08em;
@@ -937,4 +939,23 @@ body {
   .home-shape__row {
     grid-template-columns: minmax(0, 1fr);
   }
+}
+
+/* Sixtyfour is a very wide face: scale display headings down in y2k. */
+[data-theme='y2k'] .home-title {
+  font-size: clamp(34px, 5.2vw, 72px);
+  line-height: 1.05;
+}
+[data-theme='y2k'] .site-h1,
+[data-theme='y2k'] .site-band__title {
+  font-size: clamp(30px, 4.6vw, 60px);
+  line-height: 1.1;
+}
+[data-theme='y2k'] .site-h2 {
+  font-size: clamp(20px, 2.4vw, 26px);
+  line-height: 1.25;
+}
+[data-theme='y2k'] .site-index__name,
+[data-theme='y2k'] .home-theme__name {
+  font-size: var(--nbc-fs-lg);
 }
