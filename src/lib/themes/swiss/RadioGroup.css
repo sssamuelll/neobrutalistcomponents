@@ -1,6 +1,12 @@
 /* Swiss: a hairline circle holding one solid oxblood dot. Nothing moves. */
 
 @scope ([data-theme="swiss"]) to ([data-theme]:not([data-theme="swiss"])) {
+  /* The focus line and the checked fill are both oxblood: draw focus outside
+     the box so it never vanishes into the fill. */
+  .nbc-radio__box:has(.nbc-radio__control:focus-visible) {
+    outline-offset: 2px;
+  }
+
   .nbc-radio__box:has(.nbc-radio__control:checked) {
     background: var(--nbc-surface-fill);
   }
