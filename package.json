@@ -51,7 +51,7 @@
   },
   "scripts": {
     "dev": "vite --config vite.site.config.ts",
-    "build:lib": "vite build && tsc -p tsconfig.lib.json && node scripts/build-themes.mjs",
+    "build:lib": "vite build && tsc -p tsconfig.lib.json && node scripts/build-themes.mjs && node scripts/gen-llms.mjs --dist",
     "build:site": "vite build --config vite.site.config.ts",
     "build": "npm run build:lib && npm run build:site",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
@@ -61,14 +61,19 @@
     "check:package": "node scripts/check-package.mjs && publint",
     "check": "npm run lint && npm run typecheck && npm run test && npm run build && npm run check:package",
     "preview": "vite preview --config vite.site.config.ts",
-    "prepublishOnly": "npm run build:lib && npm run check:package"
+    "prepublishOnly": "npm run build:lib && npm run check:package",
+    "gen:llms": "node scripts/gen-llms.mjs",
+    "screenshots": "node scripts/screenshots.mjs",
+    "e2e": "playwright test"
   },
   "peerDependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
     "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.63.0",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",

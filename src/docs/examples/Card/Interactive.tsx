@@ -1,8 +1,8 @@
-import { Card } from 'neobrutalistcomponents';
+import { Badge, Card } from 'neobrutalistcomponents';
 
 const projects = [
-  { slug: 'acme-relaunch', name: 'Acme relaunch', due: 'Due Friday', owner: 'Ada' },
-  { slug: 'atlas-api', name: 'Atlas API v2', due: 'Due in 3 weeks', owner: 'Grace' },
+  { slug: 'acme-relaunch', name: 'Acme relaunch', due: 'Due Friday', status: 'On track' },
+  { slug: 'atlas-api', name: 'Atlas API v2', due: 'Due in 3 weeks', status: 'At risk' },
 ];
 
 export default function Interactive() {
@@ -16,7 +16,9 @@ export default function Interactive() {
             </Card.Title>
             <Card.Description>{p.due}</Card.Description>
           </Card.Header>
-          <Card.Content>Owned by {p.owner}</Card.Content>
+          <Card.Content>
+            <Badge variant={p.status === 'At risk' ? 'warning' : 'success'}>{p.status}</Badge>
+          </Card.Content>
         </Card>
       ))}
     </ul>

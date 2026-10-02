@@ -28,7 +28,8 @@
 }
 
 .nbc-field__message {
-  margin: 0;
+  /* clear the control's offset shadow */
+  margin: var(--nbc-space-xs) 0 0;
   font-size: var(--nbc-fs-sm);
   line-height: 1.4;
   color: var(--nbc-fg-muted);

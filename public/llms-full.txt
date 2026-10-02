@@ -1,0 +1,2536 @@
+# neobrutalistcomponents v1.0.0 — full reference
+
+> Brutalist React components. Five themes, light and dark, one token contract.
+
+This file is generated from the library’s metadata and example sources; it describes the code exactly.
+
+## Install
+
+```sh
+npm install neobrutalistcomponents
+```
+
+## Setup
+
+```tsx
+import { NeoProvider, Button } from 'neobrutalistcomponents';
+import 'neobrutalistcomponents/styles.css';
+import 'neobrutalistcomponents/themes/classic.css';
+import 'neobrutalistcomponents/themes/classic.fonts.css'; // optional: loads the theme's fonts
+
+export function App() {
+  return (
+    <NeoProvider theme="classic" mode="system">
+      <Button>Save changes</Button>
+    </NeoProvider>
+  );
+}
+```
+
+`NeoProvider` props: `theme` (built-in id or your own), `mode` ('light' | 'dark' | 'system'; omit for the theme's native scheme), `as` ('div' | 'main' | 'section' | 'article' | 'span'). `useTheme()` returns `{ theme, mode }`.
+
+The library never loads fonts by itself. Import neobrutalistcomponents/themes/<theme>.fonts.css for a one-line Google Fonts load, or self-host the families listed for each theme.
+
+## Themes
+
+| Theme | Tagline | Native scheme | Fonts | Best for | Avoid for |
+| --- | --- | --- | --- | --- | --- |
+| `classic` | This decision is final. | light | Bricolage Grotesque, Geist Mono | Product UIs, SaaS dashboards and marketing pages that should feel confident. The default choice. | Contexts that need to whisper (medical, legal) — use swiss. |
+| `tech` | Terminal sophistication. | dark | Martian Mono, Geist Mono | Developer tools, infrastructure consoles, monitoring, anything that lives next to a terminal. Dark by default. | Consumer audiences who do not read monospace comfortably. |
+| `swiss` | Precision, not plainness. | light | Inter Tight, JetBrains Mono | Dense admin, finance, analytics, documentation and editorial work where the content has to lead. | Playful brands — it is deliberately quiet. |
+| `y2k` | Holographic trading-card energy. | light | Sixtyfour, M PLUS Rounded 1c, VT323 | Playful consumer apps, creative tools, events, fan sites, games. | Data-dense tables and long forms. |
+| `riso` | Two inks, slightly off. | light | Archivo, IBM Plex Mono | Editorial sites, portfolios, newsletters, indie products and culture projects. | Long transactional forms and dense data. |
+
+## Composition rules
+
+- Wrap the app — or each themed island — in one NeoProvider. Never hard-code colors, fonts, borders or shadows: custom CSS reads the same var(--nbc-*) tokens.
+- Space with the token scale only: --nbc-space-xs/sm/md/lg/xl/2xl/3xl = 4/8/12/16/24/32/48px.
+- Controls that sit in one row share one size; Button, Input, Select and Textarea of the same size have the same height in every theme (32 / 40 / 48px).
+- One primary Button per region (card footer, dialog, form), placed last. Cancel is ghost or secondary.
+- Every form control has a visible label. Error messages say how to fix the problem.
+- Inline status → Badge. Block-level message → Alert. Destructive action → danger Button behind a Dialog confirmation.
+- Group with Card, never nest cards. Lay out pages with your own CSS grid/flex using the spacing tokens.
+- Icons: any 24px stroke set (the docs use lucide-react). Button and Input size icons for you.
+- Override with plain CSS — the library lives in cascade layers, so unlayered CSS always wins. Never use !important.
+- Pick one theme per product. Use mode="system" in apps; leave mode unset for the theme’s native scheme.
+
+## Token contract
+
+Every built-in theme defines every token below, in light and dark. Custom CSS should read these instead of literal values.
+
+- **Typography:** `--nbc-font-sans`, `--nbc-font-display`, `--nbc-font-mono`, `--nbc-weight-body`, `--nbc-weight-label`, `--nbc-weight-display`, `--nbc-label-transform`, `--nbc-label-spacing`, `--nbc-display-transform`, `--nbc-display-spacing`
+- **Color (solid; #hex or light-dark(#hex, #hex)):** `--nbc-bg`, `--nbc-fg`, `--nbc-fg-muted`, `--nbc-surface`, `--nbc-surface-alt`, `--nbc-border-color`, `--nbc-primary`, `--nbc-primary-fg`, `--nbc-accent`, `--nbc-accent-fg`, `--nbc-info`, `--nbc-info-fg`, `--nbc-success`, `--nbc-success-fg`, `--nbc-warning`, `--nbc-warning-fg`, `--nbc-danger`, `--nbc-danger-fg`, `--nbc-focus`
+- **Fills (backgrounds; may be gradients):** `--nbc-primary-fill`, `--nbc-danger-fill`, `--nbc-surface-fill`, `--nbc-texture`
+- **Shape:** `--nbc-border-width`, `--nbc-border-style`, `--nbc-radius`, `--nbc-radius-control`, `--nbc-radius-button`, `--nbc-radius-small`
+- **Elevation and interaction:** `--nbc-shadow`, `--nbc-shadow-lg`, `--nbc-shadow-press`, `--nbc-press`, `--nbc-press-active`, `--nbc-rotate`, `--nbc-focus-width`, `--nbc-focus-offset`
+- **Motion:** `--nbc-duration`, `--nbc-duration-slow`, `--nbc-ease`
+- **Invariant (never themed):** `--nbc-space-xs`, `--nbc-space-sm`, `--nbc-space-md`, `--nbc-space-lg`, `--nbc-space-xl`, `--nbc-space-2xl`, `--nbc-space-3xl`, `--nbc-fs-xs`, `--nbc-fs-sm`, `--nbc-fs-md`, `--nbc-fs-lg`, `--nbc-fs-xl`, `--nbc-fs-2xl`, `--nbc-fs-3xl`, `--nbc-fs-4xl`, `--nbc-control-h-sm`, `--nbc-control-h-md`, `--nbc-control-h-lg`
+
+## Bring your own theme
+
+```css
+/* my-theme.css — load it after styles.css */
+@layer nbc.tokens, nbc.theme, nbc.base, nbc.components, nbc.flourish;
+
+@layer nbc.theme {
+  [data-theme="acme"] {
+    --nbc-scheme: light;
+    --nbc-font-sans: 'IBM Plex Sans', system-ui, sans-serif;
+    --nbc-bg: light-dark(#f6f6f4, #121212);
+    --nbc-fg: light-dark(#121212, #f6f6f4);
+    --nbc-surface: light-dark(#ffffff, #1c1c1c);
+    --nbc-border-color: light-dark(#121212, #f6f6f4);
+    --nbc-primary: #ff5c00;
+    --nbc-primary-fg: #121212;
+    --nbc-radius: 6px;
+    --nbc-shadow: 4px 4px 0 var(--nbc-border-color);
+    /* every token you leave out falls back to the neutral default */
+  }
+}
+```
+
+## Components
+
+### Button
+
+A pressable slab that performs an action: four variants, three sizes on the shared control scale, a loading state and icon slots.
+
+Extends `ComponentProps<'button'>` — every native prop is forwarded.
+
+**Use it for**
+
+- Trigger an action in place: save, submit a form, open a dialog, delete something.
+- A link that must read as an action (pricing CTA, "Get started") — wrap the link with asChild.
+
+**Do not use it for**
+
+- Navigation inside running text — use a plain link.
+- Turning a setting on or off — use Switch.
+- Picking one option out of several — use RadioGroup, Select or Tabs.
+
+**Props**
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `variant` | `'primary' \| 'secondary' \| 'danger' \| 'ghost'` | `'primary'` | Visual weight. primary = the one main action; secondary = alternatives; danger = destructive; ghost = low-emphasis (cancel, toolbar). |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Height 32 / 40 / 48px — identical to Input, Select and Textarea of the same size, in every theme. |
+| `loading` | `boolean` | `false` | Shows the theme spinner in place of the icons, sets aria-busy and disables the button. The label stays, so the width does not jump. |
+| `fullWidth` | `boolean` | `false` | Stretch to the width of the container. |
+| `leftIcon` | `ReactNode` | — | Icon before the label. Rendered at 1.15em and hidden from assistive tech. |
+| `rightIcon` | `ReactNode` | — | Icon after the label. Rendered at 1.15em and hidden from assistive tech. |
+| `asChild` | `boolean` | `false` | Render the single child element (an <a>, a router Link) with the button classes and inner structure instead of a <button>. disabled becomes aria-disabled. |
+
+**Accessibility**
+
+- Defaults to type="button" so it never submits a form by accident; pass type="submit" explicitly.
+- An icon-only button (no children, one icon) needs aria-label — the icon itself is aria-hidden.
+- loading sets aria-busy and disabled; the accessible name does not change while loading.
+- With asChild and disabled, the element gets aria-disabled="true" and clicks are prevented.
+- Focus is a solid outline in the theme focus color, visible in forced-colors mode.
+
+**Rules**
+
+- One primary button per region (a card footer, a dialog, a form).
+- In a row of buttons the primary action goes last; cancel is ghost or secondary.
+- Label with the verb that describes the outcome: "Save changes", "Delete project" — never "OK" or "Submit".
+- Use danger only for destructive actions, and repeat the object in the label.
+- Buttons next to a field use the same size as the field so their heights match.
+
+**CSS hooks:** `.nbc-button`, `.nbc-button--primary`, `.nbc-button--secondary`, `.nbc-button--danger`, `.nbc-button--ghost`, `.nbc-button--sm`, `.nbc-button--lg`, `.nbc-button--full-width`, `.nbc-button--loading`, `.nbc-button--icon-only`, `.nbc-button__label`, `.nbc-button__icon`, `.nbc-button__spinner`
+
+**Examples**
+
+#### Variants
+
+One primary per region; the others step down in emphasis.
+
+```tsx
+import { Button } from 'neobrutalistcomponents';
+
+export default function Variants() {
+  return (
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
+      <Button variant="primary">Save changes</Button>
+      <Button variant="secondary">Duplicate</Button>
+      <Button variant="danger">Delete project</Button>
+      <Button variant="ghost">Cancel</Button>
+    </div>
+  );
+}
+```
+
+#### Sizes
+
+Heights 32 / 40 / 48px, shared with every form control.
+
+```tsx
+import { Button } from 'neobrutalistcomponents';
+
+export default function Sizes() {
+  return (
+    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 16 }}>
+      <Button size="sm">Small</Button>
+      <Button size="md">Medium</Button>
+      <Button size="lg">Large</Button>
+    </div>
+  );
+}
+```
+
+#### Icons and icon-only
+
+Icons are sized for you. With no label and one icon the button turns square — give it an aria-label.
+
+```tsx
+import { Button } from 'neobrutalistcomponents';
+import { ArrowRight, Plus, Search, Trash2 } from 'lucide-react';
+
+export default function WithIcons() {
+  return (
+    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 16 }}>
+      <Button variant="secondary" leftIcon={<Plus />}>
+        New invoice
+      </Button>
+      <Button rightIcon={<ArrowRight />}>Continue</Button>
+      <Button variant="secondary" leftIcon={<Search />} aria-label="Search" />
+      <Button variant="danger" leftIcon={<Trash2 />} aria-label="Delete row" />
+    </div>
+  );
+}
+```
+
+#### Loading
+
+The label stays, the spinner takes the icon slot.
+
+```tsx
+import { useState } from 'react';
+import { Button } from 'neobrutalistcomponents';
+
+export default function Loading() {
+  const [saving, setSaving] = useState(false);
+
+  function save() {
+    setSaving(true);
+    setTimeout(() => setSaving(false), 1600);
+  }
+
+  return (
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
+      <Button loading={saving} onClick={save}>
+        {saving ? 'Saving…' : 'Save changes'}
+      </Button>
+      <Button variant="secondary" loading>
+        Syncing
+      </Button>
+    </div>
+  );
+}
+```
+
+#### As a link
+
+asChild hands the styles to the child element.
+
+```tsx
+import { Button } from 'neobrutalistcomponents';
+import { ArrowUpRight } from 'lucide-react';
+
+export default function AsLink() {
+  return (
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
+      <Button asChild rightIcon={<ArrowUpRight />}>
+        <a href="https://github.com/sssamuelll/neobrutalistcomponents" target="_blank" rel="noreferrer">
+          View on GitHub
+        </a>
+      </Button>
+      <Button asChild variant="ghost">
+        <a href="#/start">Read the setup guide</a>
+      </Button>
+    </div>
+  );
+}
+```
+
+### Checkbox
+
+A real native checkbox drawn as a brutalist box with check and mixed glyphs, with its label, description and error message built in.
+
+Extends `Omit<ComponentProps<'input'>, 'type' | 'size'>` — every native prop is forwarded.
+
+**Use it for**
+
+- An independent yes/no choice that is saved on submit: consent, notification preferences, feature opt-ins.
+- Picking any number of options from a short list.
+- A select-all parent over a group of checkboxes, using the mixed state.
+
+**Do not use it for**
+
+- A setting that takes effect the moment it flips — use Switch.
+- Choosing exactly one option — use RadioGroup or Select.
+- Long lists of options that need search — use Select.
+
+**Props**
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `size` | `'sm' \| 'md'` | `'md'` | Box size: 18px (sm) or 22px (md). Label text follows. |
+| `label` | `ReactNode` | — | Visible label, associated with the checkbox through htmlFor/id. Clicking it toggles the box. |
+| `description` | `ReactNode` | — | Help text under the label, linked with aria-describedby. |
+| `error` | `ReactNode \| boolean` | — | Invalid state. A message replaces the description and is announced with the checkbox; true marks it invalid and keeps the description. |
+| `indeterminate` | `boolean` | — | Mixed state for a parent of partially selected children. Sets the DOM property, so assistive tech announces "mixed". Drive it from state: a click clears the native flag. |
+
+**Accessibility**
+
+- It is a native <input type="checkbox">: keyboard (Space), focus, form submission and autofill all work. The drawn box is decoration over it.
+- The label is a real <label for>; an id is generated when you do not pass one. Without a label, pass aria-label.
+- description and error messages are linked through aria-describedby; your own aria-describedby ids are kept.
+- error sets aria-invalid="true". The required marker (*) is aria-hidden; the native required attribute carries the meaning.
+- indeterminate is exposed as the mixed state by the browser, with no extra ARIA attribute. In forced-colors mode a checked box uses Highlight.
+- className goes on the wrapper; ref and every other prop go on the <input>.
+
+**Rules**
+
+- Write the label so that checked means yes: "Email me when a deploy fails", not "Disable emails".
+- Use a checkbox for choices submitted later; use Switch when the change applies immediately.
+- Control indeterminate from state: it is true when some but not all children are checked, and the parent toggles all of them.
+- Put long consent copy in description, not in the label, and explain what the user must do in error messages.
+- Stack checkboxes vertically with consistent spacing; mix sizes only to show hierarchy, as with a parent and its children.
+
+**CSS hooks:** `.nbc-checkbox`, `.nbc-checkbox--sm`, `.nbc-checkbox--invalid`, `.nbc-checkbox--disabled`, `.nbc-checkbox__box`, `.nbc-checkbox__control`, `.nbc-checkbox__check`, `.nbc-checkbox__dash`, `.nbc-checkbox__text`, `.nbc-checkbox__label`, `.nbc-checkbox__required`, `.nbc-checkbox__message`, `.nbc-checkbox__message--error`
+
+**Examples**
+
+#### Basic
+
+Unchecked, checked and disabled.
+
+```tsx
+import { Checkbox } from 'neobrutalistcomponents';
+
+export default function Basic() {
+  return (
+    <div style={{ display: 'grid', gap: 12 }}>
+      <Checkbox label="Email me when a deploy fails" defaultChecked />
+      <Checkbox label="Send a weekly usage summary" />
+      <Checkbox label="Notify me about new invoices" disabled />
+    </div>
+  );
+}
+```
+
+#### Consent with description and error
+
+The error appears when the form is submitted unchecked.
+
+```tsx
+import { useState } from 'react';
+import type { FormEvent } from 'react';
+import { Button, Checkbox } from 'neobrutalistcomponents';
+
+export default function WithDescription() {
+  const [accepted, setAccepted] = useState(false);
+  const [submitted, setSubmitted] = useState(true);
+
+  function onSubmit(event: FormEvent) {
+    event.preventDefault();
+    setSubmitted(true);
+  }
+
+  return (
+    <form onSubmit={onSubmit} style={{ display: 'grid', gap: 16, maxWidth: 420 }}>
+      <Checkbox
+        label="I accept the terms of service"
+        description="You can cancel anytime from Billing; unused credit is refunded pro rata."
+        checked={accepted}
+        onChange={(e) => setAccepted(e.target.checked)}
+        error={submitted && !accepted ? 'Accept the terms to create your workspace.' : undefined}
+        required
+      />
+      <div>
+        <Button type="submit">Create workspace</Button>
+      </div>
+    </form>
+  );
+}
+```
+
+#### Select all
+
+A controlled parent showing the mixed state over three channels.
+
+```tsx
+import { useState } from 'react';
+import { Checkbox } from 'neobrutalistcomponents';
+
+const CHANNELS = ['Email', 'Slack', 'SMS'] as const;
+
+export default function Indeterminate() {
+  const [selected, setSelected] = useState<string[]>(['Email', 'Slack']);
+  const all = selected.length === CHANNELS.length;
+
+  function toggle(channel: string, on: boolean) {
+    setSelected((prev) => (on ? [...prev, channel] : prev.filter((c) => c !== channel)));
+  }
+
+  return (
+    <div style={{ display: 'grid', gap: 12 }}>
+      <Checkbox
+        label="All deploy alerts"
+        checked={all}
+        indeterminate={selected.length > 0 && !all}
+        onChange={(e) => setSelected(e.target.checked ? [...CHANNELS] : [])}
+      />
+      <div style={{ display: 'grid', gap: 10, paddingInlineStart: 30 }}>
+        {CHANNELS.map((channel) => (
+          <Checkbox
+            key={channel}
+            size="sm"
+            label={channel}
+            checked={selected.includes(channel)}
+            onChange={(e) => toggle(channel, e.target.checked)}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+```
+
+#### Sizes
+
+md for forms, sm for dense lists.
+
+```tsx
+import { Checkbox } from 'neobrutalistcomponents';
+
+export default function Sizes() {
+  return (
+    <div style={{ display: 'grid', gap: 16, maxWidth: 380 }}>
+      <Checkbox
+        size="md"
+        label="Auto-renew my subscription"
+        description="Renews on the 1st of each month. Cancel anytime."
+        defaultChecked
+      />
+      <Checkbox
+        size="sm"
+        label="Include tax in invoices"
+        description="Shown as a separate line on every receipt."
+        defaultChecked
+      />
+    </div>
+  );
+}
+```
+
+### Input
+
+A single-line text field with its label, description and error message built in, on the shared 32 / 40 / 48px control scale.
+
+Extends `Omit<ComponentProps<'input'>, 'size'>` — every native prop is forwarded.
+
+**Use it for**
+
+- Short free-form text: names, emails, URLs, search terms, numbers.
+- Any field that needs a visible label and inline validation.
+
+**Do not use it for**
+
+- More than one line of text — use Textarea.
+- Choosing from a known list — use Select or RadioGroup.
+- Yes/no settings — use Checkbox or Switch.
+
+**Props**
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Height 32 / 40 / 48px, matching Button of the same size. |
+| `label` | `ReactNode` | — | Visible label, associated with the input through htmlFor/id. |
+| `description` | `ReactNode` | — | Help text under the field, linked with aria-describedby. |
+| `error` | `ReactNode \| boolean` | — | Invalid state. A message replaces the description and is announced with the field; true marks the field invalid and keeps the description. |
+| `leftIcon` | `ReactNode` | — | Decorative icon at the start of the box. |
+| `rightIcon` | `ReactNode` | — | Decorative icon at the end of the box. |
+
+**Accessibility**
+
+- The label is a real <label for>; an id is generated when you do not pass one.
+- description and error messages are linked through aria-describedby; your own aria-describedby ids are kept.
+- error sets aria-invalid="true". The required marker (*) is aria-hidden; the native required attribute carries the meaning.
+- className goes on the wrapper; ref and every other prop go on the <input>.
+
+**Rules**
+
+- Always give a visible label. Placeholders are examples, not labels.
+- Write errors that say what to do: "Use letters, numbers and dashes", not "Invalid input".
+- Show the error after the user leaves the field or submits, not on every keystroke.
+- Fields in the same form share one size; put a Button of that size next to an Input for inline actions.
+
+**CSS hooks:** `.nbc-field`, `.nbc-field__label`, `.nbc-field__required`, `.nbc-field__message`, `.nbc-field__message--error`, `.nbc-input`, `.nbc-input--sm`, `.nbc-input--lg`, `.nbc-input--invalid`, `.nbc-input--disabled`, `.nbc-input__control`, `.nbc-input__icon`
+
+**Examples**
+
+#### Label and description
+
+```tsx
+import { Input } from 'neobrutalistcomponents';
+
+export default function Basic() {
+  return (
+    <div style={{ maxWidth: 360 }}>
+      <Input label="Work email" type="email" placeholder="ada@studio.dev" description="We send the invite here." required />
+    </div>
+  );
+}
+```
+
+#### Validation
+
+error with a message replaces the description.
+
+```tsx
+import { useState } from 'react';
+import { Input } from 'neobrutalistcomponents';
+
+export default function Validation() {
+  const [slug, setSlug] = useState('Acme Relaunch');
+  const [touched, setTouched] = useState(true);
+  const valid = /^[a-z0-9-]+$/.test(slug);
+
+  return (
+    <div style={{ maxWidth: 360 }}>
+      <Input
+        label="Project slug"
+        value={slug}
+        onChange={(e) => setSlug(e.target.value)}
+        onBlur={() => setTouched(true)}
+        description="Lowercase letters, numbers and dashes."
+        error={touched && !valid ? 'Use lowercase letters, numbers and dashes — e.g. acme-relaunch.' : undefined}
+      />
+    </div>
+  );
+}
+```
+
+#### Sizes with a matching button
+
+Same size, same height — in every theme.
+
+```tsx
+import { Button, Input } from 'neobrutalistcomponents';
+
+export default function Sizes() {
+  return (
+    <div style={{ display: 'grid', gap: 16, maxWidth: 440 }}>
+      {(['sm', 'md', 'lg'] as const).map((size) => (
+        <div key={size} style={{ display: 'flex', gap: 12, alignItems: 'end' }}>
+          <Input size={size} label={`Size ${size}`} placeholder="Invite by email" style={{ flex: 1 }} />
+          <Button size={size}>Invite</Button>
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+#### Icons
+
+```tsx
+import { Input } from 'neobrutalistcomponents';
+import { AtSign, Lock, Search } from 'lucide-react';
+
+export default function WithIcons() {
+  return (
+    <div style={{ display: 'grid', gap: 16, maxWidth: 360 }}>
+      <Input label="Search" type="search" placeholder="Find a repository" leftIcon={<Search />} />
+      <Input label="Handle" placeholder="samuel" leftIcon={<AtSign />} />
+      <Input label="Password" type="password" defaultValue="hunter2hunter2" rightIcon={<Lock />} />
+    </div>
+  );
+}
+```
+
+### RadioGroup
+
+Pick exactly one option from a small visible set: a fieldset with a legend whose Radio children are native radio inputs drawn as brutalist dots.
+
+Extends `Omit<ComponentProps<'fieldset'>, 'onChange' | 'defaultValue'>` — every native prop is forwarded.
+
+**Use it for**
+
+- Choosing exactly one of two to six options that should all stay visible: plan, billing cycle, deploy region, notification channel.
+- A choice that is saved on submit, where seeing every alternative helps the decision.
+- Options that need a one-line explanation each (Radio description).
+
+**Do not use it for**
+
+- Long lists of options or lists that need search — use Select.
+- Any number of independent choices — use Checkbox.
+- A setting that takes effect the moment it flips — use Switch.
+- A single yes/no question — use Checkbox.
+
+**Props**
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `label` | `ReactNode` | — | Visible group name, rendered as the fieldset legend. It is the accessible name of the radiogroup. |
+| `description` | `ReactNode` | — | Help text under the options, linked to the group with aria-describedby. |
+| `error` | `ReactNode \| boolean` | — | Invalid state. A message replaces the description and is announced with the group; true marks the group invalid and keeps the description. |
+| `name` | `string` | `generated` | Form field name shared by every Radio. Pass your own to submit the value with a form. |
+| `value` | `string` | — | Selected value (controlled). Use '' for "nothing selected". |
+| `defaultValue` | `string` | — | Initially selected value (uncontrolled). Nothing is selected when omitted. |
+| `onValueChange` | `(value: string) => void` | — | Called with the new value when the user picks another option. |
+| `orientation` | `'vertical' \| 'horizontal'` | `'vertical'` | Stack the options, or lay them out in a wrapping row for two or three short options. |
+| `size` | `'sm' \| 'md'` | `'md'` | Dot size: 18px (sm) or 22px (md). Label text follows. |
+| `required` | `boolean` | — | Requires a selection: sets required on every radio and aria-required on the group, and shows a * after the legend. |
+
+**Parts**
+
+- `Radio` (`<input[type=radio]>`): One option. Extends Omit<ComponentProps<"input">, "type" | "size" | "name" | "checked" | "defaultChecked" | "value">: className goes on the wrapper, ref and every other prop on the input. Throws outside a RadioGroup.
+  - `value` (required): `string` — The value this option stands for. Reported by the group and submitted with the form.
+  - `label`: `ReactNode` — Visible label, associated with the radio through htmlFor/id. Clicking it selects the option.
+  - `description`: `ReactNode` — One-line explanation under the label, linked to the radio with aria-describedby.
+
+**Accessibility**
+
+- Renders a <fieldset role="radiogroup"> with a <legend>, so the group name is announced when focus enters it. Without a label, pass aria-label or aria-labelledby.
+- Every Radio is a native radio input sharing one name: Tab enters the group once, the arrow keys move and select, Space selects. Nothing is reimplemented.
+- error sets aria-invalid="true" on the group, and the message is linked with aria-describedby on the group (your own ids are kept), so it is announced once when the group is entered rather than on every option.
+- required sets the native attribute on each radio and aria-required on the group; the * after the legend is aria-hidden.
+- disabled on the group disables the fieldset, and with it every radio. A Radio can also be disabled on its own.
+- A Radio description is linked to that radio with aria-describedby. className goes on the outer element of both components; ref and other props go on the fieldset / the input.
+
+**Rules**
+
+- Always give the group a label that names the decision ("Plan", "Billing cycle"), not an instruction.
+- Offer two to six options; beyond that use Select. Never use a single Radio — a lone option is a Checkbox.
+- Preselect the safest or most common option unless the user must make a conscious choice; for the latter leave it empty and use required.
+- Keep option labels short and parallel, and put explanations in description, not in the label.
+- Show the error after a submit attempt, and say what to do: "Choose a billing cycle", not "Invalid".
+- Use orientation="horizontal" only for two or three short options without descriptions.
+
+**CSS hooks:** `.nbc-radio-group`, `.nbc-radio-group--vertical`, `.nbc-radio-group--horizontal`, `.nbc-radio-group--sm`, `.nbc-radio-group--invalid`, `.nbc-radio-group__label`, `.nbc-radio-group__required`, `.nbc-radio-group__items`, `.nbc-radio-group__message`, `.nbc-radio-group__message--error`, `.nbc-radio`, `.nbc-radio--disabled`, `.nbc-radio__box`, `.nbc-radio__control`, `.nbc-radio__dot`, `.nbc-radio__text`, `.nbc-radio__label`, `.nbc-radio__description`
+
+**Examples**
+
+#### Plan picker
+
+Options with a one-line description each.
+
+```tsx
+import { useState } from 'react';
+import { Radio, RadioGroup } from 'neobrutalistcomponents';
+
+export default function Basic() {
+  const [plan, setPlan] = useState('pro');
+
+  return (
+    <div style={{ maxWidth: 420 }}>
+      <RadioGroup
+        label="Plan"
+        description="You can switch plans at any time from billing settings."
+        value={plan}
+        onValueChange={setPlan}
+      >
+        <Radio value="hobby" label="Hobby" description="One project, community support. Free." />
+        <Radio value="pro" label="Pro" description="Unlimited projects and previews. $19 per month." />
+        <Radio value="team" label="Team" description="Shared billing and roles for up to 20 seats. $49 per month." />
+      </RadioGroup>
+    </div>
+  );
+}
+```
+
+#### Horizontal
+
+Short options in a row — a billing cycle.
+
+```tsx
+import { Radio, RadioGroup } from 'neobrutalistcomponents';
+
+export default function Horizontal() {
+  return (
+    <RadioGroup label="Billing cycle" orientation="horizontal" defaultValue="yearly" description="Yearly saves two months.">
+      <Radio value="monthly" label="Monthly" />
+      <Radio value="yearly" label="Yearly" />
+    </RadioGroup>
+  );
+}
+```
+
+#### Required with an error
+
+No default, so the group shows an error until the user chooses.
+
+```tsx
+import { useState } from 'react';
+import { Button, Radio, RadioGroup } from 'neobrutalistcomponents';
+
+export default function Validation() {
+  const [region, setRegion] = useState('');
+  const [submitted, setSubmitted] = useState(true);
+  const missing = submitted && region === '';
+
+  return (
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        setSubmitted(true);
+      }}
+      noValidate
+      style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: 420 }}
+    >
+      <RadioGroup
+        label="Deploy region"
+        name="region"
+        required
+        value={region}
+        onValueChange={setRegion}
+        description="Pick the region closest to your users."
+        error={missing ? 'Choose a region before you deploy.' : undefined}
+      >
+        <Radio value="fra1" label="Frankfurt" description="fra1 · lowest latency for Europe" />
+        <Radio value="iad1" label="Washington, D.C." description="iad1 · lowest latency for the US east coast" />
+        <Radio value="sin1" label="Singapore" description="sin1 · lowest latency for Southeast Asia" />
+      </RadioGroup>
+      <div>
+        <Button type="submit">Deploy to production</Button>
+      </div>
+    </form>
+  );
+}
+```
+
+#### Sizes
+
+sm and md share the same API; the label follows the dot.
+
+```tsx
+import { Radio, RadioGroup } from 'neobrutalistcomponents';
+
+export default function Sizes() {
+  return (
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 32 }}>
+      <RadioGroup label="Email digest" size="sm" defaultValue="weekly">
+        <Radio value="daily" label="Daily" />
+        <Radio value="weekly" label="Weekly" />
+        <Radio value="never" label="Never" />
+      </RadioGroup>
+      <RadioGroup label="Email digest" size="md" defaultValue="weekly">
+        <Radio value="daily" label="Daily" />
+        <Radio value="weekly" label="Weekly" />
+        <Radio value="never" label="Never" />
+      </RadioGroup>
+    </div>
+  );
+}
+```
+
+### Select
+
+A native dropdown with its label, description and error message built in, a drawn chevron, and a fully themed list wherever the browser supports it.
+
+Extends `Omit<ComponentProps<'select'>, 'size' | 'multiple'>` — every native prop is forwarded.
+
+**Use it for**
+
+- Choosing one value from a known list of roughly 4 to 15 options: regions, roles, plans, billing cycles, timezones.
+- Forms where the native control matters: mobile pickers, keyboard type-ahead and autofill all keep working.
+- Long lists that benefit from optgroups (timezones by continent, plans by billing cycle).
+
+**Do not use it for**
+
+- Two to four options that should all stay visible — use RadioGroup.
+- A yes/no setting — use Checkbox or Switch.
+- Searchable or very long lists, multi-select, or options with rich content — Select is a single-choice native control.
+
+**Props**
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Height 32 / 40 / 48px, matching Button and Input of the same size. |
+| `label` | `ReactNode` | — | Visible label, associated with the select through htmlFor/id. |
+| `description` | `ReactNode` | — | Help text under the field, linked with aria-describedby. |
+| `error` | `ReactNode \| boolean` | — | Invalid state. A message replaces the description and is announced with the field; true marks the field invalid and keeps the description. |
+| `placeholder` | `string` | — | Renders a first, disabled option with value "" so the field starts unanswered. Skipped when value or defaultValue is given. |
+
+**Accessibility**
+
+- It is a real <select>: the platform provides the combobox role, keyboard handling (arrows, type-ahead, Home/End) and mobile pickers.
+- The label is a real <label for>; an id is generated when you do not pass one.
+- description and error messages are linked through aria-describedby; your own aria-describedby ids are kept.
+- error sets aria-invalid="true". The required marker (*) is aria-hidden; the native required attribute carries the meaning.
+- The chevron is decorative and aria-hidden. In the themed list the selected option also shows a checkmark, so selection is never color alone.
+- className goes on the wrapper; ref and every other prop go on the <select>.
+
+**Rules**
+
+- Pass options as native <option> and <optgroup> children. There is no options prop.
+- Always give a visible label. The placeholder is a prompt, not a label; it is disabled and cannot be picked again.
+- With placeholder, leave value and defaultValue out to start unanswered. A controlled value of "" shows the placeholder too.
+- An option with value="" that is not disabled (for example "All regions") also reads muted while selected.
+- Fields in the same row share one size; a Select, an Input and a Button of that size line up exactly.
+- One value only: multiple is not supported. Use Checkbox for several choices.
+
+**CSS hooks:** `.nbc-field`, `.nbc-field__label`, `.nbc-field__required`, `.nbc-field__message`, `.nbc-field__message--error`, `.nbc-select`, `.nbc-select--sm`, `.nbc-select--lg`, `.nbc-select--invalid`, `.nbc-select--disabled`, `.nbc-select__control`, `.nbc-select__chevron`
+
+**Examples**
+
+#### Label, placeholder and description
+
+```tsx
+import { Select } from 'neobrutalistcomponents';
+
+export default function Basic() {
+  return (
+    <div style={{ maxWidth: 360 }}>
+      <Select
+        label="Region"
+        placeholder="Choose a region"
+        description="Where your project's data is stored. You can move it later."
+        required
+      >
+        <option value="fra1">Frankfurt (eu-central)</option>
+        <option value="iad1">Washington, D.C. (us-east)</option>
+        <option value="sin1">Singapore (ap-southeast)</option>
+        <option value="syd1">Sydney (ap-southeast-2)</option>
+      </Select>
+    </div>
+  );
+}
+```
+
+#### Option groups
+
+optgroup splits one list into labelled sections.
+
+```tsx
+import { Select } from 'neobrutalistcomponents';
+
+export default function Grouped() {
+  return (
+    <div style={{ maxWidth: 360 }}>
+      <Select
+        label="Plan and billing cycle"
+        defaultValue="team-yearly"
+        description="Switch any time; we prorate the difference."
+      >
+        <optgroup label="Billed monthly">
+          <option value="starter-monthly">Starter — $12 / month</option>
+          <option value="team-monthly">Team — $39 / month</option>
+          <option value="scale-monthly">Scale — $120 / month</option>
+        </optgroup>
+        <optgroup label="Billed yearly (2 months free)">
+          <option value="starter-yearly">Starter — $120 / year</option>
+          <option value="team-yearly">Team — $390 / year</option>
+          <option value="scale-yearly">Scale — $1,200 / year</option>
+        </optgroup>
+      </Select>
+    </div>
+  );
+}
+```
+
+#### Next to an Input and a Button
+
+Same size, same height — in every theme.
+
+```tsx
+import { Button, Input, Select } from 'neobrutalistcomponents';
+
+export default function WithInput() {
+  return (
+    <div style={{ display: 'grid', gap: 16, maxWidth: 560 }}>
+      {(['sm', 'md', 'lg'] as const).map((size) => (
+        <div key={size} style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'end', gap: 12 }}>
+          <div style={{ flex: '1 1 200px' }}>
+            <Input size={size} label="Teammate email" type="email" placeholder="ada@studio.dev" />
+          </div>
+          <div style={{ flex: '0 1 140px' }}>
+            <Select size={size} label="Role" defaultValue="editor">
+              <option value="viewer">Viewer</option>
+              <option value="editor">Editor</option>
+              <option value="admin">Admin</option>
+            </Select>
+          </div>
+          <Button size={size}>Send invite</Button>
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+#### Validation
+
+error with a message replaces the description.
+
+```tsx
+import { useState } from 'react';
+import { Select } from 'neobrutalistcomponents';
+
+export default function Validation() {
+  const [timezone, setTimezone] = useState('');
+
+  return (
+    <div style={{ maxWidth: 360 }}>
+      <Select
+        label="Invoice timezone"
+        placeholder="Choose a timezone"
+        value={timezone}
+        onChange={(e) => setTimezone(e.target.value)}
+        description="Invoices are issued at midnight in this timezone."
+        error={timezone ? undefined : 'Pick the timezone your invoices are issued in.'}
+        required
+      >
+        <option value="America/New_York">New York (UTC−5)</option>
+        <option value="Europe/Berlin">Berlin (UTC+1)</option>
+        <option value="Asia/Singapore">Singapore (UTC+8)</option>
+        <option value="Australia/Sydney">Sydney (UTC+10)</option>
+      </Select>
+    </div>
+  );
+}
+```
+
+### Switch
+
+A native checkbox with the switch role, drawn as a brutalist track and thumb, for settings that take effect the moment they flip.
+
+Extends `Omit<ComponentProps<'input'>, 'type' | 'size' | 'role'>` — every native prop is forwarded.
+
+**Use it for**
+
+- A setting that applies immediately, with no Save button: deploy previews, dark mode, email notifications.
+- A binary preference in a settings list, where the label describes the feature and on means enabled.
+- Turning a feature or integration on and off while the user stays on the page.
+
+**Do not use it for**
+
+- A choice that is only saved when a form is submitted — use Checkbox.
+- Choosing one option out of several — use RadioGroup or Select.
+- A selection that can be partially applied, like a select-all parent — use Checkbox with indeterminate.
+- A switch whose action is destructive or needs confirmation — use a Button that opens a confirmation instead.
+
+**Props**
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `size` | `'sm' \| 'md'` | `'md'` | Track size: 36x20px (sm) or 46x26px (md). Label text follows. |
+| `label` | `ReactNode` | — | Visible label, associated with the switch through htmlFor/id. Clicking it toggles the switch. |
+| `description` | `ReactNode` | — | Help text under the label, linked with aria-describedby. |
+
+**Accessibility**
+
+- It is a native <input type="checkbox" role="switch">: keyboard (Space), focus, form submission and autofill all work. The drawn track and thumb are decoration over it.
+- Screen readers announce it as a switch that is on or off. The state comes from the native checked property, so there is no aria-checked to keep in sync.
+- The label is a real <label for>; an id is generated when you do not pass one. Without a label, pass aria-label.
+- description is linked through aria-describedby; your own aria-describedby ids are kept.
+- There is no error state: a switch applies immediately, so it is never invalid. type and role are fixed and cannot be overridden.
+- In forced-colors mode the track uses Highlight when on and the thumb uses HighlightText, so the state stays visible. The thumb also moves, so state never depends on color alone.
+- className goes on the wrapper; ref and every other prop go on the <input>.
+
+**Rules**
+
+- Write the label as the feature, so that on means enabled: "Deploy previews", not "Disable previews".
+- Use a switch only when the change applies as soon as it flips; if the user must press Save, use a Checkbox.
+- Put the effect in description when it is not obvious: "Every pull request gets its own URL."
+- Do not change the label when the state changes; the switch already says whether it is on.
+- Stack switches vertically with consistent spacing, and use size sm only in dense lists.
+
+**CSS hooks:** `.nbc-switch`, `.nbc-switch--sm`, `.nbc-switch--disabled`, `.nbc-switch__track`, `.nbc-switch__control`, `.nbc-switch__thumb`, `.nbc-switch__text`, `.nbc-switch__label`, `.nbc-switch__description`
+
+**Examples**
+
+#### Basic
+
+Off, on and disabled.
+
+```tsx
+import { Switch } from 'neobrutalistcomponents';
+
+export default function Basic() {
+  return (
+    <div style={{ display: 'grid', gap: 14 }}>
+      <Switch label="Deploy previews for every pull request" defaultChecked />
+      <Switch label="Post build status to Slack" />
+      <Switch label="Auto-promote green builds to production" disabled />
+    </div>
+  );
+}
+```
+
+#### Settings list
+
+Three switches with descriptions inside a Card, each applying immediately.
+
+```tsx
+import { useState } from 'react';
+import { Card, Switch } from 'neobrutalistcomponents';
+
+const SETTINGS = [
+  {
+    key: 'previews',
+    label: 'Deploy previews',
+    description: 'Every pull request gets its own URL, rebuilt on each push.',
+  },
+  {
+    key: 'failures',
+    label: 'Email me when a deploy fails',
+    description: 'Sent to ada@studio.dev within a minute, with the build log attached.',
+  },
+  {
+    key: 'invoices',
+    label: 'Notify me about new invoices',
+    description: 'Billing owners are always notified, even when this is off.',
+  },
+] as const;
+
+type Key = (typeof SETTINGS)[number]['key'];
+
+export default function Settings() {
+  const [enabled, setEnabled] = useState<Record<Key, boolean>>({ previews: true, failures: true, invoices: false });
+
+  return (
+    <Card style={{ maxWidth: 460 }}>
+      <Card.Header>
+        <Card.Title>Project settings</Card.Title>
+        <Card.Description>Changes apply as soon as you flip a switch.</Card.Description>
+      </Card.Header>
+      <Card.Content>
+        <div style={{ display: 'grid', gap: 20 }}>
+          {SETTINGS.map(({ key, label, description }) => (
+            <Switch
+              key={key}
+              label={label}
+              description={description}
+              checked={enabled[key]}
+              onChange={(e) => setEnabled((prev) => ({ ...prev, [key]: e.target.checked }))}
+            />
+          ))}
+        </div>
+      </Card.Content>
+    </Card>
+  );
+}
+```
+
+#### Sizes
+
+md for settings pages, sm for dense lists.
+
+```tsx
+import { Switch } from 'neobrutalistcomponents';
+
+export default function Sizes() {
+  return (
+    <div style={{ display: 'grid', gap: 18, maxWidth: 380 }}>
+      <Switch
+        size="md"
+        label="Auto-renew my subscription"
+        description="Renews on the 1st of each month. Cancel anytime."
+        defaultChecked
+      />
+      <Switch
+        size="sm"
+        label="Include tax in invoices"
+        description="Shown as a separate line on every receipt."
+        defaultChecked
+      />
+    </div>
+  );
+}
+```
+
+### Textarea
+
+A multi-line text field with the same label, description and error API as Input; it grows with its content, starting from `rows` lines.
+
+Extends `ComponentProps<'textarea'>` — every native prop is forwarded.
+
+**Use it for**
+
+- Free-form text that can run past one line: release notes, comments, bios, invite messages.
+- Any long answer that needs a visible label and inline validation.
+
+**Do not use it for**
+
+- Short single-line values such as names, emails or URLs — use Input.
+- Choosing from a known list — use Select or RadioGroup.
+- Rich text with formatting — Textarea is plain text only.
+
+**Props**
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Font size and padding (14 / 16 / 18px text). The height follows `rows` and the content, not a fixed control height. |
+| `label` | `ReactNode` | — | Visible label, associated with the textarea through htmlFor/id. |
+| `description` | `ReactNode` | — | Help text under the field, linked with aria-describedby. |
+| `error` | `ReactNode \| boolean` | — | Invalid state. A message replaces the description and is announced with the field; true marks the field invalid and keeps the description. |
+| `autoResize` | `boolean` | `true` | Grows with its content using CSS field-sizing, up to 24 lines; `rows` is the minimum height. Browsers without field-sizing show `rows` lines and scroll. |
+
+**Accessibility**
+
+- The label is a real <label for>; an id is generated when you do not pass one.
+- description and error messages are linked through aria-describedby; your own aria-describedby ids are kept.
+- error sets aria-invalid="true". The required marker (*) is aria-hidden; the native required attribute carries the meaning.
+- className goes on the wrapper; ref, rows and every other prop go on the <textarea>. Vertical resizing stays available to the user.
+
+**Rules**
+
+- Prefer Textarea over Input whenever answers can exceed one line.
+- Always give a visible label. Placeholders are examples, not labels.
+- Show the limit before the user hits it: put the live count in the description, and switch to an error message only when it is exceeded.
+- Set `rows` to the typical answer length (3 by default); let autoResize handle longer ones instead of forcing a tall empty box.
+- Fields in the same form share one size.
+
+**CSS hooks:** `.nbc-field`, `.nbc-field__label`, `.nbc-field__required`, `.nbc-field__message`, `.nbc-field__message--error`, `.nbc-textarea`, `.nbc-textarea--sm`, `.nbc-textarea--lg`, `.nbc-textarea--auto`, `.nbc-textarea--invalid`, `.nbc-textarea--disabled`
+
+**Examples**
+
+#### Label and description
+
+```tsx
+import { Textarea } from 'neobrutalistcomponents';
+
+export default function Basic() {
+  return (
+    <div style={{ maxWidth: 440 }}>
+      <Textarea
+        label="Release notes"
+        placeholder="What changed in v2.4? Mention breaking changes first."
+        description="Shown on the changelog and in the deploy email."
+      />
+    </div>
+  );
+}
+```
+
+#### Character limit
+
+A live count in the description; an error message once the limit is exceeded.
+
+```tsx
+import { useState } from 'react';
+import { Textarea } from 'neobrutalistcomponents';
+
+const LIMIT = 280;
+
+export default function Validation() {
+  const [note, setNote] = useState(
+    'Moved billing to annual plans, added proration on upgrades, and fixed the invoice PDF that dropped the VAT number for EU customers. Seats are now counted per workspace instead of per project, so existing teams may see a lower total on their next invoice.',
+  );
+  const left = LIMIT - note.length;
+
+  return (
+    <div style={{ maxWidth: 440 }}>
+      <Textarea
+        label="Invoice note"
+        value={note}
+        onChange={(e) => setNote(e.target.value)}
+        description={`${left} of ${LIMIT} characters left. Printed on the customer invoice.`}
+        error={left < 0 ? `${-left} characters over the ${LIMIT} limit — trim the note before sending.` : undefined}
+      />
+    </div>
+  );
+}
+```
+
+#### Sizes
+
+sm, md and lg change the type size and padding; rows sets the minimum height.
+
+```tsx
+import { Textarea } from 'neobrutalistcomponents';
+
+export default function Sizes() {
+  return (
+    <div style={{ display: 'grid', gap: 16, maxWidth: 440 }}>
+      <Textarea size="sm" label="Internal comment" placeholder="Visible to your team only" rows={2} />
+      <Textarea size="md" label="Deploy message" placeholder="Why does this release matter?" />
+      <Textarea size="lg" label="Project brief" placeholder="Goals, audience and deadlines" rows={4} />
+    </div>
+  );
+}
+```
+
+#### Fixed height
+
+autoResize={false} keeps the height at `rows` and scrolls.
+
+```tsx
+import { Textarea } from 'neobrutalistcomponents';
+
+export default function FixedHeight() {
+  return (
+    <div style={{ display: 'grid', gap: 16, maxWidth: 440 }}>
+      <Textarea
+        label="Invite message"
+        autoResize={false}
+        rows={4}
+        defaultValue="Hi Ada, I added you to the Acme Relaunch workspace so you can review the staging deploys before Friday."
+        description="This box keeps its height and scrolls; drag the corner to resize."
+      />
+    </div>
+  );
+}
+```
+
+### Alert
+
+An inline message about the state of the page or a task: four variants with a status icon and edge stripe, an optional title, action and dismiss button.
+
+Extends `Omit<ComponentProps<'div'>, 'title'>` — every native prop is forwarded.
+
+**Use it for**
+
+- Tell the user the result of something that just happened: saved, deployed, payment failed.
+- Warn about a condition on the page before they act: a trial ending, an expiring invite, a degraded service.
+- Offer one clear next step next to the message (a Button in the action slot).
+
+**Do not use it for**
+
+- A tiny label on an object (Live, Draft, Beta) — use Badge.
+- A message that must block the user until they answer — use Dialog.
+- Field-level validation — use the error prop on the field itself.
+
+**Props**
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `variant` | `'info' \| 'success' \| 'warning' \| 'danger'` | `'info'` | Meaning of the message. Sets the tint, the icon chip, the edge stripe and the default icon. |
+| `title` | `ReactNode` | — | Short heading above the description. Omit it for one-line messages. |
+| `icon` | `ReactNode \| false` | — | Replaces the default per-variant icon (info, check, triangle, octagon). false hides the icon. Always hidden from assistive tech. |
+| `action` | `ReactNode` | — | Trailing action, usually a size="sm" Button. Centered on the first row. |
+| `onDismiss` | `() => void` | — | Renders a dismiss button that calls this. The alert does not hide itself — unmount it in the handler. |
+| `dismissLabel` | `string` | `'Dismiss'` | Accessible name of the dismiss button. Translate it, or make it specific. |
+
+**Accessibility**
+
+- There is no default role: a static alert is plain content, not a live region, so screen readers do not interrupt for it.
+- When the alert appears after the page has loaded, pass role="alert" (urgent, announced immediately) or role="status" (polite, announced when the user is idle).
+- Use role="alert" sparingly — only for errors that need attention now. Prefer role="status" for confirmations.
+- The status icon is decorative and hidden from assistive tech; the title and text must say the meaning, never the color alone.
+- The dismiss button is a real button named by dismissLabel (default "Dismiss"). Make it specific when several alerts are on the page.
+- Text stays in the normal foreground color on a light tint, so contrast does not depend on the status color.
+
+**Rules**
+
+- Say what happened and what to do next: "Payment failed" + "Update your card to avoid a service pause."
+- One alert per cause. Do not stack three alerts that say the same thing.
+- At most one action, as a size="sm" Button; put the primary decision in it, not in the description.
+- Use danger for failures and blocked states, warning for things that will become a problem soon, success for completed work, info for the rest.
+- Place alerts where the user is looking: at the top of the section they affect, not at the top of the page.
+
+**CSS hooks:** `.nbc-alert`, `.nbc-alert--info`, `.nbc-alert--success`, `.nbc-alert--warning`, `.nbc-alert--danger`, `.nbc-alert__icon`, `.nbc-alert__body`, `.nbc-alert__title`, `.nbc-alert__description`, `.nbc-alert__action`, `.nbc-alert__dismiss`
+
+**Examples**
+
+#### Variants
+
+Info, success, warning and danger, each with a title and a one-line explanation.
+
+```tsx
+import { Alert } from 'neobrutalistcomponents';
+
+export default function Variants() {
+  return (
+    <div style={{ display: 'grid', gap: 20, maxWidth: 560 }}>
+      <Alert variant="info" title="Billing updated">
+        Your plan switches to annual billing on the next invoice, October 1.
+      </Alert>
+      <Alert variant="success" title="Deploy finished in 42s">
+        web-app is live on production. 3 of 3 health checks passed.
+      </Alert>
+      <Alert variant="warning" title="Your trial ends in 3 days">
+        Add a payment method to keep your projects and team seats.
+      </Alert>
+      <Alert variant="danger" title="Payment failed">
+        Your card ending in 4242 was declined. Update it to avoid a service pause.
+      </Alert>
+    </div>
+  );
+}
+```
+
+#### Action and dismiss
+
+A warning with a small Button and a dismiss button; the parent decides when to unmount it.
+
+```tsx
+import { useState } from 'react';
+import { Alert, Button } from 'neobrutalistcomponents';
+
+export default function WithAction() {
+  const [visible, setVisible] = useState(true);
+
+  return (
+    <div style={{ display: 'grid', gap: 16, maxWidth: 640 }}>
+      {visible ? (
+        <Alert
+          variant="warning"
+          title="3 teammates have not accepted their invite"
+          action={<Button size="sm">Resend invites</Button>}
+          onDismiss={() => setVisible(false)}
+          dismissLabel="Dismiss invite reminder"
+        >
+          Invites expire after 7 days. Resend them to keep seats reserved.
+        </Alert>
+      ) : (
+        <div>
+          <Button variant="secondary" size="sm" onClick={() => setVisible(true)}>
+            Show the reminder again
+          </Button>
+        </div>
+      )}
+    </div>
+  );
+}
+```
+
+#### Announced when it appears
+
+role="status" makes a dynamically inserted alert polite and announced.
+
+```tsx
+import { useState } from 'react';
+import { Alert, Button } from 'neobrutalistcomponents';
+
+export default function Live() {
+  const [saved, setSaved] = useState(false);
+
+  return (
+    <div style={{ display: 'grid', gap: 16, maxWidth: 560 }}>
+      <div>
+        <Button
+          onClick={() => {
+            setSaved(true);
+          }}
+        >
+          Save project settings
+        </Button>
+      </div>
+      {saved && (
+        <Alert role="status" variant="success" title="Settings saved" onDismiss={() => setSaved(false)}>
+          Your changes to Acme Dashboard are live for everyone on the team.
+        </Alert>
+      )}
+    </div>
+  );
+}
+```
+
+### Badge
+
+A small sticker that labels a status or a category: seven variants, two sizes, and room for a leading icon.
+
+Extends `ComponentProps<'span'>` — every native prop is forwarded.
+
+**Use it for**
+
+- Show the state of an object next to its name: Live, Failed, Draft, Synced.
+- Tag something with a short category or release stage: Beta, New, v2.4.0.
+- Annotate a table row, a card title or a list item without taking a line of its own.
+
+**Do not use it for**
+
+- A message the user must read or act on — use Alert.
+- Anything clickable or removable — use Button, or a link styled as one.
+- Counts that update live inside a notification pill — render the number as plain text in a status region instead.
+
+**Props**
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `variant` | `'neutral' \| 'primary' \| 'accent' \| 'info' \| 'success' \| 'warning' \| 'danger'` | `'neutral'` | Meaning of the sticker. neutral = plain label; primary = highlight (New); accent = release stage (Beta); info / success / warning / danger = state. |
+| `size` | `'sm' \| 'md'` | `'md'` | Block size 20 / 24px. sm for dense rows and for use inside running text. |
+
+**Accessibility**
+
+- Renders a plain <span>: purely presentational, no role. It is read in flow with the text around it.
+- Color is never the only carrier — the label says "Failed", not just red. Keep the word, even next to an icon.
+- Icons inside a badge are sized to 1em; mark decorative ones aria-hidden="true".
+- A badge whose text changes while the page is open (a deploy going from Building to Live) is not announced; add role="status" if the change matters.
+- Text on every filled variant uses the matching -fg token, which meets WCAG AA in all five themes and both color modes.
+
+**Rules**
+
+- One or two words, never a sentence. If it needs a full line, it is not a badge.
+- Name the state, not the color: "Degraded", not "Orange".
+- Use the status variants only for state (info, success, warning, danger); use neutral, primary and accent for categories.
+- Use size sm when the badge sits beside body text or in a dense row; md next to titles.
+- Do not stack more than three badges next to one title.
+
+**CSS hooks:** `.nbc-badge`, `.nbc-badge--neutral`, `.nbc-badge--primary`, `.nbc-badge--accent`, `.nbc-badge--info`, `.nbc-badge--success`, `.nbc-badge--warning`, `.nbc-badge--danger`, `.nbc-badge--sm`
+
+**Examples**
+
+#### Variants
+
+Neutral, primary, accent and the four status colors.
+
+```tsx
+import { Badge } from 'neobrutalistcomponents';
+
+export default function Variants() {
+  return (
+    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 12 }}>
+      <Badge>Draft</Badge>
+      <Badge variant="primary">New</Badge>
+      <Badge variant="accent">Beta</Badge>
+      <Badge variant="info">Synced</Badge>
+      <Badge variant="success">Live</Badge>
+      <Badge variant="warning">Degraded</Badge>
+      <Badge variant="danger">Failed</Badge>
+    </div>
+  );
+}
+```
+
+#### Sizes
+
+Block size 20 / 24px — sm also fits inside running text.
+
+```tsx
+import { Badge } from 'neobrutalistcomponents';
+
+export default function Sizes() {
+  return (
+    <div style={{ display: 'grid', gap: 16 }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 12 }}>
+        <Badge size="sm" variant="success">
+          Live
+        </Badge>
+        <Badge size="md" variant="success">
+          Live
+        </Badge>
+      </div>
+      <p style={{ margin: 0 }}>
+        The billing export finished <Badge size="sm">v2.4.0</Badge> and is ready to download.
+      </p>
+    </div>
+  );
+}
+```
+
+#### With icons
+
+Icons are sized to the text; hide them from assistive tech and keep the word.
+
+```tsx
+import { Badge } from 'neobrutalistcomponents';
+import { AlertTriangle, CheckCircle2, Clock, XCircle } from 'lucide-react';
+
+export default function WithIcons() {
+  return (
+    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 12 }}>
+      <Badge variant="neutral">
+        <Clock aria-hidden="true" />
+        Queued
+      </Badge>
+      <Badge variant="success">
+        <CheckCircle2 aria-hidden="true" />
+        Deployed
+      </Badge>
+      <Badge variant="warning">
+        <AlertTriangle aria-hidden="true" />
+        Slow build
+      </Badge>
+      <Badge variant="danger">
+        <XCircle aria-hidden="true" />
+        Build failed
+      </Badge>
+    </div>
+  );
+}
+```
+
+#### In context
+
+A status badge next to each item in a card, and a "New" tag in the title.
+
+```tsx
+import { Badge, Card } from 'neobrutalistcomponents';
+import type { BadgeProps } from 'neobrutalistcomponents';
+
+const deploys: Array<{ service: string; branch: string; status: string; variant: BadgeProps['variant'] }> = [
+  { service: 'api-gateway', branch: 'main', status: 'Live', variant: 'success' },
+  { service: 'billing-worker', branch: 'fix/proration', status: 'Degraded', variant: 'warning' },
+  { service: 'web-dashboard', branch: 'feat/invites', status: 'Failed', variant: 'danger' },
+  { service: 'docs-site', branch: 'main', status: 'Draft', variant: 'neutral' },
+];
+
+export default function InContext() {
+  return (
+    <Card style={{ maxWidth: 460 }}>
+      <Card.Header>
+        <Card.Title>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 10 }}>
+            Production
+            <Badge variant="primary" size="sm">
+              New
+            </Badge>
+          </span>
+        </Card.Title>
+        <Card.Description>Four services, last deployed 12 minutes ago.</Card.Description>
+      </Card.Header>
+      <Card.Content>
+        <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'grid', gap: 12 }}>
+          {deploys.map((d) => (
+            <li key={d.service} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+              <span>
+                <strong>{d.service}</strong> <span style={{ opacity: 0.7 }}>{d.branch}</span>
+              </span>
+              <Badge variant={d.variant}>{d.status}</Badge>
+            </li>
+          ))}
+        </ul>
+      </Card.Content>
+    </Card>
+  );
+}
+```
+
+### Card
+
+A bordered slab that groups related content, composed from Card.Header, Card.Title, Card.Description, Card.Content and Card.Footer.
+
+Extends `Omit<ComponentProps<'div'>, 'ref'>` — every native prop is forwarded.
+
+**Use it for**
+
+- Group one object or one task: a plan, a project, a settings section, a form.
+- Lists of comparable items (with as="li" inside a <ul>).
+- A whole-card link to a detail page (variant="interactive" with a link in the title).
+
+**Do not use it for**
+
+- As page layout for everything — not every section needs a frame.
+- Status messages — use Alert.
+- Modal content — use Dialog.
+
+**Props**
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `variant` | `'default' \| 'elevated' \| 'interactive'` | `'default'` | elevated casts the large shadow; interactive presses on hover and makes the title link cover the card. |
+| `as` | `'div' \| 'article' \| 'section' \| 'li'` | `'div'` | Element to render. |
+| `ref` | `Ref<HTMLElement>` | — | Ref to the root element. |
+
+**Parts**
+
+- `Card.Header` (`<div>`): Title + description block. Gets a bottom rule when content follows.
+- `Card.Title` (`<h3>`): Display-font heading. In an interactive card, put the link here.
+  - `as`: `'h2' | 'h3' | 'h4' | 'h5' | 'h6'` = `'h3'` — Heading level that fits the page outline.
+  - `ref`: `Ref<HTMLHeadingElement>` — Ref to the heading.
+- `Card.Description` (`<p>`): Muted supporting line under the title.
+- `Card.Content` (`<div>`): Padded body; grows to fill the card height.
+- `Card.Footer` (`<div>`): Action tray, right-aligned. Stays clickable above an interactive card link.
+
+**Accessibility**
+
+- Interactive cards use the stretched-link pattern: the only interactive element is the real link in Card.Title, so keyboard and screen-reader users get one stop with a meaningful name.
+- The card shows the focus ring when its title link is focused (:has(:focus-visible)).
+- Choose the title level (as) so headings stay in order on the page.
+
+**Rules**
+
+- One idea per card; the title names it in a few words.
+- At most one primary button in a card footer, placed last.
+- Cards in the same grid use the same variant; reserve elevated for the one card that matters most.
+- Never nest cards inside cards.
+
+**CSS hooks:** `.nbc-card`, `.nbc-card--elevated`, `.nbc-card--interactive`, `.nbc-card__header`, `.nbc-card__title`, `.nbc-card__description`, `.nbc-card__content`, `.nbc-card__footer`
+
+**Examples**
+
+#### Composition
+
+```tsx
+import { Button, Card, Input } from 'neobrutalistcomponents';
+
+export default function Composition() {
+  return (
+    <Card style={{ maxWidth: 420 }}>
+      <Card.Header>
+        <Card.Title>Invite your team</Card.Title>
+        <Card.Description>Collaborators can edit every project in this workspace.</Card.Description>
+      </Card.Header>
+      <Card.Content>
+        <Input label="Work email" type="email" placeholder="ada@studio.dev" />
+      </Card.Content>
+      <Card.Footer>
+        <Button variant="ghost">Cancel</Button>
+        <Button>Send invite</Button>
+      </Card.Footer>
+    </Card>
+  );
+}
+```
+
+#### Variants
+
+```tsx
+import { Card } from 'neobrutalistcomponents';
+
+export default function Variants() {
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 28 }}>
+      <Card>
+        <Card.Header>
+          <Card.Title>Default</Card.Title>
+          <Card.Description>The resting slab.</Card.Description>
+        </Card.Header>
+      </Card>
+      <Card variant="elevated">
+        <Card.Header>
+          <Card.Title>Elevated</Card.Title>
+          <Card.Description>The one that matters most.</Card.Description>
+        </Card.Header>
+      </Card>
+      <Card variant="interactive">
+        <Card.Header>
+          <Card.Title>
+            <a href="#/components/card">Interactive</a>
+          </Card.Title>
+          <Card.Description>The whole slab is a link.</Card.Description>
+        </Card.Header>
+      </Card>
+    </div>
+  );
+}
+```
+
+#### Interactive list
+
+Each card is one link; the footer stays independent.
+
+```tsx
+import { Badge, Card } from 'neobrutalistcomponents';
+
+const projects = [
+  { slug: 'acme-relaunch', name: 'Acme relaunch', due: 'Due Friday', status: 'On track' },
+  { slug: 'atlas-api', name: 'Atlas API v2', due: 'Due in 3 weeks', status: 'At risk' },
+];
+
+export default function Interactive() {
+  return (
+    <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 28 }}>
+      {projects.map((p) => (
+        <Card key={p.slug} as="li" variant="interactive">
+          <Card.Header>
+            <Card.Title>
+              <a href={`#/projects/${p.slug}`}>{p.name}</a>
+            </Card.Title>
+            <Card.Description>{p.due}</Card.Description>
+          </Card.Header>
+          <Card.Content>
+            <Badge variant={p.status === 'At risk' ? 'warning' : 'success'}>{p.status}</Badge>
+          </Card.Content>
+        </Card>
+      ))}
+    </ul>
+  );
+}
+```
+
+### Kbd
+
+A keyboard key cap for shortcuts in docs, menus and tooltips, in two sizes.
+
+Extends `ComponentProps<'kbd'>` — every native prop is forwarded.
+
+**Use it for**
+
+- Show a keyboard shortcut next to a command in a menu, tooltip or help dialog.
+- Name a key inside running text: "Press Esc to close".
+
+**Do not use it for**
+
+- Inline code, file names or commands — use a <code> element.
+- A pressable control — use Button.
+
+**Props**
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `size` | `'sm' \| 'md'` | `'md'` | Key cap height 20 / 24px. Use sm inside dense menus and tooltips. |
+
+**Accessibility**
+
+- Renders a native <kbd>, which assistive tech exposes as keyboard input.
+- For a combo, nest the keys in an outer <kbd>: <kbd><Kbd>⌘</Kbd>+<Kbd>K</Kbd></kbd> is the semantic way to mark up a chord.
+- Symbols such as ⌘ or ⏎ are read inconsistently; add a title or visually hidden text where the meaning matters.
+
+**Rules**
+
+- One Kbd per key; separate the keys of a chord with "+" or a space.
+- Use the symbol that matches the platform (⌘ on macOS, Ctrl elsewhere).
+- Keep the shortcut to the right of its description so the descriptions align.
+
+**CSS hooks:** `.nbc-kbd`, `.nbc-kbd--sm`
+
+**Examples**
+
+#### Shortcut list
+
+Four shortcuts with their descriptions.
+
+```tsx
+import { Kbd } from 'neobrutalistcomponents';
+
+const shortcuts = [
+  { keys: ['⌘', 'K'], label: 'Search projects' },
+  { keys: ['⌘', '⏎'], label: 'Deploy to production' },
+  { keys: ['Shift', '?'], label: 'Show shortcuts' },
+  { keys: ['Esc'], label: 'Close panel' },
+];
+
+export default function Shortcuts() {
+  return (
+    <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'grid', gap: 12, maxInlineSize: 360 }}>
+      {shortcuts.map(({ keys, label }) => (
+        <li key={label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16 }}>
+          <span>{label}</span>
+          <kbd style={{ display: 'inline-flex', gap: 4, font: 'inherit' }}>
+            {keys.map((key) => (
+              <Kbd key={key}>{key}</Kbd>
+            ))}
+          </kbd>
+        </li>
+      ))}
+    </ul>
+  );
+}
+```
+
+#### In text
+
+A key cap inline with a sentence.
+
+```tsx
+import { Kbd } from 'neobrutalistcomponents';
+
+export default function InText() {
+  return (
+    <p style={{ margin: 0, maxInlineSize: 480, lineHeight: 1.8 }}>
+      Press <Kbd size="sm">Esc</Kbd> to discard the draft invite, or{' '}
+      <kbd style={{ font: 'inherit' }}>
+        <Kbd size="sm">⌘</Kbd>+<Kbd size="sm">S</Kbd>
+      </kbd>{' '}
+      to save it and send it later.
+    </p>
+  );
+}
+```
+
+### Progress
+
+A bar that shows how far a task has gone, or that it is still running when the end is unknown: four variants, three sizes, an optional label and percentage.
+
+Extends `Omit<ComponentProps<'div'>, 'children'>` — every native prop is forwarded.
+
+**Use it for**
+
+- Show the advance of a task with a known end: an upload, an import, a build, an onboarding checklist.
+- Show that something is running when you cannot say how far along it is: provisioning a database, waiting for DNS (leave value out).
+- Show consumption against a limit: storage used, seats taken, build minutes left (use the success, warning and danger variants).
+
+**Do not use it for**
+
+- A wait shorter than about a second — show nothing, or put loading on the Button that started it.
+- A value that is not progress toward a goal, like a rating or a poll result — draw it as a chart.
+- A task the user must be able to pause or cancel — pair Progress with a Button, it has no controls of its own.
+
+**Props**
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `number \| null` | — | Current value from 0 to max, clamped to that range. Leave it out (or pass null) for an indeterminate bar. |
+| `max` | `number` | `100` | Value that means 100%. Anything that is not a positive number falls back to 100. |
+| `label` | `ReactNode` | — | Visible label above the bar. It names the progressbar through aria-labelledby; without it, pass aria-label. |
+| `showValue` | `boolean` | `false` | Show the rounded percentage at the end of the header. Ignored while indeterminate. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Bar height 8 / 14 / 22px. |
+| `variant` | `'primary' \| 'success' \| 'warning' \| 'danger'` | `'primary'` | Meaning of the bar. primary = work in flight; success / warning / danger = a quota or a result. |
+
+**Accessibility**
+
+- Renders role="progressbar" with aria-valuemin 0, aria-valuemax and aria-valuenow (the clamped value, in the same unit as max).
+- Every progressbar needs a name: pass label (linked with aria-labelledby) or, without a visible label, aria-label.
+- Determinate bars set aria-valuetext to the rounded percentage ("42%"); pass your own aria-valuetext when a sentence reads better ("3 of 4 files uploaded").
+- Indeterminate bars (no value) omit aria-valuenow and aria-valuetext, which is how assistive tech knows the progress is unknown.
+- Screen readers do not announce a progressbar as it changes. For long tasks, announce the milestones ("Upload complete") in a role="status" region.
+- The variant colors are never the only carrier: show the number (showValue) or the state in the label, e.g. "Build minutes — 100% used".
+- In forced-colors mode the bar paints with the system Highlight color and the track keeps its border, so the filled part stays visible.
+- The sliding animation of the indeterminate bar stops under prefers-reduced-motion; the bar stays as a static block.
+
+**Rules**
+
+- Give every Progress a label or an aria-label.
+- Leave value out when you do not know the end; never fake a determinate value.
+- Use max for natural units (3 of 4 files) and let the component compute the percentage.
+- Reserve success / warning / danger for quotas and finished states; use primary for work in flight.
+- Show the percentage (showValue) when the exact number helps the user decide; skip it for background work.
+- Do not put interactive controls inside the header; place a Button next to the Progress instead.
+
+**CSS hooks:** `.nbc-progress`, `.nbc-progress--sm`, `.nbc-progress--md`, `.nbc-progress--lg`, `.nbc-progress--primary`, `.nbc-progress--success`, `.nbc-progress--warning`, `.nbc-progress--danger`, `.nbc-progress--indeterminate`, `.nbc-progress__header`, `.nbc-progress__label`, `.nbc-progress__value`, `.nbc-progress__track`, `.nbc-progress__bar`
+
+**Examples**
+
+#### Determinate
+
+An upload at 42% with a label and value, a file count with a custom max, and a small unlabeled bar.
+
+```tsx
+import { Progress } from 'neobrutalistcomponents';
+
+export default function Determinate() {
+  return (
+    <div style={{ display: 'grid', gap: 20, maxWidth: 420 }}>
+      <Progress label="Uploading q3-invoices.zip" value={42} showValue />
+      <Progress label="Importing 3 of 4 customer files" value={3} max={4} showValue />
+      <Progress aria-label="Disk space used" value={68} size="sm" />
+    </div>
+  );
+}
+```
+
+#### Indeterminate
+
+No value: a block slides along the track while the amount of work is unknown.
+
+```tsx
+import { Progress } from 'neobrutalistcomponents';
+
+export default function Indeterminate() {
+  return (
+    <div style={{ display: 'grid', gap: 20, maxWidth: 420 }}>
+      <Progress label="Provisioning database" />
+      <Progress label="Waiting for DNS to propagate" variant="warning" size="sm" />
+    </div>
+  );
+}
+```
+
+#### Variants
+
+Quota usage — storage on success, seats on warning, build minutes on danger.
+
+```tsx
+import { Card, Progress } from 'neobrutalistcomponents';
+import type { ProgressProps } from 'neobrutalistcomponents';
+
+const quotas: Array<{ label: string; value: number; variant: ProgressProps['variant'] }> = [
+  { label: 'Storage — 34 of 100 GB', value: 34, variant: 'success' },
+  { label: 'Seats — 81 of 100 used', value: 81, variant: 'warning' },
+  { label: 'Build minutes — 100% used', value: 100, variant: 'danger' },
+];
+
+export default function Variants() {
+  return (
+    <Card style={{ maxWidth: 460 }}>
+      <Card.Header>
+        <Card.Title>Team plan usage</Card.Title>
+        <Card.Description>Resets on November 1.</Card.Description>
+      </Card.Header>
+      <Card.Content>
+        <div style={{ display: 'grid', gap: 18 }}>
+          {quotas.map((quota) => (
+            <Progress key={quota.label} label={quota.label} value={quota.value} variant={quota.variant} showValue />
+          ))}
+        </div>
+      </Card.Content>
+    </Card>
+  );
+}
+```
+
+#### Live
+
+A button starts an export; the bar animates from 0 to 100 and turns green when it finishes.
+
+```tsx
+import { useEffect, useState } from 'react';
+import { Button, Progress } from 'neobrutalistcomponents';
+
+export default function Live() {
+  const [value, setValue] = useState(0);
+  const [started, setStarted] = useState(false);
+  const running = started && value < 100;
+
+  useEffect(() => {
+    if (!running) return;
+    const timer = setInterval(() => setValue((v) => Math.min(100, v + 4)), 120);
+    return () => clearInterval(timer);
+  }, [running]);
+
+  function start() {
+    setValue(0);
+    setStarted(true);
+  }
+
+  return (
+    <div style={{ display: 'grid', gap: 16, maxWidth: 420 }}>
+      <Progress
+        label={value >= 100 ? 'Invoices exported' : 'Exporting invoices'}
+        value={value}
+        variant={value >= 100 ? 'success' : 'primary'}
+        showValue
+        size="lg"
+      />
+      <div>
+        <Button onClick={start} disabled={running}>
+          {value >= 100 ? 'Export again' : running ? 'Exporting…' : 'Export invoices'}
+        </Button>
+      </div>
+    </div>
+  );
+}
+```
+
+### Table
+
+A styled data table with native table semantics: a scroll wrapper, two densities, optional stripes, and alignment helpers for numeric columns.
+
+Extends `ComponentProps<'table'>` — every native prop is forwarded.
+
+**Use it for**
+
+- Compare many records across the same attributes: invoices, deploys, members, usage by project.
+- Numbers that readers scan down a column: amounts, counts, durations (use numeric cells).
+- Anything a user might sort, filter or paste into a spreadsheet.
+
+**Do not use it for**
+
+- Page layout — use CSS grid or flexbox; a table announces itself to screen readers as data.
+- A handful of label/value pairs — use a description list or a Card.
+- One row per object with rich content and actions — a list of Cards reads better on small screens.
+
+**Props**
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `density` | `'compact' \| 'comfortable'` | `'comfortable'` | Row block size: comfortable is 48px, compact is 36px. |
+| `striped` | `boolean` | `false` | Tint every second body row. Helps the eye follow wide rows. |
+
+**Parts**
+
+- `Table.Caption` (`<caption>`): Names the table. Rendered below the rows, as a muted note.
+- `Table.Head` (`<thead>`): Column headers. Holds one Table.Row of Table.HeaderCell.
+- `Table.Body` (`<tbody>`): The data rows. Rows highlight on hover; with striped, every second row is tinted.
+- `Table.Foot` (`<tfoot>`): Totals or summary rows, set off by a rule above.
+- `Table.Row` (`<tr>`): One row, in the head, body or foot.
+- `Table.HeaderCell` (`<th>`): A header cell. scope defaults to col; use scope="row" for the first cell of a body row to make it a row header.
+  - `align`: `'start' | 'center' | 'end'` — Text alignment. Match the alignment of the cells below, e.g. end over a numeric column.
+- `Table.Cell` (`<td>`): A data cell. Pass colSpan for an empty-state or summary row that spans every column.
+  - `align`: `'start' | 'center' | 'end'` — Text alignment. Overrides the end alignment that numeric implies.
+  - `numeric`: `boolean` = `false` — Tabular numerals, aligned to the end. Use for amounts, counts and durations.
+
+**Accessibility**
+
+- Renders a real <table> with <caption>, <thead>, <tbody> and <tfoot>, so screen readers announce the size, the headers and the position in the grid without any ARIA.
+- Table.Caption is the table name. Always include one; it also tells sighted users what they are looking at.
+- Table.HeaderCell sets scope="col" by default; give the first cell of each body row scope="row" so every value is announced with its row and column.
+- Wide tables scroll horizontally inside the wrapper, which browsers make keyboard-focusable; the wrapper shows the focus ring.
+- Do not remove native table semantics with display or role overrides, and do not use a table for layout.
+- Hover and stripes are decoration only. In forced-colors mode rows are separated by lines and the hovered row is outlined.
+
+**Rules**
+
+- Every table has a caption and one header row of Table.HeaderCell.
+- Align numbers to the end: Table.Cell numeric in the body, Table.HeaderCell align="end" in the header, so digits line up and the header sits over them.
+- Keep one unit per column; put the unit in the header or the caption, not in every cell.
+- Use compact for logs and dense admin lists, comfortable for tables people read (billing, plans).
+- Use striped for wide tables with many columns; skip it when rows are short or already separated by badges.
+- An empty table keeps its header and shows one row with a spanning cell: say what is missing and offer the next action.
+
+**CSS hooks:** `.nbc-table`, `.nbc-table--compact`, `.nbc-table--striped`, `.nbc-table__table`, `.nbc-table__caption`, `.nbc-table__head`, `.nbc-table__body`, `.nbc-table__foot`, `.nbc-table__row`, `.nbc-table__header-cell`, `.nbc-table__header-cell--start`, `.nbc-table__header-cell--center`, `.nbc-table__header-cell--end`, `.nbc-table__cell`, `.nbc-table__cell--numeric`, `.nbc-table__cell--start`, `.nbc-table__cell--center`, `.nbc-table__cell--end`
+
+**Examples**
+
+#### Invoices
+
+Row headers, status badges and a numeric amount column under a caption.
+
+```tsx
+import { Badge, Table } from 'neobrutalistcomponents';
+import type { BadgeProps } from 'neobrutalistcomponents';
+
+const invoices: Array<{ id: string; customer: string; status: string; variant: BadgeProps['variant']; amount: string }> = [
+  { id: 'INV-2041', customer: 'Northwind Traders', status: 'Paid', variant: 'success', amount: '$4,280.00' },
+  { id: 'INV-2042', customer: 'Globex Industries', status: 'Pending', variant: 'warning', amount: '$1,150.50' },
+  { id: 'INV-2043', customer: 'Initech', status: 'Overdue', variant: 'danger', amount: '$9,600.00' },
+  { id: 'INV-2044', customer: 'Umbrella Labs', status: 'Paid', variant: 'success', amount: '$720.00' },
+  { id: 'INV-2045', customer: 'Hooli', status: 'Draft', variant: 'neutral', amount: '$12,400.00' },
+];
+
+export default function Invoices() {
+  return (
+    <Table>
+      <Table.Caption>Invoices issued in September 2026, amounts in USD.</Table.Caption>
+      <Table.Head>
+        <Table.Row>
+          <Table.HeaderCell>Invoice</Table.HeaderCell>
+          <Table.HeaderCell>Customer</Table.HeaderCell>
+          <Table.HeaderCell>Status</Table.HeaderCell>
+          <Table.HeaderCell align="end">Amount</Table.HeaderCell>
+        </Table.Row>
+      </Table.Head>
+      <Table.Body>
+        {invoices.map((invoice) => (
+          <Table.Row key={invoice.id}>
+            <Table.HeaderCell scope="row">{invoice.id}</Table.HeaderCell>
+            <Table.Cell>{invoice.customer}</Table.Cell>
+            <Table.Cell>
+              <Badge size="sm" variant={invoice.variant}>
+                {invoice.status}
+              </Badge>
+            </Table.Cell>
+            <Table.Cell numeric>{invoice.amount}</Table.Cell>
+          </Table.Row>
+        ))}
+      </Table.Body>
+    </Table>
+  );
+}
+```
+
+#### Compact and striped
+
+A deploy log: tabular numerals, monospace commits, 36px rows.
+
+```tsx
+import { Table } from 'neobrutalistcomponents';
+
+const deploys = [
+  { time: '14:32', commit: 'a4f9c21', author: 'Ada Okafor', duration: '1m 42s' },
+  { time: '13:58', commit: '9be07d3', author: 'Grace Lindqvist', duration: '58s' },
+  { time: '12:17', commit: '51c8e90', author: 'Linus Marchetti', duration: '2m 07s' },
+  { time: '11:03', commit: 'e2d4a6f', author: 'Ada Okafor', duration: '1m 31s' },
+  { time: '09:45', commit: '7730bb8', author: 'Margaret Ito', duration: '3m 12s' },
+  { time: '09:12', commit: 'c1f5e47', author: 'Grace Lindqvist', duration: '1m 05s' },
+];
+
+export default function Compact() {
+  return (
+    <Table density="compact" striped>
+      <Table.Caption>Last six deploys to production, newest first.</Table.Caption>
+      <Table.Head>
+        <Table.Row>
+          <Table.HeaderCell>Time</Table.HeaderCell>
+          <Table.HeaderCell>Commit</Table.HeaderCell>
+          <Table.HeaderCell>Author</Table.HeaderCell>
+          <Table.HeaderCell align="end">Duration</Table.HeaderCell>
+        </Table.Row>
+      </Table.Head>
+      <Table.Body>
+        {deploys.map((deploy) => (
+          <Table.Row key={deploy.commit}>
+            <Table.Cell numeric align="start">
+              {deploy.time}
+            </Table.Cell>
+            <Table.Cell>
+              <code>{deploy.commit}</code>
+            </Table.Cell>
+            <Table.Cell>{deploy.author}</Table.Cell>
+            <Table.Cell numeric>{deploy.duration}</Table.Cell>
+          </Table.Row>
+        ))}
+      </Table.Body>
+    </Table>
+  );
+}
+```
+
+#### Empty state
+
+One spanning row that explains the gap and offers the next action.
+
+```tsx
+import { Button, Table } from 'neobrutalistcomponents';
+
+export default function Empty() {
+  return (
+    <Table>
+      <Table.Caption>Pending invites for the Acme workspace.</Table.Caption>
+      <Table.Head>
+        <Table.Row>
+          <Table.HeaderCell>Email</Table.HeaderCell>
+          <Table.HeaderCell>Role</Table.HeaderCell>
+          <Table.HeaderCell>Sent</Table.HeaderCell>
+        </Table.Row>
+      </Table.Head>
+      <Table.Body>
+        <Table.Row>
+          <Table.Cell colSpan={3} align="center">
+            <div style={{ display: 'grid', justifyItems: 'center', gap: 12, padding: '24px 0' }}>
+              <p style={{ margin: 0, maxWidth: '44ch' }}>
+                No pending invites. Invite a teammate by email and they will appear here until they accept.
+              </p>
+              <Button size="sm">Invite teammate</Button>
+            </div>
+          </Table.Cell>
+        </Table.Row>
+      </Table.Body>
+    </Table>
+  );
+}
+```
+
+#### Totals
+
+A foot row sums the numeric columns; row headers name each project.
+
+```tsx
+import { Table } from 'neobrutalistcomponents';
+
+const projects = [
+  { name: 'Acme relaunch', seats: 12, storage: '48.2 GB', cost: '$216.00' },
+  { name: 'Atlas API v2', seats: 8, storage: '131.7 GB', cost: '$184.00' },
+  { name: 'Mobile checkout', seats: 5, storage: '9.4 GB', cost: '$90.00' },
+];
+
+export default function Totals() {
+  return (
+    <Table>
+      <Table.Caption>Workspace usage for October 2026.</Table.Caption>
+      <Table.Head>
+        <Table.Row>
+          <Table.HeaderCell>Project</Table.HeaderCell>
+          <Table.HeaderCell align="end">Seats</Table.HeaderCell>
+          <Table.HeaderCell align="end">Storage</Table.HeaderCell>
+          <Table.HeaderCell align="end">Cost</Table.HeaderCell>
+        </Table.Row>
+      </Table.Head>
+      <Table.Body>
+        {projects.map((project) => (
+          <Table.Row key={project.name}>
+            <Table.HeaderCell scope="row">{project.name}</Table.HeaderCell>
+            <Table.Cell numeric>{project.seats}</Table.Cell>
+            <Table.Cell numeric>{project.storage}</Table.Cell>
+            <Table.Cell numeric>{project.cost}</Table.Cell>
+          </Table.Row>
+        ))}
+      </Table.Body>
+      <Table.Foot>
+        <Table.Row>
+          <Table.HeaderCell scope="row">Total</Table.HeaderCell>
+          <Table.Cell numeric>25</Table.Cell>
+          <Table.Cell numeric>189.3 GB</Table.Cell>
+          <Table.Cell numeric>$490.00</Table.Cell>
+        </Table.Row>
+      </Table.Foot>
+    </Table>
+  );
+}
+```
+
+### Dialog
+
+A modal dialog on the native <dialog> element: focus trap, Esc, inert background and top layer come from the platform. Controlled only.
+
+Extends `Omit<ComponentProps<'dialog'>, 'open'>` — every native prop is forwarded.
+
+**Use it for**
+
+- Confirm a destructive or irreversible action (delete a project, revoke an invite).
+- A short focused task that must finish before the user returns to the page (rename a workspace).
+- Anything that needs the whole page to be inert while it is open.
+
+**Do not use it for**
+
+- Inline feedback or status — use Alert.
+- Long multi-step flows — give them a page.
+- Non-blocking hints — use a popover or tooltip.
+
+**Props**
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `open` (required) | `boolean` | — | Whether the dialog is shown. Controlled: the dialog never closes itself. |
+| `onOpenChange` (required) | `(open: boolean) => void` | — | Called with false when the user asks to close (Esc, backdrop, close button, form method="dialog"). |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Maximum inline size: sm 400px, md 560px, lg 760px. |
+| `closeOnBackdrop` | `boolean` | `true` | Close when the backdrop is clicked. |
+| `hideClose` | `boolean` | `false` | Hide the corner close button. Provide another way to close. |
+| `closeLabel` | `string` | `'Close'` | Accessible name of the corner close button. |
+
+**Parts**
+
+- `Dialog.Header` (`<div>`): Title + description block; leaves room for the close button.
+- `Dialog.Title` (`<h2>`): Display-font heading. Names the dialog through aria-labelledby.
+- `Dialog.Description` (`<p>`): Muted supporting line. Becomes the dialog description through aria-describedby.
+- `Dialog.Content` (`<div>`): Padded body.
+- `Dialog.Footer` (`<div>`): Action tray, right-aligned; put the primary action last.
+
+**Accessibility**
+
+- Opened with showModal(): focus moves into the dialog, Tab is trapped, the rest of the page is inert and Esc closes it.
+- Dialog.Title and Dialog.Description register themselves, so aria-labelledby and aria-describedby are only set when they exist.
+- Without a Dialog.Title, pass aria-label so the dialog still has a name.
+- The corner close button is a real button named by closeLabel.
+
+**Rules**
+
+- Always render a Dialog.Title; keep it to a few words that name the decision.
+- Keep open in your own state and update it in onOpenChange; Esc and backdrop clicks only ask.
+- One primary action per dialog, last in the footer; the cancel action sits before it.
+- Never stack dialogs; replace the content instead.
+
+**CSS hooks:** `.nbc-dialog`, `.nbc-dialog--sm`, `.nbc-dialog--lg`, `.nbc-dialog__panel`, `.nbc-dialog__close`, `.nbc-dialog__header`, `.nbc-dialog__title`, `.nbc-dialog__description`, `.nbc-dialog__content`, `.nbc-dialog__footer`
+
+**Examples**
+
+#### Confirm a destructive action
+
+```tsx
+import { useState } from 'react';
+import { Button, Dialog } from 'neobrutalistcomponents';
+
+export default function Confirm() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <Button variant="danger" onClick={() => setOpen(true)}>
+        Delete project
+      </Button>
+      <Dialog open={open} onOpenChange={setOpen} size="sm">
+        <Dialog.Header>
+          <Dialog.Title>Delete “Atlas API”?</Dialog.Title>
+          <Dialog.Description>This removes 14 deployments and 3 environments. It cannot be undone.</Dialog.Description>
+        </Dialog.Header>
+        <Dialog.Footer>
+          <Button variant="ghost" onClick={() => setOpen(false)}>
+            Keep project
+          </Button>
+          <Button variant="danger" onClick={() => setOpen(false)}>
+            Delete project
+          </Button>
+        </Dialog.Footer>
+      </Dialog>
+    </>
+  );
+}
+```
+
+#### Form in a dialog
+
+A form with method="dialog" closes the dialog on submit.
+
+```tsx
+import { useState } from 'react';
+import { Button, Dialog, Input } from 'neobrutalistcomponents';
+
+export default function Form() {
+  const [open, setOpen] = useState(false);
+  const [name, setName] = useState('Northwind');
+
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Rename workspace</Button>
+      <Dialog open={open} onOpenChange={setOpen}>
+        <form method="dialog">
+          <Dialog.Header>
+            <Dialog.Title>Rename workspace</Dialog.Title>
+            <Dialog.Description>Members see the new name straight away.</Dialog.Description>
+          </Dialog.Header>
+          <Dialog.Content>
+            <Input label="Workspace name" value={name} onChange={(event) => setName(event.target.value)} />
+          </Dialog.Content>
+          <Dialog.Footer>
+            <Button type="button" variant="ghost" onClick={() => setOpen(false)}>
+              Cancel
+            </Button>
+            <Button type="submit">Save name</Button>
+          </Dialog.Footer>
+        </form>
+      </Dialog>
+    </>
+  );
+}
+```
+
+#### Sizes
+
+```tsx
+import { useState } from 'react';
+import { Button, Dialog } from 'neobrutalistcomponents';
+import type { DialogSize } from 'neobrutalistcomponents';
+
+const COPY: Record<DialogSize, { title: string; body: string }> = {
+  sm: { title: 'Invite sent', body: 'maria@northwind.io will get an email with a link that expires in 7 days.' },
+  md: {
+    title: 'Deploy to production',
+    body: 'Build #482 passed all checks. Deploying replaces the live version of Atlas API in about two minutes.',
+  },
+  lg: {
+    title: 'Billing summary',
+    body: 'Team plan, 12 seats at $18 each, billed monthly. Your next invoice of $216.00 is due on 1 November and will be charged to the card ending 4242.',
+  },
+};
+
+export default function Sizes() {
+  const [size, setSize] = useState<DialogSize | null>(null);
+  const current = size ?? 'md';
+
+  return (
+    <>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
+        {(['sm', 'md', 'lg'] as const).map((s) => (
+          <Button key={s} variant="secondary" onClick={() => setSize(s)}>
+            Open {s}
+          </Button>
+        ))}
+      </div>
+      <Dialog open={size !== null} onOpenChange={(open) => !open && setSize(null)} size={current}>
+        <Dialog.Header>
+          <Dialog.Title>{COPY[current].title}</Dialog.Title>
+        </Dialog.Header>
+        <Dialog.Content>{COPY[current].body}</Dialog.Content>
+        <Dialog.Footer>
+          <Button onClick={() => setSize(null)}>Got it</Button>
+        </Dialog.Footer>
+      </Dialog>
+    </>
+  );
+}
+```
+
+### Tabs
+
+Switch between views that share one place on the page, composed from Tabs.List, Tabs.Tab and Tabs.Panel. Follows the WAI-ARIA tabs pattern with automatic activation.
+
+Extends `Omit<ComponentProps<'div'>, 'onChange' | 'defaultValue'>` — every native prop is forwarded.
+
+**Use it for**
+
+- Peer views of one object: a project’s Overview, Deployments and Settings.
+- Content the user compares or flips between without leaving the page.
+
+**Do not use it for**
+
+- Steps that must happen in order — use a stepper or separate pages.
+- Navigation between routes — use links so the URL changes.
+- More than about six sections — consider a sidebar.
+
+**Props**
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string` | — | Value of the selected tab (controlled). |
+| `defaultValue` | `string` | — | Value of the initially selected tab (uncontrolled). Defaults to the first enabled tab. |
+| `onValueChange` | `(value: string) => void` | — | Called with the new value when the user selects a tab. |
+
+**Parts**
+
+- `Tabs.List` (`<div>`): The tablist. Handles arrow, Home and End keys; give it an aria-label.
+- `Tabs.Tab` (`<button>`): One tab. Its value pairs it with a Tabs.Panel.
+  - `value`: `string` — Unique value that pairs this tab with its Tabs.Panel.
+- `Tabs.Panel` (`<div>`): Content for one tab. Inactive panels stay mounted but hidden.
+  - `value`: `string` — Value of the Tabs.Tab that controls this panel.
+
+**Accessibility**
+
+- Roles tablist, tab and tabpanel are wired with aria-selected, aria-controls and aria-labelledby.
+- Roving tabindex: only the active tab is in the tab order; Tab moves on to the panel.
+- ArrowLeft / ArrowRight move focus and select (automatic activation) with wrap-around, skipping disabled tabs; Home and End jump to the ends. Arrows swap in right-to-left layouts.
+- Give Tabs.List an aria-label when the purpose is not obvious from context.
+
+**Rules**
+
+- Keep tab labels to one or two words.
+- Every Tabs.Tab needs exactly one Tabs.Panel with the same value.
+- Do not put a tab in a disabled state without explaining why elsewhere on the page.
+
+**CSS hooks:** `.nbc-tabs`, `.nbc-tabs__list`, `.nbc-tabs__tab`, `.nbc-tabs__tab--active`, `.nbc-tabs__panel`
+
+**Examples**
+
+#### Basic
+
+```tsx
+import { Tabs } from 'neobrutalistcomponents';
+
+export default function Basic() {
+  return (
+    <Tabs defaultValue="overview">
+      <Tabs.List aria-label="Project sections">
+        <Tabs.Tab value="overview">Overview</Tabs.Tab>
+        <Tabs.Tab value="deployments">Deployments</Tabs.Tab>
+        <Tabs.Tab value="settings">Settings</Tabs.Tab>
+      </Tabs.List>
+      <Tabs.Panel value="overview">Atlas API is healthy. Last deploy finished 12 minutes ago on main.</Tabs.Panel>
+      <Tabs.Panel value="deployments">3 deployments this week. The most recent one took 1m 42s.</Tabs.Panel>
+      <Tabs.Panel value="settings">Rename the project, rotate its API key or transfer ownership.</Tabs.Panel>
+    </Tabs>
+  );
+}
+```
+
+#### Controlled
+
+External buttons drive the selected tab; a Badge counts open items.
+
+```tsx
+import { useState } from 'react';
+import { Badge, Button, Tabs } from 'neobrutalistcomponents';
+
+export default function Controlled() {
+  const [tab, setTab] = useState('invites');
+  return (
+    <div style={{ display: 'grid', gap: 16 }}>
+      <div style={{ display: 'flex', gap: 8 }}>
+        <Button size="sm" variant="secondary" onClick={() => setTab('members')}>
+          Show members
+        </Button>
+        <Button size="sm" variant="secondary" onClick={() => setTab('invites')}>
+          Show pending invites
+        </Button>
+      </div>
+      <Tabs value={tab} onValueChange={setTab}>
+        <Tabs.List aria-label="Team">
+          <Tabs.Tab value="members">Members</Tabs.Tab>
+          <Tabs.Tab value="invites">
+            Invites <Badge>2</Badge>
+          </Tabs.Tab>
+        </Tabs.List>
+        <Tabs.Panel value="members">8 people have access to this workspace.</Tabs.Panel>
+        <Tabs.Panel value="invites">maria@acme.dev and jonas@acme.dev have not accepted yet.</Tabs.Panel>
+      </Tabs>
+    </div>
+  );
+}
+```
+
+#### With a disabled tab
+
+```tsx
+import { Tabs } from 'neobrutalistcomponents';
+
+export default function WithDisabled() {
+  return (
+    <Tabs defaultValue="invoices">
+      <Tabs.List aria-label="Billing">
+        <Tabs.Tab value="invoices">Invoices</Tabs.Tab>
+        <Tabs.Tab value="usage">Usage</Tabs.Tab>
+        <Tabs.Tab value="tax" disabled>
+          Tax settings
+        </Tabs.Tab>
+      </Tabs.List>
+      <Tabs.Panel value="invoices">Your last invoice of $49.00 was paid on September 28.</Tabs.Panel>
+      <Tabs.Panel value="usage">412 of 1,000 build minutes used this cycle.</Tabs.Panel>
+      <Tabs.Panel value="tax">Available on the Team plan.</Tabs.Panel>
+    </Tabs>
+  );
+}
+```
+
+### Tooltip
+
+A short hint attached to a focusable element, shown on hover after a delay and immediately on keyboard focus, rendered in the top layer.
+
+Extends `(no native props — wraps its child)` — every native prop is forwarded.
+
+**Use it for**
+
+- Naming an icon-only button ("Copy link", "Archive").
+- A brief hint about a shortcut or a disabled reason that fits in one line.
+
+**Do not use it for**
+
+- Anything the user must read to complete a task — put it in the description of the field instead.
+- Interactive content (links, buttons) — tooltips are not focusable.
+- Touch-only interfaces: hover tooltips never appear on touch.
+
+**Props**
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `content` (required) | `ReactNode` | — | What the tooltip says. One short line. |
+| `children` (required) | `ReactElement` | — | The single focusable element the tooltip describes. |
+| `side` | `'top' \| 'bottom' \| 'left' \| 'right'` | `'top'` | Preferred side; flips when there is no room. |
+| `delay` | `number` | `400` | Milliseconds the pointer rests on the trigger before showing. |
+| `disabled` | `boolean` | `false` | Never show; the child renders untouched. |
+| `className` | `string` | — | Extra class on the tooltip bubble. |
+
+**Accessibility**
+
+- The bubble has role="tooltip" and is linked to the trigger with aria-describedby (existing describedby ids are kept).
+- Opens on keyboard focus immediately and closes on blur or Escape.
+- The trigger keeps its own accessible name; for icon-only buttons still pass aria-label — the tooltip is a description, not a name.
+
+**Rules**
+
+- Keep it under about 60 characters, sentence case, no period for fragments.
+- Never hide essential information in a tooltip.
+- One tooltip per trigger; do not stack tooltips on tooltips.
+
+**CSS hooks:** `.nbc-tooltip`, `.nbc-tooltip--top`, `.nbc-tooltip--bottom`, `.nbc-tooltip--left`, `.nbc-tooltip--right`, `.nbc-tooltip-anchor`
+
+**Examples**
+
+#### Naming icon buttons
+
+```tsx
+import { Button, Tooltip } from 'neobrutalistcomponents';
+import { Archive, Link2, Trash2 } from 'lucide-react';
+
+export default function IconButtons() {
+  return (
+    <div style={{ display: 'flex', gap: 12 }}>
+      <Tooltip content="Copy link">
+        <Button variant="secondary" leftIcon={<Link2 />} aria-label="Copy link" />
+      </Tooltip>
+      <Tooltip content="Archive project">
+        <Button variant="secondary" leftIcon={<Archive />} aria-label="Archive project" />
+      </Tooltip>
+      <Tooltip content="Delete project">
+        <Button variant="danger" leftIcon={<Trash2 />} aria-label="Delete project" />
+      </Tooltip>
+    </div>
+  );
+}
+```
+
+#### Sides
+
+Each side flips automatically near the viewport edge.
+
+```tsx
+import { Button, Tooltip } from 'neobrutalistcomponents';
+
+export default function Sides() {
+  return (
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, padding: '32px 0' }}>
+      {(['top', 'right', 'bottom', 'left'] as const).map((side) => (
+        <Tooltip key={side} side={side} content={`Opens on the ${side}`}>
+          <Button variant="secondary">{side}</Button>
+        </Tooltip>
+      ))}
+    </div>
+  );
+}
+```
+
+#### With a shortcut
+
+```tsx
+import { Button, Kbd, Tooltip } from 'neobrutalistcomponents';
+import { Search } from 'lucide-react';
+
+export default function WithShortcut() {
+  return (
+    <Tooltip
+      content={
+        <>
+          Search projects <Kbd size="sm">⌘</Kbd> <Kbd size="sm">K</Kbd>
+        </>
+      }
+    >
+      <Button variant="secondary" leftIcon={<Search />}>
+        Search
+      </Button>
+    </Tooltip>
+  );
+}
+```
