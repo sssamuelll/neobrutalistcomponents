@@ -1,6 +1,13 @@
 /* Swiss: nothing moves. Hover inverts — black to oxblood, white to black. */
 
 @scope ([data-theme="swiss"]) to ([data-theme]:not([data-theme="swiss"])) {
+  /* Focus is oxblood, like the danger fill and the hovered primary: draw it
+     outside the slab so it never disappears into the fill. */
+  .nbc-button--danger:focus-visible,
+  .nbc-button--primary:focus-visible {
+    outline-offset: 2px;
+  }
+
   .nbc-button {
     font-variant-numeric: tabular-nums;
   }

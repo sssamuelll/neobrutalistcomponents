@@ -1,5 +1,5 @@
 import { Children, cloneElement, isValidElement } from 'react';
-import type { ComponentProps, MouseEvent, ReactNode } from 'react';
+import type { ComponentProps, MouseEvent, ReactElement, ReactNode } from 'react';
 import { cx, isPresent } from '../internal/cx';
 import { Slot } from '../internal/Slot';
 
@@ -91,7 +91,12 @@ export function Button({
           onClick?.(event);
         }}
       >
-        {cloneElement(child, undefined, body)}
+        {/* While inactive the child's own click/aux-click handlers must not run. */}
+        {cloneElement(
+          child as ReactElement<Record<string, unknown>>,
+          inactive ? { onClick: undefined, onAuxClick: (e: MouseEvent) => e.preventDefault() } : undefined,
+          body,
+        )}
       </Slot>
     );
   }

@@ -137,6 +137,29 @@ describe('Tabs', () => {
     expect(tabs.map((t) => t.tabIndex)).toEqual([-1, 0, -1]);
   });
 
+  it('keeps one tab reachable when the controlled value matches no tab', () => {
+    render(<Basic value="missing" onValueChange={() => {}} />);
+    const stops = screen.getAllByRole('tab').filter((t) => t.tabIndex === 0);
+    expect(stops).toHaveLength(1);
+    expect(stops[0]).toHaveTextContent('Overview');
+  });
+
+  it('gives distinct ids to values that sanitize alike', () => {
+    render(
+      <Tabs defaultValue="a b">
+        <Tabs.List aria-label="X">
+          <Tabs.Tab value="a b">One</Tabs.Tab>
+          <Tabs.Tab value="a_b">Two</Tabs.Tab>
+        </Tabs.List>
+        <Tabs.Panel value="a b">1</Tabs.Panel>
+        <Tabs.Panel value="a_b">2</Tabs.Panel>
+      </Tabs>,
+    );
+    const [one, two] = screen.getAllByRole('tab');
+    expect(one.id).not.toBe(two.id);
+    expect(one.getAttribute('aria-controls')).not.toBe(two.getAttribute('aria-controls'));
+  });
+
   it('has no axe violations', async () => {
     const { container } = render(<Basic defaultValue="overview" />);
     expect(await axe(container)).toHaveNoViolations();

@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import type { ComponentProps, MouseEvent, SyntheticEvent } from 'react';
+import type { ComponentProps, MouseEvent, PointerEvent, SyntheticEvent } from 'react';
 import { cx, toSafeId } from '../internal/cx';
 import { XIcon } from '../internal/icons';
 import { composeRefs } from '../internal/mergeProps';
@@ -43,6 +43,7 @@ function DialogRoot({
   onCancel,
   onClose,
   onClick,
+  onPointerDown,
   ...rest
 }: DialogProps) {
   const innerRef = useRef<HTMLDialogElement>(null);
@@ -50,12 +51,19 @@ function DialogRoot({
   const [hasTitle, setHasTitle] = useState(false);
   const [hasDescription, setHasDescription] = useState(false);
 
+  // Re-sync on every render, not only when `open` changes: the browser can
+  // close the dialog on its own (repeated Esc, form method="dialog"). If the
+  // parent keeps `open` true, the next render puts the dialog back.
+  const [, resync] = useState(0);
   useEffect(() => {
     const dialog = innerRef.current;
     if (!dialog) return;
     if (open && !dialog.open) dialog.showModal();
     else if (!open && dialog.open) dialog.close();
-  }, [open]);
+  });
+  // A press that starts inside the panel and ends on the backdrop (drag-select)
+  // must not count as a backdrop click.
+  const pressedOnBackdrop = useRef(false);
 
   const context = useMemo<DialogContextValue>(
     () => ({
@@ -76,12 +84,22 @@ function DialogRoot({
   function handleClose(event: SyntheticEvent<HTMLDialogElement, Event>) {
     onClose?.(event);
     // When we closed it because `open` became false, the prop is already false.
-    if (open) onOpenChange(false);
+    if (open) {
+      onOpenChange(false);
+      resync((n) => n + 1);
+    }
+  }
+
+  function handlePointerDown(event: PointerEvent<HTMLDialogElement>) {
+    onPointerDown?.(event);
+    pressedOnBackdrop.current = event.target === event.currentTarget;
   }
 
   function handleClick(event: MouseEvent<HTMLDialogElement>) {
     onClick?.(event);
-    if (closeOnBackdrop && event.target === event.currentTarget) onOpenChange(false);
+    const onBackdrop = event.target === event.currentTarget && pressedOnBackdrop.current;
+    pressedOnBackdrop.current = false;
+    if (closeOnBackdrop && onBackdrop) onOpenChange(false);
   }
 
   return (
@@ -95,6 +113,7 @@ function DialogRoot({
         onCancel={handleCancel}
         onClose={handleClose}
         onClick={handleClick}
+        onPointerDown={handlePointerDown}
       >
         <div className="nbc-dialog__panel">
           {hideClose ? null : (

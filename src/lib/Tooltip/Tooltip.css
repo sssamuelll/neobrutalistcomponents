@@ -22,7 +22,6 @@
   /* radius-small is a pill in some themes; a multi-line bubble needs a box */
   border-radius: min(var(--nbc-radius-small), 8px);
   box-shadow: var(--nbc-shadow-press);
-  pointer-events: none;
   opacity: 1;
   translate: 0 0;
   transition:

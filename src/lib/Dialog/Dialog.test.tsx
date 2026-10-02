@@ -1,6 +1,6 @@
 import { createRef } from 'react';
 import { describe, expect, it, vi } from 'vitest';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from '../../test-utils';
 import { Dialog } from './Dialog';
@@ -68,6 +68,7 @@ describe('Dialog', () => {
 
   it('backdrop click closes unless closeOnBackdrop is false; panel clicks never do', async () => {
     const first = setup();
+    fireEvent.pointerDown(first.dialog);
     fireEvent.click(first.dialog);
     expect(first.onOpenChange).toHaveBeenCalledWith(false);
     await userEvent.click(screen.getByText('Body'));
@@ -75,8 +76,23 @@ describe('Dialog', () => {
     first.unmount();
 
     const second = setup({ closeOnBackdrop: false });
+    fireEvent.pointerDown(second.dialog);
     fireEvent.click(second.dialog);
     expect(second.onOpenChange).not.toHaveBeenCalled();
+  });
+
+  it('a drag that starts inside the panel and ends on the backdrop does not close', () => {
+    const { dialog, onOpenChange } = setup();
+    fireEvent.pointerDown(screen.getByText('Body'));
+    fireEvent.click(dialog);
+    expect(onOpenChange).not.toHaveBeenCalled();
+  });
+
+  it('reopens when the browser closes it but the parent keeps open=true', () => {
+    const { dialog, onOpenChange } = setup();
+    act(() => dialog.close());
+    expect(onOpenChange).toHaveBeenCalledWith(false);
+    expect(dialog.open).toBe(true);
   });
 
   it('renders a close button named by closeLabel', async () => {

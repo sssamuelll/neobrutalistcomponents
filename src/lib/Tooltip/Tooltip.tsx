@@ -21,6 +21,7 @@ export interface TooltipProps {
 }
 
 const GAP = 8;
+const HIDE_GRACE = 120;
 const MARGIN = 8;
 
 function supportsAnchors(): boolean {
@@ -85,6 +86,13 @@ export function Tooltip({ content, children, side = 'top', delay = 400, disabled
     setOpen(false);
   };
 
+  // WCAG 1.4.13: the pointer may travel from the trigger onto the bubble
+  // without it disappearing, so pointer-leave hides after a short grace.
+  const hideSoon = () => {
+    clearTimer();
+    timer.current = setTimeout(() => setOpen(false), HIDE_GRACE);
+  };
+
   const isMouse = (event: PointerEvent) => !event.pointerType || event.pointerType === 'mouse';
 
   const slotProps = {
@@ -94,7 +102,7 @@ export function Tooltip({ content, children, side = 'top', delay = 400, disabled
       clearTimer();
       timer.current = setTimeout(() => setOpen(true), delay);
     },
-    onPointerLeave: hide,
+    onPointerLeave: hideSoon,
     onFocus: () => {
       clearTimer();
       setOpen(true);
@@ -123,6 +131,8 @@ export function Tooltip({ content, children, side = 'top', delay = 400, disabled
         role="tooltip"
         popover="manual"
         data-state={visible ? 'open' : 'closed'}
+        onPointerEnter={clearTimer}
+        onPointerLeave={hideSoon}
         className={cx('nbc-tooltip', `nbc-tooltip--${side}`, className)}
         style={{ '--nbc-anchor-name': anchorName } as CSSProperties}
       >

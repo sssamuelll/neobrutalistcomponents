@@ -62,12 +62,32 @@ describe('Tooltip', () => {
     act(() => void vi.advanceTimersByTime(1));
     expect(getTip()).toHaveAttribute('data-state', 'open');
     fireEvent.pointerLeave(button);
+    act(() => void vi.advanceTimersByTime(200));
     expect(getTip()).toHaveAttribute('data-state', 'closed');
 
     fireEvent.pointerEnter(button);
     act(() => void vi.advanceTimersByTime(100));
     fireEvent.pointerLeave(button);
     act(() => void vi.advanceTimersByTime(1000));
+    expect(getTip()).toHaveAttribute('data-state', 'closed');
+  });
+
+  it('stays open while the pointer moves from the trigger onto the bubble (WCAG 1.4.13)', () => {
+    vi.useFakeTimers();
+    render(
+      <Tooltip content="Delete" delay={0}>
+        <button>D</button>
+      </Tooltip>,
+    );
+    const button = screen.getByRole('button');
+    fireEvent.pointerEnter(button);
+    act(() => void vi.advanceTimersByTime(0));
+    fireEvent.pointerLeave(button);
+    fireEvent.pointerEnter(getTip());
+    act(() => void vi.advanceTimersByTime(500));
+    expect(getTip()).toHaveAttribute('data-state', 'open');
+    fireEvent.pointerLeave(getTip());
+    act(() => void vi.advanceTimersByTime(200));
     expect(getTip()).toHaveAttribute('data-state', 'closed');
   });
 

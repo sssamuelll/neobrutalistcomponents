@@ -142,6 +142,19 @@ describe('Button', () => {
     });
   });
 
+  it('asChild + disabled does not run the child’s own onClick', async () => {
+    const track = vi.fn();
+    render(
+      <Button asChild disabled>
+        <a href="/x" onClick={track}>
+          Go
+        </a>
+      </Button>,
+    );
+    await userEvent.click(screen.getByRole('link', { name: 'Go' }));
+    expect(track).not.toHaveBeenCalled();
+  });
+
   it('has no axe violations (text, icon-only, link)', async () => {
     const { container } = render(
       <div>
