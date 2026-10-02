@@ -1,6 +1,6 @@
 # neobrutalistcomponents
 
-Brutalist React components. Four flavors. One switch.
+**Components that hold their shape.** Sixteen brutalist React components on one token contract. Five themes, light and dark, and the same geometry in every one — documented for people and for the agents that build with them.
 
 ```bash
 npm install neobrutalistcomponents
@@ -8,52 +8,71 @@ npm install neobrutalistcomponents
 
 ```tsx
 import { NeoProvider, Button } from 'neobrutalistcomponents';
-import 'neobrutalistcomponents/neobrutalistcomponents.css';
+import 'neobrutalistcomponents/styles.css';
 import 'neobrutalistcomponents/themes/classic.css';
+import 'neobrutalistcomponents/themes/classic.fonts.css'; // optional: loads the theme's fonts
 
 export function App() {
   return (
-    <NeoProvider theme="classic">
-      <Button>Click me</Button>
+    <NeoProvider theme="classic" mode="system">
+      <Button>Save changes</Button>
     </NeoProvider>
   );
 }
 ```
 
-**Themes:** `classic` · `tech` · `swiss` · `y2k` — import only the ones you use.
+**Docs and live playground:** https://sssamuelll.github.io/neobrutalistcomponents — the whole site re-renders in the theme you pick.
 
-**Components in v0.2:** `Button`, `Input`, `Card`.
+## What's inside
 
-**Live demo:** https://sssamuelll.github.io/neobrutalistcomponents
+| Group | Components |
+| --- | --- |
+| Actions | `Button` (with `asChild`) |
+| Forms | `Input`, `Textarea`, `Select`, `Checkbox`, `RadioGroup` + `Radio`, `Switch` |
+| Display | `Card`, `Badge`, `Alert`, `Progress`, `Table`, `Kbd` |
+| Overlays | `Tabs`, `Dialog`, `Tooltip` |
 
-## Fonts
+## Themes
 
-Each theme expects specific font families. The library does **not** load any fonts — you're responsible for making them available. Easiest option is the Google Fonts CDN via `<link>` tags in your `index.html`:
+| Theme | Voice | Native scheme | Fonts |
+| --- | --- | --- | --- |
+| `classic` | This decision is final. Concrete, ink, sun-yellow, a double-stack shadow. | light | Bricolage Grotesque, Geist Mono |
+| `tech` | Terminal sophistication. Phosphor on graphite; green-bar paper in light. | dark | Martian Mono, Geist Mono |
+| `swiss` | Precision, not plainness. Hairlines, black, white, one oxblood. | light | Inter Tight, JetBrains Mono |
+| `y2k` | Holographic trading-card energy. Foil, pills, chromatic shadows. | light | Sixtyfour, M PLUS Rounded 1c, VT323 |
+| `riso` | Two inks, slightly off. Grain, fluorescent pink, Riso blue. | light | Archivo, IBM Plex Mono |
 
-```html
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Inter+Tight:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600;700&family=VT323&family=Sixtyfour&family=Bungee+Shade&display=swap" />
+Every theme ships a full light **and** dark scheme. Leave `mode` unset for the native one, or pass `light`, `dark` or `system`. Providers nest — an inner provider is a self-contained island.
+
+## Why it stays deterministic
+
+- **One token contract.** Every visual decision is a `--nbc-*` custom property; every built-in theme defines all of them, in both schemes, and a test enforces WCAG AA contrast for every text/background pair.
+- **Invariant geometry.** Controls share one height scale (32 / 40 / 48px) in every theme. Switching themes never moves your layout.
+- **Cascade layers.** The library lives in `@layer nbc.*`, so any plain rule in your CSS wins — no `!important`, no specificity fights.
+- **Donut-scoped themes.** Theme flourishes use `@scope … to (…)`, so nested islands never leak into each other.
+- **Built on the platform.** Native `<dialog>`, the Popover API with CSS anchor positioning, `field-sizing: content`, `appearance: base-select`, `light-dark()`. No runtime dependencies. RSC-ready (`'use client'`).
+
+## For agents
+
+`llms.txt` and `llms-full.txt` (every component, prop, rule and example source) ship inside the package and on the site, generated from the same metadata the docs render. A Claude Code skill lives in `skills/neobrutalist-ui/`:
+
+```bash
+cp -R node_modules/neobrutalistcomponents/skills/neobrutalist-ui ~/.claude/skills/
 ```
 
-Or self-host via [@fontsource](https://fontsource.org/). Per theme:
+## Upgrading from 0.2
 
-| Theme    | Families                                          |
-| -------- | ------------------------------------------------- |
-| classic  | Inter + Space Grotesk + JetBrains Mono            |
-| tech     | Geist Mono + JetBrains Mono                       |
-| swiss    | Inter Tight (Helvetica Neue stand-in) + JetBrains |
-| y2k      | VT323 + Sixtyfour + Bungee Shade                  |
-
-If you load only the themes you use, you can trim the family list accordingly.
+See [MIGRATION.md](./MIGRATION.md). Short version: import `styles.css` + a theme, Input's `variant="error"`/`errorMessage`/`helperText` became `error`/`description`, Button defaults to `type="button"`, `useTheme()` returns `{ theme, mode }`, ESM only.
 
 ## Development
 
 ```bash
-npm install      # once
-npm run dev      # run the landing/playground
-npm run test     # run component tests
-npm run build    # build lib + site
+npm install
+npm run dev          # docs site at localhost:5173
+npm test             # unit + a11y + token contract + docs drift
+npm run e2e          # Playwright + axe over every route × theme
+npm run check        # lint, typecheck, test, build, package check
+npm run screenshots  # local visual review into .screenshots/
 ```
 
 ## License
