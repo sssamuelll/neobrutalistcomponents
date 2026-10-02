@@ -11,6 +11,7 @@ import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { COMPONENTS } from './meta';
+import { SLUGS } from './slugs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const LIB = join(ROOT, 'src/lib');
@@ -44,6 +45,10 @@ describe('docs metadata', () => {
   it('documents every exported component', () => {
     const documented = new Set(COMPONENTS.flatMap((c) => [c.name, ...(c.subcomponents ?? []).map((s) => s.name)]));
     expect(exportedComponents().filter((n) => !documented.has(n))).toEqual([]);
+  });
+
+  it('slugs.ts (used by the E2E suite) lists every component', () => {
+    expect([...SLUGS].sort()).toEqual(COMPONENTS.map((c) => c.slug).sort());
   });
 
   it('has unique slugs', () => {
