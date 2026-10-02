@@ -1,0 +1,8 @@
+/* Swiss: black box, no shadow, tabular figures. */
+@scope ([data-theme="swiss"]) to ([data-theme]:not([data-theme="swiss"])) {
+  .nbc-tooltip {
+    box-shadow: none;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+}

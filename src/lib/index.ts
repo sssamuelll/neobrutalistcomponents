@@ -46,3 +46,12 @@ export type { TableProps, TableDensity, TableAlign, TableHeaderCellProps, TableC
 
 export { Kbd } from './Kbd';
 export type { KbdProps, KbdSize } from './Kbd';
+
+export { Dialog } from './Dialog';
+export type { DialogProps, DialogSize } from './Dialog';
+
+export { Tabs } from './Tabs';
+export type { TabsProps, TabsTabProps, TabsPanelProps } from './Tabs';
+
+export { Tooltip } from './Tooltip';
+export type { TooltipProps, TooltipSide } from './Tooltip';

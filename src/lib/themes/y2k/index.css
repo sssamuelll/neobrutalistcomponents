@@ -15,3 +15,6 @@
 @import './Progress.css' layer(nbc.flourish);
 @import './Table.css' layer(nbc.flourish);
 @import './Kbd.css' layer(nbc.flourish);
+@import './Dialog.css' layer(nbc.flourish);
+@import './Tabs.css' layer(nbc.flourish);
+@import './Tooltip.css' layer(nbc.flourish);

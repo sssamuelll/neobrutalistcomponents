@@ -1,0 +1,12 @@
+/* Y2K: a candy bubble with a glossy top and a slight tilt. */
+@scope ([data-theme="y2k"]) to ([data-theme]:not([data-theme="y2k"])) {
+  .nbc-tooltip {
+    color: #1a0a3e;
+    background:
+      linear-gradient(180deg, #ffffffa6, #ffffff00 55%),
+      linear-gradient(135deg, #ff6ec7, #a78bfa, #7ee8fa);
+    border-color: #1a0a3e;
+    border-radius: 8px;
+    rotate: -1deg;
+  }
+}

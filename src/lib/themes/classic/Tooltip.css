@@ -1,0 +1,8 @@
+/* Classic: a sun-yellow sticky note with an ink edge. */
+@scope ([data-theme="classic"]) to ([data-theme]:not([data-theme="classic"])) {
+  .nbc-tooltip {
+    color: var(--nbc-primary-fg);
+    background: var(--nbc-primary);
+    border-color: var(--nbc-border-color);
+  }
+}

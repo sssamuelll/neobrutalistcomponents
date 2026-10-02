@@ -17,3 +17,6 @@
 @import './Progress/Progress.css' layer(nbc.components);
 @import './Table/Table.css' layer(nbc.components);
 @import './Kbd/Kbd.css' layer(nbc.components);
+@import './Dialog/Dialog.css' layer(nbc.components);
+@import './Tabs/Tabs.css' layer(nbc.components);
+@import './Tooltip/Tooltip.css' layer(nbc.components);

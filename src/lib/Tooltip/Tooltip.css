@@ -1,0 +1,68 @@
+/* Tooltip — a popover in the top layer, anchored to its trigger with CSS
+   anchor positioning; a JS fallback sets top/left where that is missing. */
+.nbc-tooltip-anchor {
+  anchor-name: var(--nbc-anchor-name);
+}
+
+.nbc-tooltip {
+  position: fixed;
+  inset: auto;
+  box-sizing: border-box;
+  max-inline-size: min(280px, 100vw - 16px);
+  margin: 0;
+  padding: var(--nbc-space-xs) var(--nbc-space-sm);
+  overflow: visible;
+  font-family: var(--nbc-font-sans);
+  font-size: var(--nbc-fs-xs);
+  font-weight: var(--nbc-weight-label);
+  line-height: 1.4;
+  color: var(--nbc-bg);
+  background: var(--nbc-fg);
+  border: min(var(--nbc-border-width), 2px) var(--nbc-border-style) var(--nbc-fg);
+  /* radius-small is a pill in some themes; a multi-line bubble needs a box */
+  border-radius: min(var(--nbc-radius-small), 8px);
+  box-shadow: var(--nbc-shadow-press);
+  pointer-events: none;
+  opacity: 1;
+  translate: 0 0;
+  transition:
+    opacity var(--nbc-duration) var(--nbc-ease),
+    translate var(--nbc-duration) var(--nbc-ease),
+    overlay var(--nbc-duration) allow-discrete,
+    display var(--nbc-duration) allow-discrete;
+}
+.nbc-tooltip:not(:popover-open) {
+  opacity: 0;
+}
+@starting-style {
+  .nbc-tooltip:popover-open {
+    opacity: 0;
+    translate: 0 4px;
+  }
+}
+
+@supports (anchor-name: --a) {
+  .nbc-tooltip {
+    position-anchor: var(--nbc-anchor-name);
+  }
+  .nbc-tooltip--top {
+    position-area: block-start;
+    margin-block-end: 8px;
+    position-try-fallbacks: flip-block;
+  }
+  .nbc-tooltip--bottom {
+    position-area: block-end;
+    margin-block-start: 8px;
+    position-try-fallbacks: flip-block;
+  }
+  .nbc-tooltip--left {
+    position-area: inline-start;
+    margin-inline-end: 8px;
+    position-try-fallbacks: flip-inline;
+  }
+  .nbc-tooltip--right {
+    position-area: inline-end;
+    margin-inline-start: 8px;
+    position-try-fallbacks: flip-inline;
+  }
+}
