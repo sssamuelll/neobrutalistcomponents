@@ -1,0 +1,24 @@
+/* Swiss: hairline frame, no shadow, tracked title, footer actions spread across the rule. */
+@scope ([data-theme="swiss"]) to ([data-theme]:not([data-theme="swiss"])) {
+  .nbc-dialog {
+    box-shadow: none;
+    transition-duration: 0ms;
+  }
+  .nbc-dialog__title {
+    font-size: var(--nbc-fs-lg);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .nbc-dialog__title::before {
+    content: '' / '';
+    display: inline-block;
+    inline-size: 0.5em;
+    block-size: 0.5em;
+    margin-inline-end: 0.6em;
+    background: var(--nbc-accent);
+  }
+  .nbc-dialog__footer {
+    justify-content: space-between;
+    background: transparent;
+  }
+}

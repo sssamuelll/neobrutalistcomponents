@@ -1,0 +1,48 @@
+/* Swiss: a rule, not a tube. The track thins to a flat grey strip (2 / 4 / 8px),
+   the bar is a flat fill with a hairline end-cap, and the figure is tabular and
+   flush right. Danger earns the one accent square before its label. */
+
+@scope ([data-theme="swiss"]) to ([data-theme]:not([data-theme="swiss"])) {
+  .nbc-progress--sm {
+    --_h: 2px;
+  }
+
+  .nbc-progress--md {
+    --_h: 4px;
+  }
+
+  .nbc-progress--lg {
+    --_h: 8px;
+  }
+
+  .nbc-progress__track {
+    border: 0;
+    border-radius: 0;
+  }
+
+  .nbc-progress__value {
+    font-family: var(--nbc-font-sans);
+    letter-spacing: var(--nbc-label-spacing);
+    color: var(--nbc-fg);
+  }
+
+  .nbc-progress--danger .nbc-progress__label::before {
+    content: '' / '';
+    display: inline-block;
+    inline-size: 6px;
+    block-size: 6px;
+    margin-inline-end: 8px;
+    vertical-align: 0.08em;
+    background: var(--nbc-danger);
+  }
+
+  @media (forced-colors: active) {
+    .nbc-progress__track {
+      outline: 1px solid CanvasText;
+    }
+
+    .nbc-progress--danger .nbc-progress__label::before {
+      background: CanvasText;
+    }
+  }
+}

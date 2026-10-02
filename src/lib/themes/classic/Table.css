@@ -1,0 +1,18 @@
+/* Classic: a slab of a header rule, and the hovered row goes sun-yellow with a cobalt edge. */
+
+@scope ([data-theme="classic"]) to ([data-theme]:not([data-theme="classic"])) {
+  .nbc-table__head .nbc-table__header-cell {
+    border-block-end-width: calc(var(--nbc-border-width) + 2px);
+  }
+
+  @media (hover: hover) {
+    .nbc-table__body > .nbc-table__row:hover {
+      background: var(--nbc-primary);
+      color: var(--nbc-primary-fg);
+    }
+
+    .nbc-table__body > .nbc-table__row:hover > :first-child {
+      box-shadow: inset 5px 0 0 var(--nbc-accent);
+    }
+  }
+}

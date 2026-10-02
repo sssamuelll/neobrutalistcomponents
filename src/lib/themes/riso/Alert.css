@@ -1,0 +1,25 @@
+/* Riso: two inks, slightly off. A fluorescent pink plate prints over the
+   status stripe, shifted down and inward, and titles are stamped in
+   condensed uppercase. The grain already comes through --nbc-texture. */
+
+@scope ([data-theme="riso"]) to ([data-theme]:not([data-theme="riso"])) {
+  .nbc-alert::before {
+    content: '';
+    position: absolute;
+    inset-block: 4px -2px;
+    inset-inline-start: -3px;
+    inline-size: 6px;
+    background: color-mix(in srgb, var(--nbc-primary) 85%, transparent);
+    pointer-events: none;
+  }
+
+  .nbc-alert__title {
+    font-family: var(--nbc-font-display);
+    font-size: var(--nbc-fs-lg);
+    font-weight: var(--nbc-weight-display);
+    font-stretch: var(--nbc-display-stretch);
+    letter-spacing: var(--nbc-display-spacing);
+    line-height: 1.1;
+    text-transform: var(--nbc-display-transform);
+  }
+}

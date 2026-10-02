@@ -1,0 +1,22 @@
+/* Tech: the dialog is a terminal window — path bar with dim dots, stepped enter. */
+@scope ([data-theme="tech"]) to ([data-theme]:not([data-theme="tech"])) {
+  .nbc-dialog {
+    transition-timing-function: steps(4, end);
+  }
+  .nbc-dialog__header {
+    background: color-mix(in srgb, var(--nbc-fg) 8%, var(--nbc-surface-alt));
+    border-block-end: var(--nbc-border-width) var(--nbc-border-style) var(--nbc-border-color);
+  }
+  .nbc-dialog__header::before {
+    content: '● ● ●  ~/dialog' / '';
+    margin-block-end: var(--nbc-space-xs);
+    font-family: var(--nbc-font-mono);
+    font-size: var(--nbc-fs-xs);
+    letter-spacing: 0.08em;
+    color: var(--nbc-fg-muted);
+  }
+  .nbc-dialog__title::before {
+    content: '$ ' / '';
+    color: var(--nbc-primary);
+  }
+}

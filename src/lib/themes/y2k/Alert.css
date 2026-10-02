@@ -1,0 +1,47 @@
+/* Y2K: a candy-glossed icon chip and a holographic foil stripe that drifts
+   slowly. The stripe replaces the flat status edge; the chip keeps the status. */
+
+@scope ([data-theme="y2k"]) to ([data-theme]:not([data-theme="y2k"])) {
+  .nbc-alert {
+    border-inline-start: var(--nbc-border-width) var(--nbc-border-style) var(--nbc-border-color);
+  }
+
+  .nbc-alert::before {
+    content: '';
+    position: absolute;
+    inset-block: 8px;
+    inset-inline-start: 5px;
+    inline-size: 6px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, #ff6ec7, #a78bfa, #7ee8fa, #ffd86b, #ff6ec7) 0 0 / 100% 300%;
+    animation: nbc-y2k-alert-foil 6s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  .nbc-alert__icon {
+    position: relative;
+    isolation: isolate;
+    box-shadow: inset 0 -3px 0 #0000002e;
+  }
+
+  .nbc-alert__icon::before {
+    content: '';
+    position: absolute;
+    inset: 2px 5px auto;
+    block-size: 42%;
+    z-index: -1;
+    border-radius: 999px;
+    background: linear-gradient(180deg, #ffffffb3, #ffffff00);
+    pointer-events: none;
+  }
+}
+
+@keyframes nbc-y2k-alert-foil {
+  0%,
+  100% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 0 100%;
+  }
+}

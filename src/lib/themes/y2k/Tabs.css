@@ -1,0 +1,38 @@
+/* Y2K: pill segmented control; the active pill is holographic with a gloss highlight. */
+@scope ([data-theme="y2k"]) to ([data-theme]:not([data-theme="y2k"])) {
+  .nbc-tabs__list {
+    gap: 6px;
+    padding: 6px;
+    border: var(--nbc-border-width) var(--nbc-border-style) var(--nbc-border-color);
+    border-radius: 999px;
+    background: var(--nbc-surface-alt);
+  }
+  .nbc-tabs__tab {
+    position: relative;
+    margin-block-end: 0;
+    border-radius: 999px;
+    border-color: transparent;
+    overflow: hidden;
+  }
+  .nbc-tabs__tab--active {
+    background: linear-gradient(120deg, #ff6ec7, #a78bfa, #7ee8fa, #ffd86b);
+    background-size: 200% 100%;
+    color: #1a1033;
+    border-color: var(--nbc-border-color);
+    box-shadow: none;
+    animation: nbc-y2k-tab-shimmer 6s linear infinite;
+  }
+  .nbc-tabs__tab--active::before {
+    content: '' / '';
+    position: absolute;
+    inset: 0 0 50%;
+    background: linear-gradient(180deg, #ffffffb3, #ffffff00);
+    pointer-events: none;
+  }
+}
+
+@keyframes nbc-y2k-tab-shimmer {
+  to {
+    background-position: 200% 0;
+  }
+}

@@ -1,0 +1,36 @@
+/* Swiss: nothing moves. The chevron is a hairline that turns oxblood on hover
+   and while open; the open list is a ruled column with the current value
+   marked by an oxblood bar. */
+
+@scope ([data-theme="swiss"]) to ([data-theme]:not([data-theme="swiss"])) {
+  .nbc-select__control {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .nbc-select__chevron {
+    stroke-width: 1.5;
+  }
+
+  @media (hover: hover) {
+    .nbc-select:hover:not(.nbc-select--disabled) .nbc-select__chevron {
+      color: var(--nbc-accent);
+    }
+  }
+
+  .nbc-select__control:open ~ .nbc-select__chevron {
+    rotate: none;
+    color: var(--nbc-accent);
+  }
+
+  @supports (appearance: base-select) {
+    .nbc-select__control option {
+      font-variant-numeric: tabular-nums;
+    }
+    .nbc-select__control option:checked:not(:disabled) {
+      box-shadow: inset 3px 0 0 var(--nbc-accent);
+    }
+    .nbc-select__control option::checkmark {
+      display: none;
+    }
+  }
+}

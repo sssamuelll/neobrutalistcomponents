@@ -1,0 +1,21 @@
+/* Tech: tabs are bracketed commands; the active one is inverted like a selection. */
+@scope ([data-theme="tech"]) to ([data-theme]:not([data-theme="tech"])) {
+  .nbc-tabs__tab {
+    text-transform: lowercase;
+    transition-timing-function: steps(2, jump-none);
+  }
+  .nbc-tabs__tab::before {
+    content: '[ ' / '';
+    opacity: 0.6;
+  }
+  .nbc-tabs__tab::after {
+    content: ' ]' / '';
+    opacity: 0.6;
+  }
+  .nbc-tabs__tab--active {
+    background: var(--nbc-primary);
+    color: var(--nbc-primary-fg);
+    border-color: var(--nbc-primary);
+    box-shadow: none;
+  }
+}

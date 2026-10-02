@@ -1,35 +1,44 @@
-import { createContext, useContext } from 'react';
-import type { ReactNode, JSX, ElementType } from 'react';
-import type { NeoTheme } from './themes';
+import { createContext, use, useMemo } from 'react';
+import type { ElementType, HTMLAttributes, Ref } from 'react';
+import type { NeoMode, NeoTheme } from './themes';
+import { cx } from './internal/cx';
 
-const ThemeContext = createContext<NeoTheme | undefined>(undefined);
-
-export type { NeoTheme };
-
-export interface NeoProviderProps {
+export interface NeoContextValue {
   theme: NeoTheme;
-  children: ReactNode;
-  as?: keyof JSX.IntrinsicElements;
-  className?: string;
+  /** `undefined` means the theme renders in its native scheme. */
+  mode: NeoMode | undefined;
 }
 
-export function NeoProvider({
-  theme,
-  children,
-  as = 'div',
-  className,
-}: NeoProviderProps) {
-  const Tag: ElementType = as;
+const NeoContext = createContext<NeoContextValue | undefined>(undefined);
+
+export interface NeoProviderProps extends HTMLAttributes<HTMLElement> {
+  /** A built-in theme (`classic`, `tech`, `swiss`, `y2k`, `riso`) or the name of your own theme block. */
+  theme: NeoTheme;
+  /** Force `light` / `dark`, follow the OS with `system`, or omit for the theme's native scheme. */
+  mode?: NeoMode;
+  /** Element to render. Defaults to `div`. */
+  as?: 'div' | 'main' | 'section' | 'article' | 'span';
+  ref?: Ref<HTMLElement>;
+}
+
+/**
+ * Scopes a theme to its subtree: renders `<div class="nbc-root" data-theme data-mode>`,
+ * paints the theme's background, text color and font, and exposes `{ theme, mode }`
+ * through `useTheme()`. Providers nest — an inner provider is a self-contained island.
+ */
+export function NeoProvider({ theme, mode, as = 'div', className, children, ...rest }: NeoProviderProps) {
+  const Tag = as as ElementType;
+  const value = useMemo(() => ({ theme, mode }), [theme, mode]);
   return (
-    <ThemeContext.Provider value={theme}>
-      <Tag data-theme={theme} className={className}>
+    <NeoContext value={value}>
+      <Tag {...rest} className={cx('nbc-root', className)} data-theme={theme} data-mode={mode}>
         {children}
       </Tag>
-    </ThemeContext.Provider>
+    </NeoContext>
   );
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
-export function useTheme(): NeoTheme | undefined {
-  return useContext(ThemeContext);
+/** The nearest provider's `{ theme, mode }`, or `undefined` outside any provider. */
+export function useTheme(): NeoContextValue | undefined {
+  return use(NeoContext);
 }

@@ -1,0 +1,57 @@
+/* Swiss: a caption, not a sticker. The hairline goes quiet, the tint is a
+   flat grey, and status is one small accent square before the word. */
+
+@scope ([data-theme="swiss"]) to ([data-theme]:not([data-theme="swiss"])) {
+  .nbc-badge {
+    font-variant-numeric: tabular-nums;
+    border-color: transparent; /* keeps a visible edge in forced-colors mode */
+  }
+
+  .nbc-badge--neutral,
+  .nbc-badge--accent,
+  .nbc-badge--info,
+  .nbc-badge--success,
+  .nbc-badge--warning,
+  .nbc-badge--danger {
+    background: var(--nbc-surface-alt);
+    color: var(--nbc-fg);
+  }
+
+  .nbc-badge--accent {
+    --_status: var(--nbc-accent);
+  }
+
+  .nbc-badge--info {
+    --_status: var(--nbc-info);
+  }
+
+  .nbc-badge--success {
+    --_status: var(--nbc-success);
+  }
+
+  .nbc-badge--warning {
+    --_status: var(--nbc-warning);
+  }
+
+  .nbc-badge--danger {
+    --_status: var(--nbc-danger);
+  }
+
+  .nbc-badge--accent::before,
+  .nbc-badge--info::before,
+  .nbc-badge--success::before,
+  .nbc-badge--warning::before,
+  .nbc-badge--danger::before {
+    content: '';
+    flex: none;
+    inline-size: 6px;
+    block-size: 6px;
+    background: var(--_status);
+  }
+
+  @media (forced-colors: active) {
+    .nbc-badge::before {
+      background: CanvasText;
+    }
+  }
+}

@@ -1,0 +1,16 @@
+/* Riso: titles get a highlighter swipe of fluorescent pink ink. */
+
+@scope ([data-theme="riso"]) to ([data-theme]:not([data-theme="riso"])) {
+  .nbc-card__title {
+    inline-size: fit-content;
+    padding-inline: 0.15em;
+    margin-inline: -0.15em;
+    background: linear-gradient(
+      transparent 52%,
+      color-mix(in srgb, var(--nbc-primary) 60%, transparent) 52% 92%,
+      transparent 92%
+    );
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+}

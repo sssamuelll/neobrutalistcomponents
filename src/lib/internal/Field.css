@@ -1,0 +1,49 @@
+/* Field shell — label, control, message. Shared by Input, Textarea, Select. */
+.nbc-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--nbc-space-xs);
+  min-inline-size: 0;
+  font-family: var(--nbc-font-sans);
+  color: var(--nbc-fg);
+}
+
+.nbc-field__label {
+  inline-size: fit-content;
+  font-size: var(--nbc-fs-sm);
+  font-weight: var(--nbc-weight-label);
+  line-height: 1.3;
+  text-transform: var(--nbc-label-transform);
+  letter-spacing: var(--nbc-label-spacing);
+  color: var(--nbc-fg);
+}
+
+.nbc-field--sm .nbc-field__label {
+  font-size: var(--nbc-fs-xs);
+}
+
+.nbc-field__required {
+  margin-inline-start: 0.2em;
+  color: var(--nbc-danger);
+}
+
+.nbc-field__message {
+  /* clear the control's offset shadow */
+  margin: var(--nbc-space-xs) 0 0;
+  font-size: var(--nbc-fs-sm);
+  line-height: 1.4;
+  color: var(--nbc-fg-muted);
+}
+
+.nbc-field--sm .nbc-field__message {
+  font-size: var(--nbc-fs-xs);
+}
+
+.nbc-field__message--error {
+  color: var(--nbc-danger);
+  font-weight: var(--nbc-weight-label);
+}
+
+.nbc-field--disabled .nbc-field__label {
+  opacity: 0.6;
+}

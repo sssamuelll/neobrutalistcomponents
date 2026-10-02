@@ -1,0 +1,75 @@
+/* ============================================================
+   Y2K — holographic trading-card energy.
+   Frutiger-Aero sky, holo gradient fills, chromatic-aberration
+   shadows (cyan and magenta split, then an indigo drop), pill
+   buttons, a -0.6deg tilt, bouncy motion. Sixtyfour scanline
+   display, M PLUS Rounded body, VT323 for mono.
+   Dark: midnight holo — the foil glows on deep indigo.
+   ============================================================ */
+[data-theme="y2k"] {
+  --nbc-scheme: light;
+
+  --nbc-font-sans: 'M PLUS Rounded 1c', 'Nunito', system-ui, sans-serif;
+  --nbc-font-display: 'Sixtyfour', 'VT323', ui-monospace, monospace;
+  --nbc-font-mono: 'VT323', ui-monospace, monospace;
+  --nbc-weight-body: 500;
+  --nbc-weight-label: 800;
+  --nbc-weight-display: 400;
+  --nbc-label-transform: none;
+  --nbc-label-spacing: 0.01em;
+  --nbc-display-transform: none;
+  --nbc-display-spacing: -0.02em;
+
+  --nbc-bg: light-dark(#e6efff, #0f0a2a);
+  --nbc-fg: light-dark(#1a0a3e, #f1eaff);
+  --nbc-fg-muted: light-dark(#54447a, #b9abdf);
+  --nbc-surface: light-dark(#ffffff, #1b1342);
+  --nbc-surface-alt: light-dark(#fff0fb, #271a5c);
+  --nbc-border-color: light-dark(#1a0a3e, #c9b8ff);
+
+  --nbc-primary: #ff6ec7;
+  --nbc-primary-fg: #1a0a3e;
+  --nbc-accent: light-dark(#7c3aed, #a78bfa);
+  --nbc-accent-fg: light-dark(#ffffff, #1a0a3e);
+
+  --nbc-info: light-dark(#0a6fb8, #7ee8fa);
+  --nbc-info-fg: light-dark(#ffffff, #1a0a3e);
+  --nbc-success: light-dark(#0f7b55, #6ff2c0);
+  --nbc-success-fg: light-dark(#ffffff, #1a0a3e);
+  --nbc-warning: #ffd86b;
+  --nbc-warning-fg: #1a0a3e;
+  --nbc-danger: light-dark(#d4145a, #ff7aa8);
+  --nbc-danger-fg: light-dark(#ffffff, #1a0a3e);
+  --nbc-focus: light-dark(#d4145a, #ff7aa8);
+
+  --nbc-primary-fill: linear-gradient(135deg, #ff6ec7 0%, #a78bfa 25%, #7ee8fa 50%, #ffd86b 75%, #ff6ec7 100%);
+  --nbc-danger-fill: linear-gradient(135deg, light-dark(#d4145a, #ff7aa8), light-dark(#b5179e, #ff9fdc));
+  --nbc-surface-fill: linear-gradient(
+    135deg,
+    light-dark(#fff0f9, #2a1650) 0%,
+    light-dark(#f2edff, #1f1850) 35%,
+    light-dark(#e9fbff, #13224d) 65%,
+    light-dark(#fff8e3, #2a2143) 100%
+  );
+  --nbc-texture: none;
+
+  --nbc-border-width: 2px;
+  --nbc-border-style: solid;
+  --nbc-radius: 14px;
+  --nbc-radius-control: 10px;
+  --nbc-radius-button: 999px;
+  --nbc-radius-small: 999px;
+
+  --nbc-shadow: -2px 0 0 #00e5ff88, 2px 0 0 #ff00a888, 4px 4px 0 light-dark(#1a0a3e, #05020f);
+  --nbc-shadow-lg: -3px 0 0 #00e5ff88, 3px 0 0 #ff00a888, 8px 8px 0 light-dark(#1a0a3e, #05020f);
+  --nbc-shadow-press: -1px 0 0 #00e5ffaa, 1px 0 0 #ff00a8aa, 2px 2px 0 light-dark(#1a0a3e, #05020f);
+  --nbc-press: 2px;
+  --nbc-press-active: 4px;
+  --nbc-rotate: -0.6deg;
+  --nbc-focus-width: 3px;
+  --nbc-focus-offset: 3px;
+
+  --nbc-duration: 160ms;
+  --nbc-duration-slow: 320ms;
+  --nbc-ease: cubic-bezier(0.34, 1.56, 0.64, 1);
+}

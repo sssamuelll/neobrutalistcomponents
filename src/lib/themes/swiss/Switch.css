@@ -1,0 +1,59 @@
+/* Swiss: a hairline rectangle with a black block. The one oxblood accent floods the track when
+   on and the block flips to white for contrast. Nothing bounces; the slide is brisk. */
+
+@scope ([data-theme="swiss"]) to ([data-theme]:not([data-theme="swiss"])) {
+  .nbc-switch__track {
+    background: var(--nbc-surface);
+  }
+
+  .nbc-switch__track:has(.nbc-switch__control:checked) {
+    background: var(--nbc-accent);
+    border-color: var(--nbc-accent);
+  }
+
+  .nbc-switch__thumb {
+    background: var(--nbc-fg);
+    border-color: var(--nbc-fg);
+    transition-duration: var(--nbc-duration);
+  }
+
+  .nbc-switch__control:checked ~ .nbc-switch__thumb {
+    background: var(--nbc-accent-fg);
+    border-color: var(--nbc-accent-fg);
+  }
+
+  @media (hover: hover) {
+    .nbc-switch:not(.nbc-switch--disabled) .nbc-switch__track:has(.nbc-switch__control:not(:checked)):hover {
+      background: color-mix(in srgb, var(--nbc-accent) 14%, var(--nbc-surface));
+      border-color: var(--nbc-accent);
+    }
+  }
+
+  /* The focus line is oxblood and so is the lit track: draw it outside the hairline so it never disappears. */
+
+  .nbc-switch__track:has(.nbc-switch__control:focus-visible) {
+    outline-offset: 2px;
+  }
+
+  .nbc-switch__description {
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (forced-colors: active) {
+    .nbc-switch__track {
+      background: Canvas;
+    }
+    .nbc-switch__track:has(.nbc-switch__control:checked) {
+      background: Highlight;
+      border-color: Highlight;
+    }
+    .nbc-switch__thumb {
+      background: ButtonText;
+      border-color: ButtonText;
+    }
+    .nbc-switch__control:checked ~ .nbc-switch__thumb {
+      background: HighlightText;
+      border-color: HighlightText;
+    }
+  }
+}

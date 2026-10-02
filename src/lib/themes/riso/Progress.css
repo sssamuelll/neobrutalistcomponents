@@ -1,0 +1,27 @@
+/* Riso: two inks on grain. The bar is a flat spot color with the press's
+   halftone screen printed over it, and the track picks up the same grain; the
+   pink plate slipped left, the blue one right (the shared press shadow). */
+
+@scope ([data-theme="riso"]) to ([data-theme]:not([data-theme="riso"])) {
+  .nbc-progress__track {
+    background: var(--nbc-texture), var(--nbc-surface-alt);
+    box-shadow: var(--nbc-shadow-press);
+  }
+
+  .nbc-progress__bar {
+    background:
+      radial-gradient(circle, color-mix(in srgb, var(--nbc-fg) 32%, transparent) 0 1.1px, transparent 1.7px) 0 0 / 5px 5px,
+      var(--nbc-texture),
+      var(--_bar);
+  }
+
+  .nbc-progress__label {
+    font-stretch: 85%;
+  }
+
+  @media (forced-colors: active) {
+    .nbc-progress__bar {
+      background: Highlight;
+    }
+  }
+}

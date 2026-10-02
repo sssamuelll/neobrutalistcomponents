@@ -1,0 +1,9 @@
+/* Riso: navy ink on a pink plate, printed slightly off-register. */
+@scope ([data-theme="riso"]) to ([data-theme]:not([data-theme="riso"])) {
+  .nbc-tooltip {
+    color: var(--nbc-primary-fg);
+    background: var(--nbc-texture), var(--nbc-primary);
+    border-color: var(--nbc-border-color);
+    box-shadow: 3px 3px 0 var(--nbc-accent);
+  }
+}

@@ -1,0 +1,64 @@
+/* Y2K: a glossy bevel across the field and a holo-foil chevron pill that pops
+   when the list opens. The open list is a glass card of pill-shaped rows. */
+
+@scope ([data-theme="y2k"]) to ([data-theme]:not([data-theme="y2k"])) {
+  .nbc-select {
+    --_pill: calc(var(--_h) - 2 * var(--nbc-border-width) - 8px);
+  }
+
+  .nbc-select::before {
+    content: '';
+    position: absolute;
+    inset: 2px 8px auto;
+    block-size: 38%;
+    border-radius: 999px;
+    background: linear-gradient(180deg, light-dark(#ffffffcc, #ffffff26), #ffffff00);
+    pointer-events: none;
+  }
+
+  .nbc-select__control {
+    padding-inline-end: calc(var(--_pill) + 6px + var(--nbc-space-sm));
+  }
+
+  .nbc-select__chevron {
+    inset-inline-end: 4px;
+    box-sizing: border-box;
+    inline-size: var(--_pill);
+    block-size: var(--_pill);
+    padding: 0.22em;
+    color: #1a0a3e;
+    background: linear-gradient(135deg, #ff6ec7, #a78bfa, #7ee8fa, #ffd86b, #ff6ec7);
+    background-size: 220% 220%;
+    border: var(--nbc-border-width) var(--nbc-border-style) var(--nbc-border-color);
+    border-radius: 999px;
+    box-shadow: inset 0 2px 1px #ffffffb3;
+    animation: nbc-y2k-select-holo 6s ease-in-out infinite;
+    transition-property: color, scale;
+    transition-duration: var(--nbc-duration-slow);
+  }
+
+  .nbc-select__control:open ~ .nbc-select__chevron {
+    rotate: none;
+    scale: 1.12;
+  }
+
+  @supports (appearance: base-select) {
+    .nbc-select__control::picker(select) {
+      border-radius: var(--nbc-radius);
+    }
+    .nbc-select__control option {
+      border-radius: 999px;
+      padding-inline: var(--nbc-space-lg);
+    }
+  }
+}
+
+@keyframes nbc-y2k-select-holo {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}

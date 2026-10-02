@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for considering a contribution. This project is small and opinionated — a tight set of brutalist React components across four distinct themes, not a kitchen-sink library. Read this once before opening a PR; it'll save round-trips.
+Thanks for considering a contribution. This project is small and opinionated — a tight set of brutalist React components across five distinct themes, not a kitchen-sink library. Read this once before opening a PR; it'll save round-trips.
 
 ## Quick start
 
@@ -17,36 +17,35 @@ npm run dev
 
 ```
 src/
-  lib/                  # the published library — this is what ships on npm
-    Button/             # one folder per component: .tsx, .css, .test.tsx, index.ts
-    Card/
-    Input/
-    themes/             # one .css file per theme: classic, tech, swiss, y2k
-    tokens.css          # token contract — themes override these
-    NeoProvider.tsx     # <NeoProvider theme="..."> + useTheme()
-    index.ts            # public API surface
-  site/                 # the demo site (deployed to GitHub Pages)
-  main.tsx              # site entry
-docs/superpowers/       # design specs + plans — read before changing public API
-dist/                   # lib build output — gitignored, published to npm
-site-dist/              # site build output — gitignored, deployed to Pages
-.github/workflows/      # CI, npm publish, Pages deploy
+  lib/                      # the published library
+    <Component>/            # .tsx, .css (tokens only), .test.tsx, index.ts
+    internal/               # Field shell, Slot/mergeProps, icons, hooks
+    themes/<theme>/         # tokens.css + per-component flourishes (donut @scope), fonts.css, index.css
+    themes/contract.ts      # the token contract every theme must satisfy
+    tokens.css, base.css    # neutral defaults, schemes, reduced motion
+    styles.css              # entry: layer order + imports
+  docs/                     # metadata (meta/), live examples (examples/), blocks/, guide.ts
+  site/                     # the docs site (GitHub Pages)
+e2e/                        # Playwright + axe over every route × theme
+scripts/                    # build-themes, gen-llms, check-package, screenshots, scope-flourishes
+skills/neobrutalist-ui/     # agent skill shipped in the package
 ```
 
-Anything you add under `src/lib/` ships to consumers. Anything under `src/site/` only powers the demo.
+### Rules the tests enforce
+
+- Component CSS uses only `var(--nbc-*)` — no hex, no `[data-theme]`.
+- Theme personality lives in `src/lib/themes/<theme>/<Component>.css`, wrapped in
+  `@scope ([data-theme="<theme>"]) to ([data-theme]:not([data-theme="<theme>"]))` with plain selectors; keyframes outside, named `nbc-<theme>-*`.
+- Every theme defines every token in `themes/contract.ts`, and every text/background pair passes WCAG AA in light and dark.
+- `src/docs/meta/<Component>.ts` lists exactly the own props of `<Component>Props` and at least two examples.
 
 ## Local gates
 
-Before opening a PR, all four of these must pass. CI runs the same four (see `.github/workflows/ci.yml`):
-
 ```bash
-npm run lint          # ESLint — zero warnings allowed
-npm run typecheck     # tsc --noEmit
-npm test              # Vitest, one shot
-npm run build         # builds lib (dist/) + site (site-dist/)
+npm run check   # lint + typecheck + unit tests + build + package check
+npm run e2e     # Playwright + axe (installs nothing; run `npx playwright install chromium` once)
+npm run gen:llms  # regenerate public/llms*.txt after changing metadata or examples
 ```
-
-Use `npm run test:watch` while iterating.
 
 ## Testing expectations
 

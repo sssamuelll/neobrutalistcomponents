@@ -1,0 +1,49 @@
+/* Tech: a block-character gauge. Ten-pixel cells with 2px gaps — the track
+   shows the empty cells, the bar fills them in, and it redraws in steps
+   rather than sliding. The value reads like a log line: [42%]. */
+
+@scope ([data-theme="tech"]) to ([data-theme]:not([data-theme="tech"])) {
+  .nbc-progress__track {
+    background:
+      repeating-linear-gradient(90deg, color-mix(in srgb, var(--nbc-fg) 14%, transparent) 0 8px, transparent 8px 10px),
+      var(--nbc-surface-alt);
+  }
+
+  .nbc-progress__bar {
+    background: repeating-linear-gradient(90deg, var(--_bar) 0 8px, transparent 8px 10px);
+    transition: inline-size var(--nbc-duration-slow) steps(10, jump-end);
+  }
+
+  .nbc-progress__bar::after {
+    display: none;
+  }
+
+  .nbc-progress--indeterminate .nbc-progress__bar {
+    animation-timing-function: steps(16, end);
+  }
+
+  .nbc-progress__label::before {
+    content: '> ' / '';
+    color: var(--nbc-fg-muted);
+  }
+
+  .nbc-progress__value {
+    color: var(--nbc-fg);
+  }
+
+  .nbc-progress__value::before {
+    content: '[' / '';
+    color: var(--nbc-fg-muted);
+  }
+
+  .nbc-progress__value::after {
+    content: ']' / '';
+    color: var(--nbc-fg-muted);
+  }
+
+  @media (forced-colors: active) {
+    .nbc-progress__bar {
+      background: repeating-linear-gradient(90deg, Highlight 0 8px, transparent 8px 10px);
+    }
+  }
+}

@@ -1,0 +1,39 @@
+/* Riso: a round stamp. Grain prints through the ink, the type is condensed,
+   and the pink plate slipped a hair to the left (the primary one is already
+   pink, so its ghost plate is blue). */
+
+@scope ([data-theme="riso"]) to ([data-theme]:not([data-theme="riso"])) {
+  .nbc-badge {
+    font-stretch: 85%;
+    box-shadow: -2px 1px 0 var(--nbc-primary);
+  }
+
+  .nbc-badge--neutral {
+    background: var(--nbc-texture), var(--nbc-surface);
+  }
+
+  .nbc-badge--primary {
+    background: var(--nbc-texture), var(--nbc-primary-fill);
+    box-shadow: 2px 1px 0 var(--nbc-accent);
+  }
+
+  .nbc-badge--accent {
+    background: var(--nbc-texture), var(--nbc-accent);
+  }
+
+  .nbc-badge--info {
+    background: var(--nbc-texture), var(--nbc-info);
+  }
+
+  .nbc-badge--success {
+    background: var(--nbc-texture), var(--nbc-success);
+  }
+
+  .nbc-badge--warning {
+    background: var(--nbc-texture), var(--nbc-warning);
+  }
+
+  .nbc-badge--danger {
+    background: var(--nbc-texture), var(--nbc-danger-fill);
+  }
+}

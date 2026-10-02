@@ -1,0 +1,7 @@
+/* Riso: fields are printed on the same grainy stock. */
+
+@scope ([data-theme="riso"]) to ([data-theme]:not([data-theme="riso"])) {
+  .nbc-input {
+    background: var(--nbc-texture), var(--nbc-surface);
+  }
+}

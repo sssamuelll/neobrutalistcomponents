@@ -1,0 +1,65 @@
+/* Tech: a toggle on a control panel. The track prints OFF / ON in tiny mono caps beside the
+   thumb, the thumb is a phosphor block that inverts to dark on the lit track, and it
+   moves in discrete steps like a redraw. */
+
+@scope ([data-theme="tech"]) to ([data-theme]:not([data-theme="tech"])) {
+  .nbc-switch__thumb {
+    background: var(--nbc-border-color);
+    transition-timing-function: steps(4, jump-end);
+  }
+
+  .nbc-switch__control:checked ~ .nbc-switch__thumb {
+    background: var(--nbc-primary-fg);
+    border-color: var(--nbc-primary-fg);
+  }
+
+  /* The micro-label lives in the free half of the track, opposite the thumb. */
+
+  .nbc-switch__track::before {
+    content: 'OFF' / '';
+    position: absolute;
+    inset-block: 0;
+    inset-inline-end: var(--_gap);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: calc(var(--_w) - 2 * var(--nbc-border-width) - 2 * var(--_gap) - var(--_thumb));
+    font-family: var(--nbc-font-mono);
+    font-size: 8px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--nbc-fg-muted);
+    pointer-events: none;
+  }
+
+  .nbc-switch--sm .nbc-switch__track::before {
+    font-size: 7px;
+  }
+
+  .nbc-switch__track:has(.nbc-switch__control:checked)::before {
+    content: 'ON' / '';
+    inset-inline-end: auto;
+    inset-inline-start: var(--_gap);
+    color: var(--nbc-primary-fg);
+  }
+
+  @media (forced-colors: active) {
+    .nbc-switch__thumb {
+      background: ButtonText;
+      border-color: ButtonText;
+    }
+    .nbc-switch__control:checked ~ .nbc-switch__thumb {
+      background: HighlightText;
+      border-color: HighlightText;
+    }
+    .nbc-switch__track::before {
+      color: CanvasText;
+    }
+    .nbc-switch__track:has(.nbc-switch__control:checked)::before {
+      color: HighlightText;
+    }
+  }
+}

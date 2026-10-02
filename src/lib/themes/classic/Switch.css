@@ -1,0 +1,30 @@
+/* Classic: a chunky slab. The thumb is an ink block that casts its own small cobalt edge,
+   and once the switch is on the slab sits a couple of degrees off, as if it were decided. */
+
+@scope ([data-theme="classic"]) to ([data-theme]:not([data-theme="classic"])) {
+  .nbc-switch__track {
+    transition-property: transform, rotate, box-shadow, background-color, border-color;
+  }
+
+  .nbc-switch__track:has(.nbc-switch__control:checked) {
+    rotate: -2deg;
+  }
+
+  .nbc-switch__thumb {
+    background: var(--nbc-border-color);
+    box-shadow: 1px 1px 0 var(--nbc-border-color), 2px 2px 0 var(--nbc-accent);
+  }
+
+  .nbc-switch__label {
+    font-weight: 500;
+  }
+
+  @media (forced-colors: active) {
+    .nbc-switch__thumb {
+      background: ButtonText;
+    }
+    .nbc-switch__control:checked ~ .nbc-switch__thumb {
+      background: HighlightText;
+    }
+  }
+}

@@ -1,0 +1,15 @@
+/* Y2K: labels printed in holo foil (dark enough stops to stay legible). */
+
+@scope ([data-theme="y2k"]) to ([data-theme]:not([data-theme="y2k"])) {
+  .nbc-field__label {
+    background: linear-gradient(
+      90deg,
+      light-dark(#c2125a, #ff9fd2),
+      light-dark(#6d28d9, #c4b5fd),
+      light-dark(#0a64a6, #9ef0ff)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}

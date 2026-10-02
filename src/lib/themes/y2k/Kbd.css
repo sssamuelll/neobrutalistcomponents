@@ -1,0 +1,21 @@
+/* Y2K: a glossy bubble key with a top highlight. */
+@scope ([data-theme="y2k"]) to ([data-theme]:not([data-theme="y2k"])) {
+  .nbc-kbd {
+    position: relative;
+    overflow: hidden;
+    border-radius: 999px;
+    background: linear-gradient(180deg, #ffffff, #cfe9ff);
+    color: #1a1033;
+    box-shadow: 0 2px 0 var(--nbc-border-color), 1px 1px 0 #ff6ec7;
+  }
+
+  .nbc-kbd::before {
+    content: '' / '';
+    position: absolute;
+    inset: 1px 3px auto;
+    block-size: 45%;
+    border-radius: 999px;
+    background: linear-gradient(180deg, #ffffffb3, #ffffff00);
+    pointer-events: none;
+  }
+}

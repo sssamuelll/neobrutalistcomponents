@@ -1,0 +1,74 @@
+/* Tech: the box is a pair of [ ] brackets; checked prints a phosphor block between them. */
+
+@scope ([data-theme="tech"]) to ([data-theme]:not([data-theme="tech"])) {
+  .nbc-checkbox__box {
+    --_px: calc(var(--_box) * 0.23);
+    --_py: calc(var(--_box) * 0.18);
+
+    padding: var(--_py) var(--_px);
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .nbc-checkbox__box::before,
+  .nbc-checkbox__box::after {
+    content: '';
+    position: absolute;
+    inset-block: 0;
+    inline-size: 28%;
+    border: calc(var(--nbc-border-width) + 1px) solid var(--nbc-border-color);
+    pointer-events: none;
+    transition: border-color var(--nbc-duration) var(--nbc-ease);
+  }
+
+  .nbc-checkbox__box::before {
+    inset-inline-start: 0;
+    border-inline-end: 0;
+  }
+
+  .nbc-checkbox__box::after {
+    inset-inline-end: 0;
+    border-inline-start: 0;
+  }
+
+  .nbc-checkbox__box:has(.nbc-checkbox__control:checked, .nbc-checkbox__control:indeterminate) {
+    background: var(--nbc-primary-fill) content-box;
+  }
+
+  .nbc-checkbox__check,
+  .nbc-checkbox__dash {
+    inset: var(--_py) var(--_px);
+    inline-size: calc(100% - 2 * var(--_px));
+    block-size: calc(100% - 2 * var(--_py));
+    stroke-width: 4;
+  }
+
+  @media (hover: hover) {
+    .nbc-checkbox:not(.nbc-checkbox--disabled) .nbc-checkbox__box:has(.nbc-checkbox__control:not(:checked, :indeterminate)):hover {
+      background: color-mix(in srgb, var(--nbc-primary) 18%, transparent) content-box;
+    }
+  }
+
+  /* Invalid and focus speak through the brackets, not an outer ring. */
+
+  .nbc-checkbox--invalid {
+    --_ring: 0 0 0 0 transparent;
+  }
+
+  .nbc-checkbox--invalid .nbc-checkbox__box::before,
+  .nbc-checkbox--invalid .nbc-checkbox__box::after {
+    border-color: var(--nbc-danger);
+  }
+
+  @media (forced-colors: active) {
+    .nbc-checkbox__box:has(.nbc-checkbox__control:checked, .nbc-checkbox__control:indeterminate) {
+      background: Highlight content-box;
+    }
+    .nbc-checkbox__box::before,
+    .nbc-checkbox__box::after {
+      border-color: CanvasText;
+    }
+  }
+}

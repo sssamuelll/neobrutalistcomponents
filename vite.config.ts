@@ -1,39 +1,28 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import path from 'node:path';
-import dts from 'vite-plugin-dts';
 import { fileURLToPath } from 'node:url';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
+// Library build: ESM-only JS bundle + a single dist/styles.css.
+// Type declarations are emitted separately by `tsc -p tsconfig.lib.json`,
+// theme stylesheets by scripts/build-themes.mjs.
 export default defineConfig({
-  plugins: [
-    react(),
-    dts({
-      insertTypesEntry: true,
-      include: ['src/lib'],
-      exclude: ['**/*.test.*', '**/*.spec.*'],
-    }),
-  ],
+  plugins: [react()],
   build: {
     lib: {
-      entry: path.resolve(__dirname, 'src/lib/index.ts'),
-      formats: ['es', 'cjs'],
-      fileName: (format) =>
-        format === 'es'
-          ? 'neobrutalistcomponents.js'
-          : 'neobrutalistcomponents.cjs',
+      entry: fileURLToPath(new URL('./src/lib/entry.ts', import.meta.url)),
+      formats: ['es'],
+      fileName: () => 'index.js',
+      cssFileName: 'styles',
     },
     copyPublicDir: false,
     cssCodeSplit: false,
+    sourcemap: true,
     rollupOptions: {
       external: ['react', 'react-dom', 'react/jsx-runtime'],
-      output: {
-        assetFileNames: (asset) =>
-          asset.name && asset.name.endsWith('.css')
-            ? 'neobrutalistcomponents.css'
-            : 'assets/[name][extname]',
-      },
+      // Every export is interactive (hooks, context, event handlers): mark the
+      // bundle as a client module so it can be imported from React Server
+      // Components (Next.js App Router) without a wrapper.
+      output: { banner: "'use client';" },
     },
   },
 });

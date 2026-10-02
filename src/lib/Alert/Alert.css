@@ -1,0 +1,158 @@
+/* Alert — theme-agnostic. Reads tokens only; personality lives in themes/<t>/Alert.css.
+   --_c / --_c-fg are the variant's status color pair. They are private to the
+   component and its theme flourishes. */
+.nbc-alert {
+  --_c: var(--nbc-info);
+  --_c-fg: var(--nbc-info-fg);
+  --_chip: 28px;
+  --_stripe: 6px;
+
+  position: relative;
+  box-sizing: border-box;
+  display: grid;
+  /* icon | body | action | dismiss. Missing parts leave an empty zero-width
+     track, so spacing comes from margins instead of `gap`. */
+  grid-template-columns: auto 1fr auto auto;
+  align-items: start;
+  min-inline-size: 0;
+  margin: 0;
+  padding: var(--nbc-space-md) var(--nbc-space-lg);
+
+  font-family: var(--nbc-font-sans);
+  color: var(--nbc-fg);
+  background: var(--nbc-texture), color-mix(in srgb, var(--_c) 14%, var(--nbc-surface));
+  border: var(--nbc-border-width) var(--nbc-border-style) var(--nbc-border-color);
+  border-inline-start: var(--_stripe) solid var(--_c);
+  border-radius: var(--nbc-radius);
+  box-shadow: var(--nbc-shadow);
+}
+
+/* ---- Variants ---- */
+.nbc-alert--info {
+  --_c: var(--nbc-info);
+  --_c-fg: var(--nbc-info-fg);
+}
+.nbc-alert--success {
+  --_c: var(--nbc-success);
+  --_c-fg: var(--nbc-success-fg);
+}
+.nbc-alert--warning {
+  --_c: var(--nbc-warning);
+  --_c-fg: var(--nbc-warning-fg);
+}
+.nbc-alert--danger {
+  --_c: var(--nbc-danger);
+  --_c-fg: var(--nbc-danger-fg);
+}
+
+/* ---- Icon chip ---- */
+.nbc-alert__icon {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  inline-size: var(--_chip);
+  block-size: var(--_chip);
+  color: var(--_c-fg);
+  background: var(--_c);
+  /* Capped like Badge: classic's 3px edge would swamp a 28px chip. */
+  border: min(var(--nbc-border-width), 2px) var(--nbc-border-style) var(--nbc-border-color);
+  border-radius: var(--nbc-radius-small);
+}
+.nbc-alert__icon > svg {
+  inline-size: 16px;
+  block-size: 16px;
+  flex: none;
+}
+
+/* ---- Body ---- */
+.nbc-alert__body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  min-inline-size: 0;
+  /* One-line messages center on the chip; longer ones simply grow. */
+  min-block-size: var(--_chip);
+  margin-inline-start: var(--nbc-space-md);
+  overflow-wrap: anywhere;
+}
+.nbc-alert__body:first-child {
+  margin-inline-start: 0;
+}
+
+.nbc-alert__title {
+  margin: 0;
+  font-size: var(--nbc-fs-md);
+  font-weight: var(--nbc-weight-label);
+  line-height: 1.3;
+  color: var(--nbc-fg);
+  text-wrap: balance;
+}
+
+.nbc-alert__description {
+  font-size: var(--nbc-fs-sm);
+  line-height: 1.5;
+  color: var(--nbc-fg);
+  text-wrap: pretty;
+}
+.nbc-alert__description > :first-child {
+  margin-block-start: 0;
+}
+.nbc-alert__description > :last-child {
+  margin-block-end: 0;
+}
+.nbc-alert__description a {
+  color: inherit;
+  text-decoration-thickness: var(--nbc-border-width);
+  text-underline-offset: 0.2em;
+}
+
+/* ---- Action: a small control, centered on the first row ---- */
+.nbc-alert__action {
+  display: flex;
+  align-items: center;
+  margin-inline-start: var(--nbc-space-md);
+  margin-block: calc((var(--_chip) - var(--nbc-control-h-sm)) / 2);
+}
+
+/* ---- Dismiss ---- */
+.nbc-alert__dismiss {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  inline-size: var(--_chip);
+  block-size: var(--_chip);
+  margin: 0;
+  margin-inline-start: var(--nbc-space-sm);
+  padding: 0;
+  font: inherit;
+  color: var(--nbc-fg-muted);
+  background: transparent;
+  border: 0;
+  border-radius: var(--nbc-radius-small);
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition-property: background-color, color;
+  transition-duration: var(--nbc-duration);
+  transition-timing-function: var(--nbc-ease);
+}
+.nbc-alert__dismiss > svg {
+  inline-size: 16px;
+  block-size: 16px;
+  flex: none;
+}
+@media (hover: hover) {
+  .nbc-alert__dismiss:hover {
+    color: var(--nbc-fg);
+    background: var(--nbc-surface-alt);
+  }
+}
+.nbc-alert__dismiss:focus-visible {
+  outline: var(--nbc-focus-width) solid var(--nbc-focus);
+  outline-offset: var(--nbc-focus-offset);
+}

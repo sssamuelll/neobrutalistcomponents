@@ -1,0 +1,14 @@
+/* Tech: a phosphor readout with a prompt, square corners. */
+@scope ([data-theme="tech"]) to ([data-theme]:not([data-theme="tech"])) {
+  .nbc-tooltip {
+    color: var(--nbc-primary-fg);
+    background: var(--nbc-primary);
+    border-color: var(--nbc-primary);
+    border-radius: 0;
+    font-family: var(--nbc-font-mono);
+    font-weight: 400;
+  }
+  .nbc-tooltip::before {
+    content: '> ' / '';
+  }
+}

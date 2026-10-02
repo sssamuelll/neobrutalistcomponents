@@ -1,0 +1,98 @@
+import type { ComponentMeta } from '../types';
+
+export const RadioGroupMeta: ComponentMeta = {
+  name: 'RadioGroup',
+  slug: 'radio-group',
+  group: 'Forms',
+  summary:
+    'Pick exactly one option from a small visible set: a fieldset with a legend whose Radio children are native radio inputs drawn as brutalist dots.',
+  whenToUse: [
+    'Choosing exactly one of two to six options that should all stay visible: plan, billing cycle, deploy region, notification channel.',
+    'A choice that is saved on submit, where seeing every alternative helps the decision.',
+    'Options that need a one-line explanation each (Radio description).',
+  ],
+  whenNotToUse: [
+    'Long lists of options or lists that need search — use Select.',
+    'Any number of independent choices — use Checkbox.',
+    'A setting that takes effect the moment it flips — use Switch.',
+    'A single yes/no question — use Checkbox.',
+  ],
+  extends: "Omit<ComponentProps<'fieldset'>, 'onChange' | 'defaultValue'>",
+  props: [
+    { name: 'label', type: 'ReactNode', description: 'Visible group name, rendered as the fieldset legend. It is the accessible name of the radiogroup.' },
+    { name: 'description', type: 'ReactNode', description: 'Help text under the options, linked to the group with aria-describedby.' },
+    {
+      name: 'error',
+      type: 'ReactNode | boolean',
+      description: 'Invalid state. A message replaces the description and is announced with the group; true marks the group invalid and keeps the description.',
+    },
+    { name: 'name', type: 'string', default: 'generated', description: 'Form field name shared by every Radio. Pass your own to submit the value with a form.' },
+    { name: 'value', type: 'string', description: "Selected value (controlled). Use '' for \"nothing selected\"." },
+    { name: 'defaultValue', type: 'string', description: 'Initially selected value (uncontrolled). Nothing is selected when omitted.' },
+    { name: 'onValueChange', type: '(value: string) => void', description: 'Called with the new value when the user picks another option.' },
+    {
+      name: 'orientation',
+      type: "'vertical' | 'horizontal'",
+      default: "'vertical'",
+      description: 'Stack the options, or lay them out in a wrapping row for two or three short options.',
+    },
+    { name: 'size', type: "'sm' | 'md'", default: "'md'", description: 'Dot size: 18px (sm) or 22px (md). Label text follows.' },
+    { name: 'required', type: 'boolean', description: 'Requires a selection: sets required on every radio and aria-required on the group, and shows a * after the legend.' },
+  ],
+  subcomponents: [
+    {
+      name: 'Radio',
+      element: 'input[type=radio]',
+      description:
+        'One option. Extends Omit<ComponentProps<"input">, "type" | "size" | "name" | "checked" | "defaultChecked" | "value">: className goes on the wrapper, ref and every other prop on the input. Throws outside a RadioGroup.',
+      propsInterface: 'RadioProps',
+      props: [
+        { name: 'value', type: 'string', required: true, description: 'The value this option stands for. Reported by the group and submitted with the form.' },
+        { name: 'label', type: 'ReactNode', description: 'Visible label, associated with the radio through htmlFor/id. Clicking it selects the option.' },
+        { name: 'description', type: 'ReactNode', description: 'One-line explanation under the label, linked to the radio with aria-describedby.' },
+      ],
+    },
+  ],
+  classes: [
+    'nbc-radio-group',
+    'nbc-radio-group--vertical',
+    'nbc-radio-group--horizontal',
+    'nbc-radio-group--sm',
+    'nbc-radio-group--invalid',
+    'nbc-radio-group__label',
+    'nbc-radio-group__required',
+    'nbc-radio-group__items',
+    'nbc-radio-group__message',
+    'nbc-radio-group__message--error',
+    'nbc-radio',
+    'nbc-radio--disabled',
+    'nbc-radio__box',
+    'nbc-radio__control',
+    'nbc-radio__dot',
+    'nbc-radio__text',
+    'nbc-radio__label',
+    'nbc-radio__description',
+  ],
+  accessibility: [
+    'Renders a <fieldset role="radiogroup"> with a <legend>, so the group name is announced when focus enters it. Without a label, pass aria-label or aria-labelledby.',
+    'Every Radio is a native radio input sharing one name: Tab enters the group once, the arrow keys move and select, Space selects. Nothing is reimplemented.',
+    'error sets aria-invalid="true" on the group, and the message is linked with aria-describedby on the group (your own ids are kept), so it is announced once when the group is entered rather than on every option.',
+    'required sets the native attribute on each radio and aria-required on the group; the * after the legend is aria-hidden.',
+    'disabled on the group disables the fieldset, and with it every radio. A Radio can also be disabled on its own.',
+    'A Radio description is linked to that radio with aria-describedby. className goes on the outer element of both components; ref and other props go on the fieldset / the input.',
+  ],
+  rules: [
+    'Always give the group a label that names the decision ("Plan", "Billing cycle"), not an instruction.',
+    'Offer two to six options; beyond that use Select. Never use a single Radio — a lone option is a Checkbox.',
+    'Preselect the safest or most common option unless the user must make a conscious choice; for the latter leave it empty and use required.',
+    'Keep option labels short and parallel, and put explanations in description, not in the label.',
+    'Show the error after a submit attempt, and say what to do: "Choose a billing cycle", not "Invalid".',
+    'Use orientation="horizontal" only for two or three short options without descriptions.',
+  ],
+  examples: [
+    { file: 'Basic', title: 'Plan picker', description: 'Options with a one-line description each.' },
+    { file: 'Horizontal', title: 'Horizontal', description: 'Short options in a row — a billing cycle.' },
+    { file: 'Validation', title: 'Required with an error', description: 'No default, so the group shows an error until the user chooses.' },
+    { file: 'Sizes', title: 'Sizes', description: 'sm and md share the same API; the label follows the dot.' },
+  ],
+};

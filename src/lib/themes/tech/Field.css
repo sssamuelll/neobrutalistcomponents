@@ -1,0 +1,16 @@
+/* Tech: a blinking caret after every field label (silent for screen readers). */
+
+@scope ([data-theme="tech"]) to ([data-theme]:not([data-theme="tech"])) {
+  .nbc-field__label::after {
+    content: '_' / '';
+    margin-inline-start: 0.3em;
+    color: var(--nbc-primary);
+    animation: nbc-tech-caret 1s steps(2, jump-none) infinite;
+  }
+}
+
+@keyframes nbc-tech-caret {
+  50% {
+    opacity: 0;
+  }
+}

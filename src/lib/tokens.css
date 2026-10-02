@@ -1,81 +1,108 @@
 /* ============================================================
-   neobrutalistcomponents — base tokens
+   neobrutalistcomponents — token defaults (layer: nbc.tokens)
    ============================================================
-   Theme-agnostic defaults + per-component override surface.
-   Themes (classic · tech · swiss · y2k) override these under
-   `[data-theme="<name>"]` selectors — see src/lib/themes/.
+   Neutral defaults for the whole token contract (see
+   src/lib/themes/contract.ts). Built-in themes override every
+   one of these in layer nbc.theme; BYO themes may override only
+   what they care about.
 
-   Font loading note:
-   This file declares font families but does NOT load any font
-   files. Consumers are responsible for loading the families
-   their chosen theme expects (via @fontsource/*, Google Fonts
-   link tags, or self-hosted @font-face). See README.md#fonts.
+   Declared on `:root, [data-theme]` — not just :root — so that
+   derived tokens (e.g. --nbc-primary-fill: var(--nbc-primary))
+   are re-evaluated inside every theme island instead of
+   inheriting the value already resolved at :root.
+
+   Fonts are declared, never loaded. See README#fonts.
    ============================================================ */
 
-:root {
-  /* Spacing — invariant */
+:root,
+[data-theme] {
+  /* ---- Invariants: identical in every theme ------------------ */
   --nbc-space-xs: 4px;
   --nbc-space-sm: 8px;
   --nbc-space-md: 12px;
-  --nbc-space-lg: 18px;
+  --nbc-space-lg: 16px;
   --nbc-space-xl: 24px;
-  --nbc-space-2xl: 36px;
+  --nbc-space-2xl: 32px;
+  --nbc-space-3xl: 48px;
 
-  /* Font sizes — invariant */
   --nbc-fs-xs: 12px;
   --nbc-fs-sm: 14px;
   --nbc-fs-md: 16px;
   --nbc-fs-lg: 18px;
-  --nbc-fs-xl: 24px;
-  --nbc-fs-2xl: 32px;
+  --nbc-fs-xl: 22px;
+  --nbc-fs-2xl: 28px;
+  --nbc-fs-3xl: 36px;
+  --nbc-fs-4xl: 48px;
 
-  /* Typography — safe defaults (theme files override) */
-  --nbc-font-sans: system-ui, sans-serif;
-  --nbc-font-mono: ui-monospace, monospace;
+  /* Control heights never change with the theme: switching
+     themes never shifts layout vertically. */
+  --nbc-control-h-sm: 32px;
+  --nbc-control-h-md: 40px;
+  --nbc-control-h-lg: 48px;
+
+  /* ---- Scheme ------------------------------------------------- */
+  --nbc-scheme: light;
+
+  /* ---- Typography -------------------------------------------- */
+  --nbc-font-sans: system-ui, -apple-system, 'Segoe UI', sans-serif;
   --nbc-font-display: var(--nbc-font-sans);
+  --nbc-font-mono: ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --nbc-weight-body: 400;
   --nbc-weight-label: 600;
+  --nbc-weight-display: 800;
   --nbc-label-transform: none;
   --nbc-label-spacing: normal;
+  --nbc-display-transform: none;
+  --nbc-display-spacing: -0.02em;
+  --nbc-display-stretch: 100%;
 
-  /* Color (semantic)
-     NOTE: --nbc-primary and --nbc-danger may be gradients (see y2k theme).
-     Components must use these tokens only as `background` values.
-     For text/icon color on those surfaces, use --nbc-primary-fg / --nbc-danger-fg. */
-  --nbc-fg: #111;
-  --nbc-fg-muted: #666;
-  --nbc-bg: #fff;
-  --nbc-surface: #fff;
-  --nbc-surface-alt: #f5f5f5;
-  --nbc-primary: #111;
-  --nbc-primary-fg: #fff;
-  --nbc-primary-accent: var(--nbc-primary);
-  --nbc-secondary: var(--nbc-primary);
-  --nbc-secondary-fg: var(--nbc-primary-fg);
-  --nbc-danger: #c00;
-  --nbc-danger-fg: #fff;
-  --nbc-border-color: #111;
-  --nbc-focus: #06f;
+  /* ---- Color (solid) ----------------------------------------- */
+  --nbc-bg: light-dark(#ffffff, #111111);
+  --nbc-fg: light-dark(#111111, #f5f5f5);
+  --nbc-fg-muted: light-dark(#575757, #a8a8a8);
+  --nbc-surface: light-dark(#ffffff, #1a1a1a);
+  --nbc-surface-alt: light-dark(#f0f0f0, #262626);
+  --nbc-border-color: light-dark(#111111, #f5f5f5);
+  --nbc-primary: light-dark(#111111, #f5f5f5);
+  --nbc-primary-fg: light-dark(#ffffff, #111111);
+  --nbc-accent: light-dark(#1f4fff, #7d97ff);
+  --nbc-accent-fg: light-dark(#ffffff, #0b0b0b);
+  --nbc-info: light-dark(#1f4fff, #7d97ff);
+  --nbc-info-fg: light-dark(#ffffff, #0b0b0b);
+  --nbc-success: light-dark(#0f7a3a, #4ccf7e);
+  --nbc-success-fg: light-dark(#ffffff, #0b0b0b);
+  --nbc-warning: light-dark(#ffc21a, #ffc21a);
+  --nbc-warning-fg: light-dark(#111111, #111111);
+  --nbc-danger: light-dark(#c8102e, #ff6b7f);
+  --nbc-danger-fg: light-dark(#ffffff, #0b0b0b);
+  --nbc-focus: light-dark(#1f4fff, #7d97ff);
 
-  /* Shape */
+  /* ---- Fills (may be gradients) ------------------------------ */
+  --nbc-primary-fill: var(--nbc-primary);
+  --nbc-danger-fill: var(--nbc-danger);
+  --nbc-surface-fill: var(--nbc-surface);
+  --nbc-texture: none;
+
+  /* ---- Shape ------------------------------------------------- */
   --nbc-border-width: 2px;
   --nbc-border-style: solid;
-  --nbc-radius: 0;
-  --nbc-button-radius: var(--nbc-radius);
-  --nbc-input-radius: var(--nbc-radius);
+  --nbc-radius: 0px;
+  --nbc-radius-control: 0px;
+  --nbc-radius-button: var(--nbc-radius-control);
+  --nbc-radius-small: 0px;
 
-  /* Effects */
-  --nbc-shadow: 3px 3px 0 var(--nbc-border-color);
-  --nbc-shadow-lg: 6px 6px 0 var(--nbc-border-color);
+  /* ---- Elevation + interaction ------------------------------- */
+  --nbc-shadow: 4px 4px 0 var(--nbc-border-color);
+  --nbc-shadow-lg: 8px 8px 0 var(--nbc-border-color);
+  --nbc-shadow-press: 1px 1px 0 var(--nbc-border-color);
+  --nbc-press: 3px;
+  --nbc-press-active: 4px;
   --nbc-rotate: 0deg;
+  --nbc-focus-width: 3px;
+  --nbc-focus-offset: 2px;
 
-  /* Per-component override surface (themes may redefine) */
-  --nbc-button-shadow-hover: 2px 2px 0 var(--nbc-border-color);
-  --nbc-input-shadow-error: 4px 4px 0 var(--nbc-danger);
-  --nbc-card-header-bg: transparent;
-  --nbc-card-padding-content: var(--nbc-space-lg);
-
-  /* Atmosphere (themes may redefine) */
-  --nbc-grid-overlay: none;
-  --nbc-holo-gradient: none;
-  --nbc-hairline: 1px solid var(--nbc-border-color);
+  /* ---- Motion ------------------------------------------------ */
+  --nbc-duration: 120ms;
+  --nbc-duration-slow: 220ms;
+  --nbc-ease: cubic-bezier(0.2, 0.9, 0.3, 1);
 }

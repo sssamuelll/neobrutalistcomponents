@@ -1,0 +1,9 @@
+/* Tech: an inverted key, like a selected terminal cell. */
+@scope ([data-theme="tech"]) to ([data-theme]:not([data-theme="tech"])) {
+  .nbc-kbd {
+    background: var(--nbc-primary);
+    color: var(--nbc-primary-fg);
+    border-color: var(--nbc-primary);
+    box-shadow: none;
+  }
+}

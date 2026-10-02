@@ -1,0 +1,146 @@
+/* Progress — theme-agnostic. Reads tokens only; personality lives in themes/<t>/Progress.css. */
+.nbc-progress {
+  --_h: 14px;
+  --_fs: var(--nbc-fs-sm);
+  --_bar: var(--nbc-primary-fill);
+
+  display: grid;
+  gap: var(--nbc-space-xs);
+  min-inline-size: 0;
+  margin: 0;
+  font-family: var(--nbc-font-sans);
+  color: var(--nbc-fg);
+}
+
+/* ---- Sizes: bar height 8 / 14 / 22px ---- */
+.nbc-progress--sm {
+  --_h: 8px;
+  --_fs: var(--nbc-fs-xs);
+}
+.nbc-progress--md {
+  --_h: 14px;
+  --_fs: var(--nbc-fs-sm);
+}
+.nbc-progress--lg {
+  --_h: 22px;
+  --_fs: var(--nbc-fs-sm);
+}
+
+/* ---- Variants ---- */
+.nbc-progress--primary {
+  --_bar: var(--nbc-primary-fill);
+}
+.nbc-progress--success {
+  --_bar: var(--nbc-success);
+}
+.nbc-progress--warning {
+  --_bar: var(--nbc-warning);
+}
+.nbc-progress--danger {
+  --_bar: var(--nbc-danger-fill);
+}
+
+/* ---- Header: label on the left, value on the right ---- */
+.nbc-progress__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--nbc-space-md);
+  min-inline-size: 0;
+}
+
+.nbc-progress__label {
+  min-inline-size: 0;
+  font-size: var(--_fs);
+  font-weight: var(--nbc-weight-label);
+  line-height: 1.3;
+  text-transform: var(--nbc-label-transform);
+  letter-spacing: var(--nbc-label-spacing);
+  color: var(--nbc-fg);
+}
+
+.nbc-progress__value {
+  flex: none;
+  margin-inline-start: auto;
+  font-family: var(--nbc-font-mono);
+  font-size: var(--_fs);
+  line-height: 1.3;
+  font-variant-numeric: tabular-nums;
+  color: var(--nbc-fg-muted);
+}
+
+/* ---- Track ---- */
+.nbc-progress__track {
+  box-sizing: border-box;
+  position: relative;
+  inline-size: 100%;
+  block-size: var(--_h);
+  min-block-size: var(--_h);
+  overflow: hidden;
+  background: var(--nbc-surface-alt);
+  border: var(--nbc-border-width) var(--nbc-border-style) var(--nbc-border-color);
+  border-radius: var(--nbc-radius-control);
+}
+/* Capped on the small bar: classic's 3px edge would swallow an 8px track. */
+.nbc-progress--sm .nbc-progress__track {
+  border-width: min(var(--nbc-border-width), 2px);
+}
+
+/* ---- Bar ---- */
+.nbc-progress__bar {
+  position: relative;
+  box-sizing: border-box;
+  inline-size: var(--nbc-progress-value, 0%);
+  block-size: 100%;
+  background: var(--_bar);
+  transition: inline-size var(--nbc-duration-slow) var(--nbc-ease);
+}
+
+/* The hard end-cap. A pseudo-element, not a border: at 0% it is clipped by
+   the track instead of leaving a sliver of ink behind. */
+.nbc-progress__bar::after {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  inset-inline-end: 0;
+  inline-size: var(--nbc-border-width);
+  background: var(--nbc-border-color);
+  pointer-events: none;
+}
+
+/* ---- Indeterminate: a 40% block sliding across the track ---- */
+.nbc-progress--indeterminate .nbc-progress__bar {
+  inline-size: 40%;
+  transition: none;
+  animation: nbc-progress-slide 1.2s linear infinite;
+}
+.nbc-progress--indeterminate:dir(rtl) .nbc-progress__bar {
+  animation-name: nbc-progress-slide-rtl;
+}
+
+@keyframes nbc-progress-slide {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(250%);
+  }
+}
+@keyframes nbc-progress-slide-rtl {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(-250%);
+  }
+}
+
+/* ---- Forced colors: backgrounds are replaced, so say what is filled ---- */
+@media (forced-colors: active) {
+  .nbc-progress__bar {
+    background: Highlight;
+  }
+  .nbc-progress__bar::after {
+    background: CanvasText;
+  }
+}

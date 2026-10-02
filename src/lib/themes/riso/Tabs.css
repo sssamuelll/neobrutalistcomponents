@@ -1,0 +1,9 @@
+/* Riso: the active tab is printed in pink ink with grain and a misregistered blue edge. */
+@scope ([data-theme="riso"]) to ([data-theme]:not([data-theme="riso"])) {
+  .nbc-tabs__tab--active {
+    background: var(--nbc-texture), var(--nbc-primary);
+    color: var(--nbc-primary-fg);
+    border-block-end-color: var(--nbc-border-color);
+    box-shadow: 3px 3px 0 var(--nbc-accent);
+  }
+}

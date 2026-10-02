@@ -1,0 +1,36 @@
+/* Y2K: the header is a glossy bar with a holo underline that drifts slowly;
+   hovered rows catch a soft rainbow wash. */
+
+@scope ([data-theme="y2k"]) to ([data-theme]:not([data-theme="y2k"])) {
+  .nbc-table__head {
+    background:
+      linear-gradient(180deg, light-dark(#ffffffb3, #ffffff26), #ffffff00 60%),
+      linear-gradient(90deg, #ff6ec7, #a78bfa, #7ee8fa, #ffd86b, #ff6ec7) 0 100% / 200% 3px repeat-x,
+      var(--nbc-surface-alt);
+    animation: nbc-y2k-table-holo 9s linear infinite;
+  }
+
+  .nbc-table__head .nbc-table__header-cell {
+    background: transparent;
+    border-block-end-width: 3px;
+    border-block-end-color: transparent;
+  }
+
+  @media (hover: hover) {
+    .nbc-table__body > .nbc-table__row:hover {
+      background: linear-gradient(90deg, #ff6ec733, #a78bfa33, #7ee8fa33, #ffd86b33);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .nbc-table__head .nbc-table__header-cell {
+      border-block-end-color: CanvasText;
+    }
+  }
+}
+
+@keyframes nbc-y2k-table-holo {
+  to {
+    background-position: 0 0, 200% 100%;
+  }
+}

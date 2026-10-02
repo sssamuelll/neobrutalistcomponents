@@ -1,0 +1,73 @@
+/* ============================================================
+   RISO — two inks, slightly off.
+   A risograph zine: recycled grey stock with grain, navy ink
+   for text, fluorescent pink and Riso blue for everything
+   loud. Shadows are misregistration — a pink ghost one way, a
+   blue plate the other. Archivo pushed to 68% width and 900
+   weight for display; IBM Plex Mono for mono.
+   Dark: night print — the inks glow on dark stock.
+   ============================================================ */
+[data-theme="riso"] {
+  --nbc-scheme: light;
+
+  --nbc-font-sans: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --nbc-font-display: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --nbc-font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --nbc-weight-body: 400;
+  --nbc-weight-label: 700;
+  --nbc-weight-display: 900;
+  --nbc-label-transform: uppercase;
+  --nbc-label-spacing: 0.04em;
+  --nbc-display-transform: uppercase;
+  --nbc-display-spacing: 0em;
+  --nbc-display-stretch: 68%;
+
+  --nbc-bg: light-dark(#ebece6, #15141c);
+  --nbc-fg: light-dark(#1c2a5a, #f0ece2);
+  --nbc-fg-muted: light-dark(#475275, #b4b0c4);
+  --nbc-surface: light-dark(#f8f8f3, #1f1e29);
+  --nbc-surface-alt: light-dark(#e0e2da, #2a2939);
+  --nbc-border-color: light-dark(#1c2a5a, #f0ece2);
+
+  --nbc-primary: light-dark(#ff48b0, #ff6ec0);
+  --nbc-primary-fg: #141d40;
+  --nbc-accent: light-dark(#0078bf, #49a8ff);
+  --nbc-accent-fg: light-dark(#ffffff, #0f1530);
+
+  --nbc-info: light-dark(#0078bf, #49a8ff);
+  --nbc-info-fg: light-dark(#ffffff, #0f1530);
+  --nbc-success: light-dark(#00a95c, #3ad6a0);
+  --nbc-success-fg: #141d40;
+  --nbc-warning: #ffe800;
+  --nbc-warning-fg: #141d40;
+  --nbc-danger: light-dark(#c8173d, #ff7088);
+  --nbc-danger-fg: light-dark(#ffffff, #15141c);
+  --nbc-focus: light-dark(#0078bf, #49a8ff);
+
+  --nbc-primary-fill: var(--nbc-primary);
+  --nbc-danger-fill: var(--nbc-danger);
+  --nbc-surface-fill: var(--nbc-surface);
+  /* Grain: sparse navy speckle from fractal noise. */
+  --nbc-texture: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.11 0 0 0 0 0.16 0 0 0 0 0.35 0 0 0 -2.8 1.15'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.42'/%3E%3C/svg%3E");
+
+  --nbc-border-width: 2px;
+  --nbc-border-style: solid;
+  --nbc-radius: 2px;
+  --nbc-radius-control: 2px;
+  --nbc-radius-button: 2px;
+  --nbc-radius-small: 999px;
+
+  /* Misregistration: pink plate slips left, blue plate slips right. */
+  --nbc-shadow: -2px 2px 0 light-dark(#ff48b0cc, #ff6ec0cc), 5px 5px 0 var(--nbc-accent);
+  --nbc-shadow-lg: -3px 3px 0 light-dark(#ff48b0cc, #ff6ec0cc), 9px 9px 0 var(--nbc-accent);
+  --nbc-shadow-press: -1px 1px 0 light-dark(#ff48b0cc, #ff6ec0cc), 2px 2px 0 var(--nbc-accent);
+  --nbc-press: 3px;
+  --nbc-press-active: 5px;
+  --nbc-rotate: 0deg;
+  --nbc-focus-width: 3px;
+  --nbc-focus-offset: 2px;
+
+  --nbc-duration: 100ms;
+  --nbc-duration-slow: 200ms;
+  --nbc-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+}

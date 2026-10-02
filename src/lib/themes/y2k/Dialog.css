@@ -1,0 +1,26 @@
+/* Y2K: a glossy holographic band across the header, chromatic shadow on the card. */
+@scope ([data-theme="y2k"]) to ([data-theme]:not([data-theme="y2k"])) {
+  .nbc-dialog__header {
+    position: relative;
+    background:
+      linear-gradient(180deg, #ffffffb3, #ffffff00 55%),
+      linear-gradient(100deg, #ff6ec7, #a78bfa, #7ee8fa, #ffd86b);
+    background-size: 100% 100%, 200% 100%;
+    animation: nbc-y2k-dialog-shimmer 8s linear infinite;
+    border-start-start-radius: inherit;
+    border-start-end-radius: inherit;
+    color: #1a1033;
+  }
+  .nbc-dialog__header .nbc-dialog__description {
+    color: #1a1033;
+  }
+  .nbc-dialog__close {
+    color: #1a1033;
+  }
+}
+
+@keyframes nbc-y2k-dialog-shimmer {
+  to {
+    background-position: 0 0, 200% 0;
+  }
+}

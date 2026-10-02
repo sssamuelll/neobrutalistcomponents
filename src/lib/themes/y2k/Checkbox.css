@@ -1,0 +1,53 @@
+/* Y2K: a bubbly glass tile — glossy capsule highlight, holo foil when checked, a springy tick. */
+
+@scope ([data-theme="y2k"]) to ([data-theme]:not([data-theme="y2k"])) {
+  .nbc-checkbox__box {
+    border-radius: 36%;
+  }
+
+  .nbc-checkbox__box::before {
+    content: '';
+    position: absolute;
+    inset: 1px 3px auto;
+    block-size: 38%;
+    border-radius: 999px;
+    background: linear-gradient(180deg, light-dark(#ffffffb3, #ffffff33), #ffffff00);
+    pointer-events: none;
+  }
+
+  .nbc-checkbox__box:has(.nbc-checkbox__control:checked, .nbc-checkbox__control:indeterminate) {
+    background-size: 220% 220%;
+    animation: nbc-y2k-checkbox-shimmer 6s ease-in-out infinite;
+  }
+
+  .nbc-checkbox__box:has(.nbc-checkbox__control:checked, .nbc-checkbox__control:indeterminate)::before {
+    background: linear-gradient(180deg, #ffffffb3, #ffffff00);
+  }
+
+  /* The tick overshoots on the bouncy y2k easing. */
+
+  .nbc-checkbox__check,
+  .nbc-checkbox__dash {
+    scale: 0.2;
+    transition-duration: var(--nbc-duration-slow);
+  }
+
+  .nbc-checkbox__control:checked ~ .nbc-checkbox__check,
+  .nbc-checkbox__control:indeterminate ~ .nbc-checkbox__dash {
+    scale: 1;
+  }
+
+  .nbc-checkbox__control:indeterminate ~ .nbc-checkbox__check {
+    scale: 0.2;
+  }
+}
+
+@keyframes nbc-y2k-checkbox-shimmer {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}

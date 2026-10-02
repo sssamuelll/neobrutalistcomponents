@@ -1,0 +1,71 @@
+/* Badge — theme-agnostic. Reads tokens only; personality lives in themes/<t>/Badge.css. */
+.nbc-badge {
+  --_h: 24px;
+  --_px: var(--nbc-space-sm);
+  --_fs: var(--nbc-fs-xs);
+
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--nbc-space-xs);
+  min-block-size: var(--_h);
+  margin: 0;
+  padding-block: 0;
+  padding-inline: var(--_px);
+  vertical-align: middle;
+
+  font: var(--nbc-weight-label) var(--_fs) / 1 var(--nbc-font-sans);
+  letter-spacing: var(--nbc-label-spacing);
+  text-transform: var(--nbc-label-transform);
+  white-space: nowrap;
+
+  color: var(--nbc-fg);
+  background: var(--nbc-surface);
+  /* Capped: classic's 3px edge would swamp a 20px sticker. */
+  border: min(var(--nbc-border-width), 2px) var(--nbc-border-style) var(--nbc-border-color);
+  border-radius: var(--nbc-radius-small);
+}
+
+/* ---- Sizes ---- */
+.nbc-badge--sm {
+  --_h: 20px;
+  --_px: 6px;
+  --_fs: calc(var(--nbc-fs-xs) - 1px);
+}
+
+/* ---- Variants ---- */
+.nbc-badge--neutral {
+  background: var(--nbc-surface);
+  color: var(--nbc-fg);
+}
+.nbc-badge--primary {
+  background: var(--nbc-primary-fill);
+  color: var(--nbc-primary-fg);
+}
+.nbc-badge--accent {
+  background: var(--nbc-accent);
+  color: var(--nbc-accent-fg);
+}
+.nbc-badge--info {
+  background: var(--nbc-info);
+  color: var(--nbc-info-fg);
+}
+.nbc-badge--success {
+  background: var(--nbc-success);
+  color: var(--nbc-success-fg);
+}
+.nbc-badge--warning {
+  background: var(--nbc-warning);
+  color: var(--nbc-warning-fg);
+}
+.nbc-badge--danger {
+  background: var(--nbc-danger);
+  color: var(--nbc-danger-fg);
+}
+
+/* ---- Icons ride the type size ---- */
+.nbc-badge > svg {
+  inline-size: 1em;
+  block-size: 1em;
+  flex: none;
+}

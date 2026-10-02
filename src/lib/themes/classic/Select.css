@@ -1,0 +1,47 @@
+/* Classic: the chevron is its own slab — a separated cell behind a 3px rule,
+   a button stuck to the end of the field. Open or hovered, it turns cobalt. */
+
+@scope ([data-theme="classic"]) to ([data-theme]:not([data-theme="classic"])) {
+  .nbc-select__control {
+    padding-inline-end: calc(2.75em + var(--nbc-space-sm));
+  }
+
+  .nbc-select__chevron {
+    inset-block: 0;
+    inset-inline-end: 0;
+    box-sizing: border-box;
+    inline-size: 2.75em;
+    block-size: 100%;
+    padding-inline: 0.7em;
+    translate: none;
+    stroke-width: 3;
+    color: var(--nbc-primary-fg);
+    background: var(--nbc-primary-fill);
+    border-inline-start: var(--nbc-border-width) var(--nbc-border-style) var(--nbc-border-color);
+    transition-property: color, background-color;
+  }
+
+  @media (hover: hover) {
+    .nbc-select:hover:not(.nbc-select--disabled) .nbc-select__chevron {
+      color: var(--nbc-accent-fg);
+      background: var(--nbc-accent);
+    }
+  }
+
+  /* Rotating would flip the cell's rule to the wrong side; the cell changes ink instead. */
+
+  .nbc-select__control:open ~ .nbc-select__chevron {
+    rotate: none;
+    color: var(--nbc-accent-fg);
+    background: var(--nbc-accent);
+  }
+
+  @supports (appearance: base-select) {
+    .nbc-select__control option {
+      font-weight: 800;
+    }
+    .nbc-select__control option:checked:not(:disabled) {
+      box-shadow: inset 0 0 0 var(--nbc-border-width) var(--nbc-border-color);
+    }
+  }
+}

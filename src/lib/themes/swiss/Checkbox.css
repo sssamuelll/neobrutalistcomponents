@@ -1,0 +1,44 @@
+/* Swiss: a hairline square that fills with the one oxblood accent. Nothing moves. */
+
+@scope ([data-theme="swiss"]) to ([data-theme]:not([data-theme="swiss"])) {
+  /* The focus line and the checked fill are both oxblood: draw focus outside
+     the box so it never vanishes into the fill. */
+  .nbc-checkbox__box:has(.nbc-checkbox__control:focus-visible) {
+    outline-offset: 2px;
+  }
+
+  .nbc-checkbox__box:has(.nbc-checkbox__control:checked, .nbc-checkbox__control:indeterminate) {
+    color: var(--nbc-accent-fg);
+    background: var(--nbc-accent);
+    border-color: var(--nbc-accent);
+  }
+
+  .nbc-checkbox__check,
+  .nbc-checkbox__dash {
+    stroke-width: 3;
+    scale: 1;
+    transition-property: opacity;
+  }
+
+  @media (hover: hover) {
+    .nbc-checkbox:not(.nbc-checkbox--disabled) .nbc-checkbox__box:has(.nbc-checkbox__control:not(:checked, :indeterminate)):hover {
+      background: color-mix(in srgb, var(--nbc-accent) 14%, var(--nbc-surface));
+      border-color: var(--nbc-accent);
+    }
+  }
+
+  .nbc-checkbox--invalid .nbc-checkbox__box {
+    border-color: var(--nbc-danger);
+  }
+
+  .nbc-checkbox__message {
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (forced-colors: active) {
+    .nbc-checkbox__box:has(.nbc-checkbox__control:checked, .nbc-checkbox__control:indeterminate) {
+      background: Highlight;
+      border-color: Highlight;
+    }
+  }
+}

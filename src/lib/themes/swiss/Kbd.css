@@ -1,0 +1,9 @@
+/* Swiss: a flat hairline key with tabular figures. */
+@scope ([data-theme="swiss"]) to ([data-theme]:not([data-theme="swiss"])) {
+  .nbc-kbd {
+    box-shadow: none;
+    background: transparent;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.04em;
+  }
+}

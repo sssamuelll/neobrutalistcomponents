@@ -24,3 +24,9 @@ site-dist
 *.njsproj
 *.sln
 *.sw?
+
+# Local review + e2e artifacts
+.screenshots
+playwright-report
+test-results
+.playwright-mcp

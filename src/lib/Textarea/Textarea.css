@@ -1,0 +1,80 @@
+/* Textarea — the box is drawn on the native <textarea> itself. */
+.nbc-textarea {
+  --_py: var(--nbc-space-sm);
+  --_px: var(--nbc-space-md);
+  --_fs: var(--nbc-fs-md);
+  --_bw: var(--nbc-border-width);
+
+  display: block;
+  box-sizing: border-box;
+  inline-size: 100%;
+  min-inline-size: 0;
+  /* `rows` is the minimum visible height: rows × line + padding + border. */
+  min-block-size: calc(var(--nbc-textarea-rows, 3) * 1lh + var(--_py) * 2 + var(--_bw) * 2);
+  margin: 0;
+  padding: var(--_py) var(--_px);
+  font: inherit;
+  font-family: var(--nbc-font-sans);
+  font-size: var(--_fs);
+  line-height: 1.5;
+  color: var(--nbc-fg);
+  background: var(--nbc-surface);
+  border: var(--_bw) var(--nbc-border-style) var(--nbc-border-color);
+  border-radius: var(--nbc-radius-control);
+  box-shadow: var(--nbc-shadow);
+  resize: vertical;
+  transition-property: box-shadow, border-color, background-color, color;
+  transition-duration: var(--nbc-duration);
+  transition-timing-function: var(--nbc-ease);
+}
+
+.nbc-textarea--sm {
+  --_py: var(--nbc-space-xs);
+  --_px: var(--nbc-space-sm);
+  --_fs: var(--nbc-fs-sm);
+}
+.nbc-textarea--lg {
+  --_py: var(--nbc-space-md);
+  --_px: var(--nbc-space-lg);
+  --_fs: var(--nbc-fs-lg);
+}
+
+/* Progressive: browsers without `field-sizing` simply show `rows`. */
+.nbc-textarea--auto {
+  field-sizing: content;
+  max-block-size: 24lh;
+}
+
+.nbc-textarea::placeholder {
+  color: var(--nbc-fg-muted);
+  opacity: 1;
+}
+
+/* A text field always shows focus, mouse or keyboard. */
+.nbc-textarea:focus {
+  outline: var(--nbc-focus-width) solid var(--nbc-focus);
+  outline-offset: var(--nbc-focus-offset);
+}
+
+/* Invalid: the edge thickens by 1px in the danger color (same as Input). */
+.nbc-textarea--invalid {
+  --_bw: calc(var(--nbc-border-width) + 1px);
+
+  border-color: var(--nbc-danger);
+}
+
+.nbc-textarea:read-only:not(:disabled) {
+  background: var(--nbc-surface-alt);
+  box-shadow: none;
+}
+
+.nbc-textarea--disabled {
+  opacity: 0.55;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.nbc-textarea:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 100vmax var(--nbc-surface) inset;
+  -webkit-text-fill-color: var(--nbc-fg);
+}
