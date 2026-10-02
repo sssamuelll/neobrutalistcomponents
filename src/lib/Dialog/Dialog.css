@@ -1,0 +1,150 @@
+/* Dialog — native <dialog> opened with showModal(). The dialog box itself has
+   no padding so a click on its own box is a backdrop click; the panel scrolls. */
+.nbc-dialog {
+  box-sizing: border-box;
+  inline-size: min(100% - 32px, 560px);
+  max-block-size: min(100% - 32px, 85vh);
+  padding: 0;
+  margin: auto;
+  overflow: visible;
+  color: var(--nbc-fg);
+  font-family: var(--nbc-font-sans);
+  background: var(--nbc-texture), var(--nbc-surface-fill);
+  border: var(--nbc-border-width) var(--nbc-border-style) var(--nbc-border-color);
+  border-radius: var(--nbc-radius);
+  box-shadow: var(--nbc-shadow-lg);
+  opacity: 1;
+  translate: 0 0;
+  transition:
+    opacity var(--nbc-duration-slow) var(--nbc-ease),
+    translate var(--nbc-duration-slow) var(--nbc-ease),
+    overlay var(--nbc-duration-slow) allow-discrete,
+    display var(--nbc-duration-slow) allow-discrete;
+}
+.nbc-dialog--sm {
+  inline-size: min(100% - 32px, 400px);
+}
+.nbc-dialog--lg {
+  inline-size: min(100% - 32px, 760px);
+}
+
+.nbc-dialog:not([open]) {
+  opacity: 0;
+  translate: 0 16px;
+}
+@starting-style {
+  .nbc-dialog[open] {
+    opacity: 0;
+    translate: 0 16px;
+  }
+}
+
+.nbc-dialog::backdrop {
+  background: color-mix(in srgb, var(--nbc-fg) 45%, transparent);
+  transition:
+    background-color var(--nbc-duration-slow) var(--nbc-ease),
+    overlay var(--nbc-duration-slow) allow-discrete,
+    display var(--nbc-duration-slow) allow-discrete;
+}
+.nbc-dialog:not([open])::backdrop {
+  background: transparent;
+}
+@starting-style {
+  .nbc-dialog[open]::backdrop {
+    background: transparent;
+  }
+}
+
+html:has(.nbc-dialog:modal) {
+  overflow: hidden;
+  scrollbar-gutter: stable;
+}
+
+.nbc-dialog__panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-block-size: inherit;
+  overflow: auto;
+  border-radius: inherit;
+}
+
+.nbc-dialog__close {
+  position: absolute;
+  inset-block-start: var(--nbc-space-sm);
+  inset-inline-end: var(--nbc-space-sm);
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  inline-size: 32px;
+  block-size: 32px;
+  padding: 0;
+  font-size: 18px;
+  color: var(--nbc-fg-muted);
+  background: transparent;
+  border: 0;
+  border-radius: var(--nbc-radius-small);
+  cursor: pointer;
+  transition:
+    background-color var(--nbc-duration) var(--nbc-ease),
+    color var(--nbc-duration) var(--nbc-ease);
+}
+@media (hover: hover) {
+  .nbc-dialog__close:hover {
+    color: var(--nbc-fg);
+    background: var(--nbc-surface-alt);
+  }
+}
+.nbc-dialog__close:focus-visible {
+  outline: var(--nbc-focus-width) solid var(--nbc-focus);
+  outline-offset: var(--nbc-focus-offset);
+}
+
+.nbc-dialog__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--nbc-space-xs);
+  padding: var(--nbc-space-lg) var(--nbc-space-xl);
+  padding-inline-end: calc(var(--nbc-space-xl) + 24px);
+}
+
+.nbc-dialog__title {
+  margin: 0;
+  font-family: var(--nbc-font-display);
+  font-size: var(--nbc-fs-xl);
+  font-weight: var(--nbc-weight-display);
+  font-stretch: var(--nbc-display-stretch);
+  line-height: 1.15;
+  letter-spacing: var(--nbc-display-spacing);
+  text-transform: var(--nbc-display-transform);
+  text-wrap: balance;
+  color: inherit;
+}
+
+.nbc-dialog__description {
+  margin: 0;
+  font-size: var(--nbc-fs-sm);
+  line-height: 1.45;
+  text-wrap: pretty;
+  color: var(--nbc-fg-muted);
+}
+
+.nbc-dialog__content {
+  padding: 0 var(--nbc-space-xl) var(--nbc-space-lg);
+  font-size: var(--nbc-fs-md);
+  line-height: 1.55;
+}
+
+.nbc-dialog__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--nbc-space-sm);
+  margin-block-start: auto;
+  padding: var(--nbc-space-md) var(--nbc-space-xl);
+  background: var(--nbc-surface-alt);
+  border-block-start: var(--nbc-border-width) var(--nbc-border-style) var(--nbc-border-color);
+}

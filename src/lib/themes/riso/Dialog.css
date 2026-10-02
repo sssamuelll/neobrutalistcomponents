@@ -1,0 +1,20 @@
+/* Riso: pink highlighter under the title, misregistered blue ink behind the card. */
+@scope ([data-theme="riso"]) to ([data-theme]:not([data-theme="riso"])) {
+  .nbc-dialog {
+    box-shadow:
+      6px 6px 0 #0078bf,
+      -3px -3px 0 color-mix(in srgb, var(--nbc-primary) 70%, transparent);
+  }
+  .nbc-dialog__title {
+    inline-size: fit-content;
+    padding-inline: 0.15em;
+    margin-inline: -0.15em;
+    background: linear-gradient(
+      transparent 52%,
+      color-mix(in srgb, var(--nbc-primary) 60%, transparent) 52% 92%,
+      transparent 92%
+    );
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+}
