@@ -4,6 +4,7 @@
  */
 import { NEO_THEMES } from '../lib/themes';
 import { FONTS } from './fonts';
+import { hasImage, hasUnresolvableColor } from './lint';
 import { IMAGE_LICENSES, LANGS, PALETTE_ORIGINS, REFERENCE_KINDS, SCENES, SHADOW_KINDS, THEME_SCENES } from './types';
 import type { CoreFicha, Ficha, L10n, Reference, StudyThemeInput } from './types';
 
@@ -148,7 +149,12 @@ function valueProblems(theme: StudyThemeInput): string[] {
   }
   for (const key of ['primary', 'danger', 'surface'] as const) {
     const fill = fills?.[key];
-    if (fill !== undefined && !isSingleValue(fill)) problems.push(`${id}.fills.${key}: "${fill}" is not a single CSS value`);
+    if (fill === undefined) continue;
+    if (!isSingleValue(fill)) problems.push(`${id}.fills.${key}: "${fill}" is not a single CSS value`);
+    if (hasImage(fill)) problems.push(`${id}.fills.${key}: "${fill}" — no images; a fill is a color or a gradient`);
+    if (hasUnresolvableColor(fill)) {
+      problems.push(`${id}.fills.${key}: "${fill}" — named colors and color functions are out: the contract cannot check them; use #hex, light-dark() or var()`);
+    }
   }
   return problems;
 }

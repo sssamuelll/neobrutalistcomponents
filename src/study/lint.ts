@@ -44,6 +44,17 @@ const withoutStrings = (value: string) => value.replace(/"(?:[^"\\]|\\.)*"|'(?:[
 /** Drops each var()'s custom-property name but keeps its fallback, so a fallback color is still caught. */
 const withoutVarNames = (value: string) => value.replace(/var\(\s*--[\w-]+\s*/g, 'var(');
 
+/** Color syntax the contract tool cannot resolve: named colors and color functions (rgb(), oklch()…). Hex is resolvable. */
+export function hasUnresolvableColor(value: string): boolean {
+  const bare = withoutVarNames(withoutStrings(value));
+  return COLOR_FN.test(bare) || NAMED.test(bare);
+}
+
+/** url(), image-set() and the other image functions. */
+export function hasImage(value: string): boolean {
+  return IMAGE.test(value);
+}
+
 function declarationProblems(where: string, selector: string, declarations: readonly Declaration[], allowGeometry: boolean): string[] {
   const problems: string[] = [];
   for (const { property, value } of declarations) {
@@ -53,11 +64,10 @@ function declarationProblems(where: string, selector: string, declarations: read
     if (isGeometry(property) && !allowGeometry) {
       problems.push(`${where}: "${selector}" sets ${property} — control geometry is invariant (allowed only in ::before/::after)`);
     }
-    if (IMAGE.test(value)) {
+    if (hasImage(value)) {
       problems.push(`${where}: "${selector}" ${property}: ${value} — no images (url(), image-set()); textures are gradients of tokens`);
     }
-    const bare = withoutVarNames(withoutStrings(value));
-    if (HEX.test(bare) || COLOR_FN.test(bare) || NAMED.test(bare)) {
+    if (HEX.test(withoutVarNames(withoutStrings(value))) || hasUnresolvableColor(value)) {
       problems.push(`${where}: "${selector}" ${property}: ${value} — literal color; use var(--nbc-*) tokens`);
     }
   }

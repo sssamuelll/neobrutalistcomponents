@@ -69,6 +69,20 @@ describe('themeProblems checks every value that is written into the CSS', () => 
   });
 });
 
+describe('themeProblems keeps fills inside what the contract can check', () => {
+  it.each([
+    ['linear-gradient(light-dark(#fff, #1c1c1c), black)', /fills\.surface.*cannot check/],
+    ['linear-gradient(#ffffff, rgb(17 17 17))', /fills\.surface.*cannot check/],
+    ['url(https://example.org/x.png)', /fills\.surface.*no images/],
+  ])('rejects fills.surface %s', (surface, message) => {
+    expect(problems({ fills: { surface } })).toMatch(message);
+  });
+
+  it('accepts #hex, light-dark() and var() stops', () => {
+    expect(themeProblems({ ...FIXTURE, fills: { surface: 'linear-gradient(light-dark(#ffffff, #1c1c1c), var(--nbc-surface))' } })).toEqual([]);
+  });
+});
+
 describe('registryProblems (Review Focus 5)', () => {
   it('reports a theme outside themes/<scene>/<id>.ts, duplicates and missing signatures', () => {
     const entries = [
