@@ -1,6 +1,6 @@
 # neobrutalistcomponents
 
-**Components that hold their shape.** Sixteen brutalist React components on one token contract. Five themes, light and dark, and the same geometry in every one — documented for people and for the agents that build with them.
+**Components that hold their shape.** Sixteen brutalist React components on one token contract. Five core themes plus the themes of a study of neobrutalism, light and dark, and the same geometry in every one — documented for people and for the agents that build with them.
 
 ```bash
 npm install neobrutalistcomponents
@@ -32,7 +32,7 @@ export function App() {
 | Display | `Card`, `Badge`, `Alert`, `Progress`, `Table`, `Kbd` |
 | Overlays | `Tabs`, `Dialog`, `Tooltip` |
 
-## Themes
+## Core themes
 
 | Theme | Voice | Native scheme | Fonts |
 | --- | --- | --- | --- |
@@ -43,6 +43,28 @@ export function App() {
 | `riso` | Two inks, slightly off. Grain, fluorescent pink, Riso blue. | light | Archivo, IBM Plex Mono |
 
 Every theme ships a full light **and** dark scheme. Leave `mode` unset for the native one, or pass `light`, `dark` or `system`. Providers nest — an inner provider is a self-contained island.
+
+## The study
+
+The site is also a study of neobrutalism in interfaces, in Spanish and English: [the study](https://sssamuelll.github.io/neobrutalistcomponents/#/en/) follows the style from *béton brut* to today's product design through four scenes — Japan, Germany, the United States and Latin America — and their origins. Each study theme reads one documented work, and its page cites the sources.
+
+| Theme | Reads | Scene | Native scheme |
+| --- | --- | --- | --- |
+| `nakagin` | Nakagin Capsule Tower, Kisho Kurokawa, Tokyo, 1970–1972 | Japan | light |
+| `maeusebunker` | Mäusebunker, Gerd and Magdalena Hänska with Kurt Schmersow, Berlin, 1971–1982 | Germany | dark |
+| `sesc-pompeia` | SESC Pompéia, Lina Bo Bardi with André Vainer and Marcelo Carvalho Ferraz, São Paulo, 1977–1986 | Latin America | light |
+| `classifieds` | craigslist, Craig Newmark, San Francisco, 1995 | United States | light |
+
+Study themes are used exactly like the core ones:
+
+```tsx
+import 'neobrutalistcomponents/themes/nakagin.css';
+import 'neobrutalistcomponents/themes/nakagin.fonts.css'; // optional: loads the theme's fonts
+
+<NeoProvider theme="nakagin">{/* your app */}</NeoProvider>
+```
+
+Their catalog also ships as data for theme pickers: `import { STUDY_CATALOG } from 'neobrutalistcomponents/study'`.
 
 ## Why it stays deterministic
 

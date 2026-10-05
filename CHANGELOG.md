@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.1.0 — 2026-10-05
+
+The library becomes a study of neobrutalism in interfaces, in Spanish and English, and its first study themes ship on the same token contract.
+
+### Added
+- Four study themes, one per scene, each read from a documented work: `nakagin` (Nakagin Capsule Tower, Tokyo), `maeusebunker` (Mäusebunker, Berlin), `sesc-pompeia` (SESC Pompéia, São Paulo) and `classifieds` (craigslist, San Francisco). Use them like the core themes: `themes/<id>.css` plus `themes/<id>.fonts.css`.
+- `neobrutalistcomponents/study`: the study's theme catalog as data (`STUDY_CATALOG`, `StudyThemeId`) for theme pickers.
+- `llms.txt`, `llms-full.txt` and the `neobrutalist-ui` skill list the study themes with their references.
+- Docs site in Spanish and English (`#/es/…`, `#/en/…`): the study's essays, four scenes and their origins, an atlas of every theme with facets and search, a page per theme with its reference, sources, specimen and contrast tables, the method and the credits.
+
+### Changed
+- The site's Themes page became the atlas and a page per theme. Old addresses (`#/themes`, `#/components/…`) redirect.
+- Study theme stylesheets load only when a page shows them; atlas cards paint from catalog data.
+
 ## 1.0.1 — 2026-10-05
 
 ### Fixed

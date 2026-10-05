@@ -327,3 +327,20 @@ Plan 1 of 2 (`docs/superpowers/plans/2026-10-05-neobrutalism-study-engine.md`), 
   - Ficha wording: `maeusebunker` (only titles use the condensed face), `tech` (the VT100 also blinked; the manual chapter is now cited), and possible quotes from Lars Müller, MoMA, Wired and Dialectic paraphrased. A regression test retires the flagged phrases.
 - **`dist/study.js` is written by `build-study.mjs`** rather than built as a second library entry (D6): same ESM module and declarations for consumers, one fewer build step.
 
+
+Plan 2 of 2 (`docs/superpowers/plans/2026-10-05-neobrutalism-study-site.md`).
+
+- **Markdown is rendered by `marked`** (a devDependency, used only by `vite-plugin-essays.ts`), wrapped to refuse raw HTML and `#` headings, keep only https links (opened in a new tab) and turn `[n]` into citation spans outside tags. A first hand-written renderer paired the asterisk of "Grade II\*" with the next emphasis and cut URLs at their first parenthesis.
+- **Scene introductions run three or four short sections** rather than D9's minimum of two paragraphs: the research dossier had enough verified material. Each scene's full essay still arrives with its own sub-project.
+- **Routes**: a `#/<lang>/scenes` index page gives the top bar's "Scenes" a destination (the D10 table has none); Origins has its own route and shares the scene page. Unprefixed addresses redirect by replacing the hash, with no history entry; `replaceHash` notifies synchronously, so the atlas search never loses a keystroke.
+- **One `useLazy` hook loads a theme's data and the essays**: a chunk that fails shows an error message instead of loading forever.
+- **Atlas cards and the study home's mosaic paint from catalog vars.** `--nbc-display-stretch` is not a preview token, so tile names do not use it.
+- **Core theme pages keep a one-line note** that the theme predates the study, besides the ficha's own first sentence.
+- **Font licences for Credits**: the ten families of the core themes are recorded in `CORE_FONT_LICENSES`; all eighteen families are OFL-1.1, checked against the google/fonts repository (`ofl/<family>`).
+- **The skill's study table is generated** between `<!-- study-themes:start -->` and `<!-- study-themes:end -->`; CI's drift check now covers `SKILL.md`, and `pregen:llms` runs `gen:study` first.
+- **Config files import local modules with a `.ts` extension** (`allowImportingTsExtensions` in `tsconfig.node.json`): Vite 8 warns about extensionless imports for its future native config loader.
+- **Phones**: on 1.0.1 the theme switcher already widened a 360 px page to 368 px; with five nav items, the language link and "More themes" it reached 451 px. The site grid's column is now `minmax(0, 1fr)`, the switcher wraps, and every main page is tested at 360 px in both languages.
+- **The tagline stops counting themes** ("Core and study themes"), so it stays true as scenes add themes.
+- **Package**: `npm pack` lists 72 files, 107.3 kB packed and 439.4 kB unpacked (1.0.1: 104.9 kB and 433.7 kB); the nine theme stylesheets and `dist/study.js` ship, and still no `src/study` path.
+- **A theme page's name spans the full width**, above the facts and the image: the first contact sheets showed "Mäusebunker" breaking mid-word in the left column at 1440 px. A test keeps a long one-word name on one line.
+- **Tables that scroll sideways are focusable regions** (`TableScroll`: `role="region"`, a label, `tabIndex={0}`). axe at 360 px caught the Method tables (`scrollable-region-focusable`); the older docs tables (props, Start, Agents) got the same wrapper.

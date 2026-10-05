@@ -1,7 +1,7 @@
 import { Badge, Button, Card, Input, NeoProvider, Progress, Select, Switch, NEO_THEMES, THEME_INFO } from 'neobrutalistcomponents';
 import { ArrowRight, GitBranch } from 'lucide-react';
 import { COMPONENTS } from '../../docs/meta';
-import { INSTALL_CODE, pageUrl } from '../../docs/guide';
+import { INSTALL_CODE, TAGLINE, pageUrl } from '../../docs/guide';
 import { CodeBlock } from '../docs/CodeBlock';
 import { useSitePrefsContext } from '../prefsContext';
 import { useLang } from '../i18n';
@@ -95,7 +95,7 @@ export function Library() {
   const llms = [
     '# neobrutalistcomponents',
     '',
-    '> Brutalist React components. Five themes, light and dark, one token contract.',
+    `> ${TAGLINE}`,
     '',
     '## Forms',
     ...COMPONENTS.filter((c) => c.group === 'Forms')
@@ -111,8 +111,8 @@ export function Library() {
             Components that hold their shape.
           </h1>
           <p className="site-lead">
-            Sixteen React components on one token contract. Five themes, light and dark, and the same geometry in every
-            one — documented for the people and the agents who build with them.
+            Sixteen React components on one token contract. Five core themes plus the study’s, light and dark, and the
+            same geometry in every one — documented for the people and the agents who build with them.
           </p>
           <CodeBlock code={INSTALL_CODE} label="Shell" />
           <div className="home-hero__ctas">
@@ -133,11 +133,12 @@ export function Library() {
       <section className="home-section" aria-labelledby="home-themes-title">
         <div className="home-section__intro">
           <h2 className="site-h2" id="home-themes-title">
-            Five themes. Pick one and stop deciding.
+            Five core themes. Pick one and stop deciding.
           </h2>
           <p className="site-p">
             Each theme is a complete point of view — type, color, edges, shadows, motion — in a light and a dark scheme.
-            Click one: this whole site switches.
+            Click one: this whole site switches. The study’s themes, each read from a documented work, are in{' '}
+            <a href={toHash(lang, '/atlas')}>the atlas</a>.
           </p>
         </div>
         <ThemeStrip />
@@ -149,7 +150,7 @@ export function Library() {
             Same shape in every theme
           </h2>
           <p className="site-p">
-            Controls share one height scale — 32, 40 and 48 pixels — in all five themes. Swapping themes never moves
+            Controls share one height scale — 32, 40 and 48 pixels — in every theme. Swapping themes never moves
             your layout; only the voice changes.
           </p>
         </div>

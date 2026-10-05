@@ -1,6 +1,6 @@
 import { NEO_THEMES, THEME_INFO } from 'neobrutalistcomponents';
 import { COMPONENTS } from '../../docs/meta';
-import { GLOBAL_RULES, THEME_GUIDE, pageUrl } from '../../docs/guide';
+import { GLOBAL_RULES, TAGLINE, THEME_GUIDE, pageUrl } from '../../docs/guide';
 import { CodeBlock } from '../docs/CodeBlock';
 import { TableScroll } from '../docs/TableScroll';
 
@@ -12,7 +12,7 @@ export function Agents() {
   const sample = [
     '# neobrutalistcomponents',
     '',
-    '> Brutalist React components. Five themes, light and dark, one token contract.',
+    `> ${TAGLINE}`,
     '',
     '## Forms',
     '',

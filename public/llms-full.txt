@@ -1,6 +1,6 @@
-# neobrutalistcomponents v1.0.1 — full reference
+# neobrutalistcomponents v1.1.0 — full reference
 
-> Brutalist React components. Five themes, light and dark, one token contract.
+> Brutalist React components. Core and study themes, light and dark, one token contract.
 
 This file is generated from the library’s metadata and example sources; it describes the code exactly.
 
@@ -1362,7 +1362,7 @@ Extends `ComponentProps<'span'>` — every native prop is forwarded.
 - Color is never the only carrier — the label says "Failed", not just red. Keep the word, even next to an icon.
 - Icons inside a badge are sized to 1em; mark decorative ones aria-hidden="true".
 - A badge whose text changes while the page is open (a deploy going from Building to Live) is not announced; add role="status" if the change matters.
-- Text on every filled variant uses the matching -fg token, which meets WCAG AA in all five themes and both color modes.
+- Text on every filled variant uses the matching -fg token, which meets WCAG AA in every theme and both color modes.
 
 **Rules**
 
