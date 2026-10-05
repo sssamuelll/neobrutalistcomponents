@@ -10,6 +10,11 @@ import type { FontKey } from './fonts';
 import { lightDark, normalizeHex } from './color';
 import { COLOR_VARS } from './types';
 import type { ColorToken, SchemeColor, StudyFonts, StudyThemeInput } from './types';
+import { stripComments, topLevelBlocks } from './css';
+import { lintFlourishCss, lintSignature } from './lint';
+import { FAMILIES } from './families';
+import { paramDeclarations, resolveParams } from './families/params';
+import type { FamilyDefinition, FillContext } from './families/types';
 
 /** Values for optional groups. Equal to the neutral defaults in src/lib/tokens.css. */
 export const ENGINE_DEFAULTS = {
@@ -40,6 +45,8 @@ export interface CompileOptions {
   readonly banner?: string;
   /** Contents of the theme's signature CSS. */
   readonly signature?: string;
+  /** Family registry. Defaults to the study's families. */
+  readonly families?: Readonly<Record<string, FamilyDefinition>>;
 }
 
 export interface CompiledTheme {
@@ -175,9 +182,75 @@ function fontsOutput(theme: StudyThemeInput): Pick<CompiledTheme, 'fontsCss' | '
   return { fontsHref, fontsCss: `/* Optional: loads the families the ${theme.id} theme expects. */\n@import url('${fontsHref}');\n` };
 }
 
+export const scopePrelude = (id: string) =>
+  `@scope ([data-theme="${id}"]) to ([data-theme]:not([data-theme="${id}"]))`;
+
+interface FlourishPart {
+  readonly label: string;
+  readonly rules: readonly string[];
+  readonly keyframes: readonly string[];
+}
+
+/** Splits a flourish file into rules (scoped) and keyframes (top level, renamed nbc-<id>-<prefix>-<name>). */
+function flourishPart(css: string, id: string, prefix: string, label: string): FlourishPart {
+  const blocks = topLevelBlocks(stripComments(css));
+  const names = blocks
+    .map((b) => b.prelude.match(/^@keyframes\s+([\w-]+)$/)?.[1])
+    .filter((n): n is string => n !== undefined);
+  const rename = (text: string) =>
+    names.reduce((t, n) => t.replace(new RegExp(`(?<![\\w-])${n}(?![\\w-])`, 'g'), `nbc-${id}-${prefix}-${n}`), text);
+  const rules: string[] = [];
+  const keyframes: string[] = [];
+  for (const block of blocks) {
+    const text = rename(`${block.prelude} {${block.body}}`);
+    (/^@keyframes\b/.test(block.prelude) ? keyframes : rules).push(text);
+  }
+  return { label, rules, keyframes };
+}
+
+const indent = (text: string) =>
+  text
+    .split('\n')
+    .map((line) => (line.trim() ? `  ${line}` : line))
+    .join('\n');
+
+function renderFlourishBlock(id: string, parts: readonly FlourishPart[]): string {
+  const rules = parts.filter((p) => p.rules.length).map((p) => `  /* ${p.label} */\n${indent(p.rules.join('\n'))}`);
+  const keyframes = parts.flatMap((p) => p.keyframes);
+  if (!rules.length && !keyframes.length) return '';
+  const scoped = rules.length ? `${scopePrelude(id)} {\n${rules.join('\n\n')}\n}` : '';
+  return `@layer nbc.flourish {\n${[scoped, ...keyframes].filter(Boolean).join('\n\n')}\n}`;
+}
+
 export function compileTheme(theme: StudyThemeInput, options: CompileOptions = {}): CompiledTheme {
+  const registry = options.families ?? FAMILIES;
+  const uses = (theme.families ?? []).map((use) => {
+    const def = registry[use.family];
+    if (!def) throw new Error(`${theme.id}: unknown family "${use.family}"`);
+    return { def, values: resolveParams(def, use.params, `${theme.id}/${use.family}`) };
+  });
+
+  const signature = options.signature?.trim() ? options.signature : undefined;
+  const problems = [
+    ...uses.flatMap(({ def }) => lintFlourishCss(def.css, `family ${def.name}`)),
+    ...(signature ? lintSignature(signature, `${theme.id} signature`) : []),
+  ];
+  if (problems.length) throw new Error(`${theme.id}: flourish CSS problems:\n- ${problems.join('\n- ')}`);
+
   const tokens = compileTokens(theme);
+  const ctx: FillContext = { color: (token, scheme) => resolveColor(tokens, COLOR_VARS[token], scheme) };
+  const layers = uses.flatMap(({ def, values }) => def.texture?.(values, ctx) ?? []);
+  if (layers.length) tokens.set('--nbc-texture', layers.join(', '));
+  for (const { def, values } of uses) {
+    for (const [name, value] of paramDeclarations(def, values)) tokens.set(name, value);
+  }
+
+  const parts = [
+    ...uses.map(({ def }) => flourishPart(def.css, theme.id, def.name, `family: ${def.name}`)),
+    ...(signature ? [flourishPart(signature, theme.id, 'signature', 'signature')] : []),
+  ];
+  const flourish = renderFlourishBlock(theme.id, parts);
   const header = `/* ${options.banner ?? `study theme: ${theme.id}`} — generated from src/study, do not edit */\n${LAYER_STATEMENT}\n`;
-  const css = `${header}\n${renderTokenBlock(theme.id, tokens)}\n`;
+  const css = `${header}\n${renderTokenBlock(theme.id, tokens)}\n${flourish ? `\n${flourish}\n` : ''}`;
   return { id: theme.id, tokens, css, ...fontsOutput(theme) };
 }
