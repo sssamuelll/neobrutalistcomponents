@@ -23,7 +23,7 @@ describe('study registry', () => {
 });
 
 /** The proof themes of sub-project 1. Each proof-theme task adds its id. */
-const PROOF_THEMES = ['classifieds', 'maeusebunker', 'nakagin'];
+const PROOF_THEMES = ['classifieds', 'maeusebunker', 'nakagin', 'sesc-pompeia'];
 
 describe('proof themes', () => {
   it('are all in the registry', () => {
