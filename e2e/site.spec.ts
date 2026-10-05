@@ -303,6 +303,8 @@ test('method: the essay, the detail families from their own metadata and the con
 });
 
 test('credits: every photograph and every typeface, each with its licence', async ({ page }) => {
+  const requested: string[] = [];
+  page.on('request', (request) => requested.push(request.url()));
   await page.goto('#/es/credits');
   await expect(page.locator('main h1')).toHaveText('Créditos');
   const photographs = page.locator('table[aria-labelledby="credits-photographs"] tbody tr');
@@ -311,6 +313,8 @@ test('credits: every photograph and every typeface, each with its licence', asyn
   const fonts = page.locator('table[aria-labelledby="credits-fonts"] tbody tr');
   await expect(fonts).toHaveCount(18);
   await expect(fonts.filter({ hasText: 'Geist Mono' })).toContainText('Classic, Tech');
+  // The credits come from the catalog: no theme's data chunk is fetched for them.
+  expect(requested.filter((url) => /\/assets\/(nakagin|maeusebunker|sesc-pompeia|classifieds|core-fichas)-[\w-]+\.js$/.test(url))).toEqual([]);
 });
 
 // The study's main pages in both languages, at desktop width and on a phone:

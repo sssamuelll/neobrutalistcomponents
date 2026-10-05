@@ -1,18 +1,12 @@
 import type { CatalogEntry } from '../../study/catalog';
-import type { Reference } from '../../study/types';
 import { useLang, useT } from '../i18n';
 import { toHash } from '../router';
 import { TableScroll } from '../docs/TableScroll';
 import { FONT_LICENSE_URLS, fontCredits, specimenUrl } from '../study/credits';
 import { CATALOG } from '../study/data';
-import { loadThemeData } from '../study/detail';
 import { LICENSE_URLS, commonsTitle, licenseName } from '../study/format';
-import { useLazy } from '../study/lazy';
 
 const FONTS = fontCredits(CATALOG);
-
-const loadReferences = (): Promise<{ entry: CatalogEntry; reference: Reference }[]> =>
-  Promise.all(CATALOG.map(async (entry) => ({ entry, reference: (await loadThemeData(entry)).reference })));
 
 function ThemeLinks({ entries }: { entries: readonly CatalogEntry[] }) {
   const lang = useLang();
@@ -24,18 +18,12 @@ function ThemeLinks({ entries }: { entries: readonly CatalogEntry[] }) {
   ));
 }
 
+/** The themes with a photograph, from the catalog: no theme's data chunk is loaded for its credit. */
+const PHOTOGRAPHED = CATALOG.filter((entry) => entry.image);
+
 function Photographs() {
   const lang = useLang();
   const t = useT();
-  const references = useLazy('credits:references', loadReferences);
-  if (references.status === 'error') return <p className="site-p">{t('loadError')}</p>;
-  if (references.status === 'loading') {
-    return (
-      <p className="site-p" role="status">
-        {t('loading')}
-      </p>
-    );
-  }
   return (
     <TableScroll label={t('photographsHeading')}>
       <table aria-labelledby="credits-photographs">
@@ -48,11 +36,11 @@ function Photographs() {
           </tr>
         </thead>
         <tbody>
-          {references.value.map(({ entry, reference: { image } }) =>
+          {PHOTOGRAPHED.map(({ id, name, image }) =>
             image ? (
-              <tr key={entry.id}>
+              <tr key={id}>
                 <th scope="row">
-                  <a href={toHash(lang, `/theme/${entry.id}`)}>{entry.name[lang]}</a>
+                  <a href={toHash(lang, `/theme/${id}`)}>{name[lang]}</a>
                 </th>
                 <td>{image.author}</td>
                 <td className="study-nowrap">

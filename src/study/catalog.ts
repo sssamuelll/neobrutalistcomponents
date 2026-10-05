@@ -10,7 +10,7 @@ import { fontKeys } from './compile';
 import type { CompiledTheme } from './compile';
 import { FONTS } from './fonts';
 import { REFERENCE_KINDS, SCENES, SHADOW_KINDS } from './types';
-import type { BorderFacet, CoreFicha, CornerFacet, Facets, L10n, Reference, Scene, StudyThemeInput } from './types';
+import type { BorderFacet, CoreFicha, CornerFacet, Facets, ImageCredit, L10n, Reference, Scene, StudyThemeInput } from './types';
 
 export interface CatalogReference {
   readonly title: L10n;
@@ -38,7 +38,12 @@ export interface CatalogEntry {
   readonly predatesStudy: boolean;
   /** Study themes: the tokens an atlas card paints with, without loading the stylesheet. Core themes: null. */
   readonly vars: Readonly<Record<string, string>> | null;
+  /** Site only: the photograph's credit, for the Credits page (no ficha chunk to load); null without one. */
+  readonly image: Pick<ImageCredit, 'author' | 'license' | 'sourceUrl'> | null;
 }
+
+const imageCredit = ({ image }: Reference): CatalogEntry['image'] =>
+  image ? { author: image.author, license: image.license, sourceUrl: image.sourceUrl } : null;
 
 /** Tokens copied into `vars`. */
 export const PREVIEW_TOKENS = [
@@ -121,6 +126,7 @@ export function studyEntry(theme: StudyThemeInput, compiled: CompiledTheme): Cat
     },
     predatesStudy: false,
     vars: Object.fromEntries(PREVIEW_TOKENS.map((name) => [name, tokens.get(name) ?? ''])),
+    image: imageCredit(theme.reference),
   };
 }
 
@@ -138,6 +144,7 @@ export function coreEntry(id: NeoBuiltinTheme, info: NeoThemeInfo, core: CoreFic
     facets: { scene: core.scene, decade: decadeOf(core.reference.date), kind: core.reference.kind, scheme: info.nativeScheme, ...core.facets },
     predatesStudy: true,
     vars: null,
+    image: imageCredit(core.reference),
   };
 }
 
@@ -154,7 +161,7 @@ export function renderSiteModule(entries: readonly CatalogEntry[]): string {
 const union = (values: readonly string[]) => values.map((v) => `'${v}'`).join(' | ');
 
 export function renderPackageModule(entries: readonly CatalogEntry[]): { js: string; dts: string } {
-  const slim = entries.map((entry) => ({ ...entry, vars: undefined }));
+  const slim = entries.map((entry) => ({ ...entry, vars: undefined, image: undefined }));
   const studyIds = entries.filter((entry) => !entry.predatesStudy).map((entry) => JSON.stringify(entry.id));
   const js = [
     '// neobrutalistcomponents/study — the theme catalog of the neobrutalism study (data only).',
