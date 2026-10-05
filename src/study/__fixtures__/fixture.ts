@@ -1,0 +1,52 @@
+import { defineTheme, hardShadow } from '../define';
+
+/** A complete, valid study theme for unit tests. Not a real study theme. */
+export const FIXTURE = defineTheme({
+  id: 'fixture',
+  scene: 'germany',
+  nativeScheme: 'light',
+  name: { es: 'Fixture', en: 'Fixture' },
+  tagline: { es: 'Solo para tests.', en: 'Tests only.' },
+  reference: {
+    title: { es: 'Obra de prueba', en: 'Test work' },
+    original: { text: 'Testwerk', lang: 'de' },
+    authors: ['Nobody'],
+    date: [1971, 1981],
+    place: { es: 'Berlín, Alemania', en: 'Berlin, Germany' },
+    kind: 'architecture',
+    sources: [
+      { title: 'Source one', url: 'https://example.org/one', publisher: 'Example Museum', accessed: '2026-10-05' },
+      { title: 'Source two', url: 'https://en.wikipedia.org/wiki/Example', accessed: '2026-10-05' },
+    ],
+  },
+  ficha: {
+    documented: { es: 'Un hecho [1]. Otro hecho [2].', en: 'A fact [1]. Another fact [2].' },
+    reading: { es: 'Una lectura.', en: 'A reading.' },
+    palette: { origin: 'interpreted', note: { es: 'Inventada.', en: 'Made up.' } },
+  },
+  fonts: { sans: 'barlow', mono: 'dm-mono' },
+  colors: {
+    bg: ['#f2f2f2', '#121212'],
+    fg: ['#111111', '#f2f2f2'],
+    fgMuted: ['#555555', '#aaaaaa'],
+    surface: ['#ffffff', '#1c1c1c'],
+    surfaceAlt: ['#e8e8e8', '#262626'],
+    border: ['#111111', '#f2f2f2'],
+    primary: ['#1a5f9e', '#3d8fd6'],
+    primaryFg: 'auto',
+    accent: ['#6e570e', '#d8c06a'],
+    accentFg: 'auto',
+    info: ['#1a5f9e', '#3d8fd6'],
+    infoFg: 'auto',
+    success: ['#2d6b3c', '#5fb67a'],
+    successFg: 'auto',
+    warning: '#e8b545',
+    warningFg: '#111111',
+    danger: ['#a3271d', '#f07a6a'],
+    dangerFg: 'auto',
+    focus: ['#1a5f9e', '#3d8fd6'],
+  },
+  type: { weightBody: 400, weightLabel: 600, weightDisplay: 800 },
+  shape: { borderWidth: 3, radius: 0, radiusControl: 0, radiusButton: 0, radiusSmall: 0 },
+  elevation: hardShadow(4),
+});
