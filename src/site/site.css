@@ -959,3 +959,21 @@ body {
 [data-theme='y2k'] .home-theme__name {
   font-size: var(--nbc-fs-lg);
 }
+
+/* Phones: the bar wraps onto several lines; keeping it sticky would cover
+   half the screen. Let it scroll away and tighten it. */
+@media (max-width: 720px) {
+  .site-bar {
+    position: static;
+    gap: var(--nbc-space-sm) var(--nbc-space-md);
+  }
+  .site-bar__end {
+    margin-inline-start: 0;
+  }
+  .site-nav__link {
+    padding: 4px 8px;
+  }
+  html {
+    scroll-padding-block-start: 16px;
+  }
+}
