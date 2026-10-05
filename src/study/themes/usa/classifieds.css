@@ -1,0 +1,10 @@
+/* Classifieds: a secondary action is just a link — blue and underlined,
+   red while pressed, the way browsers draw an active link. */
+.nbc-button--ghost {
+  color: var(--nbc-primary);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+.nbc-button--ghost:active {
+  color: var(--nbc-danger);
+}

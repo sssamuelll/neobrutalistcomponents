@@ -146,3 +146,9 @@ export function contrastRatio(fg: string, bg: string, page = '#ffffff'): number 
   const [l1, l2] = [luminance(front), luminance(base)].sort((a, b) => b - a);
   return (l1 + 0.05) / (l2 + 0.05);
 }
+
+/** `top` painted over `bottom` (both #hex, alpha allowed), flattened onto white: an opaque #rrggbb. */
+export function composite(top: string, bottom: string): string {
+  const [r, g, b] = over(toRGBA(top), over(toRGBA(bottom), [255, 255, 255, 1]));
+  return `#${[r, g, b].map((c) => Math.round(c).toString(16).padStart(2, '0')).join('')}`;
+}

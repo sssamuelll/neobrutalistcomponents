@@ -15,6 +15,7 @@ export default defineConfig(
       'test-results',
       '.playwright-mcp',
       '.superpowers',
+      'src/study/.generated',
     ],
   },
   {

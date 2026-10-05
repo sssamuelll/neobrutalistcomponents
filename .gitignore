@@ -13,6 +13,7 @@ dist-ssr
 site-dist
 *.local
 .superpowers/
+src/study/.generated/
 
 # Editor directories and files
 .vscode/*

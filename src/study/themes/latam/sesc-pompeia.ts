@@ -1,0 +1,87 @@
+import { defineTheme, hardShadow } from '../../define';
+import { concrete } from '../../families';
+
+export default defineTheme({
+  id: 'sesc-pompeia',
+  scene: 'latam',
+  nativeScheme: 'light',
+  name: { es: 'SESC Pompéia', en: 'SESC Pompéia' },
+  tagline: { es: 'Agujeros en el hormigón, enmarcados en rojo.', en: 'Holes in the concrete, framed in red.' },
+  reference: {
+    title: { es: 'SESC Pompéia', en: 'SESC Pompéia' },
+    original: { text: 'Centro de Lazer Fábrica da Pompéia', lang: 'pt' },
+    authors: ['Lina Bo Bardi', 'André Vainer', 'Marcelo Carvalho Ferraz'],
+    date: [1977, 1986],
+    place: { es: 'Pompeia, São Paulo, Brasil', en: 'Pompeia, São Paulo, Brazil' },
+    kind: 'architecture',
+    sources: [
+      { title: 'Numa velha fábrica de tambores. Sesc Pompeia comemora 25 anos', url: 'https://vitruvius.com.br/revistas/read/minhacidade/08.093/1897', publisher: 'Vitruvius (Minha Cidade 093.01)', year: 2008, accessed: '2026-10-05' },
+      { title: 'Clássicos da Arquitetura: SESC Pompéia / Lina Bo Bardi', url: 'https://www.archdaily.com/pt/01-153205/classicos-da-arquitetura-sesc-pompeia-slash-lina-bo-bardi', publisher: 'ArchDaily Brasil', year: 2013, accessed: '2026-10-05' },
+      {
+        title: 'Lina’s Red: Explore the Use of the Color as Prominent Element in Lina Bo Bardi’s Works',
+        url: 'https://www.archdaily.com/1005415/linas-red-explore-the-use-of-the-color-as-prominent-element-in-lina-bo-bardis-works',
+        publisher: 'ArchDaily',
+        year: 2023,
+        accessed: '2026-10-05',
+      },
+      { title: 'As janelas do Conjunto Esportivo do Sesc Pompeia', url: 'https://portal.sescsp.org.br/online/artigo/13584_AS+JANELAS+DO+CONJUNTO+ESPORTIVO+DO+SESC+POMPEIA', publisher: 'Sesc São Paulo', year: 2019, accessed: '2026-10-05' },
+      { title: 'Omnibus-Type', url: 'https://thepunch.studio/foundry/omnibus-type', publisher: 'The Punch', accessed: '2026-10-05' },
+    ],
+    image: {
+      file: 'sesc-pompeia.avif',
+      width: 1600,
+      height: 2133,
+      alt: {
+        es: 'Las aberturas irregulares de la torre deportiva de hormigón, con celosías rojas, sobre la antigua fábrica de ladrillo.',
+        en: 'The concrete sports tower’s irregular openings, fitted with red lattices, above the old brick factory.',
+      },
+      author: 'Joalpe',
+      license: 'CC-BY-SA-4.0',
+      sourceUrl: 'https://commons.wikimedia.org/wiki/File:SESC_Pompeia_-_S%C3%A3o_Paulo_-_20220726142122.jpg',
+    },
+  },
+  ficha: {
+    documented: {
+      es: 'Lina Bo Bardi, con André Vainer y Marcelo Ferraz, convirtió una antigua fábrica de tambores de São Paulo en un centro de ocio entre 1977 y 1986, y le añadió un bloque deportivo de hormigón visto [1]. Una de sus torres tiene agujeros irregulares, como cuevas, en lugar de ventanas [1], moldeados con piezas de poliestireno en muros encofrados con tablas horizontales [2]. Las aberturas dejan entrar el viento, el sol y la lluvia en las canchas [4], y el rojo marca barandillas, conductos y marcos contra el hormigón gris [3].',
+      en: 'Lina Bo Bardi, with André Vainer and Marcelo Ferraz, turned a former drum factory in São Paulo into a leisure centre between 1977 and 1986, adding a sports block in exposed concrete [1]. One of its towers has irregular, cave-like holes instead of windows [1], cast with styrofoam moulds into walls formed against horizontal timber boards [2]. The openings let wind, sun and rain into the courts [4], and red marks the handrails, ducts and frames against the grey concrete [3].',
+    },
+    reading: {
+      es: 'El tema toma el hormigón de las torres —textura de encofrado en la página y en cada losa— y el rojo de Lina como color principal. Su CSS propio abre un hueco irregular, enmarcado en rojo, en el pie de cada tarjeta y de cada diálogo, y da a los botones principales el mismo contorno recortado a mano. El texto va en Chivo, de la fundidora porteña Omnibus-Type [5]: una tipografía latinoamericana para un edificio latinoamericano, no una documentada en Pompéia.',
+      en: 'The theme takes the towers’ concrete — board-marked texture on the page and every slab — and Lina’s red as its primary colour. Its signature cuts one irregular opening, framed in red, into every card and dialog footer, and gives primary buttons the same hand-cut outline. Text is set in Chivo, by the Buenos Aires foundry Omnibus-Type [5]: a Latin American typeface for a Latin American building, not one documented at Pompéia.',
+    },
+    palette: {
+      origin: 'interpreted',
+      note: {
+        es: 'El gris del hormigón y el rojo sobre él están documentados con palabras; los valores hexadecimales son la lectura del tema a partir de fotografías.',
+        en: 'The concrete grey and the red against it are documented in words; the hex values are the theme’s reading of photographs.',
+      },
+    },
+  },
+  fonts: { sans: 'chivo', mono: 'chivo-mono' },
+  colors: {
+    bg: ['#d5d1ca', '#1d1c1b'],
+    fg: ['#1b1a19', '#eeebe5'],
+    fgMuted: ['#4d4a46', '#aaa49b'],
+    surface: ['#efece6', '#292826'],
+    surfaceAlt: ['#e2ded7', '#353331'],
+    border: ['#1b1a19', '#eeebe5'],
+    primary: ['#b81d17', '#ff6a5c'],
+    primaryFg: 'auto',
+    accent: ['#285a7a', '#7fb0d6'],
+    accentFg: 'auto',
+    info: ['#285a7a', '#7fb0d6'],
+    infoFg: 'auto',
+    success: ['#2e6a35', '#74c27f'],
+    successFg: 'auto',
+    warning: ['#e2a72e', '#ecb54a'],
+    warningFg: 'auto',
+    danger: ['#8f1d14', '#ff9a8c'],
+    dangerFg: 'auto',
+    focus: ['#285a7a', '#7fb0d6'],
+  },
+  type: { weightBody: 400, weightLabel: 700, weightDisplay: 900, labelSpacing: '0em', displaySpacing: '-0.03em' },
+  shape: { borderWidth: 3, radius: 0, radiusControl: 0, radiusButton: 6, radiusSmall: 0 },
+  elevation: hardShadow(5),
+  families: [concrete({ grain: 0.05, formwork: 0.04, board: 16 })],
+  signature: './sesc-pompeia.css',
+});

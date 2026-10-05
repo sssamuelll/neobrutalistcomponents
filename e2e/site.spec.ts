@@ -53,3 +53,19 @@ test('production CSS keeps token colors: borders, shadows and page color resolve
   const bg = await page.evaluate(() => getComputedStyle(document.documentElement).backgroundColor);
   expect(bg).toBe('rgb(231, 230, 225)');
 });
+
+// The Themes page previews the study's proof themes, each in its own island
+// with its own shipped stylesheet (plan 2 moves them to the atlas).
+test('themes page previews the four study themes with their own stylesheets', async ({ page }) => {
+  await page.goto('?theme=classic#/themes');
+  for (const id of ['maeusebunker', 'nakagin', 'sesc-pompeia', 'classifieds']) {
+    await expect(page.locator(`section[aria-labelledby="theme-${id}"]`)).toBeVisible();
+  }
+  const button = page.locator('section[aria-labelledby="theme-nakagin"] .nbc-button--primary').first();
+  const style = await button.evaluate((el) => {
+    const cs = getComputedStyle(el);
+    return { border: cs.borderTopWidth, radius: cs.borderTopLeftRadius };
+  });
+  expect(style).toEqual({ border: '2px', radius: '999px' });
+  await expect(page.locator('section[aria-labelledby="theme-nakagin"] [lang="ja"]')).toHaveText('中銀カプセルタワービル');
+});
