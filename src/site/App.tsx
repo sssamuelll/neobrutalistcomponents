@@ -6,7 +6,7 @@ import type { SitePrefs } from './prefs';
 import { parseHash, replaceHash, useHash } from './router';
 import type { Location, Route } from './router';
 import { detectLang, rememberLang } from './lang';
-import { LangContext, UI } from './i18n';
+import { LangContext, SCENE_TEXT, UI } from './i18n';
 import type { UIKey } from './i18n';
 import { SitePrefsContext } from './prefsContext';
 import { useThemeStylesheet } from './study/loader';
@@ -15,6 +15,9 @@ import { ComponentsIndex } from './pages/ComponentsIndex';
 import { ComponentPage } from './pages/ComponentPage';
 import { Atlas } from './pages/Atlas';
 import { ThemePage } from './pages/ThemePage';
+import { StudyHome } from './pages/StudyHome';
+import { Scenes } from './pages/Scenes';
+import { ScenePage } from './pages/ScenePage';
 import { ENTRIES } from './study/data';
 import { Blocks } from './pages/Blocks';
 import { Start } from './pages/Start';
@@ -26,8 +29,14 @@ export type PageLocation = Extract<Location, { kind: 'page' }>;
 function Page({ location }: { location: PageLocation }) {
   const { route } = location;
   switch (route.name) {
-    // Until the study home exists (study plan 2, Task 8) the study route shows the library page.
     case 'study':
+      return <StudyHome />;
+    case 'scenes':
+      return <Scenes />;
+    case 'scene':
+      return <ScenePage scene={route.scene} />;
+    case 'origins':
+      return <ScenePage scene="origins" />;
     case 'library':
       return <Library />;
     case 'atlas':
@@ -76,7 +85,7 @@ function Site({ location, prefs, update }: { location: PageLocation; prefs: Site
 
   useEffect(() => {
     const key = TITLES[route.name];
-    const title = route.name === 'component' ? route.slug : route.name === 'theme' ? (ENTRIES.get(route.id)?.name[lang] ?? route.id) : key ? UI[key][lang] : undefined;
+    const title = route.name === 'component' ? route.slug : route.name === 'theme' ? (ENTRIES.get(route.id)?.name[lang] ?? route.id) : route.name === 'scene' ? SCENE_TEXT[route.scene].name[lang] : key ? UI[key][lang] : undefined;
     document.title = title ? `${title} — neobrutalistcomponents` : 'neobrutalistcomponents';
     window.scrollTo({ top: 0 });
   }, [routeKey, route, lang]);

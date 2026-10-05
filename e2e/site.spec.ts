@@ -256,3 +256,36 @@ test('theme page: when its data cannot load, it says so instead of loading forev
   await page.goto('#/en/theme/sesc-pompeia');
   await expect(page.getByText('This theme could not load', { exact: false })).toBeVisible();
 });
+
+test('study home: the thesis, a tile per theme, the essay with its sources and the scenes', async ({ page }) => {
+  await page.goto('#/es/');
+  await expect(page.locator('main h1')).toHaveText('El neobrutalismo en las interfaces');
+  await expect(page).toHaveTitle('El estudio — neobrutalistcomponents');
+  await expect(page.locator('.study-tile')).toHaveCount(9);
+  await expect(page.locator('.study-essay__text h2').first()).toHaveText('De dónde viene el nombre');
+  await expect(page.locator('.study-sources li')).toHaveCount(5);
+  await expect(page.locator('.study-scenes__card')).toHaveCount(5);
+  await page.locator('.study-scenes').getByRole('link', { name: 'Japón' }).click();
+  await expect(page).toHaveURL(/#\/es\/scene\/japan$/);
+});
+
+test('scenes: an index, then each scene lists its references in date order with their themes', async ({ page }) => {
+  await page.goto('#/en/scenes');
+  await expect(page.locator('main h1')).toHaveText('Scenes');
+  await expect(page.locator('.study-scenes__card')).toHaveCount(5);
+  await page.goto('#/en/scene/japan');
+  await expect(page).toHaveTitle('Japan — neobrutalistcomponents');
+  await expect(page.locator('.study-timeline__year')).toHaveText(['1970', '1980', '1996']);
+  await expect(page.locator('.study-timeline .site-card h3')).toHaveText(['Nakagin', 'Riso', 'Y2K']);
+  await expect(page.locator('nav .study-scenes__card')).toHaveCount(4);
+  await page.goto('#/en/origins');
+  await expect(page.locator('.study-essay__text h2').first()).toHaveText('Béton brut');
+  await expect(page.locator('.study-timeline .site-card h3')).toHaveText(['Classic', 'Swiss']);
+});
+
+test('a study page whose essay cannot load says so instead of staying blank', async ({ page }) => {
+  await page.route(/\/assets\/en-[\w-]+\.js$/, (route) => route.abort());
+  await page.goto('#/en/');
+  await expect(page.getByText('This content could not load.', { exact: false })).toBeVisible();
+  await expect(page.locator('.study-scenes__card')).toHaveCount(5);
+});

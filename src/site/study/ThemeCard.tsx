@@ -53,12 +53,12 @@ function Island({ entry, className, children }: { entry: CatalogEntry; className
   );
 }
 
-/** One theme as an atlas card. */
-export function ThemeCard({ entry }: { entry: CatalogEntry }) {
+/** One theme as an atlas card; `as="div"` where the card is not a list item. */
+export function ThemeCard({ entry, as: Wrapper = 'li' }: { entry: CatalogEntry; as?: 'li' | 'div' }) {
   const lang = useLang();
   const t = useT();
   return (
-    <li className="site-cards__item">
+    <Wrapper className="site-cards__item">
       <Island entry={entry} className="site-card-island">
         <Card variant="interactive" as="article" className="site-card">
           <Card.Header>
@@ -84,6 +84,25 @@ export function ThemeCard({ entry }: { entry: CatalogEntry }) {
             {entry.predatesStudy ? <Badge variant="neutral">{t('fromLibrary')}</Badge> : null}
           </Card.Footer>
         </Card>
+      </Island>
+    </Wrapper>
+  );
+}
+
+/** One theme as a small tile: its name in its own display type, on its own ground. */
+export function ThemeTile({ entry }: { entry: CatalogEntry }) {
+  const lang = useLang();
+  return (
+    <li className="study-mosaic__item">
+      <Island entry={entry} className="study-tile">
+        <a className="study-tile__link" href={toHash(lang, `/theme/${entry.id}`)}>
+          <span className="study-tile__name">{entry.name[lang]}</span>
+          <span className="study-tile__swatches" aria-hidden="true">
+            {entry.swatch.slice(0, 3).map((color) => (
+              <span key={color} style={{ background: color }} />
+            ))}
+          </span>
+        </a>
       </Island>
     </li>
   );
