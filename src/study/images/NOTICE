@@ -1,0 +1,6 @@
+Images in this folder are photographs from Wikimedia Commons. Each keeps its
+own license (CC0, public domain, CC BY or CC BY-SA); its author, license and
+file page are recorded in the ficha of the theme that uses it and shown under
+the image on the site. They are not covered by the repository's MIT license
+and are never included in the npm package (package.json "files" ships only
+dist/ and skills/).

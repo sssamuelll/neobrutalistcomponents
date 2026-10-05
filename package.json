@@ -63,6 +63,7 @@
     "preview": "vite preview --config vite.site.config.ts",
     "prepublishOnly": "npm run build:lib && npm run check:package",
     "gen:llms": "node scripts/gen-llms.mjs",
+    "fetch:image": "node scripts/fetch-image.mjs",
     "screenshots": "node scripts/screenshots.mjs",
     "e2e": "playwright test"
   },
@@ -92,6 +93,7 @@
     "publint": "^0.3.25",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
+    "sharp": "^0.35.5",
     "typescript": "~6.0.3",
     "typescript-eslint": "^8.71.0",
     "vite": "^8.3.2",
