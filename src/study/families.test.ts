@@ -114,3 +114,24 @@ describe('keyframe namespacing', () => {
     expect(css).toContain('animation-name: nbc-fixture-spinner-scale;');
   });
 });
+
+describe('family and parameter names are checked as own keys', () => {
+  const compileWith = (families: StudyThemeInput['families']) => () =>
+    compileTheme({ ...FIXTURE, families }, { families: REGISTRY });
+
+  it('rejects a token name that only exists on Object.prototype', () => {
+    expect(compileWith([{ family: 'stripes', params: { ink: 'constructor' } }])).toThrow(/"ink" must be a color token name, got constructor/);
+  });
+
+  it('rejects a parameter key that only exists on Object.prototype', () => {
+    expect(compileWith([{ family: 'stripes', params: { toString: 1 } }])).toThrow(/unknown parameter "toString"/);
+  });
+
+  it('rejects a family name that only exists on Object.prototype', () => {
+    expect(compileWith([{ family: 'constructor', params: {} }])).toThrow(/fixture: unknown family "constructor"/);
+  });
+
+  it('rejects a family listed twice', () => {
+    expect(compileWith([stripes(), stripes({ gap: 16 })])).toThrow(/fixture: family "stripes" is listed twice/);
+  });
+});

@@ -233,9 +233,12 @@ function renderFlourishBlock(id: string, parts: readonly FlourishPart[]): string
 
 export function compileTheme(theme: StudyThemeInput, options: CompileOptions = {}): CompiledTheme {
   const registry = options.families ?? FAMILIES;
+  const listed = new Set<string>();
   const uses = (theme.families ?? []).map((use) => {
-    const def = registry[use.family];
+    const def = Object.hasOwn(registry, use.family) ? registry[use.family] : undefined;
     if (!def) throw new Error(`${theme.id}: unknown family "${use.family}"`);
+    if (listed.has(use.family)) throw new Error(`${theme.id}: family "${use.family}" is listed twice`);
+    listed.add(use.family);
     return { def, values: resolveParams(def, use.params, `${theme.id}/${use.family}`) };
   });
 

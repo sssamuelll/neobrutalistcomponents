@@ -5,7 +5,7 @@ import type { FamilyDefinition, ParamValues } from './types';
 /** Fills defaults and validates every parameter; `where` prefixes errors (`<theme>/<family>`). */
 export function resolveParams(def: FamilyDefinition, given: Readonly<Record<string, string | number>>, where: string): ParamValues {
   for (const key of Object.keys(given)) {
-    if (!(key in def.params)) {
+    if (!Object.hasOwn(def.params, key)) {
       throw new Error(`${where}: unknown parameter "${key}" (known: ${Object.keys(def.params).join(', ')})`);
     }
   }
@@ -17,7 +17,7 @@ export function resolveParams(def: FamilyDefinition, given: Readonly<Record<stri
         throw new Error(`${where}: "${key}" must be one of ${spec.values.join(', ')}, got ${String(value)}`);
       }
     } else if (spec.type === 'token') {
-      if (typeof value !== 'string' || !(value in COLOR_VARS)) {
+      if (typeof value !== 'string' || !Object.hasOwn(COLOR_VARS, value)) {
         throw new Error(`${where}: "${key}" must be a color token name, got ${String(value)}`);
       }
     } else if (typeof value !== 'number' || !Number.isFinite(value) || value < spec.min || value > spec.max) {
