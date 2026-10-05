@@ -1,11 +1,12 @@
 import { NEO_THEMES, NeoProvider, THEME_INFO } from 'neobrutalistcomponents';
 import type { NeoBuiltinTheme, NeoMode } from 'neobrutalistcomponents';
-import { COLOR_TOKENS, CONTRAST_PAIRS } from '../../lib/themes/contract';
-import { contrastRatio, resolveColor, resolveStops } from '../../lib/themes/color';
 import type { Scheme } from '../../lib/themes/color';
 import { THEME_GUIDE } from '../../docs/guide';
 import { THEME_TOKENS } from '../docs/themeTokens';
 import { ThemeSampler } from '../docs/ThemeSampler';
+import { TokenTables } from '../docs/TokenTables';
+import { StudyBand } from '../docs/StudyBand';
+import { STUDY_PREVIEWS } from '../docs/studyThemes';
 import { useSitePrefsContext } from '../prefsContext';
 
 function schemeFor(theme: NeoBuiltinTheme, mode: NeoMode | 'native'): Scheme {
@@ -19,7 +20,6 @@ function ThemeBand({ id }: { id: NeoBuiltinTheme }) {
   const info = THEME_INFO[id];
   const tokens = THEME_TOKENS[id];
   const scheme = schemeFor(id, prefs.mode);
-  const page = resolveColor(tokens, '--nbc-bg', scheme);
 
   return (
     <NeoProvider
@@ -58,76 +58,7 @@ function ThemeBand({ id }: { id: NeoBuiltinTheme }) {
 
         <ThemeSampler />
 
-        <div className="site-band__tables">
-          <div className="site-props">
-            <table>
-              <caption>
-                Color tokens, {scheme} scheme
-              </caption>
-              <thead>
-                <tr>
-                  <th scope="col">Token</th>
-                  <th scope="col">Swatch</th>
-                  <th scope="col">Value</th>
-                </tr>
-              </thead>
-              <tbody>
-                {COLOR_TOKENS.map((t) => (
-                  <tr key={t}>
-                    <th scope="row">
-                      <code>{t}</code>
-                    </th>
-                    <td>
-                      <span className="site-swatch-cell" style={{ background: `var(${t})` }} />
-                    </td>
-                    <td>
-                      <code>{resolveColor(tokens, t, scheme)}</code>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="site-props">
-            <table>
-              <caption>Contrast, {scheme} scheme (WCAG 2.2)</caption>
-              <thead>
-                <tr>
-                  <th scope="col">Pair</th>
-                  <th scope="col">Ratio</th>
-                  <th scope="col">Needs</th>
-                </tr>
-              </thead>
-              <tbody>
-                {CONTRAST_PAIRS.map((pair) => {
-                  const fg = resolveColor(tokens, pair.fg, scheme);
-                  const ratio = Math.min(
-                    ...resolveStops(tokens, pair.bg, scheme).map((bg) => contrastRatio(fg, bg, page)),
-                  );
-                  return (
-                    <tr key={`${pair.fg}-${pair.bg}`}>
-                      <th scope="row">
-                        {pair.min === 3 ? (
-                          // Non-text pair (control boundary, focus ring): drawn as a ring, not as text.
-                          <span className="site-pair site-pair--ui" style={{ background: `var(${pair.bg})` }} aria-hidden="true">
-                            <span style={{ borderColor: `var(${pair.fg})` }} />
-                          </span>
-                        ) : (
-                          <span className="site-pair" style={{ color: `var(${pair.fg})`, background: `var(${pair.bg})` }}>
-                            Aa
-                          </span>
-                        )}{' '}
-                        {pair.why}
-                      </th>
-                      <td className="site-num">{ratio.toFixed(2)}</td>
-                      <td className="site-num">{pair.min}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <TokenTables tokens={tokens} scheme={scheme} />
       </div>
     </NeoProvider>
   );
@@ -145,6 +76,19 @@ export function Themes() {
       </header>
       {NEO_THEMES.map((id) => (
         <ThemeBand key={id} id={id} />
+      ))}
+      <section className="site-page site-study-intro" aria-labelledby="study-preview-title">
+        <h2 className="site-h2" id="study-preview-title">
+          From the study: four proof themes
+        </h2>
+        <p className="site-p">
+          A study of neobrutalism in interfaces is on its way, across four scenes: Japan, Germany, the United States and
+          Latin America. Each theme reads one documented work and cites its sources. These first four, one per scene,
+          ship in the next release.
+        </p>
+      </section>
+      {STUDY_PREVIEWS.map((preview) => (
+        <StudyBand key={preview.theme.id} preview={preview} />
       ))}
     </div>
   );
