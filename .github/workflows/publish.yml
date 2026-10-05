@@ -20,8 +20,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          registry-url: 'https://registry.npmjs.org'
           cache: npm
+          # No registry-url: it injects a placeholder NODE_AUTH_TOKEN that npm
+          # would send instead of the OIDC identity (→ 404 from the registry).
       # Trusted publishing needs npm >= 11.5.1 (Node 22 ships npm 10).
       - run: npm install -g npm@latest
       - run: npm ci
