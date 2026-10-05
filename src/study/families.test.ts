@@ -90,3 +90,27 @@ describe('families', () => {
     expect(compileTheme(FIXTURE).css).not.toContain('@layer nbc.flourish');
   });
 });
+
+describe('keyframe namespacing', () => {
+  const spinner = defineFamily({
+    name: 'spinner',
+    description: { es: 'Prueba.', en: 'Test.' },
+    touches: ['nbc-card'],
+    params: {},
+    css: `.nbc-card__title::after { content: ''; transform: scale(1.05) rotate(2deg); animation: rotate var(--nbc-duration) linear, scale 1s; }
+.nbc-card__description::after { content: ''; animation-name: scale; }
+@keyframes rotate { to { rotate: 360deg; } }
+@keyframes "scale" { from { scale: 1; } to { scale: 1.05; } }`,
+  });
+
+  it('renames keyframe names and animation references only — never properties or functions of the same name', () => {
+    const { css } = compileTheme({ ...FIXTURE, families: [spinner()] }, { families: { spinner: spinner.definition } });
+    expect(css).toContain('@keyframes nbc-fixture-spinner-rotate {');
+    expect(css).toContain('@keyframes nbc-fixture-spinner-scale {');
+    expect(css).toContain('rotate: 360deg;');
+    expect(css).toContain('scale: 1.05;');
+    expect(css).toContain('transform: scale(1.05) rotate(2deg);');
+    expect(css).toContain('animation: nbc-fixture-spinner-rotate var(--nbc-duration) linear, nbc-fixture-spinner-scale 1s;');
+    expect(css).toContain('animation-name: nbc-fixture-spinner-scale;');
+  });
+});

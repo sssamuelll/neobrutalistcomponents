@@ -191,19 +191,28 @@ interface FlourishPart {
   readonly keyframes: readonly string[];
 }
 
-/** Splits a flourish file into rules (scoped) and keyframes (top level, renamed nbc-<id>-<prefix>-<name>). */
+const KEYFRAMES = /^@keyframes\s+(["']?)([\w-]+)\1$/;
+
+/**
+ * Splits a flourish file into rules (scoped) and keyframes (top level). Keyframes
+ * are renamed nbc-<id>-<prefix>-<name>; references are rewritten only inside
+ * `animation` / `animation-name` values, so a property or function that shares
+ * a keyframe's name (rotate, scale) is never touched.
+ */
 function flourishPart(css: string, id: string, prefix: string, label: string): FlourishPart {
   const blocks = topLevelBlocks(stripComments(css));
-  const names = blocks
-    .map((b) => b.prelude.match(/^@keyframes\s+([\w-]+)$/)?.[1])
-    .filter((n): n is string => n !== undefined);
-  const rename = (text: string) =>
-    names.reduce((t, n) => t.replace(new RegExp(`(?<![\\w-])${n}(?![\\w-])`, 'g'), `nbc-${id}-${prefix}-${n}`), text);
+  const names = blocks.map((b) => b.prelude.match(KEYFRAMES)?.[2]).filter((n): n is string => n !== undefined);
+  const namespaced = (name: string) => `nbc-${id}-${prefix}-${name}`;
+  const renameReferences = (text: string) =>
+    text.replace(/(?<![\w-])(animation(?:-name)?\s*:\s*)([^;{}]*)/g, (_match, head: string, value: string) =>
+      head + names.reduce((v, n) => v.replace(new RegExp(`(?<![\\w-])${n}(?![\\w-])`, 'g'), namespaced(n)), value),
+    );
   const rules: string[] = [];
   const keyframes: string[] = [];
   for (const block of blocks) {
-    const text = rename(`${block.prelude} {${block.body}}`);
-    (/^@keyframes\b/.test(block.prelude) ? keyframes : rules).push(text);
+    const match = block.prelude.match(KEYFRAMES);
+    if (match) keyframes.push(`@keyframes ${namespaced(match[2])} {${block.body}}`);
+    else rules.push(renameReferences(`${block.prelude} {${block.body}}`));
   }
   return { label, rules, keyframes };
 }
