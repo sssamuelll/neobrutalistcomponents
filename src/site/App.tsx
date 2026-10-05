@@ -9,6 +9,7 @@ import { detectLang, rememberLang } from './lang';
 import { LangContext, UI } from './i18n';
 import type { UIKey } from './i18n';
 import { SitePrefsContext } from './prefsContext';
+import { useThemeStylesheet } from './study/loader';
 import { Library } from './pages/Library';
 import { ComponentsIndex } from './pages/ComponentsIndex';
 import { ComponentPage } from './pages/ComponentPage';
@@ -62,6 +63,7 @@ const TITLES: Partial<Record<Route['name'], UIKey>> = {
 function Site({ location, prefs, update }: { location: PageLocation; prefs: SitePrefs; update: (next: Partial<SitePrefs>) => void }) {
   const { lang, route } = location;
   const routeKey = `${lang}:${location.path}`;
+  const status = useThemeStylesheet(prefs.theme);
 
   useEffect(() => {
     rememberLang(lang);
@@ -74,6 +76,19 @@ function Site({ location, prefs, update }: { location: PageLocation; prefs: Site
     document.title = title ? `${title} — neobrutalistcomponents` : 'neobrutalistcomponents';
     window.scrollTo({ top: 0 });
   }, [routeKey, route, lang]);
+
+  // A study theme whose stylesheet cannot load falls back to the default theme.
+  useEffect(() => {
+    if (status === 'error') update({ theme: 'classic' });
+  }, [status, update]);
+
+  if (status !== 'ready') {
+    return (
+      <p className="site-loading" role="status">
+        {UI.loading[lang]}
+      </p>
+    );
+  }
 
   return (
     <LangContext value={lang}>

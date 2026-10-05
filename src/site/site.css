@@ -212,6 +212,18 @@ body {
 .site-swatch__chip > span {
   flex: 1;
 }
+.site-switcher__more {
+  align-self: center;
+  font-size: var(--nbc-fs-sm);
+  font-weight: var(--nbc-weight-label);
+}
+.site-loading {
+  display: grid;
+  place-items: center;
+  min-block-size: 100dvh;
+  margin: 0;
+  font-family: system-ui, sans-serif;
+}
 .site-switcher__mode select {
   min-block-size: 32px;
   padding: 0 var(--nbc-space-sm);

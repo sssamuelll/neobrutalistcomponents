@@ -93,3 +93,30 @@ test('a legacy address redirects without a history entry: Back returns to the pa
   await expect(page).toHaveURL(/#\/en\/library$/);
   await expect(page.locator('main h1')).toHaveText('Components that hold their shape.');
 });
+
+test('the site can run in a study theme: ?theme=nakagin loads its stylesheet and the switcher shows it', async ({ page }) => {
+  await page.goto('?theme=nakagin#/en/library');
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'nakagin');
+  const radius = await page.locator('main .nbc-button--primary').first().evaluate((el) => getComputedStyle(el).borderTopLeftRadius);
+  expect(radius).toBe('999px');
+  await expect(page.getByRole('button', { name: 'Nakagin' })).toHaveAttribute('aria-pressed', 'true');
+  await page.getByRole('link', { name: 'More themes' }).click();
+  await expect(page).toHaveURL(/#\/en\/atlas$/);
+});
+
+test('an unknown ?theme falls back to classic', async ({ page }) => {
+  await page.goto('?theme=nope#/en/library');
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'classic');
+});
+
+test('a site-wide study theme whose stylesheet cannot load falls back to classic', async ({ page }) => {
+  let requested = false;
+  await page.route(/\/assets\/nakagin-[\w-]+\.css$/, (route) => {
+    requested = true;
+    return route.abort();
+  });
+  await page.goto('?theme=nakagin#/en/library');
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'classic');
+  await expect(page.locator('main h1')).toHaveText('Components that hold their shape.');
+  expect(requested, 'the site tried to load the stylesheet').toBe(true);
+});
