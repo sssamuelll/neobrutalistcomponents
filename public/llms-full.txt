@@ -1,6 +1,6 @@
-# neobrutalistcomponents v1.0.1 — full reference
+# neobrutalistcomponents v1.1.0 — full reference
 
-> Brutalist React components. Five themes, light and dark, one token contract.
+> Brutalist React components. Core and study themes, light and dark, one token contract.
 
 This file is generated from the library’s metadata and example sources; it describes the code exactly.
 
@@ -40,6 +40,17 @@ The library never loads fonts by itself. Import neobrutalistcomponents/themes/<t
 | `swiss` | Precision, not plainness. | light | Inter Tight, JetBrains Mono | Dense admin, finance, analytics, documentation and editorial work where the content has to lead. | Playful brands — it is deliberately quiet. |
 | `y2k` | Holographic trading-card energy. | light | Sixtyfour, M PLUS Rounded 1c, VT323 | Playful consumer apps, creative tools, events, fan sites, games. | Data-dense tables and long forms. |
 | `riso` | Two inks, slightly off. | light | Archivo, IBM Plex Mono | Editorial sites, portfolios, newsletters, indie products and culture projects. | Long transactional forms and dense data. |
+
+## Study themes
+
+Each study theme reads one documented work; its page (https://sssamuelll.github.io/neobrutalistcomponents/#/en/atlas) cites the sources. Same token contract and geometry as the core themes: import its stylesheet, and its fonts file unless you self-host the fonts (system-font themes ship an empty one). The catalog is also data: `import { STUDY_CATALOG } from 'neobrutalistcomponents/study'`.
+
+| Theme | Reference | Scene | Native scheme | Fonts | Stylesheets |
+| --- | --- | --- | --- | --- | --- |
+| `maeusebunker` | Mäusebunker (former Central Animal Laboratories of the Free University of Berlin) (Zentrale Tierlaboratorien der Freien Universität Berlin), Gerd Hänska, Magdalena Hänska, Kurt Schmersow, Lichterfelde, Berlin, Germany, 1971–1982 | Germany | dark | Barlow, Barlow Condensed, DM Mono | `themes/maeusebunker.css`, `themes/maeusebunker.fonts.css` |
+| `nakagin` | Nakagin Capsule Tower (中銀カプセルタワービル), Kisho Kurokawa, Ginza, Tokyo, Japan, 1970–1972 | Japan | light | Zen Kaku Gothic New, Dela Gothic One, M PLUS 1 Code | `themes/nakagin.css`, `themes/nakagin.fonts.css` |
+| `sesc-pompeia` | SESC Pompéia (Centro de Lazer Fábrica da Pompéia), Lina Bo Bardi, André Vainer, Marcelo Carvalho Ferraz, Pompeia, São Paulo, Brazil, 1977–1986 | Latin America | light | Chivo, Chivo Mono | `themes/sesc-pompeia.css`, `themes/sesc-pompeia.fonts.css` |
+| `classifieds` | craigslist (classified-ads website), Craig Newmark, San Francisco, United States, 1995 | United States | light | system fonts | `themes/classifieds.css`, `themes/classifieds.fonts.css` |
 
 ## Composition rules
 
@@ -1351,7 +1362,7 @@ Extends `ComponentProps<'span'>` — every native prop is forwarded.
 - Color is never the only carrier — the label says "Failed", not just red. Keep the word, even next to an icon.
 - Icons inside a badge are sized to 1em; mark decorative ones aria-hidden="true".
 - A badge whose text changes while the page is open (a deploy going from Building to Live) is not announced; add role="status" if the change matters.
-- Text on every filled variant uses the matching -fg token, which meets WCAG AA in all five themes and both color modes.
+- Text on every filled variant uses the matching -fg token, which meets WCAG AA in every theme and both color modes.
 
 **Rules**
 

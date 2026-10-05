@@ -1,5 +1,6 @@
 import { NEO_THEMES, THEME_INFO } from 'neobrutalistcomponents';
 import { CodeBlock } from '../docs/CodeBlock';
+import { TableScroll } from '../docs/TableScroll';
 import { BYO_THEME_CODE, FONTS_NOTE, INSTALL_CODE, REPO_URL, SETUP_CODE } from '../../docs/guide';
 
 const MODE_CODE = `<NeoProvider theme="tech">              {/* tech is dark by nature */}
@@ -78,7 +79,7 @@ export function Start() {
           Fonts
         </h2>
         <p className="site-p">{FONTS_NOTE}</p>
-        <div className="site-props">
+        <TableScroll label={'Font families per theme'}>
           <table>
             <caption>Font families per theme</caption>
             <thead>
@@ -100,7 +101,7 @@ export function Start() {
               ))}
             </tbody>
           </table>
-        </div>
+        </TableScroll>
       </section>
 
       <section aria-labelledby="customize">

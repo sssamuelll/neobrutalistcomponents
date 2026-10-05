@@ -1,7 +1,10 @@
 import { COMPONENTS } from '../../docs/meta';
 import { GROUP_ORDER } from '../../docs/types';
+import { useLang } from '../i18n';
+import { toHash } from '../router';
 
 export function ComponentNav({ current }: { current?: string }) {
+  const lang = useLang();
   return (
     <nav className="site-sidenav" aria-label="Components">
       {GROUP_ORDER.map((group) => {
@@ -13,7 +16,7 @@ export function ComponentNav({ current }: { current?: string }) {
             <ul>
               {items.map((c) => (
                 <li key={c.slug}>
-                  <a href={`#/components/${c.slug}`} aria-current={current === c.slug ? 'page' : undefined}>
+                  <a href={toHash(lang, `/components/${c.slug}`)} aria-current={current === c.slug ? 'page' : undefined}>
                     {c.name}
                   </a>
                 </li>

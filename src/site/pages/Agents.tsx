@@ -1,7 +1,8 @@
 import { NEO_THEMES, THEME_INFO } from 'neobrutalistcomponents';
 import { COMPONENTS } from '../../docs/meta';
-import { GLOBAL_RULES, SITE_URL, THEME_GUIDE } from '../../docs/guide';
+import { GLOBAL_RULES, TAGLINE, THEME_GUIDE, pageUrl } from '../../docs/guide';
 import { CodeBlock } from '../docs/CodeBlock';
+import { TableScroll } from '../docs/TableScroll';
 
 const SKILL_CODE = `# Claude Code (or any agent that reads skills)
 mkdir -p ~/.claude/skills
@@ -11,13 +12,13 @@ export function Agents() {
   const sample = [
     '# neobrutalistcomponents',
     '',
-    '> Brutalist React components. Five themes, light and dark, one token contract.',
+    `> ${TAGLINE}`,
     '',
     '## Forms',
     '',
     ...COMPONENTS.filter((c) => c.group === 'Forms')
       .slice(0, 3)
-      .map((c) => `- [${c.name}](${SITE_URL}/#/components/${c.slug}): ${c.summary}`),
+      .map((c) => `- [${c.name}](${pageUrl(`/components/${c.slug}`)}): ${c.summary}`),
     '…',
   ].join('\n');
 
@@ -68,7 +69,7 @@ export function Agents() {
         <h2 className="site-h2" id="choose">
           Choosing a theme
         </h2>
-        <div className="site-props">
+        <TableScroll label={'Which theme fits which product'}>
           <table>
             <caption>Which theme fits which product</caption>
             <thead>
@@ -88,7 +89,7 @@ export function Agents() {
               ))}
             </tbody>
           </table>
-        </div>
+        </TableScroll>
       </section>
     </div>
   );

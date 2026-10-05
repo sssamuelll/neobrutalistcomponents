@@ -56,6 +56,22 @@ describe('catalog', () => {
     expect(dts).toContain('export declare const STUDY_CATALOG: readonly StudyCatalogEntry[];');
   });
 
+  it('keeps the photograph credit for the site, never for the npm module', () => {
+    const image = {
+      file: 'fixture.avif',
+      width: 1600,
+      height: 1200,
+      alt: { es: 'Foto', en: 'Photo' },
+      author: 'Ana',
+      license: 'CC-BY-SA-4.0' as const,
+      sourceUrl: 'https://commons.wikimedia.org/wiki/File:Fixture.jpg' as const,
+    };
+    const withImage = studyEntry({ ...FIXTURE, reference: { ...FIXTURE.reference, image } }, compileTheme(FIXTURE));
+    expect(withImage.image).toEqual({ author: 'Ana', license: 'CC-BY-SA-4.0', sourceUrl: 'https://commons.wikimedia.org/wiki/File:Fixture.jpg' });
+    expect(entry.image).toBeNull();
+    expect(load(renderPackageModule([withImage]).js)[0]).not.toHaveProperty('image');
+  });
+
   it('types StudyThemeId as never when there are no study themes', () => {
     expect(renderPackageModule([{ ...entry, predatesStudy: true }]).dts).toContain('export type StudyThemeId = never;');
   });

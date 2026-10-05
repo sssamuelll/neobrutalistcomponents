@@ -1,11 +1,15 @@
 import { NEO_THEMES, THEME_INFO } from 'neobrutalistcomponents';
+import { ENTRIES } from './study/data';
+import { toHash } from './router';
 import type { ModePref, SitePrefs } from './prefs';
+import { useLang, useT } from './i18n';
+import type { UIKey } from './i18n';
 
-const MODES: { value: ModePref; label: string }[] = [
-  { value: 'native', label: 'Theme default' },
-  { value: 'light', label: 'Light' },
-  { value: 'dark', label: 'Dark' },
-  { value: 'system', label: 'System' },
+const MODES: { value: ModePref; label: UIKey }[] = [
+  { value: 'native', label: 'modeNative' },
+  { value: 'light', label: 'modeLight' },
+  { value: 'dark', label: 'modeDark' },
+  { value: 'system', label: 'modeSystem' },
 ];
 
 interface Props {
@@ -14,9 +18,13 @@ interface Props {
 }
 
 export function ThemeSwitcher({ prefs, onChange }: Props) {
+  const t = useT();
+  const lang = useLang();
+  const entry = ENTRIES.get(prefs.theme);
+  const study = entry && !entry.predatesStudy ? entry : undefined;
   return (
     <div className="site-switcher">
-      <div className="site-switcher__themes" role="group" aria-label="Theme">
+      <div className="site-switcher__themes" role="group" aria-label={t('themeGroup')}>
         {NEO_THEMES.map((id) => (
           <button
             key={id}
@@ -34,13 +42,26 @@ export function ThemeSwitcher({ prefs, onChange }: Props) {
             <span className="site-swatch__name">{THEME_INFO[id].name}</span>
           </button>
         ))}
+        {study ? (
+          <button type="button" className="site-swatch" aria-pressed="true" title={`${study.name[lang]} — ${study.tagline[lang]}`}>
+            <span className="site-swatch__chip" aria-hidden="true">
+              {study.swatch.slice(0, 3).map((c) => (
+                <span key={c} style={{ background: c }} />
+              ))}
+            </span>
+            <span className="site-swatch__name">{study.name[lang]}</span>
+          </button>
+        ) : null}
+        <a className="site-switcher__more" href={toHash(lang, '/atlas')}>
+          {t('moreThemes')}
+        </a>
       </div>
       <label className="site-switcher__mode">
-        <span className="site-visually-hidden">Color scheme</span>
+        <span className="site-visually-hidden">{t('colorScheme')}</span>
         <select value={prefs.mode} onChange={(e) => onChange({ mode: e.target.value as ModePref })}>
           {MODES.map((m) => (
             <option key={m.value} value={m.value}>
-              {m.label}
+              {t(m.label)}
             </option>
           ))}
         </select>

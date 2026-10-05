@@ -28,6 +28,31 @@ export const FONTS = {
 
 export type FontKey = keyof typeof FONTS;
 
+/**
+ * Licences of the families the five core themes load (the library's
+ * themes/<id>.fonts.css), for the Credits page. Checked against the
+ * google/fonts repository, which files every family under ofl/ or apache/.
+ */
+export const CORE_FONT_LICENSES: Readonly<Record<string, FontEntry['license']>> = {
+  'Bricolage Grotesque': 'OFL-1.1',
+  'Geist Mono': 'OFL-1.1',
+  'Martian Mono': 'OFL-1.1',
+  'Inter Tight': 'OFL-1.1',
+  'JetBrains Mono': 'OFL-1.1',
+  Sixtyfour: 'OFL-1.1',
+  'M PLUS Rounded 1c': 'OFL-1.1',
+  VT323: 'OFL-1.1',
+  Archivo: 'OFL-1.1',
+  'IBM Plex Mono': 'OFL-1.1',
+};
+
+/** A family's licence by its CSS name: the registry for study themes, the list above for core ones. */
+export function fontLicense(family: string): FontEntry['license'] | undefined {
+  const registered = (Object.values(FONTS) as FontEntry[]).find((font) => font.family === family);
+  if (registered) return registered.license;
+  return Object.hasOwn(CORE_FONT_LICENSES, family) ? CORE_FONT_LICENSES[family] : undefined;
+}
+
 export const FALLBACKS = {
   sans: "system-ui, -apple-system, 'Segoe UI', sans-serif",
   serif: "'Times New Roman', Times, serif",

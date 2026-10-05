@@ -2,28 +2,57 @@ import { useEffect, useMemo } from 'react';
 import { NeoProvider } from 'neobrutalistcomponents';
 import { Shell } from './Shell';
 import { useSitePrefs } from './prefs';
-import { useRoute } from './router';
-import { Home } from './pages/Home';
+import type { SitePrefs } from './prefs';
+import { parseHash, replaceHash, useHash } from './router';
+import type { Location, Route } from './router';
+import { detectLang, rememberLang } from './lang';
+import { LangContext, SCENE_TEXT, UI } from './i18n';
+import type { UIKey } from './i18n';
+import { SitePrefsContext } from './prefsContext';
+import { useThemeStylesheet } from './study/loader';
+import { Library } from './pages/Library';
 import { ComponentsIndex } from './pages/ComponentsIndex';
 import { ComponentPage } from './pages/ComponentPage';
-import { Themes } from './pages/Themes';
+import { Atlas } from './pages/Atlas';
+import { ThemePage } from './pages/ThemePage';
+import { StudyHome } from './pages/StudyHome';
+import { Scenes } from './pages/Scenes';
+import { ScenePage } from './pages/ScenePage';
+import { Method } from './pages/Method';
+import { Credits } from './pages/Credits';
+import { ENTRIES } from './study/data';
 import { Blocks } from './pages/Blocks';
 import { Start } from './pages/Start';
 import { Agents } from './pages/Agents';
 import { NotFound } from './pages/NotFound';
-import type { Route } from './router';
-import { SitePrefsContext } from './prefsContext';
 
-function Page({ route }: { route: Route }) {
+export type PageLocation = Extract<Location, { kind: 'page' }>;
+
+function Page({ location }: { location: PageLocation }) {
+  const { route } = location;
   switch (route.name) {
-    case 'home':
-      return <Home />;
+    case 'study':
+      return <StudyHome />;
+    case 'scenes':
+      return <Scenes />;
+    case 'scene':
+      return <ScenePage scene={route.scene} />;
+    case 'origins':
+      return <ScenePage scene="origins" />;
+    case 'method':
+      return <Method />;
+    case 'credits':
+      return <Credits />;
+    case 'library':
+      return <Library />;
+    case 'atlas':
+      return <Atlas query={location.query} />;
+    case 'theme':
+      return <ThemePage id={route.id} />;
     case 'components':
       return <ComponentsIndex />;
     case 'component':
       return <ComponentPage slug={route.slug} />;
-    case 'themes':
-      return <Themes />;
     case 'blocks':
       return <Blocks />;
     case 'start':
@@ -35,34 +64,76 @@ function Page({ route }: { route: Route }) {
   }
 }
 
-const TITLES: Partial<Record<Route['name'], string>> = {
-  components: 'Components',
-  themes: 'Themes',
-  blocks: 'Blocks',
-  start: 'Get started',
-  agents: 'For agents',
+const TITLES: Partial<Record<Route['name'], UIKey>> = {
+  study: 'titleStudy',
+  scenes: 'titleScenes',
+  atlas: 'titleAtlas',
+  origins: 'titleOrigins',
+  method: 'titleMethod',
+  credits: 'titleCredits',
+  library: 'titleLibrary',
+  components: 'titleComponents',
+  blocks: 'titleBlocks',
+  start: 'titleStart',
+  agents: 'titleAgents',
+  'not-found': 'titleNotFound',
 };
 
-export function App() {
-  const [prefs, setPrefs] = useSitePrefs();
-  const route = useRoute();
-  const routeKey = route.name === 'component' ? `component:${route.slug}` : route.name;
+function Site({ location, prefs, update }: { location: PageLocation; prefs: SitePrefs; update: (next: Partial<SitePrefs>) => void }) {
+  const { lang, route } = location;
+  const routeKey = `${lang}:${location.path}`;
+  const status = useThemeStylesheet(prefs.theme);
 
   useEffect(() => {
-    const title = route.name === 'component' ? route.slug : TITLES[route.name];
-    document.title = title ? `${title} — neobrutalistcomponents` : 'neobrutalistcomponents — components that hold their shape';
-    window.scrollTo({ top: 0 });
-  }, [routeKey, route]);
+    rememberLang(lang);
+    document.documentElement.lang = lang;
+  }, [lang]);
 
-  const ctx = useMemo(() => ({ prefs, update: setPrefs }), [prefs, setPrefs]);
+  useEffect(() => {
+    const key = TITLES[route.name];
+    const title = route.name === 'component' ? route.slug : route.name === 'theme' ? (ENTRIES.get(route.id)?.name[lang] ?? route.id) : route.name === 'scene' ? SCENE_TEXT[route.scene].name[lang] : key ? UI[key][lang] : undefined;
+    document.title = title ? `${title} — neobrutalistcomponents` : 'neobrutalistcomponents';
+    window.scrollTo({ top: 0 });
+  }, [routeKey, route, lang]);
+
+  // A study theme whose stylesheet cannot load falls back to the default theme.
+  useEffect(() => {
+    if (status === 'error') update({ theme: 'classic' });
+  }, [status, update]);
+
+  if (status !== 'ready') {
+    return (
+      <p className="site-loading" role="status">
+        {UI.loading[lang]}
+      </p>
+    );
+  }
 
   return (
-    <SitePrefsContext value={ctx}>
+    <LangContext value={lang}>
       <NeoProvider theme={prefs.theme} mode={prefs.mode === 'native' ? undefined : prefs.mode}>
-        <Shell route={route} prefs={prefs} onPrefsChange={setPrefs}>
-          <Page route={route} />
+        <Shell location={location} prefs={prefs} onPrefsChange={update}>
+          <Page location={location} />
         </Shell>
       </NeoProvider>
+    </LangContext>
+  );
+}
+
+export function App() {
+  const [prefs, update] = useSitePrefs();
+  const hash = useHash();
+  const location = useMemo(() => parseHash(hash, detectLang()), [hash]);
+  const ctx = useMemo(() => ({ prefs, update }), [prefs, update]);
+
+  useEffect(() => {
+    if (location.kind === 'redirect') replaceHash(location.to);
+  }, [location]);
+
+  if (location.kind === 'redirect') return null;
+  return (
+    <SitePrefsContext value={ctx}>
+      <Site location={location} prefs={prefs} update={update} />
     </SitePrefsContext>
   );
 }

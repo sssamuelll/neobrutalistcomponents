@@ -1,25 +1,30 @@
 import { COLOR_TOKENS, CONTRAST_PAIRS } from '../../lib/themes/contract';
 import { contrastRatio, resolveColor, resolveStops } from '../../lib/themes/color';
 import type { Scheme } from '../../lib/themes/color';
+import { PAIR_TEXT, SCHEME_TEXT, useLang, useT } from '../i18n';
+import { TableScroll } from './TableScroll';
 
 /**
  * A theme's color tokens and WCAG contrast ratios in one scheme, computed with
  * the same parser and color tools the contract tests use.
  */
 export function TokenTables({ tokens, scheme }: { tokens: Map<string, string>; scheme: Scheme }) {
+  const lang = useLang();
+  const t = useT();
   const page = resolveColor(tokens, '--nbc-bg', scheme);
+  const schemeName = SCHEME_TEXT[scheme][lang];
+  const tokensCaption = lang === 'es' ? `Tokens de color, esquema ${schemeName}` : `Color tokens, ${schemeName} scheme`;
+  const contrastCaption = lang === 'es' ? `Contraste, esquema ${schemeName} (WCAG 2.2)` : `Contrast, ${schemeName} scheme (WCAG 2.2)`;
   return (
     <div className="site-band__tables">
-      <div className="site-props">
+      <TableScroll label={tokensCaption}>
         <table>
-          <caption>
-            Color tokens, {scheme} scheme
-          </caption>
+          <caption>{tokensCaption}</caption>
           <thead>
             <tr>
-              <th scope="col">Token</th>
-              <th scope="col">Swatch</th>
-              <th scope="col">Value</th>
+              <th scope="col">{t('colToken')}</th>
+              <th scope="col">{t('colSwatch')}</th>
+              <th scope="col">{t('colValue')}</th>
             </tr>
           </thead>
           <tbody>
@@ -38,15 +43,15 @@ export function TokenTables({ tokens, scheme }: { tokens: Map<string, string>; s
             ))}
           </tbody>
         </table>
-      </div>
-      <div className="site-props">
+      </TableScroll>
+      <TableScroll label={contrastCaption}>
         <table>
-          <caption>Contrast, {scheme} scheme (WCAG 2.2)</caption>
+          <caption>{contrastCaption}</caption>
           <thead>
             <tr>
-              <th scope="col">Pair</th>
-              <th scope="col">Ratio</th>
-              <th scope="col">Needs</th>
+              <th scope="col">{t('colPair')}</th>
+              <th scope="col">{t('colRatio')}</th>
+              <th scope="col">{t('colNeeds')}</th>
             </tr>
           </thead>
           <tbody>
@@ -68,7 +73,7 @@ export function TokenTables({ tokens, scheme }: { tokens: Map<string, string>; s
                         Aa
                       </span>
                     )}{' '}
-                    {pair.why}
+                    {PAIR_TEXT[`${pair.fg} ${pair.bg}`][lang]}
                   </th>
                   <td className="site-num">{ratio.toFixed(2)}</td>
                   <td className="site-num">{pair.min}</td>
@@ -77,7 +82,7 @@ export function TokenTables({ tokens, scheme }: { tokens: Map<string, string>; s
             })}
           </tbody>
         </table>
-      </div>
+      </TableScroll>
     </div>
   );
 }

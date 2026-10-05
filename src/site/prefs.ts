@@ -1,19 +1,21 @@
 import { useCallback, useEffect, useState } from 'react';
 import { flushSync } from 'react-dom';
-import { NEO_MODES, NEO_THEMES } from 'neobrutalistcomponents';
-import type { NeoBuiltinTheme, NeoMode } from 'neobrutalistcomponents';
+import { NEO_MODES } from 'neobrutalistcomponents';
+import type { NeoMode } from 'neobrutalistcomponents';
+import { isKnownTheme } from './study/loader';
 
 /** `native` = leave NeoProvider's mode unset (the theme's own scheme). */
 export type ModePref = NeoMode | 'native';
 
 export interface SitePrefs {
-  theme: NeoBuiltinTheme;
+  /** A core theme or a study theme id. */
+  theme: string;
   mode: ModePref;
 }
 
 const STORAGE_KEY = 'nbc-site-prefs';
 
-const isTheme = (v: unknown): v is NeoBuiltinTheme => NEO_THEMES.includes(v as NeoBuiltinTheme);
+const isTheme = (v: unknown): v is string => typeof v === 'string' && isKnownTheme(v);
 const isMode = (v: unknown): v is ModePref => v === 'native' || NEO_MODES.includes(v as NeoMode);
 
 function readStored(): Partial<SitePrefs> {

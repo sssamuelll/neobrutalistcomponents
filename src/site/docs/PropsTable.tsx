@@ -1,9 +1,10 @@
 import type { PropDoc } from '../../docs/types';
+import { TableScroll } from './TableScroll';
 
 export function PropsTable({ props, caption }: { props: PropDoc[]; caption: string }) {
   if (props.length === 0) return null;
   return (
-    <div className="site-props">
+    <TableScroll label={caption}>
       <table>
         <caption>{caption}</caption>
         <thead>
@@ -30,6 +31,6 @@ export function PropsTable({ props, caption }: { props: PropDoc[]; caption: stri
           ))}
         </tbody>
       </table>
-    </div>
+    </TableScroll>
   );
 }

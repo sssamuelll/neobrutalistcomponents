@@ -1,7 +1,10 @@
 import { COMPONENTS } from '../../docs/meta';
 import { GROUP_ORDER } from '../../docs/types';
+import { useLang } from '../i18n';
+import { toHash } from '../router';
 
 export function ComponentsIndex() {
+  const lang = useLang();
   return (
     <div className="site-page">
       <header className="site-page__head">
@@ -22,7 +25,7 @@ export function ComponentsIndex() {
             <ul className="site-index">
               {items.map((c) => (
                 <li key={c.slug}>
-                  <a href={`#/components/${c.slug}`} className="site-index__item">
+                  <a href={toHash(lang, `/components/${c.slug}`)} className="site-index__item">
                     <span className="site-index__name">{c.name}</span>
                     <span className="site-index__summary">{c.summary}</span>
                   </a>

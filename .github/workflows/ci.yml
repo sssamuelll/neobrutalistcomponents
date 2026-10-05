@@ -23,7 +23,7 @@ jobs:
       - name: llms.txt is up to date
         run: |
           npm run gen:llms
-          git diff --exit-code public/llms.txt public/llms-full.txt
+          git diff --exit-code public/llms.txt public/llms-full.txt skills/neobrutalist-ui/SKILL.md
       - name: Site bundle sanity
         run: |
           test -f site-dist/index.html

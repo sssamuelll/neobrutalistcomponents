@@ -30,6 +30,19 @@ import 'neobrutalistcomponents/themes/<theme>.fonts.css'; // unless fonts are se
 
 Pick one per product. Apps: `mode="system"`. Marketing pages: leave `mode` unset.
 
+### Study themes
+
+Each reads one documented work — a building, a magazine, a terminal, a website. Choose one when the brief names that work, its place or its period, and set it up exactly like a core theme with its id. Their pages cite the sources: https://sssamuelll.github.io/neobrutalistcomponents/#/en/atlas
+
+<!-- study-themes:start -->
+| Theme | Reference | Scene | Native scheme |
+| --- | --- | --- | --- |
+| `maeusebunker` | Mäusebunker (former Central Animal Laboratories of the Free University of Berlin) (Zentrale Tierlaboratorien der Freien Universität Berlin), Gerd Hänska, Magdalena Hänska, Kurt Schmersow, Lichterfelde, Berlin, Germany, 1971–1982 | Germany | dark |
+| `nakagin` | Nakagin Capsule Tower (中銀カプセルタワービル), Kisho Kurokawa, Ginza, Tokyo, Japan, 1970–1972 | Japan | light |
+| `sesc-pompeia` | SESC Pompéia (Centro de Lazer Fábrica da Pompéia), Lina Bo Bardi, André Vainer, Marcelo Carvalho Ferraz, Pompeia, São Paulo, Brazil, 1977–1986 | Latin America | light |
+| `classifieds` | craigslist (classified-ads website), Craig Newmark, San Francisco, United States, 1995 | United States | light |
+<!-- study-themes:end -->
+
 ## 3. Compose
 
 - Actions → `Button` (`primary` | `secondary` | `danger` | `ghost`; `size` sm/md/lg). One primary per region, placed last. Links that look like buttons: `<Button asChild><a href>…</a></Button>`.

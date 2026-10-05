@@ -8,7 +8,10 @@ export const PACKAGE = 'neobrutalistcomponents';
 export const SITE_URL = 'https://sssamuelll.github.io/neobrutalistcomponents';
 export const REPO_URL = 'https://github.com/sssamuelll/neobrutalistcomponents';
 
-export const TAGLINE = 'Brutalist React components. Five themes, light and dark, one token contract.';
+/** A page of the site, in English: the language of the generated agent docs. */
+export const pageUrl = (path: string): string => `${SITE_URL}/#/en${path}`;
+
+export const TAGLINE = 'Brutalist React components. Core and study themes, light and dark, one token contract.';
 
 export const INSTALL_CODE = 'npm install neobrutalistcomponents';
 

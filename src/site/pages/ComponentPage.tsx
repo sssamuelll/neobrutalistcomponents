@@ -4,8 +4,11 @@ import { Example } from '../docs/Example';
 import { PropsTable } from '../docs/PropsTable';
 import { getExample } from '../docs/registry';
 import { NotFound } from './NotFound';
+import { useLang } from '../i18n';
+import { toHash } from '../router';
 
 export function ComponentPage({ slug }: { slug: string }) {
+  const lang = useLang();
   const meta = findComponent(slug);
   if (!meta) return <NotFound />;
   const index = COMPONENTS.indexOf(meta);
@@ -18,7 +21,7 @@ export function ComponentPage({ slug }: { slug: string }) {
       <article className="site-doc">
         <header className="site-doc__head">
           <p className="site-doc__crumbs">
-            <a href="#/components">Components</a> <span aria-hidden="true">/</span> {meta.group}
+            <a href={toHash(lang, '/components')}>Components</a> <span aria-hidden="true">/</span> {meta.group}
           </p>
           <h1 className="site-h1">{meta.name}</h1>
           <p className="site-lead">{meta.summary}</p>
@@ -116,14 +119,14 @@ export function ComponentPage({ slug }: { slug: string }) {
 
         <nav className="site-pager" aria-label="Previous and next component">
           {prev ? (
-            <a href={`#/components/${prev.slug}`} rel="prev">
+            <a href={toHash(lang, `/components/${prev.slug}`)} rel="prev">
               <span className="site-pager__dir">Previous</span> {prev.name}
             </a>
           ) : (
             <span />
           )}
           {next && (
-            <a href={`#/components/${next.slug}`} rel="next">
+            <a href={toHash(lang, `/components/${next.slug}`)} rel="next">
               <span className="site-pager__dir">Next</span> {next.name}
             </a>
           )}
