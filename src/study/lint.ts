@@ -2,7 +2,8 @@
  * Lint for family and signature CSS (spec D3/D4): colors only from tokens,
  * control geometry untouched, flat rules, scoping left to the compiler.
  */
-import { stripComments, styleRules } from './css';
+import { keyframeRules, stripComments, styleRules } from './css';
+import type { Declaration } from './css';
 
 export const SIGNATURE_MAX_LINES = 60;
 
@@ -31,19 +32,36 @@ const HEX = /#[0-9a-f]{3,8}\b/i;
 const COLOR_FN = /(?<![\w-])(?:rgba?|hsla?|hwb|lab|lch|oklab|oklch|color)\(/i;
 const GEOMETRY = new Set([
   'height', 'min-height', 'max-height', 'block-size', 'min-block-size', 'max-block-size', 'font', 'font-size', 'line-height',
+  'zoom', 'box-sizing', 'all',
 ]);
+const IMAGE = /(?<![\w-])(?:url|image-set|-webkit-image-set|image|cross-fade|element)\(/i;
 const isGeometry = (property: string) => GEOMETRY.has(property) || property === 'padding' || property.startsWith('padding-');
 const PSEUDO = /::(?:before|after)$/;
 
-/** Drops var(…) references (innermost first) so their names can't look like colors. */
-function withoutVars(value: string): string {
-  let current = value;
-  let previous;
-  do {
-    previous = current;
-    current = current.replace(/var\([^()]*\)/g, '');
-  } while (current !== previous);
-  return current;
+/** Quoted strings (content: "Black") are text, not colors. */
+const withoutStrings = (value: string) => value.replace(/"(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'/g, "''");
+
+/** Drops each var()'s custom-property name but keeps its fallback, so a fallback color is still caught. */
+const withoutVarNames = (value: string) => value.replace(/var\(\s*--[\w-]+\s*/g, 'var(');
+
+function declarationProblems(where: string, selector: string, declarations: readonly Declaration[], allowGeometry: boolean): string[] {
+  const problems: string[] = [];
+  for (const { property, value } of declarations) {
+    if (property.startsWith('--') && !property.startsWith('--fx-')) {
+      problems.push(`${where}: "${selector}" declares ${property} — only --fx-* custom properties; theme tokens come from the theme's data`);
+    }
+    if (isGeometry(property) && !allowGeometry) {
+      problems.push(`${where}: "${selector}" sets ${property} — control geometry is invariant (allowed only in ::before/::after)`);
+    }
+    if (IMAGE.test(value)) {
+      problems.push(`${where}: "${selector}" ${property}: ${value} — no images (url(), image-set()); textures are gradients of tokens`);
+    }
+    const bare = withoutVarNames(withoutStrings(value));
+    if (HEX.test(bare) || COLOR_FN.test(bare) || NAMED.test(bare)) {
+      problems.push(`${where}: "${selector}" ${property}: ${value} — literal color; use var(--nbc-*) tokens`);
+    }
+  }
+  return problems;
 }
 
 export function lintFlourishCss(css: string, where: string): string[] {
@@ -55,8 +73,10 @@ export function lintFlourishCss(css: string, where: string): string[] {
   if (/\[data-theme/.test(clean)) problems.push(`${where}: no [data-theme] selectors — the compiler scopes the file to its theme`);
   if (/url\(\s*["']?data:/i.test(clean)) problems.push(`${where}: no data: URIs`);
   let rules;
+  let frames;
   try {
     rules = styleRules(clean);
+    frames = keyframeRules(clean);
   } catch (error) {
     return [...problems, `${where}: ${(error as Error).message}`];
   }
@@ -66,15 +86,10 @@ export function lintFlourishCss(css: string, where: string): string[] {
       continue;
     }
     const onlyPseudo = rule.selector.split(',').every((s) => PSEUDO.test(s.trim()));
-    for (const { property, value } of rule.declarations) {
-      if (isGeometry(property) && !onlyPseudo) {
-        problems.push(`${where}: "${rule.selector}" sets ${property} — control geometry is invariant (allowed only in ::before/::after)`);
-      }
-      const bare = withoutVars(value);
-      if (HEX.test(bare) || COLOR_FN.test(bare) || NAMED.test(bare)) {
-        problems.push(`${where}: "${rule.selector}" ${property}: ${value} — literal color; use var(--nbc-*) tokens`);
-      }
-    }
+    problems.push(...declarationProblems(where, rule.selector, rule.declarations, onlyPseudo));
+  }
+  for (const frame of frames) {
+    problems.push(...declarationProblems(where, `@keyframes ${frame.name} ${frame.selector}`, frame.declarations, false));
   }
   return problems;
 }

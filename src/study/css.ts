@@ -108,3 +108,26 @@ export function styleRules(css: string): StyleRule[] {
   }
   return rules;
 }
+
+export interface KeyframeRule {
+  readonly name: string;
+  /** The frame selector: from, to, or a percentage. */
+  readonly selector: string;
+  readonly declarations: readonly Declaration[];
+}
+
+/** Every frame of every @keyframes block, descending into conditional at-rules. */
+export function keyframeRules(css: string): KeyframeRule[] {
+  const frames: KeyframeRule[] = [];
+  for (const block of topLevelBlocks(stripComments(css))) {
+    const keyframes = block.prelude.match(/^@keyframes\s+(["']?)([\w-]+)\1$/);
+    if (keyframes) {
+      for (const frame of topLevelBlocks(block.body)) {
+        frames.push({ name: keyframes[2], selector: frame.prelude, declarations: parseDeclarations(frame.body) });
+      }
+    } else if (block.prelude.startsWith('@')) {
+      frames.push(...keyframeRules(block.body));
+    }
+  }
+  return frames;
+}

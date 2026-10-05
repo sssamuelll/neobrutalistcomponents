@@ -40,6 +40,32 @@ describe('lintFlourishCss', () => {
   });
 });
 
+describe('lintFlourishCss closes the bypasses found in review', () => {
+  it.each([
+    ['.nbc-card { color: var(--nbc-nope, #f00); }', /literal color/],
+    ['@keyframes fx-x { to { background: #f00; } }', /literal color/],
+    ['@keyframes fx-x { to { height: 300px; } }', /control geometry/],
+    ['.nbc-card { --nbc-texture: linear-gradient(var(--nbc-fg), var(--nbc-fg)); }', /only --fx-\* custom properties/],
+    ['.nbc-card { --nbc-fg: var(--nbc-surface); }', /only --fx-\* custom properties/],
+    ['.nbc-button { --_h: 80px; }', /only --fx-\* custom properties/],
+    ['.nbc-button { --nbc-control-h-md: 80px; }', /only --fx-\* custom properties/],
+    ['.nbc-button { zoom: 1.5; }', /control geometry/],
+    ['.nbc-button { box-sizing: content-box; }', /control geometry/],
+    ['.nbc-button { all: unset; }', /control geometry/],
+    ['.nbc-card { background: url(https://example.org/x.png); }', /no images/],
+    ['.nbc-card { background: image-set("x.png" 1x); }', /no images/],
+  ])('rejects %s', (css, message) => {
+    expect(lintFlourishCss(css, 'bypass').join('\n')).toMatch(message);
+  });
+
+  it('allows --fx-* custom properties and does not read strings as colors', () => {
+    const css = `.nbc-card { --fx-ink: var(--nbc-fg); }
+.nbc-card::before { content: "Black"; }
+.nbc-card::after { content: '#fab'; }`;
+    expect(lintFlourishCss(css, 'fine')).toEqual([]);
+  });
+});
+
 describe('lintSignature', () => {
   it('limits signatures to 60 non-blank, non-comment lines', () => {
     const line = '.nbc-card { color: var(--nbc-fg); }';
