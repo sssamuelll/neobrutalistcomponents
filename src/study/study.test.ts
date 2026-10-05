@@ -6,8 +6,10 @@ import { describe, expect, it } from 'vitest';
 import { existsSync, statSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { NEO_THEMES, THEME_INFO } from '../lib/themes';
+import { CORE_FICHAS } from './core-fichas';
 import { STUDY_THEMES, registryProblems } from './registry';
-import { themeProblems } from './validate';
+import { coreFichaProblems, themeProblems } from './validate';
 import { compileTheme } from './compile';
 import { contractProblems } from './contract';
 
@@ -38,3 +40,18 @@ for (const { theme, signature } of STUDY_THEMES) {
     });
   });
 }
+
+describe('core fichas', () => {
+  for (const id of NEO_THEMES) {
+    const core = CORE_FICHAS[id];
+    it(`${id}: valid ficha, and its English tagline is THEME_INFO's`, () => {
+      expect(coreFichaProblems(id, core)).toEqual([]);
+      expect(core.tagline.en).toBe(THEME_INFO[id].tagline);
+    });
+    it.runIf(core.reference.image !== undefined)(`${id}: ships its image within budget`, () => {
+      const file = join(DIR, 'images', core.reference.image!.file);
+      expect(existsSync(file), file).toBe(true);
+      expect(statSync(file).size).toBeLessThanOrEqual(IMAGE_BUDGET);
+    });
+  }
+});
