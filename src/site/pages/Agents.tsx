@@ -2,6 +2,7 @@ import { NEO_THEMES, THEME_INFO } from 'neobrutalistcomponents';
 import { COMPONENTS } from '../../docs/meta';
 import { GLOBAL_RULES, THEME_GUIDE, pageUrl } from '../../docs/guide';
 import { CodeBlock } from '../docs/CodeBlock';
+import { TableScroll } from '../docs/TableScroll';
 
 const SKILL_CODE = `# Claude Code (or any agent that reads skills)
 mkdir -p ~/.claude/skills
@@ -68,7 +69,7 @@ export function Agents() {
         <h2 className="site-h2" id="choose">
           Choosing a theme
         </h2>
-        <div className="site-props">
+        <TableScroll label={'Which theme fits which product'}>
           <table>
             <caption>Which theme fits which product</caption>
             <thead>
@@ -88,7 +89,7 @@ export function Agents() {
               ))}
             </tbody>
           </table>
-        </div>
+        </TableScroll>
       </section>
     </div>
   );

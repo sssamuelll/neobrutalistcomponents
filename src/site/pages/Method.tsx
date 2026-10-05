@@ -2,6 +2,7 @@ import { CONTRAST_PAIRS } from '../../lib/themes/contract';
 import { FAMILIES } from '../../study/families';
 import type { ParamSpec } from '../../study/families/types';
 import { PAIR_TEXT, useLang, useT } from '../i18n';
+import { TableScroll } from '../docs/TableScroll';
 import { Essay } from '../study/Essay';
 
 const UNITS: Partial<Record<ParamSpec['type'], string>> = { length: ' px', angle: '°' };
@@ -50,7 +51,7 @@ export function Method() {
                 </span>
               ))}
             </p>
-            <div className="site-props">
+            <TableScroll label={`${t('familiesHeading')}: ${family.name}`}>
               <table aria-labelledby={`family-${family.name}`}>
                 <thead>
                   <tr>
@@ -77,7 +78,7 @@ export function Method() {
                   ))}
                 </tbody>
               </table>
-            </div>
+            </TableScroll>
           </article>
         ))}
       </section>
@@ -87,7 +88,7 @@ export function Method() {
           {t('contractHeading')}
         </h2>
         <p className="site-p">{t('contractLead')}</p>
-        <div className="site-props">
+        <TableScroll label={t('contractHeading')}>
           <table aria-labelledby="method-contract">
             <thead>
               <tr>
@@ -108,7 +109,7 @@ export function Method() {
               ))}
             </tbody>
           </table>
-        </div>
+        </TableScroll>
       </section>
     </div>
   );

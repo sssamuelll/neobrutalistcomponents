@@ -4,7 +4,9 @@ import { NEO_THEMES } from '../src/lib/themes';
 import { SLUGS } from '../src/docs/slugs';
 import { CONTRAST_PAIRS } from '../src/lib/themes/contract';
 
-const ROUTES = ['/', '/components', '/themes', '/blocks', '/start', '/agents', ...SLUGS.map((slug) => `/components/${slug}`)];
+const STUDY_ROUTES = ['/en/', '/en/scenes', '/en/scene/japan', '/en/origins', '/en/atlas', '/en/method', '/en/credits'];
+const DOC_ROUTES = ['/en/library', '/en/components', '/en/blocks', '/en/start', '/en/agents', ...SLUGS.map((slug) => `/en/components/${slug}`)];
+const ROUTES = [...STUDY_ROUTES, ...DOC_ROUTES];
 
 for (const theme of NEO_THEMES) {
   test.describe(`theme ${theme}`, () => {
@@ -28,8 +30,8 @@ for (const theme of NEO_THEMES) {
     }
   });
 
-  test(`${theme} dark scheme: home and blocks pass axe`, async ({ page }) => {
-    for (const route of ['/', '/blocks']) {
+  test(`${theme} dark scheme: study, library and blocks pass axe`, async ({ page }) => {
+    for (const route of ['/en/', '/en/library', '/en/blocks']) {
       await page.goto(`?theme=${theme}&mode=dark#${route}`);
       await expect(page.locator('main h1').first()).toBeVisible();
       const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag22aa']).analyze();
@@ -252,6 +254,7 @@ test('theme page: core themes say they predate the study; unknown ids are not fo
   await expect(page.locator('main h1')).toHaveText('Nothing at this address');
 });
 
+
 test('theme page: when its data cannot load, it says so instead of loading forever', async ({ page }) => {
   await page.route(/\/assets\/sesc-pompeia-[\w-]+\.js$/, (route) => route.abort());
   await page.goto('#/en/theme/sesc-pompeia');
@@ -308,5 +311,48 @@ test('credits: every photograph and every typeface, each with its licence', asyn
   const fonts = page.locator('table[aria-labelledby="credits-fonts"] tbody tr');
   await expect(fonts).toHaveCount(18);
   await expect(fonts.filter({ hasText: 'Geist Mono' })).toContainText('Classic, Tech');
+});
+
+// The study's main pages in both languages, at desktop width and on a phone:
+// they render, pass axe, log no errors and never scroll sideways.
+const MAIN_PAGES = ['/', '/scenes', '/scene/japan', '/scene/germany', '/scene/usa', '/scene/latam', '/origins', '/atlas', '/method', '/credits', '/library'];
+for (const width of [1280, 360]) {
+  test.describe(`main pages at ${width}px`, () => {
+    test.use({ viewport: { width, height: 900 } });
+    for (const lang of ['es', 'en']) {
+      for (const path of MAIN_PAGES) {
+        test(`#/${lang}${path}`, async ({ page }) => {
+          const errors: string[] = [];
+          page.on('pageerror', (e) => errors.push(e.message));
+          await page.goto(`?theme=classic#/${lang}${path}`);
+          await expect(page.locator('main h1').first()).toBeVisible();
+          await expect(page.locator('html')).toHaveAttribute('lang', lang);
+          await expect(page.locator('main [aria-busy="true"], main [role="status"]')).toHaveCount(0);
+          await page.evaluate(() => document.fonts.ready);
+          const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
+          const summary = results.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(' ')).slice(0, 3).join(' | ')}`);
+          expect(summary, 'axe violations').toEqual([]);
+          expect(errors).toEqual([]);
+          expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
+        });
+      }
+    }
+  });
+}
+
+test.describe('theme and component pages at 360px', () => {
+  test.use({ viewport: { width: 360, height: 800 } });
+  for (const hash of ['#/es/theme/tech', '#/en/theme/nakagin', '#/es/theme/maeusebunker', '#/en/components/button']) {
+    test(`${hash} passes axe and never scrolls sideways`, async ({ page }) => {
+      await page.goto(`?theme=classic${hash}`);
+      await expect(page.locator('main h1')).toBeVisible();
+      await expect(page.locator('main [role="status"]')).toHaveCount(0);
+      await page.evaluate(() => document.fonts.ready);
+      const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
+      const summary = results.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(' ')).slice(0, 3).join(' | ')}`);
+      expect(summary, 'axe violations').toEqual([]);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(360);
+    });
+  }
 });
 

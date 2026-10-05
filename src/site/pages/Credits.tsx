@@ -2,6 +2,7 @@ import type { CatalogEntry } from '../../study/catalog';
 import type { Reference } from '../../study/types';
 import { useLang, useT } from '../i18n';
 import { toHash } from '../router';
+import { TableScroll } from '../docs/TableScroll';
 import { FONT_LICENSE_URLS, fontCredits, specimenUrl } from '../study/credits';
 import { CATALOG } from '../study/data';
 import { loadThemeData } from '../study/detail';
@@ -36,7 +37,7 @@ function Photographs() {
     );
   }
   return (
-    <div className="site-props">
+    <TableScroll label={t('photographsHeading')}>
       <table aria-labelledby="credits-photographs">
         <thead>
           <tr>
@@ -69,7 +70,7 @@ function Photographs() {
           )}
         </tbody>
       </table>
-    </div>
+    </TableScroll>
   );
 }
 
@@ -94,7 +95,7 @@ export function Credits() {
         <h2 className="site-h2" id="credits-fonts">
           {t('fontsHeading')}
         </h2>
-        <div className="site-props">
+        <TableScroll label={t('fontsHeading')}>
           <table aria-labelledby="credits-fonts">
             <thead>
               <tr>
@@ -123,7 +124,7 @@ export function Credits() {
               ))}
             </tbody>
           </table>
-        </div>
+        </TableScroll>
       </section>
     </div>
   );

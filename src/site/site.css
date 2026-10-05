@@ -14,6 +14,8 @@ body {
 
 .site {
   display: grid;
+  /* minmax(0, 1fr): no page's content can widen the bar or the footer. */
+  grid-template-columns: minmax(0, 1fr);
   grid-template-rows: auto 1fr auto;
   min-block-size: 100dvh;
 }
@@ -176,11 +178,13 @@ body {
 
 .site-switcher {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: var(--nbc-space-sm);
 }
 .site-switcher__themes {
   display: flex;
+  flex-wrap: wrap;
   gap: 2px;
 }
 .site-swatch {
@@ -827,6 +831,7 @@ body {
 }
 .site-themepage__inner {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--nbc-space-3xl);
   max-inline-size: 1180px;
   margin-inline: auto;

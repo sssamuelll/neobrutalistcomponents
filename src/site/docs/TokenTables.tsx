@@ -2,6 +2,7 @@ import { COLOR_TOKENS, CONTRAST_PAIRS } from '../../lib/themes/contract';
 import { contrastRatio, resolveColor, resolveStops } from '../../lib/themes/color';
 import type { Scheme } from '../../lib/themes/color';
 import { PAIR_TEXT, SCHEME_TEXT, useLang, useT } from '../i18n';
+import { TableScroll } from './TableScroll';
 
 /**
  * A theme's color tokens and WCAG contrast ratios in one scheme, computed with
@@ -12,11 +13,13 @@ export function TokenTables({ tokens, scheme }: { tokens: Map<string, string>; s
   const t = useT();
   const page = resolveColor(tokens, '--nbc-bg', scheme);
   const schemeName = SCHEME_TEXT[scheme][lang];
+  const tokensCaption = lang === 'es' ? `Tokens de color, esquema ${schemeName}` : `Color tokens, ${schemeName} scheme`;
+  const contrastCaption = lang === 'es' ? `Contraste, esquema ${schemeName} (WCAG 2.2)` : `Contrast, ${schemeName} scheme (WCAG 2.2)`;
   return (
     <div className="site-band__tables">
-      <div className="site-props">
+      <TableScroll label={tokensCaption}>
         <table>
-          <caption>{lang === 'es' ? `Tokens de color, esquema ${schemeName}` : `Color tokens, ${schemeName} scheme`}</caption>
+          <caption>{tokensCaption}</caption>
           <thead>
             <tr>
               <th scope="col">{t('colToken')}</th>
@@ -40,10 +43,10 @@ export function TokenTables({ tokens, scheme }: { tokens: Map<string, string>; s
             ))}
           </tbody>
         </table>
-      </div>
-      <div className="site-props">
+      </TableScroll>
+      <TableScroll label={contrastCaption}>
         <table>
-          <caption>{lang === 'es' ? `Contraste, esquema ${schemeName} (WCAG 2.2)` : `Contrast, ${schemeName} scheme (WCAG 2.2)`}</caption>
+          <caption>{contrastCaption}</caption>
           <thead>
             <tr>
               <th scope="col">{t('colPair')}</th>
@@ -79,7 +82,7 @@ export function TokenTables({ tokens, scheme }: { tokens: Map<string, string>; s
             })}
           </tbody>
         </table>
-      </div>
+      </TableScroll>
     </div>
   );
 }
