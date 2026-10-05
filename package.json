@@ -2,7 +2,7 @@
   "name": "neobrutalistcomponents",
   "private": false,
   "version": "1.1.0",
-  "description": "Brutalist React components. Five themes, light and dark, one token contract.",
+  "description": "Brutalist React components. Core and study themes, light and dark, one token contract.",
   "license": "MIT",
   "keywords": [
     "react",
