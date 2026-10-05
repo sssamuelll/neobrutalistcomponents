@@ -69,3 +69,27 @@ test('themes page previews the four study themes with their own stylesheets', as
   expect(style).toEqual({ border: '2px', radius: '999px' });
   await expect(page.locator('section[aria-labelledby="theme-nakagin"] [lang="ja"]')).toHaveText('中銀カプセルタワービル');
 });
+
+test('language routes: legacy addresses redirect, the switch keeps the page, html lang follows', async ({ page }) => {
+  await page.goto('#/components/button');
+  await expect(page).toHaveURL(/#\/en\/components\/button$/);
+  await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+  await page.getByRole('link', { name: 'Español' }).click();
+  await expect(page).toHaveURL(/#\/es\/components\/button$/);
+  await expect(page.locator('html')).toHaveAttribute('lang', 'es');
+  await expect(page.getByText('La documentación técnica de la librería está en inglés.')).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Componentes' })).toHaveAttribute('aria-current', 'page');
+  // Addresses without a language now open in the one last used.
+  await page.goto('#/start');
+  await expect(page).toHaveURL(/#\/es\/start$/);
+});
+
+test('a legacy address redirects without a history entry: Back returns to the page before it', async ({ page }) => {
+  await page.goto('#/en/library');
+  await expect(page.locator('main h1')).toHaveText('Components that hold their shape.');
+  await page.goto('#/blocks');
+  await expect(page).toHaveURL(/#\/en\/blocks$/);
+  await page.goBack();
+  await expect(page).toHaveURL(/#\/en\/library$/);
+  await expect(page.locator('main h1')).toHaveText('Components that hold their shape.');
+});

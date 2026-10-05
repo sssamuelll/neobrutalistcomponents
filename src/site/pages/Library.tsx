@@ -4,6 +4,8 @@ import { COMPONENTS } from '../../docs/meta';
 import { INSTALL_CODE, SITE_URL } from '../../docs/guide';
 import { CodeBlock } from '../docs/CodeBlock';
 import { useSitePrefsContext } from '../prefsContext';
+import { useLang } from '../i18n';
+import { toHash } from '../router';
 
 const PLATFORM: { term: string; text: string }[] = [
   { term: '@layer', text: 'Your CSS always wins. The library lives in cascade layers, so a plain rule in your stylesheet beats it without !important.' },
@@ -87,7 +89,9 @@ function SameShape() {
   );
 }
 
-export function Home() {
+/** The library's own landing page (it was the site's home before the study). */
+export function Library() {
+  const lang = useLang();
   const llms = [
     '# neobrutalistcomponents',
     '',
@@ -113,10 +117,13 @@ export function Home() {
           <CodeBlock code={INSTALL_CODE} label="Shell" />
           <div className="home-hero__ctas">
             <Button asChild size="lg" rightIcon={<ArrowRight />}>
-              <a href="#/start">Set it up</a>
+              <a href={toHash(lang, '/start')}>Set it up</a>
             </Button>
             <Button asChild size="lg" variant="secondary">
-              <a href="#/components">Browse components</a>
+              <a href={toHash(lang, '/components')}>Browse components</a>
+            </Button>
+            <Button asChild size="lg" variant="ghost">
+              <a href={toHash(lang, '/blocks')}>See full screens</a>
             </Button>
           </div>
         </div>
@@ -181,7 +188,7 @@ export function Home() {
             would.
           </p>
           <Button asChild variant="secondary">
-            <a href="#/agents">How agents use it</a>
+            <a href={toHash(lang, '/agents')}>How agents use it</a>
           </Button>
         </div>
         <CodeBlock code={llms} label="llms.txt" />

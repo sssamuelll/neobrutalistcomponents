@@ -1,12 +1,16 @@
 import { Button } from 'neobrutalistcomponents';
+import { useLang, useT } from '../i18n';
+import { toHash } from '../router';
 
 export function NotFound() {
+  const lang = useLang();
+  const t = useT();
   return (
     <div className="site-page site-notfound">
-      <h1 className="site-h1">Nothing at this address</h1>
-      <p className="site-lead">The page may have moved when the docs were rebuilt for v1.</p>
+      <h1 className="site-h1">{t('notFoundTitle')}</h1>
+      <p className="site-lead">{t('notFoundBody')}</p>
       <Button asChild>
-        <a href="#/components">Browse components</a>
+        <a href={toHash(lang, '/')}>{t('goStudy')}</a>
       </Button>
     </div>
   );

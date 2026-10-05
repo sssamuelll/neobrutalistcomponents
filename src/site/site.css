@@ -158,6 +158,17 @@ body {
   gap: var(--nbc-space-md);
   margin-inline-start: auto;
 }
+.site-bar__lang {
+  font-weight: var(--nbc-weight-label);
+  text-decoration: none;
+}
+.site-docs-note {
+  max-inline-size: 1180px;
+  margin: var(--nbc-space-lg) auto 0;
+  padding-inline: clamp(16px, 4vw, 40px);
+  font-size: var(--nbc-fs-sm);
+  color: var(--nbc-fg-muted);
+}
 .site-bar__repo {
   font-size: var(--nbc-fs-sm);
   font-weight: var(--nbc-weight-label);

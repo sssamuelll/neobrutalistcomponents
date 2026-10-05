@@ -2,8 +2,14 @@ import { useEffect, useMemo } from 'react';
 import { NeoProvider } from 'neobrutalistcomponents';
 import { Shell } from './Shell';
 import { useSitePrefs } from './prefs';
-import { useRoute } from './router';
-import { Home } from './pages/Home';
+import type { SitePrefs } from './prefs';
+import { parseHash, replaceHash, useHash } from './router';
+import type { Location, Route } from './router';
+import { detectLang, rememberLang } from './lang';
+import { LangContext, UI } from './i18n';
+import type { UIKey } from './i18n';
+import { SitePrefsContext } from './prefsContext';
+import { Library } from './pages/Library';
 import { ComponentsIndex } from './pages/ComponentsIndex';
 import { ComponentPage } from './pages/ComponentPage';
 import { Themes } from './pages/Themes';
@@ -11,19 +17,22 @@ import { Blocks } from './pages/Blocks';
 import { Start } from './pages/Start';
 import { Agents } from './pages/Agents';
 import { NotFound } from './pages/NotFound';
-import type { Route } from './router';
-import { SitePrefsContext } from './prefsContext';
+
+export type PageLocation = Extract<Location, { kind: 'page' }>;
 
 function Page({ route }: { route: Route }) {
   switch (route.name) {
-    case 'home':
-      return <Home />;
+    // Until the study home exists (study plan 2, Task 8) the study route shows the library page.
+    case 'study':
+    case 'library':
+      return <Library />;
+    // Until the atlas exists (Task 5) the atlas route shows the old Themes page.
+    case 'atlas':
+      return <Themes />;
     case 'components':
       return <ComponentsIndex />;
     case 'component':
       return <ComponentPage slug={route.slug} />;
-    case 'themes':
-      return <Themes />;
     case 'blocks':
       return <Blocks />;
     case 'start':
@@ -35,34 +44,62 @@ function Page({ route }: { route: Route }) {
   }
 }
 
-const TITLES: Partial<Record<Route['name'], string>> = {
-  components: 'Components',
-  themes: 'Themes',
-  blocks: 'Blocks',
-  start: 'Get started',
-  agents: 'For agents',
+const TITLES: Partial<Record<Route['name'], UIKey>> = {
+  study: 'titleStudy',
+  scenes: 'titleScenes',
+  atlas: 'titleAtlas',
+  origins: 'titleOrigins',
+  method: 'titleMethod',
+  credits: 'titleCredits',
+  library: 'titleLibrary',
+  components: 'titleComponents',
+  blocks: 'titleBlocks',
+  start: 'titleStart',
+  agents: 'titleAgents',
+  'not-found': 'titleNotFound',
 };
 
-export function App() {
-  const [prefs, setPrefs] = useSitePrefs();
-  const route = useRoute();
-  const routeKey = route.name === 'component' ? `component:${route.slug}` : route.name;
+function Site({ location, prefs, update }: { location: PageLocation; prefs: SitePrefs; update: (next: Partial<SitePrefs>) => void }) {
+  const { lang, route } = location;
+  const routeKey = `${lang}:${location.path}`;
 
   useEffect(() => {
-    const title = route.name === 'component' ? route.slug : TITLES[route.name];
-    document.title = title ? `${title} — neobrutalistcomponents` : 'neobrutalistcomponents — components that hold their shape';
-    window.scrollTo({ top: 0 });
-  }, [routeKey, route]);
+    rememberLang(lang);
+    document.documentElement.lang = lang;
+  }, [lang]);
 
-  const ctx = useMemo(() => ({ prefs, update: setPrefs }), [prefs, setPrefs]);
+  useEffect(() => {
+    const key = TITLES[route.name];
+    const title = route.name === 'component' ? route.slug : route.name === 'theme' ? route.id : key ? UI[key][lang] : undefined;
+    document.title = title ? `${title} — neobrutalistcomponents` : 'neobrutalistcomponents';
+    window.scrollTo({ top: 0 });
+  }, [routeKey, route, lang]);
 
   return (
-    <SitePrefsContext value={ctx}>
+    <LangContext value={lang}>
       <NeoProvider theme={prefs.theme} mode={prefs.mode === 'native' ? undefined : prefs.mode}>
-        <Shell route={route} prefs={prefs} onPrefsChange={setPrefs}>
+        <Shell location={location} prefs={prefs} onPrefsChange={update}>
           <Page route={route} />
         </Shell>
       </NeoProvider>
+    </LangContext>
+  );
+}
+
+export function App() {
+  const [prefs, update] = useSitePrefs();
+  const hash = useHash();
+  const location = useMemo(() => parseHash(hash, detectLang()), [hash]);
+  const ctx = useMemo(() => ({ prefs, update }), [prefs, update]);
+
+  useEffect(() => {
+    if (location.kind === 'redirect') replaceHash(location.to);
+  }, [location]);
+
+  if (location.kind === 'redirect') return null;
+  return (
+    <SitePrefsContext value={ctx}>
+      <Site location={location} prefs={prefs} update={update} />
     </SitePrefsContext>
   );
 }
