@@ -1,0 +1,5 @@
+/* Grid: the module runs through every slab via --nbc-texture; this carries
+   it into card footers too, so header, body and footer share one drawing. */
+.nbc-card__footer {
+  background: var(--nbc-texture), var(--nbc-surface-alt);
+}

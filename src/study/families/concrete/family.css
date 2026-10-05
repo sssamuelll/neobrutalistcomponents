@@ -1,0 +1,9 @@
+/* Concrete: the page itself is cast. --nbc-texture already sits behind every
+   slab (cards, dialogs, tables, alerts); this pours it behind the theme root
+   and the card footers too. */
+:scope {
+  background: var(--nbc-texture), var(--nbc-bg);
+}
+.nbc-card__footer {
+  background: var(--nbc-texture), var(--nbc-surface-alt);
+}
