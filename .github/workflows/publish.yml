@@ -31,4 +31,5 @@ jobs:
       - run: npm test
       - run: npm run build:lib
       - run: npm run check:package
-      - run: npm publish --access public
+      - run: npm --version
+      - run: npm publish --access public --loglevel verbose
