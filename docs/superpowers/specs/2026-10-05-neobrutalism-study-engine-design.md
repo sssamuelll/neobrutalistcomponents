@@ -302,4 +302,18 @@ Visual review: contact sheets of each new theme — light and dark, desktop and 
 
 ## 8. Implementation notes (decisions taken while building)
 
-_Appended during implementation, as in the 1.0 spec._
+Plan 1 of 2 (`docs/superpowers/plans/2026-10-05-neobrutalism-study-engine.md`), built 2026-10-05.
+
+- **System fonts are spelled `'system-sans'` or `'system-serif'`** (D5 said `'system'`): `classifieds` needs the serif stack of 1990s browsers (Times, Courier), so "system" alone was ambiguous.
+- **Families expose `texture()`, not `fills()`** (D3): fills were never needed; the only thing a family paints behind text is `--nbc-texture`. `concrete` also pours the texture behind the theme root (`:scope`) and card footers, `grid` into card footers — the places core CSS leaves untextured.
+- **The texture check uses the contract's own pairs per ground**: surface-fill (fg, fg-muted), surface-alt (fg), bg (fg, fg-muted). The first draft demanded fg-muted on surface-alt too, which the contract never asks for; it failed a sound palette (`maeusebunker`, dark).
+- **The 12 KB budget is measured on the shipped file.** Study theme files are not minified, like the core ones; the four proof themes ship at 2.4–3.4 KB.
+- **The flourish lint is stricter than the core themes' own CSS**: no padding anywhere outside `::before`/`::after` (riso's card titles use `padding-inline`; study families may not).
+- **`CoreFicha` carries a bilingual `tagline`** whose `en` must equal `THEME_INFO[id].tagline`; the catalog needs Spanish taglines for the core themes too.
+- **Core facets** (set by hand in `core-fichas.ts`): classic standard/double/square, tech hairline/hard/soft, swiss hairline/none/square, y2k standard/double/round, riso standard/double/soft.
+- **Catalog order**: core themes first, then study themes by file path (germany, japan, latam, usa).
+- **Images**: every `fetch:image` output matched the values written in the plan (read from the Commons API beforehand). The plan's smoke-test file (an Unité d'habitation photo) is no longer on Commons — the script stopped with "no image info", as it should — so the smoke test used the VT100 photo.
+- **`maeusebunker`**: primary is the pipes' light blue (`#8cc3ea`) with a dark ink in both schemes; focus stays dark blue in the light scheme because light blue on light concrete fails the 3:1 focus pair. The tagline avoids the battleship image the project site rejects.
+- **`classifieds`** sets its inks explicitly (white on link blue, black on the dark scheme's light blue) instead of `'auto'`, to keep the documented look.
+- **Open design question for curation**: in `sesc-pompeia`, primary (Lina's red) and danger are both red and differ only in value (`#b81d17` vs `#8f1d14`; dark `#ff6a5c` vs `#ff9a8c`). Contrast passes, but a destructive button reads close to a primary one.
+- **Package**: `npm pack` lists 72 files, 104.9 kB packed, 433.7 kB unpacked; no `src/study` path (no images, no fichas).
