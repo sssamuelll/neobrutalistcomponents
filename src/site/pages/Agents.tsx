@@ -1,6 +1,6 @@
 import { NEO_THEMES, THEME_INFO } from 'neobrutalistcomponents';
 import { COMPONENTS } from '../../docs/meta';
-import { GLOBAL_RULES, SITE_URL, THEME_GUIDE } from '../../docs/guide';
+import { GLOBAL_RULES, THEME_GUIDE, pageUrl } from '../../docs/guide';
 import { CodeBlock } from '../docs/CodeBlock';
 
 const SKILL_CODE = `# Claude Code (or any agent that reads skills)
@@ -17,7 +17,7 @@ export function Agents() {
     '',
     ...COMPONENTS.filter((c) => c.group === 'Forms')
       .slice(0, 3)
-      .map((c) => `- [${c.name}](${SITE_URL}/#/components/${c.slug}): ${c.summary}`),
+      .map((c) => `- [${c.name}](${pageUrl(`/components/${c.slug}`)}): ${c.summary}`),
     '…',
   ].join('\n');
 

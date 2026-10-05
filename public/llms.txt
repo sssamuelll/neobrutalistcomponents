@@ -6,37 +6,46 @@ Version 1.0.1. Install with `npm install neobrutalistcomponents`, import `neobru
 
 ## Docs
 
-- [Getting started](https://sssamuelll.github.io/neobrutalistcomponents/#/start): install, setup, fonts, bring-your-own theme
-- [Themes and tokens](https://sssamuelll.github.io/neobrutalistcomponents/#/themes): the five themes, every token, live contrast ratios
-- [Blocks](https://sssamuelll.github.io/neobrutalistcomponents/#/blocks): complete screens composed from the components
+- [Getting started](https://sssamuelll.github.io/neobrutalistcomponents/#/en/start): install, setup, fonts, bring-your-own theme
+- [Atlas](https://sssamuelll.github.io/neobrutalistcomponents/#/en/atlas): every theme, with its reference, every token and live contrast ratios
+- [Blocks](https://sssamuelll.github.io/neobrutalistcomponents/#/en/blocks): complete screens composed from the components
 
 ## Actions
 
-- [Button](https://sssamuelll.github.io/neobrutalistcomponents/#/components/button): A pressable slab that performs an action: four variants, three sizes on the shared control scale, a loading state and icon slots.
+- [Button](https://sssamuelll.github.io/neobrutalistcomponents/#/en/components/button): A pressable slab that performs an action: four variants, three sizes on the shared control scale, a loading state and icon slots.
 
 ## Forms
 
-- [Checkbox](https://sssamuelll.github.io/neobrutalistcomponents/#/components/checkbox): A real native checkbox drawn as a brutalist box with check and mixed glyphs, with its label, description and error message built in.
-- [Input](https://sssamuelll.github.io/neobrutalistcomponents/#/components/input): A single-line text field with its label, description and error message built in, on the shared 32 / 40 / 48px control scale.
-- [RadioGroup](https://sssamuelll.github.io/neobrutalistcomponents/#/components/radio-group): Pick exactly one option from a small visible set: a fieldset with a legend whose Radio children are native radio inputs drawn as brutalist dots.
-- [Select](https://sssamuelll.github.io/neobrutalistcomponents/#/components/select): A native dropdown with its label, description and error message built in, a drawn chevron, and a fully themed list wherever the browser supports it.
-- [Switch](https://sssamuelll.github.io/neobrutalistcomponents/#/components/switch): A native checkbox with the switch role, drawn as a brutalist track and thumb, for settings that take effect the moment they flip.
-- [Textarea](https://sssamuelll.github.io/neobrutalistcomponents/#/components/textarea): A multi-line text field with the same label, description and error API as Input; it grows with its content, starting from `rows` lines.
+- [Checkbox](https://sssamuelll.github.io/neobrutalistcomponents/#/en/components/checkbox): A real native checkbox drawn as a brutalist box with check and mixed glyphs, with its label, description and error message built in.
+- [Input](https://sssamuelll.github.io/neobrutalistcomponents/#/en/components/input): A single-line text field with its label, description and error message built in, on the shared 32 / 40 / 48px control scale.
+- [RadioGroup](https://sssamuelll.github.io/neobrutalistcomponents/#/en/components/radio-group): Pick exactly one option from a small visible set: a fieldset with a legend whose Radio children are native radio inputs drawn as brutalist dots.
+- [Select](https://sssamuelll.github.io/neobrutalistcomponents/#/en/components/select): A native dropdown with its label, description and error message built in, a drawn chevron, and a fully themed list wherever the browser supports it.
+- [Switch](https://sssamuelll.github.io/neobrutalistcomponents/#/en/components/switch): A native checkbox with the switch role, drawn as a brutalist track and thumb, for settings that take effect the moment they flip.
+- [Textarea](https://sssamuelll.github.io/neobrutalistcomponents/#/en/components/textarea): A multi-line text field with the same label, description and error API as Input; it grows with its content, starting from `rows` lines.
 
 ## Display
 
-- [Alert](https://sssamuelll.github.io/neobrutalistcomponents/#/components/alert): An inline message about the state of the page or a task: four variants with a status icon and edge stripe, an optional title, action and dismiss button.
-- [Badge](https://sssamuelll.github.io/neobrutalistcomponents/#/components/badge): A small sticker that labels a status or a category: seven variants, two sizes, and room for a leading icon.
-- [Card](https://sssamuelll.github.io/neobrutalistcomponents/#/components/card): A bordered slab that groups related content, composed from Card.Header, Card.Title, Card.Description, Card.Content and Card.Footer.
-- [Kbd](https://sssamuelll.github.io/neobrutalistcomponents/#/components/kbd): A keyboard key cap for shortcuts in docs, menus and tooltips, in two sizes.
-- [Progress](https://sssamuelll.github.io/neobrutalistcomponents/#/components/progress): A bar that shows how far a task has gone, or that it is still running when the end is unknown: four variants, three sizes, an optional label and percentage.
-- [Table](https://sssamuelll.github.io/neobrutalistcomponents/#/components/table): A styled data table with native table semantics: a scroll wrapper, two densities, optional stripes, and alignment helpers for numeric columns.
+- [Alert](https://sssamuelll.github.io/neobrutalistcomponents/#/en/components/alert): An inline message about the state of the page or a task: four variants with a status icon and edge stripe, an optional title, action and dismiss button.
+- [Badge](https://sssamuelll.github.io/neobrutalistcomponents/#/en/components/badge): A small sticker that labels a status or a category: seven variants, two sizes, and room for a leading icon.
+- [Card](https://sssamuelll.github.io/neobrutalistcomponents/#/en/components/card): A bordered slab that groups related content, composed from Card.Header, Card.Title, Card.Description, Card.Content and Card.Footer.
+- [Kbd](https://sssamuelll.github.io/neobrutalistcomponents/#/en/components/kbd): A keyboard key cap for shortcuts in docs, menus and tooltips, in two sizes.
+- [Progress](https://sssamuelll.github.io/neobrutalistcomponents/#/en/components/progress): A bar that shows how far a task has gone, or that it is still running when the end is unknown: four variants, three sizes, an optional label and percentage.
+- [Table](https://sssamuelll.github.io/neobrutalistcomponents/#/en/components/table): A styled data table with native table semantics: a scroll wrapper, two densities, optional stripes, and alignment helpers for numeric columns.
 
 ## Overlays
 
-- [Dialog](https://sssamuelll.github.io/neobrutalistcomponents/#/components/dialog): A modal dialog on the native <dialog> element: focus trap, Esc, inert background and top layer come from the platform. Controlled only.
-- [Tabs](https://sssamuelll.github.io/neobrutalistcomponents/#/components/tabs): Switch between views that share one place on the page, composed from Tabs.List, Tabs.Tab and Tabs.Panel. Follows the WAI-ARIA tabs pattern with automatic activation.
-- [Tooltip](https://sssamuelll.github.io/neobrutalistcomponents/#/components/tooltip): A short hint attached to a focusable element, shown on hover after a delay and immediately on keyboard focus, rendered in the top layer.
+- [Dialog](https://sssamuelll.github.io/neobrutalistcomponents/#/en/components/dialog): A modal dialog on the native <dialog> element: focus trap, Esc, inert background and top layer come from the platform. Controlled only.
+- [Tabs](https://sssamuelll.github.io/neobrutalistcomponents/#/en/components/tabs): Switch between views that share one place on the page, composed from Tabs.List, Tabs.Tab and Tabs.Panel. Follows the WAI-ARIA tabs pattern with automatic activation.
+- [Tooltip](https://sssamuelll.github.io/neobrutalistcomponents/#/en/components/tooltip): A short hint attached to a focusable element, shown on hover after a delay and immediately on keyboard focus, rendered in the top layer.
+
+## Study themes
+
+Themes of the [neobrutalism study](https://sssamuelll.github.io/neobrutalistcomponents/#/en/), each read from one documented work. Same contract and geometry as the five core themes; import `neobrutalistcomponents/themes/<id>.css`.
+
+- [Mäusebunker](https://sssamuelll.github.io/neobrutalistcomponents/#/en/theme/maeusebunker): `maeusebunker` — Mäusebunker (former Central Animal Laboratories of the Free University of Berlin) (Zentrale Tierlaboratorien der Freien Universität Berlin), Gerd Hänska, Magdalena Hänska, Kurt Schmersow, Lichterfelde, Berlin, Germany, 1971–1982. Germany, dark native.
+- [Nakagin](https://sssamuelll.github.io/neobrutalistcomponents/#/en/theme/nakagin): `nakagin` — Nakagin Capsule Tower (中銀カプセルタワービル), Kisho Kurokawa, Ginza, Tokyo, Japan, 1970–1972. Japan, light native.
+- [SESC Pompéia](https://sssamuelll.github.io/neobrutalistcomponents/#/en/theme/sesc-pompeia): `sesc-pompeia` — SESC Pompéia (Centro de Lazer Fábrica da Pompéia), Lina Bo Bardi, André Vainer, Marcelo Carvalho Ferraz, Pompeia, São Paulo, Brazil, 1977–1986. Latin America, light native.
+- [Classifieds](https://sssamuelll.github.io/neobrutalistcomponents/#/en/theme/classifieds): `classifieds` — craigslist (classified-ads website), Craig Newmark, San Francisco, United States, 1995. United States, light native.
 
 ## Optional
 

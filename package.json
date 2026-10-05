@@ -72,6 +72,7 @@
     "check": "npm run lint && npm run typecheck && npm run test && npm run build && npm run check:package",
     "preview": "vite preview --config vite.site.config.ts",
     "prepublishOnly": "npm run build:lib && npm run check:package",
+    "pregen:llms": "npm run gen:study",
     "gen:llms": "node scripts/gen-llms.mjs",
     "fetch:image": "node scripts/fetch-image.mjs",
     "screenshots": "node scripts/screenshots.mjs",

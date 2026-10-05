@@ -1,7 +1,7 @@
 import { Badge, Button, Card, Input, NeoProvider, Progress, Select, Switch, NEO_THEMES, THEME_INFO } from 'neobrutalistcomponents';
 import { ArrowRight, GitBranch } from 'lucide-react';
 import { COMPONENTS } from '../../docs/meta';
-import { INSTALL_CODE, SITE_URL } from '../../docs/guide';
+import { INSTALL_CODE, pageUrl } from '../../docs/guide';
 import { CodeBlock } from '../docs/CodeBlock';
 import { useSitePrefsContext } from '../prefsContext';
 import { useLang } from '../i18n';
@@ -100,7 +100,7 @@ export function Library() {
     '## Forms',
     ...COMPONENTS.filter((c) => c.group === 'Forms')
       .slice(0, 2)
-      .map((c) => `- [${c.name}](${SITE_URL}/#/components/${c.slug}): ${c.summary}`),
+      .map((c) => `- [${c.name}](${pageUrl(`/components/${c.slug}`)}): ${c.summary}`),
   ].join('\n');
 
   return (
