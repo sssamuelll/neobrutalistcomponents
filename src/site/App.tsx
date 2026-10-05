@@ -14,6 +14,8 @@ import { Library } from './pages/Library';
 import { ComponentsIndex } from './pages/ComponentsIndex';
 import { ComponentPage } from './pages/ComponentPage';
 import { Atlas } from './pages/Atlas';
+import { ThemePage } from './pages/ThemePage';
+import { ENTRIES } from './study/data';
 import { Blocks } from './pages/Blocks';
 import { Start } from './pages/Start';
 import { Agents } from './pages/Agents';
@@ -30,6 +32,8 @@ function Page({ location }: { location: PageLocation }) {
       return <Library />;
     case 'atlas':
       return <Atlas query={location.query} />;
+    case 'theme':
+      return <ThemePage id={route.id} />;
     case 'components':
       return <ComponentsIndex />;
     case 'component':
@@ -72,7 +76,7 @@ function Site({ location, prefs, update }: { location: PageLocation; prefs: Site
 
   useEffect(() => {
     const key = TITLES[route.name];
-    const title = route.name === 'component' ? route.slug : route.name === 'theme' ? route.id : key ? UI[key][lang] : undefined;
+    const title = route.name === 'component' ? route.slug : route.name === 'theme' ? (ENTRIES.get(route.id)?.name[lang] ?? route.id) : key ? UI[key][lang] : undefined;
     document.title = title ? `${title} — neobrutalistcomponents` : 'neobrutalistcomponents';
     window.scrollTo({ top: 0 });
   }, [routeKey, route, lang]);

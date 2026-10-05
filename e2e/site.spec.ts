@@ -54,6 +54,22 @@ test('production CSS keeps token colors: borders, shadows and page color resolve
   expect(bg).toBe('rgb(231, 230, 225)');
 });
 
+// The same regression for study themes: their stylesheets are separate assets,
+// minified on their own, so check one resolves too (Nakagin: 2px, hard shadow).
+test('production CSS keeps a study theme\'s token colors: border, shadow and ground resolve', async ({ page }) => {
+  await page.goto('?theme=classic&mode=light#/en/theme/nakagin');
+  const button = page.locator('.site-themepage .nbc-button--primary').first();
+  await expect(button).toBeVisible();
+  const style = await button.evaluate((el) => {
+    const cs = getComputedStyle(el);
+    return { border: cs.borderTopWidth, shadow: cs.boxShadow };
+  });
+  expect(style.border).toBe('2px');
+  expect(style.shadow).toMatch(/5px 5px 0px/);
+  const ground = await page.locator('.site-themepage').evaluate((el) => getComputedStyle(el).backgroundColor);
+  expect(ground).toBe('rgb(217, 216, 211)');
+});
+
 test('language routes: legacy addresses redirect, the switch keeps the page, html lang follows', async ({ page }) => {
   await page.goto('#/components/button');
   await expect(page).toHaveURL(/#\/en\/components\/button$/);
@@ -149,3 +165,94 @@ test('atlas cards paint with their own tokens without fetching any study stylesh
   expect(requested.filter((url) => /\/(nakagin|maeusebunker|sesc-pompeia|classifieds)-[\w-]+\.css/.test(url))).toEqual([]);
 });
 
+
+// Every theme of the catalog, with its native scheme (study plan 2: five core + four proof themes).
+const THEME_PAGES: [id: string, native: 'light' | 'dark'][] = [
+  ['classic', 'light'],
+  ['tech', 'dark'],
+  ['swiss', 'light'],
+  ['y2k', 'light'],
+  ['riso', 'light'],
+  ['maeusebunker', 'dark'],
+  ['nakagin', 'light'],
+  ['sesc-pompeia', 'light'],
+  ['classifieds', 'light'],
+];
+
+THEME_PAGES.forEach(([id, native], index) => {
+  const lang = index % 2 ? 'es' : 'en';
+  for (const scheme of [native, native === 'dark' ? 'light' : 'dark']) {
+    test(`theme page ${id} (${lang}, ${scheme}) renders cleanly and passes axe`, async ({ page }) => {
+      const errors: string[] = [];
+      page.on('pageerror', (e) => errors.push(e.message));
+      await page.goto(`?theme=classic&mode=${scheme}#/${lang}/theme/${id}`);
+      await expect(page.locator('.site-themepage h1')).toBeVisible();
+      await page.evaluate(() => document.fonts.ready);
+      const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
+      const summary = results.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(' ')).slice(0, 3).join(' | ')}`);
+      expect(summary, 'axe violations').toEqual([]);
+      expect(errors).toEqual([]);
+    });
+  }
+});
+
+test('theme page: a study theme renders in its own stylesheet, fetched only for it', async ({ page }) => {
+  const requested: string[] = [];
+  page.on('request', (request) => requested.push(request.url()));
+  await page.goto('#/en/atlas');
+  await page.getByRole('link', { name: 'Nakagin' }).click();
+  await expect(page).toHaveURL(/#\/en\/theme\/nakagin$/);
+  await expect(page.locator('main h1')).toHaveText('Nakagin');
+  await expect(page.locator('main [lang="ja"]').first()).toHaveText('中銀カプセルタワービル');
+  const image = page.locator('.site-themepage__figure img');
+  await expect(image).toHaveAttribute('loading', 'lazy');
+  await expect(image).toHaveAttribute('width', /^\d+$/);
+  await expect(image).toHaveAttribute('height', /^\d+$/);
+  const radius = await page.locator('.site-themepage .nbc-button--primary').first().evaluate((el) => getComputedStyle(el).borderTopLeftRadius);
+  expect(radius).toBe('999px');
+  expect(requested.filter((url) => /\/nakagin-[\w-]+\.css/.test(url))).toHaveLength(1);
+  expect(requested.filter((url) => /\/(maeusebunker|sesc-pompeia|classifieds)-[\w-]+\.css/.test(url))).toEqual([]);
+});
+
+test('theme page: use across the site applies the theme and survives a reload', async ({ page }) => {
+  await page.goto('?theme=classic#/en/theme/sesc-pompeia');
+  await page.getByRole('button', { name: 'Use across the site' }).click();
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'sesc-pompeia');
+  await expect(page.getByRole('button', { name: 'In use across the site' })).toBeDisabled();
+  await page.reload();
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'sesc-pompeia');
+});
+
+test('theme page: mode flips a study theme both ways', async ({ page }) => {
+  await page.goto('?theme=classic&mode=dark#/en/theme/nakagin');
+  await expect(page.locator('main h1')).toBeVisible();
+  expect(await page.locator('.site-themepage').evaluate((el) => getComputedStyle(el).backgroundColor)).toBe('rgb(22, 24, 27)');
+  await page.goto('?theme=classic&mode=light#/en/theme/maeusebunker');
+  await expect(page.locator('main h1')).toBeVisible();
+  expect(await page.locator('.site-themepage').evaluate((el) => getComputedStyle(el).backgroundColor)).toBe('rgb(207, 204, 197)');
+});
+
+test('theme page: a long one-word name stays on one line on a desktop', async ({ page }) => {
+  await page.goto('#/en/theme/maeusebunker');
+  const title = page.locator('.site-themepage h1');
+  await expect(title).toHaveText('Mäusebunker');
+  const { height, fontSize } = await title.evaluate((el) => ({
+    height: el.getBoundingClientRect().height,
+    fontSize: parseFloat(getComputedStyle(el).fontSize),
+  }));
+  expect(height).toBeLessThan(fontSize * 1.5);
+});
+
+test('theme page: core themes say they predate the study; unknown ids are not found', async ({ page }) => {
+  await page.goto('#/es/theme/tech');
+  await expect(page.locator('.site-themepage__note')).toHaveText(/^Este tema es anterior al estudio/);
+  await expect(page.getByRole('img', { name: /VT100/ })).toBeVisible();
+  await page.goto('#/en/theme/nope');
+  await expect(page.locator('main h1')).toHaveText('Nothing at this address');
+});
+
+test('theme page: when its data cannot load, it says so instead of loading forever', async ({ page }) => {
+  await page.route(/\/assets\/sesc-pompeia-[\w-]+\.js$/, (route) => route.abort());
+  await page.goto('#/en/theme/sesc-pompeia');
+  await expect(page.getByText('This theme could not load', { exact: false })).toBeVisible();
+});
