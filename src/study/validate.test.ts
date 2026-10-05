@@ -122,3 +122,11 @@ describe('collectThemes reports every stray file under themes/', () => {
     ]);
   });
 });
+
+describe('collectThemes order', () => {
+  it('sorts by code unit, the same on every machine and locale', () => {
+    const theme = (id: string) => ({ default: { ...FIXTURE, id, scene: 'japan' as const } });
+    const { themes } = collectThemes({ './themes/japan/alpha.ts': theme('alpha'), './themes/japan/Zeta.ts': theme('Zeta') }, {});
+    expect(themes.map((t) => t.path)).toEqual(['./themes/japan/Zeta.ts', './themes/japan/alpha.ts']);
+  });
+});

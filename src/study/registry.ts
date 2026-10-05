@@ -13,6 +13,9 @@ const STYLES: ThemeStyles = import.meta.glob<string>('./themes/**/*.css', { eage
 
 const THEME_PATH = /^\.\/themes\/[^/]+\/[^/]+\.ts$/;
 
+/** Plain code-unit order: unlike localeCompare, identical on every machine and locale. */
+const byCodeUnit = (a: string, b: string) => (a < b ? -1 : a > b ? 1 : 0);
+
 export interface RegisteredTheme {
   /** Glob key, e.g. './themes/japan/nakagin.ts'. */
   readonly path: string;
@@ -32,7 +35,7 @@ const isTheme = (value: unknown): value is StudyThemeInput =>
 export function collectThemes(modules: ThemeModules, styles: ThemeStyles): { themes: RegisteredTheme[]; problems: string[] } {
   const problems: string[] = [];
   const themes: RegisteredTheme[] = [];
-  for (const path of Object.keys(modules).sort((a, b) => a.localeCompare(b))) {
+  for (const path of Object.keys(modules).sort(byCodeUnit)) {
     if (!THEME_PATH.test(path)) {
       problems.push(`${path}: theme files live at ./themes/<scene>/<id>.ts — move it or remove it`);
       continue;
@@ -46,7 +49,7 @@ export function collectThemes(modules: ThemeModules, styles: ThemeStyles): { the
     themes.push({ path, theme, signature: key ? styles[key] : undefined });
   }
   const declared = new Set(themes.map(({ path, theme }) => signaturePath(path, theme)));
-  for (const path of Object.keys(styles).sort((a, b) => a.localeCompare(b))) {
+  for (const path of Object.keys(styles).sort(byCodeUnit)) {
     if (!declared.has(path)) problems.push(`${path}: no theme declares this file as its signature`);
   }
   return { themes, problems };
