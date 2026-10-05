@@ -54,22 +54,6 @@ test('production CSS keeps token colors: borders, shadows and page color resolve
   expect(bg).toBe('rgb(231, 230, 225)');
 });
 
-// The Themes page previews the study's proof themes, each in its own island
-// with its own shipped stylesheet (plan 2 moves them to the atlas).
-test('themes page previews the four study themes with their own stylesheets', async ({ page }) => {
-  await page.goto('?theme=classic#/themes');
-  for (const id of ['maeusebunker', 'nakagin', 'sesc-pompeia', 'classifieds']) {
-    await expect(page.locator(`section[aria-labelledby="theme-${id}"]`)).toBeVisible();
-  }
-  const button = page.locator('section[aria-labelledby="theme-nakagin"] .nbc-button--primary').first();
-  const style = await button.evaluate((el) => {
-    const cs = getComputedStyle(el);
-    return { border: cs.borderTopWidth, radius: cs.borderTopLeftRadius };
-  });
-  expect(style).toEqual({ border: '2px', radius: '999px' });
-  await expect(page.locator('section[aria-labelledby="theme-nakagin"] [lang="ja"]')).toHaveText('中銀カプセルタワービル');
-});
-
 test('language routes: legacy addresses redirect, the switch keeps the page, html lang follows', async ({ page }) => {
   await page.goto('#/components/button');
   await expect(page).toHaveURL(/#\/en\/components\/button$/);
@@ -120,3 +104,48 @@ test('a site-wide study theme whose stylesheet cannot load falls back to classic
   await expect(page.locator('main h1')).toHaveText('Components that hold their shape.');
   expect(requested, 'the site tried to load the stylesheet').toBe(true);
 });
+
+test('atlas: every theme as a card; facets and search live in the URL', async ({ page }) => {
+  await page.goto('#/en/atlas');
+  await expect(page.locator('.site-card')).toHaveCount(9);
+  await page.getByLabel('Scene').selectOption('japan');
+  await expect(page).toHaveURL(/#\/en\/atlas\?scene=japan$/);
+  await expect(page.locator('.site-card')).toHaveCount(3);
+  await page.getByLabel('Search').fill('中銀');
+  await expect(page.locator('.site-card')).toHaveCount(1);
+  await expect(page.locator('.site-card h3')).toHaveText('Nakagin');
+  await page.reload();
+  await expect(page.getByLabel('Search')).toHaveValue('中銀');
+  await expect(page.locator('.site-card')).toHaveCount(1);
+  await page.getByRole('button', { name: 'Clear filters' }).click();
+  await expect(page).toHaveURL(/#\/en\/atlas$/);
+  await expect(page.locator('.site-card')).toHaveCount(9);
+});
+
+test('atlas: typing replaces the address instead of stacking history, so Back leaves the atlas', async ({ page }) => {
+  await page.goto('#/en/library');
+  await page.goto('#/en/atlas');
+  await page.getByLabel('Search').pressSequentially('naka');
+  await expect(page).toHaveURL(/#\/en\/atlas\?q=naka$/);
+  await page.goBack();
+  await expect(page).toHaveURL(/#\/en\/library$/);
+});
+
+test('atlas: switching language keeps the filters', async ({ page }) => {
+  await page.goto('#/es/atlas?scene=japan&q=riso');
+  await expect(page.locator('.site-card')).toHaveCount(1);
+  await page.getByRole('link', { name: 'English' }).click();
+  await expect(page).toHaveURL(/#\/en\/atlas\?scene=japan&q=riso$/);
+  await expect(page.locator('.site-card h3')).toHaveText(['Riso']);
+});
+
+test('atlas cards paint with their own tokens without fetching any study stylesheet', async ({ page }) => {
+  const requested: string[] = [];
+  page.on('request', (request) => requested.push(request.url()));
+  await page.goto('#/en/atlas');
+  const card = page.locator('[data-theme="sesc-pompeia"] .site-card');
+  await expect(card).toBeVisible();
+  expect(await card.evaluate((el) => getComputedStyle(el).borderTopColor)).toBe('rgb(27, 26, 25)');
+  expect(requested.filter((url) => /\/(nakagin|maeusebunker|sesc-pompeia|classifieds)-[\w-]+\.css/.test(url))).toEqual([]);
+});
+

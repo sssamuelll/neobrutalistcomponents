@@ -13,7 +13,7 @@ import { useThemeStylesheet } from './study/loader';
 import { Library } from './pages/Library';
 import { ComponentsIndex } from './pages/ComponentsIndex';
 import { ComponentPage } from './pages/ComponentPage';
-import { Themes } from './pages/Themes';
+import { Atlas } from './pages/Atlas';
 import { Blocks } from './pages/Blocks';
 import { Start } from './pages/Start';
 import { Agents } from './pages/Agents';
@@ -21,15 +21,15 @@ import { NotFound } from './pages/NotFound';
 
 export type PageLocation = Extract<Location, { kind: 'page' }>;
 
-function Page({ route }: { route: Route }) {
+function Page({ location }: { location: PageLocation }) {
+  const { route } = location;
   switch (route.name) {
     // Until the study home exists (study plan 2, Task 8) the study route shows the library page.
     case 'study':
     case 'library':
       return <Library />;
-    // Until the atlas exists (Task 5) the atlas route shows the old Themes page.
     case 'atlas':
-      return <Themes />;
+      return <Atlas query={location.query} />;
     case 'components':
       return <ComponentsIndex />;
     case 'component':
@@ -94,7 +94,7 @@ function Site({ location, prefs, update }: { location: PageLocation; prefs: Site
     <LangContext value={lang}>
       <NeoProvider theme={prefs.theme} mode={prefs.mode === 'native' ? undefined : prefs.mode}>
         <Shell location={location} prefs={prefs} onPrefsChange={update}>
-          <Page route={route} />
+          <Page location={location} />
         </Shell>
       </NeoProvider>
     </LangContext>
