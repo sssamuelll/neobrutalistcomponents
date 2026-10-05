@@ -4,8 +4,14 @@
  */
 import type { StudyThemeInput } from './types';
 
-const modules = import.meta.glob<{ default: StudyThemeInput }>('./themes/*/*.ts', { eager: true });
-const signatures = import.meta.glob<string>('./themes/*/*.css', { eager: true, query: '?raw', import: 'default' });
+type ThemeModules = Readonly<Record<string, { readonly default?: unknown }>>;
+type ThemeStyles = Readonly<Record<string, string>>;
+
+// Everything under themes/, at any depth: stray files are reported, never ignored.
+const MODULES: ThemeModules = import.meta.glob<{ default?: unknown }>('./themes/**/*.ts', { eager: true });
+const STYLES: ThemeStyles = import.meta.glob<string>('./themes/**/*.css', { eager: true, query: '?raw', import: 'default' });
+
+const THEME_PATH = /^\.\/themes\/[^/]+\/[^/]+\.ts$/;
 
 export interface RegisteredTheme {
   /** Glob key, e.g. './themes/japan/nakagin.ts'. */
@@ -15,16 +21,46 @@ export interface RegisteredTheme {
   readonly signature?: string;
 }
 
-export const STUDY_THEMES: readonly RegisteredTheme[] = Object.entries(modules)
-  .sort(([a], [b]) => a.localeCompare(b))
-  .map(([path, module]) => {
-    const theme = module.default;
-    const key = theme.signature ? `${path.slice(0, path.lastIndexOf('/'))}/${theme.signature.replace(/^\.\//, '')}` : undefined;
-    return { path, theme, signature: key ? signatures[key] : undefined };
-  });
+/** The glob key a theme's declared signature lives at, next to its file. */
+const signaturePath = (path: string, theme: StudyThemeInput) =>
+  theme.signature ? `${path.slice(0, path.lastIndexOf('/'))}/${theme.signature.replace(/^\.\//, '')}` : undefined;
 
-export function registryProblems(entries: readonly RegisteredTheme[] = STUDY_THEMES): string[] {
+const isTheme = (value: unknown): value is StudyThemeInput =>
+  typeof value === 'object' && value !== null && typeof (value as { id?: unknown }).id === 'string';
+
+/** Sorts glob results into themes, reporting every file that is not a theme or a declared signature. */
+export function collectThemes(modules: ThemeModules, styles: ThemeStyles): { themes: RegisteredTheme[]; problems: string[] } {
   const problems: string[] = [];
+  const themes: RegisteredTheme[] = [];
+  for (const path of Object.keys(modules).sort((a, b) => a.localeCompare(b))) {
+    if (!THEME_PATH.test(path)) {
+      problems.push(`${path}: theme files live at ./themes/<scene>/<id>.ts — move it or remove it`);
+      continue;
+    }
+    const theme = modules[path].default;
+    if (!isTheme(theme)) {
+      problems.push(`${path}: no default export — a theme file must \`export default defineTheme({ … })\``);
+      continue;
+    }
+    const key = signaturePath(path, theme);
+    themes.push({ path, theme, signature: key ? styles[key] : undefined });
+  }
+  const declared = new Set(themes.map(({ path, theme }) => signaturePath(path, theme)));
+  for (const path of Object.keys(styles).sort((a, b) => a.localeCompare(b))) {
+    if (!declared.has(path)) problems.push(`${path}: no theme declares this file as its signature`);
+  }
+  return { themes, problems };
+}
+
+const COLLECTED = collectThemes(MODULES, STYLES);
+
+export const STUDY_THEMES: readonly RegisteredTheme[] = COLLECTED.themes;
+
+export function registryProblems(
+  entries: readonly RegisteredTheme[] = STUDY_THEMES,
+  fileProblems: readonly string[] = COLLECTED.problems,
+): string[] {
+  const problems = [...fileProblems];
   const seen = new Set<string>();
   for (const { path, theme, signature } of entries) {
     const expected = `./themes/${theme.scene}/${theme.id}.ts`;

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { FIXTURE } from './__fixtures__/fixture';
 import { themeProblems } from './validate';
-import { registryProblems } from './registry';
+import { collectThemes, registryProblems } from './registry';
 import type { StudyThemeInput } from './types';
 
 const ref = FIXTURE.reference;
@@ -94,5 +94,31 @@ describe('registryProblems (Review Focus 5)', () => {
     expect(report).toMatch(/\.\/themes\/japan\/fixture\.ts: a theme with id "fixture" and scene "germany" must live at \.\/themes\/germany\/fixture\.ts/);
     expect(report).toMatch(/fixture: duplicate id/);
     expect(report).toMatch(/other: signature \.\/other\.css not found next to the theme file/);
+  });
+});
+
+describe('collectThemes reports every stray file under themes/', () => {
+  it('outside <scene>/<id>.ts, without a default export, or a stylesheet no theme declares', () => {
+    const { themes, problems: report } = collectThemes(
+      {
+        './themes/germany/fixture.ts': { default: FIXTURE },
+        './themes/stray.ts': { default: FIXTURE },
+        './themes/japan/sub/deep.ts': { default: FIXTURE },
+        './themes/japan/helpers.ts': {},
+      },
+      { './themes/germany/orphan.css': '.nbc-card { color: var(--nbc-fg); }' },
+    );
+    expect(themes.map((t) => t.path)).toEqual(['./themes/germany/fixture.ts']);
+    const text = report.join('\n');
+    expect(text).toMatch(/\.\/themes\/stray\.ts: theme files live at \.\/themes\/<scene>\/<id>\.ts/);
+    expect(text).toMatch(/\.\/themes\/japan\/sub\/deep\.ts: theme files live at/);
+    expect(text).toMatch(/\.\/themes\/japan\/helpers\.ts: no default export/);
+    expect(text).toMatch(/\.\/themes\/germany\/orphan\.css: no theme declares this file as its signature/);
+  });
+
+  it('feeds those problems into registryProblems', () => {
+    expect(registryProblems([], ['./themes/stray.ts: theme files live at ./themes/<scene>/<id>.ts'])).toEqual([
+      './themes/stray.ts: theme files live at ./themes/<scene>/<id>.ts',
+    ]);
   });
 });
