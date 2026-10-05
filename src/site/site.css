@@ -708,6 +708,11 @@ body {
   font-weight: 700;
   border: 1px solid color-mix(in srgb, var(--nbc-border-color) 40%, transparent);
 }
+.site-pair--ui > span {
+  inline-size: 18px;
+  block-size: 12px;
+  border: 3px solid;
+}
 @media (max-width: 900px) {
   .site-band__inner,
   .site-band__tables {

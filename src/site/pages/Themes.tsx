@@ -107,9 +107,16 @@ function ThemeBand({ id }: { id: NeoBuiltinTheme }) {
                   return (
                     <tr key={`${pair.fg}-${pair.bg}`}>
                       <th scope="row">
-                        <span className="site-pair" style={{ color: `var(${pair.fg})`, background: `var(${pair.bg})` }}>
-                          Aa
-                        </span>{' '}
+                        {pair.min === 3 ? (
+                          // Non-text pair (control boundary, focus ring): drawn as a ring, not as text.
+                          <span className="site-pair site-pair--ui" style={{ background: `var(${pair.bg})` }} aria-hidden="true">
+                            <span style={{ borderColor: `var(${pair.fg})` }} />
+                          </span>
+                        ) : (
+                          <span className="site-pair" style={{ color: `var(${pair.fg})`, background: `var(${pair.bg})` }}>
+                            Aa
+                          </span>
+                        )}{' '}
                         {pair.why}
                       </th>
                       <td className="site-num">{ratio.toFixed(2)}</td>
