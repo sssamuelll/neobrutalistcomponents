@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { licenseName, startYear, years } from './format';
+import { commonsTitle, licenseName, startYear, years } from './format';
 
 describe('study formatting', () => {
   it('names licences the way their owners write them', () => {
@@ -10,5 +10,12 @@ describe('study formatting', () => {
   it('prints a year or a span, and sorts by the start', () => {
     expect([years(1978), years([1970, 1972])]).toEqual(['1978', '1970–1972']);
     expect([startYear(1978), startYear([1970, 1972])]).toEqual([1978, 1970]);
+  });
+
+  it('reads the file title out of a Commons file page', () => {
+    expect(commonsTitle('https://commons.wikimedia.org/wiki/File:SESC_Pompeia_-_S%C3%A3o_Paulo_-_20220726142122.jpg')).toBe(
+      'SESC Pompeia - São Paulo - 20220726142122.jpg',
+    );
+    expect(commonsTitle('https://commons.wikimedia.org/wiki/File:Broken_%E0%A4%A.jpg')).toBe('Broken %E0%A4%A.jpg');
   });
 });

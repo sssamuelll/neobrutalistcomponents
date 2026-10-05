@@ -18,6 +18,8 @@ import { ThemePage } from './pages/ThemePage';
 import { StudyHome } from './pages/StudyHome';
 import { Scenes } from './pages/Scenes';
 import { ScenePage } from './pages/ScenePage';
+import { Method } from './pages/Method';
+import { Credits } from './pages/Credits';
 import { ENTRIES } from './study/data';
 import { Blocks } from './pages/Blocks';
 import { Start } from './pages/Start';
@@ -37,6 +39,10 @@ function Page({ location }: { location: PageLocation }) {
       return <ScenePage scene={route.scene} />;
     case 'origins':
       return <ScenePage scene="origins" />;
+    case 'method':
+      return <Method />;
+    case 'credits':
+      return <Credits />;
     case 'library':
       return <Library />;
     case 'atlas':

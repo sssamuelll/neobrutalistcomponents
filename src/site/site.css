@@ -1141,6 +1141,20 @@ body {
   box-shadow: var(--nbc-shadow);
 }
 
+.study-nowrap {
+  white-space: nowrap;
+}
+.study-family + .study-family {
+  margin-block-start: var(--nbc-space-2xl);
+}
+.study-family .site-h3 {
+  margin-block-start: var(--nbc-space-xl);
+}
+.study-family__touches {
+  font-size: var(--nbc-fs-sm);
+  color: var(--nbc-fg-muted);
+}
+
 @media (max-width: 900px) {
   .study-hero,
   .study-use {

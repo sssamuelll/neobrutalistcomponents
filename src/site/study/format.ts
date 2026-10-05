@@ -28,3 +28,15 @@ export const startYear = (date: Reference['date']): number => (typeof date === '
 
 /** The page of a scene; Origins has its own. */
 export const sceneHref = (lang: Lang, scene: Scene): string => toHash(lang, scene === 'origins' ? '/origins' : `/scene/${scene}`);
+
+/** 'https://commons.wikimedia.org/wiki/File:SESC_Pompeia_-_S%C3%A3o_Paulo.jpg' → 'SESC Pompeia - São Paulo.jpg'. */
+export function commonsTitle(sourceUrl: string): string {
+  const name = sourceUrl.slice(sourceUrl.lastIndexOf('/') + 1).replace(/^File:/, '');
+  let decoded = name;
+  try {
+    decoded = decodeURIComponent(name);
+  } catch {
+    // A malformed escape: show the title as written.
+  }
+  return decoded.replace(/_/g, ' ');
+}

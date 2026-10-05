@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { NEO_THEMES } from '../src/lib/themes';
 import { SLUGS } from '../src/docs/slugs';
+import { CONTRAST_PAIRS } from '../src/lib/themes/contract';
 
 const ROUTES = ['/', '/components', '/themes', '/blocks', '/start', '/agents', ...SLUGS.map((slug) => `/components/${slug}`)];
 
@@ -289,3 +290,23 @@ test('a study page whose essay cannot load says so instead of staying blank', as
   await expect(page.getByText('This content could not load.', { exact: false })).toBeVisible();
   await expect(page.locator('.study-scenes__card')).toHaveCount(5);
 });
+
+test('method: the essay, the detail families from their own metadata and the contrast contract', async ({ page }) => {
+  await page.goto('#/en/method');
+  await expect(page.locator('main h1')).toHaveText('Method');
+  await expect(page.locator('.study-essay__text h2').first()).toHaveText('One work per theme');
+  await expect(page.locator('.study-family h3')).toHaveText(['concrete', 'grid']);
+  await expect(page.locator('table[aria-labelledby="method-contract"] tbody tr')).toHaveCount(CONTRAST_PAIRS.length);
+});
+
+test('credits: every photograph and every typeface, each with its licence', async ({ page }) => {
+  await page.goto('#/es/credits');
+  await expect(page.locator('main h1')).toHaveText('Créditos');
+  const photographs = page.locator('table[aria-labelledby="credits-photographs"] tbody tr');
+  await expect(photographs).toHaveCount(5);
+  await expect(photographs.filter({ hasText: 'Nakagin' })).toContainText('CC BY-SA 4.0');
+  const fonts = page.locator('table[aria-labelledby="credits-fonts"] tbody tr');
+  await expect(fonts).toHaveCount(18);
+  await expect(fonts.filter({ hasText: 'Geist Mono' })).toContainText('Classic, Tech');
+});
+
