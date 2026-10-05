@@ -28,6 +28,8 @@ const styles = readFileSync(join(ROOT, 'dist/styles.css'), 'utf8');
 check(/@layer nbc\.tokens/.test(styles), 'dist/styles.css has no nbc.tokens layer');
 check(/@layer nbc\.components/.test(styles), 'dist/styles.css has no nbc.components layer');
 check(styles.includes('.nbc-button'), 'dist/styles.css has no .nbc-button rules');
+check(!styles.includes('lightningcss-'), 'dist/styles.css has lowered light-dark() (--lightningcss-* vars): set build.cssTarget');
+check(styles.includes('light-dark('), 'dist/styles.css lost its light-dark() colors');
 check(!/\[data-theme=["']?(classic|tech|swiss|y2k|riso)/.test(styles), 'dist/styles.css contains theme-specific selectors');
 
 for (const theme of themes) {

@@ -1,4 +1,4 @@
-# neobrutalistcomponents v1.0.0 — full reference
+# neobrutalistcomponents v1.0.1 — full reference
 
 > Brutalist React components. Five themes, light and dark, one token contract.
 

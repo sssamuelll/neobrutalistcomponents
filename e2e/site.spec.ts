@@ -36,3 +36,20 @@ for (const theme of NEO_THEMES) {
     }
   });
 }
+
+// Regression: a production CSS build once lowered light-dark() into variables
+// nothing switched on, so every token color was invalid (no borders, white page).
+// axe could not see it; these computed-style checks can.
+test('production CSS keeps token colors: borders, shadows and page color resolve', async ({ page }) => {
+  await page.goto('?theme=classic#/');
+  const button = page.locator('main .nbc-button--primary').first();
+  await expect(button).toBeVisible();
+  const style = await button.evaluate((el) => {
+    const cs = getComputedStyle(el);
+    return { border: cs.borderTopWidth, shadow: cs.boxShadow };
+  });
+  expect(style.border).toBe('3px');
+  expect(style.shadow).not.toBe('none');
+  const bg = await page.evaluate(() => getComputedStyle(document.documentElement).backgroundColor);
+  expect(bg).toBe('rgb(231, 230, 225)');
+});

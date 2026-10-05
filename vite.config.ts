@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { fileURLToPath } from 'node:url';
+import { CSS_TARGET } from './css-target';
 
 // Library build: ESM-only JS bundle + a single dist/styles.css.
 // Type declarations are emitted separately by `tsc -p tsconfig.lib.json`,
@@ -8,6 +9,7 @@ import { fileURLToPath } from 'node:url';
 export default defineConfig({
   plugins: [react()],
   build: {
+    cssTarget: CSS_TARGET,
     lib: {
       entry: fileURLToPath(new URL('./src/lib/entry.ts', import.meta.url)),
       formats: ['es'],

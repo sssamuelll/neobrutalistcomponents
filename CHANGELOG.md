@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.1 — 2026-10-05
+
+### Fixed
+- Production CSS lost every token color: Vite's minifier lowered `light-dark()` into variables that the token-driven `color-scheme` never switched on, so borders, shadows and backgrounds vanished in `dist/styles.css` and on the docs site. CSS is now built for browsers with native `light-dark()` (Chrome/Edge 123, Firefox 128, Safari 17.5); `check-package` and the E2E suite guard against it.
+
 ## 1.0.0 — 2026-10-02
 
 A rebuild for 2026. See [MIGRATION.md](./MIGRATION.md).
