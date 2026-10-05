@@ -77,7 +77,7 @@ export default defineTheme({
     successFg: 'auto',
     warning: '#e8b545',
     warningFg: 'auto',
-    danger: ['#a3271d', '#f07a6a'],
+    danger: ['#a3271d', '#f58a7c'],
     dangerFg: 'auto',
     focus: ['#1a5f9e', '#8cc3ea'],
   },

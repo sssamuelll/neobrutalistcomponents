@@ -9,6 +9,8 @@ import type { Scheme } from '../lib/themes/color';
 
 export const THEME_CSS_BUDGET = 12 * 1024;
 const SCHEMES: readonly Scheme[] = ['light', 'dark'];
+/** Grounds --nbc-texture is painted over: card, dialog and table slabs, footers, the page. */
+const TEXTURED_GROUNDS = ['--nbc-surface-fill', '--nbc-surface', '--nbc-surface-alt', '--nbc-bg'];
 
 export function contractProblems(id: string, compiledTokens: ReadonlyMap<string, string>, css: string): string[] {
   const tokens = compiledTokens as Map<string, string>;
@@ -39,18 +41,17 @@ export function contractProblems(id: string, compiledTokens: ReadonlyMap<string,
       }
     }
     if (tokens.get('--nbc-texture') !== 'none') {
-      // Each ground keeps the text pairs CONTRAST_PAIRS demands of it.
-      const grounds: [string, readonly string[]][] = [
-        ...resolveStops(tokens, '--nbc-surface-fill', scheme).map((c): [string, readonly string[]] => [c, ['--nbc-fg', '--nbc-fg-muted']]),
-        [resolveColor(tokens, '--nbc-surface-alt', scheme), ['--nbc-fg']],
-        [page, ['--nbc-fg', '--nbc-fg-muted']],
-      ];
+      // Every pair the contract demands on a ground the texture is painted over.
       for (const stop of resolveStops(tokens, '--nbc-texture', scheme)) {
-        for (const [ground, inks] of grounds) {
-          const textured = composite(stop, composite(ground, page));
-          for (const ink of inks) {
-            const ratio = contrastRatio(resolveColor(tokens, ink, scheme), textured);
-            if (ratio < 4.5) problems.push(`${id}/${scheme}: ${ink} on texture ${stop} over ${ground} = ${ratio.toFixed(2)} < 4.5`);
+        for (const pair of CONTRAST_PAIRS.filter((p) => TEXTURED_GROUNDS.includes(p.bg))) {
+          const fg = resolveColor(tokens, pair.fg, scheme);
+          for (const ground of resolveStops(tokens, pair.bg, scheme)) {
+            const ratio = contrastRatio(fg, composite(stop, composite(ground, page)));
+            if (ratio < pair.min) {
+              problems.push(
+                `${id}/${scheme}: ${pair.fg} on texture ${stop} over ${pair.bg} ${ground} = ${ratio.toFixed(2)} < ${pair.min} (${pair.why})`,
+              );
+            }
           }
         }
       }

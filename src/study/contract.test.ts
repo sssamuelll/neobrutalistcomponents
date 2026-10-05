@@ -38,6 +38,17 @@ describe('contractProblems', () => {
     expect(contractProblems('fixture', dark, css).join('\n')).toMatch(/--nbc-fg on texture #111111cc/);
   });
 
+  it('checks every CONTRAST_PAIRS pair that sits on a textured ground, error text included', () => {
+    const { tokens, css } = compileTheme(FIXTURE);
+    const textured = new Map(tokens);
+    // #d9381e passes on the plain surface (4.63:1); a 12% ink texture drags it under 4.5.
+    textured.set('--nbc-danger', 'light-dark(#d9381e, #f07a6a)');
+    textured.set('--nbc-texture', 'linear-gradient(#1111111f 1px, transparent 1px) 0 0 / 8px 8px');
+    expect(contractProblems('fixture', textured, css).join('\n')).toMatch(
+      /fixture\/light: --nbc-danger on texture #1111111f over --nbc-surface #ffffff = 3\.\d\d < 4\.5 \(error messages\)/,
+    );
+  });
+
   it('reports a stylesheet over budget', () => {
     const { tokens, css } = compileTheme(FIXTURE);
     const padded = `${css}/*${'x'.repeat(THEME_CSS_BUDGET)}*/`;
