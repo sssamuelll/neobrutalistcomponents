@@ -22,6 +22,15 @@ describe('study registry', () => {
   });
 });
 
+/** The proof themes of sub-project 1. Each proof-theme task adds its id. */
+const PROOF_THEMES = ['classifieds'];
+
+describe('proof themes', () => {
+  it('are all in the registry', () => {
+    expect(STUDY_THEMES.map(({ theme }) => theme.id).sort()).toEqual([...PROOF_THEMES].sort());
+  });
+});
+
 for (const { theme, signature } of STUDY_THEMES) {
   describe(`study theme "${theme.id}"`, () => {
     it('passes validation: id, bilingual text, sources, markers, image credit', () => {
