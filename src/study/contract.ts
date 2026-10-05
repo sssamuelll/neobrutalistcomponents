@@ -4,7 +4,7 @@
  * texture over every ground, and the size budget.
  */
 import { COLOR_TOKENS, CONTRAST_PAIRS, REQUIRED_TOKENS } from '../lib/themes/contract';
-import { composite, contrastRatio, resolveColor, resolveStops } from '../lib/themes/color';
+import { composite, contrastRatio, parseThemeTokens, resolveColor, resolveStops } from '../lib/themes/color';
 import type { Scheme } from '../lib/themes/color';
 
 export const THEME_CSS_BUDGET = 12 * 1024;
@@ -55,6 +55,11 @@ export function contractProblems(id: string, compiledTokens: ReadonlyMap<string,
         }
       }
     }
+  }
+
+  const parsed = parseThemeTokens(css, id);
+  if (parsed.size !== tokens.size || [...tokens].some(([name, value]) => parsed.get(name) !== value)) {
+    problems.push(`${id}: theme CSS does not parse back to its tokens — a value broke the stylesheet`);
   }
 
   const bytes = new TextEncoder().encode(css).length;

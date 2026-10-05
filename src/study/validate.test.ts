@@ -46,6 +46,29 @@ describe('themeProblems', () => {
   });
 });
 
+describe('themeProblems checks every value that is written into the CSS', () => {
+  it.each([
+    [{ motion: { duration: 120, durationSlow: 220, ease: 'cubic-bezier(0.2, 0.9, 0.3, 1' } }, /motion\.ease/],
+    [{ type: { ...FIXTURE.type, labelSpacing: '0.1em } body { display: none' } }, /type\.labelSpacing/],
+    [{ type: { ...FIXTURE.type, weightBody: 1200 } }, /type\.weightBody/],
+    [{ type: { ...FIXTURE.type, displayStretch: 'wide' } }, /type\.displayStretch/],
+    [{ shape: { ...FIXTURE.shape, borderWidth: -2 } }, /shape\.borderWidth/],
+    [{ shape: { ...FIXTURE.shape, radiusButton: 1.5 } }, /shape\.radiusButton/],
+    [{ elevation: { ...FIXTURE.elevation, shadow: '4px 4px 0 var(--nbc-fg); color: red' } }, /elevation\.shadow/],
+    [{ elevation: { ...FIXTURE.elevation, press: -3 } }, /elevation\.press/],
+    [{ focus: { width: 0, offset: 2 } }, /focus\.width/],
+    [{ motion: { duration: -1, durationSlow: 220, ease: 'linear' } }, /motion\.duration/],
+  ])('rejects %o', (patch, message) => {
+    expect(problems(patch as Partial<StudyThemeInput>)).toMatch(message);
+  });
+
+  it('accepts the values the proof themes use', () => {
+    expect(themeProblems({ ...FIXTURE, motion: { duration: 0, durationSlow: 0, ease: 'linear' } })).toEqual([]);
+    expect(themeProblems({ ...FIXTURE, type: { ...FIXTURE.type, labelSpacing: '0.06em', displaySpacing: '-0.03em' } })).toEqual([]);
+    expect(themeProblems({ ...FIXTURE, type: { ...FIXTURE.type, labelSpacing: '0em', displayStretch: '87.5%' } })).toEqual([]);
+  });
+});
+
 describe('registryProblems (Review Focus 5)', () => {
   it('reports a theme outside themes/<scene>/<id>.ts, duplicates and missing signatures', () => {
     const entries = [

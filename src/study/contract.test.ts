@@ -39,9 +39,16 @@ describe('contractProblems', () => {
   });
 
   it('reports a stylesheet over budget', () => {
-    const { tokens } = compileTheme(FIXTURE);
-    expect(contractProblems('fixture', tokens, 'x'.repeat(THEME_CSS_BUDGET + 1))).toEqual([
-      `fixture: theme CSS is ${THEME_CSS_BUDGET + 1} bytes, the budget is ${THEME_CSS_BUDGET}`,
+    const { tokens, css } = compileTheme(FIXTURE);
+    const padded = `${css}/*${'x'.repeat(THEME_CSS_BUDGET)}*/`;
+    const bytes = new TextEncoder().encode(padded).length;
+    expect(contractProblems('fixture', tokens, padded)).toEqual([
+      `fixture: theme CSS is ${bytes} bytes, the budget is ${THEME_CSS_BUDGET}`,
     ]);
+  });
+
+  it('reports a stylesheet that does not parse back to its tokens', () => {
+    const { tokens, css } = compileTheme({ ...FIXTURE, type: { ...FIXTURE.type, labelSpacing: '0.1em } body { display: none' } });
+    expect(contractProblems('fixture', tokens, css).join('\n')).toMatch(/does not parse back to its tokens/);
   });
 });

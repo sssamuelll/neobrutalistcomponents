@@ -4,7 +4,7 @@
  */
 import { NEO_THEMES } from '../lib/themes';
 import { FONTS } from './fonts';
-import { IMAGE_LICENSES, LANGS, PALETTE_ORIGINS, REFERENCE_KINDS, SCENES, THEME_SCENES } from './types';
+import { IMAGE_LICENSES, LANGS, PALETTE_ORIGINS, REFERENCE_KINDS, SCENES, SHADOW_KINDS, THEME_SCENES } from './types';
 import type { CoreFicha, Ficha, L10n, Reference, StudyThemeInput } from './types';
 
 export const ID_PATTERN = /^[a-z][a-z0-9-]{1,31}$/;
@@ -84,6 +84,75 @@ export function fichaProblems(ficha: Ficha, sourceCount: number, where: string):
   return problems;
 }
 
+const SPACING = /^(normal|0|-?(\d+(\.\d+)?|\.\d+)(em|rem|px))$/;
+const STRETCH = /^\d+(\.\d+)?%$/;
+const EASE =
+  /^(linear|ease|ease-in|ease-out|ease-in-out|step-start|step-end|cubic-bezier\(\s*-?[\d.]+\s*(,\s*-?[\d.]+\s*){3}\)|steps\(\s*\d+\s*(,\s*(jump-start|jump-end|jump-none|jump-both|start|end)\s*)?\))$/;
+const TRANSFORMS = ['none', 'uppercase', 'lowercase'];
+const BORDER_STYLES = ['solid', 'dashed', 'double'];
+
+/** A value written verbatim into the stylesheet: no declaration or block breakers, balanced parentheses. */
+function isSingleValue(value: string): boolean {
+  if (/[;{}]/.test(value)) return false;
+  let depth = 0;
+  for (const ch of value) {
+    if (ch === '(') depth += 1;
+    else if (ch === ')' && --depth < 0) return false;
+  }
+  return depth === 0;
+}
+
+/** Every number and string the compiler writes into the CSS, checked for range and shape. */
+function valueProblems(theme: StudyThemeInput): string[] {
+  const { id, type, shape, elevation, focus, motion, fills } = theme;
+  const problems: string[] = [];
+  const number = (value: number, where: string, min: number, max: number, integer = false) => {
+    if (!(Number.isFinite(value) && value >= min && value <= max && (!integer || Number.isInteger(value)))) {
+      problems.push(`${id}.${where}: ${value} must be ${integer ? 'an integer' : 'a number'} within ${min}..${max}`);
+    }
+  };
+  number(type.weightBody, 'type.weightBody', 1, 1000, true);
+  number(type.weightLabel, 'type.weightLabel', 1, 1000, true);
+  number(type.weightDisplay, 'type.weightDisplay', 1, 1000, true);
+  for (const key of ['labelSpacing', 'displaySpacing'] as const) {
+    const value = type[key];
+    if (value !== undefined && !SPACING.test(value)) problems.push(`${id}.type.${key}: "${value}" must be normal, 0 or a length in em, rem or px`);
+  }
+  for (const key of ['labelTransform', 'displayTransform'] as const) {
+    const value = type[key];
+    if (value !== undefined && !TRANSFORMS.includes(value)) problems.push(`${id}.type.${key}: "${value}" must be one of ${TRANSFORMS.join(', ')}`);
+  }
+  if (type.displayStretch !== undefined && !STRETCH.test(type.displayStretch)) {
+    problems.push(`${id}.type.displayStretch: "${type.displayStretch}" must be a percentage`);
+  }
+  number(shape.borderWidth, 'shape.borderWidth', 0, 12, true);
+  for (const key of ['radius', 'radiusControl', 'radiusButton', 'radiusSmall'] as const) number(shape[key], `shape.${key}`, 0, 999, true);
+  if (shape.borderStyle !== undefined && !BORDER_STYLES.includes(shape.borderStyle)) {
+    problems.push(`${id}.shape.borderStyle: "${shape.borderStyle}" must be one of ${BORDER_STYLES.join(', ')}`);
+  }
+  if (!(SHADOW_KINDS as readonly string[]).includes(elevation.kind)) problems.push(`${id}.elevation.kind: unknown "${elevation.kind}"`);
+  for (const key of ['shadow', 'shadowLg', 'shadowPress'] as const) {
+    if (!isSingleValue(elevation[key])) problems.push(`${id}.elevation.${key}: "${elevation[key]}" is not a single CSS value`);
+  }
+  number(elevation.press, 'elevation.press', 0, 24);
+  number(elevation.pressActive, 'elevation.pressActive', 0, 24);
+  if (elevation.rotate !== undefined) number(elevation.rotate, 'elevation.rotate', -15, 15);
+  if (focus) {
+    number(focus.width, 'focus.width', 1, 8);
+    number(focus.offset, 'focus.offset', 0, 8);
+  }
+  if (motion) {
+    number(motion.duration, 'motion.duration', 0, 5000);
+    number(motion.durationSlow, 'motion.durationSlow', 0, 5000);
+    if (!EASE.test(motion.ease)) problems.push(`${id}.motion.ease: "${motion.ease}" must be an easing keyword, cubic-bezier() or steps()`);
+  }
+  for (const key of ['primary', 'danger', 'surface'] as const) {
+    const fill = fills?.[key];
+    if (fill !== undefined && !isSingleValue(fill)) problems.push(`${id}.fills.${key}: "${fill}" is not a single CSS value`);
+  }
+  return problems;
+}
+
 export function themeProblems(theme: StudyThemeInput): string[] {
   const { id } = theme;
   const problems: string[] = [];
@@ -100,6 +169,7 @@ export function themeProblems(theme: StudyThemeInput): string[] {
       if (key !== undefined && !(key in FONTS)) problems.push(`${id}: unknown font "${key}"`);
     }
   }
+  problems.push(...valueProblems(theme));
   return problems;
 }
 
