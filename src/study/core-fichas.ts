@@ -76,8 +76,8 @@ export const CORE_FICHAS: Record<NeoBuiltinTheme, CoreFicha> = {
     },
     ficha: {
       documented: {
-        es: 'Neue Grafik fue una revista trilingüe, en alemán, inglés y francés, editada por Josef Müller-Brockmann, Richard Paul Lohse, Hans Neuburg y Carlo Vivarelli; publicó 18 números entre 1958 y 1965 [1][3]. Lars Müller Publishers, que la reeditó en facsímil en 2014, la llama la plataforma programática del diseño gráfico suizo [1]. La portada solo tipográfica de Vivarelli componía la cabecera y el número en Akzidenz-Grotesk Medium [2].',
-        en: 'Neue Grafik was a trilingual journal, in German, English and French, edited by Josef Müller-Brockmann, Richard Paul Lohse, Hans Neuburg and Carlo Vivarelli; it ran to 18 issues between 1958 and 1965 [1][3]. Lars Müller Publishers, which reprinted it in facsimile in 2014, calls it the programmatic platform of Swiss graphic design [1]. Vivarelli’s all-type cover set the masthead and issue number in Akzidenz-Grotesk Medium [2].',
+        es: 'Neue Grafik fue una revista trilingüe, en alemán, inglés y francés, editada por Josef Müller-Brockmann, Richard Paul Lohse, Hans Neuburg y Carlo Vivarelli; publicó 18 números entre 1958 y 1965 [1][3]. Lars Müller Publishers, que la reeditó en facsímil en 2014, la presenta como el vehículo con el que el diseño gráfico suizo expuso su programa [1]. La portada solo tipográfica de Vivarelli componía la cabecera y el número en Akzidenz-Grotesk Medium [2].',
+        en: 'Neue Grafik was a trilingual journal, in German, English and French, edited by Josef Müller-Brockmann, Richard Paul Lohse, Hans Neuburg and Carlo Vivarelli; it ran to 18 issues between 1958 and 1965 [1][3]. Lars Müller Publishers, which reprinted it in facsimile in 2014, presents it as the vehicle through which Swiss graphic design set out its programme [1]. Vivarelli’s all-type cover set the masthead and issue number in Akzidenz-Grotesk Medium [2].',
       },
       reading: {
         es: 'Este tema es anterior al estudio; Neue Grafik es su referencia más cercana. Tipografía negra sobre blanco, una sola familia grotesca, filetes finos y una retícula estricta dejan que mande el contenido; el rojo oscuro es del tema, porque la revista era en blanco y negro [2].',
@@ -109,6 +109,7 @@ export const CORE_FICHAS: Record<NeoBuiltinTheme, CoreFicha> = {
         { title: 'Digital VT100 User Guide: Installation, Interface Information and Specifications', url: 'https://vt100.net/docs/vt100-ug/chapter2.html', publisher: 'Digital Equipment Corporation (VT100.net)', accessed: '2026-10-05' },
         { title: 'Digital VT100 User Guide: Operator Information', url: 'https://vt100.net/docs/vt100-ug/chapter1.html', publisher: 'Digital Equipment Corporation (VT100.net)', accessed: '2026-10-05' },
         { title: 'Phosphors', url: 'https://www.rp-photonics.com/phosphors.html', publisher: 'RP Photonics Encyclopedia', accessed: '2026-10-05' },
+        { title: 'Digital VT100 User Guide: Programmer Information', url: 'https://vt100.net/docs/vt100-ug/chapter3.html', publisher: 'Digital Equipment Corporation (VT100.net)', accessed: '2026-10-05' },
       ],
       image: {
         file: 'vt100.avif',
@@ -126,8 +127,8 @@ export const CORE_FICHAS: Record<NeoBuiltinTheme, CoreFicha> = {
         en: 'Digital Equipment Corporation introduced the VT100 in 1978 [1][2]. Its 12-inch screen used P4 phosphor and showed 24 lines of 80 characters, light characters on a dark background or the reverse [3][4]. It was one of the first terminals to support ANSI escape codes, and DEC sold more than six million VT-series terminals, largely thanks to it [2].',
       },
       reading: {
-        es: 'Este tema es anterior al estudio; el VT100 es su referencia más cercana. La tipografía monoespaciada, la retícula fija y unos atributos limitados a negrita, subrayado e inverso vienen del terminal. El verde fósforo no: el P4 es el fósforo blanco de la televisión en blanco y negro, así que el verde del tema es una interpretación [3][5].',
-        en: 'This theme predates the study; the VT100 is its closest reference. Monospace type, a fixed grid and attributes limited to bold, underline and reverse come from the terminal. The phosphor green does not: P4 is the white phosphor of black-and-white television, so the theme’s green is an interpretation [3][5].',
+        es: 'Este tema es anterior al estudio; el VT100 es su referencia más cercana. La tipografía monoespaciada y la retícula fija vienen del terminal, igual que sus atributos de carácter: negrita, subrayado y vídeo inverso, que el tema conserva, y parpadeo, que descarta [6]. El verde fósforo no: el P4 es el fósforo blanco de la televisión en blanco y negro, así que el verde del tema es una interpretación [3][5].',
+        en: 'This theme predates the study; the VT100 is its closest reference. Monospace type and a fixed grid come from the terminal, and so do its character attributes: bold, underline and reverse video, which the theme keeps, and blink, which it drops [6]. The phosphor green does not: P4 is the white phosphor of black-and-white television, so the theme’s green is an interpretation [3][5].',
       },
       palette: {
         origin: 'interpreted',
