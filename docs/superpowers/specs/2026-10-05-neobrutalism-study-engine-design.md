@@ -306,7 +306,7 @@ Plan 1 of 2 (`docs/superpowers/plans/2026-10-05-neobrutalism-study-engine.md`), 
 
 - **System fonts are spelled `'system-sans'` or `'system-serif'`** (D5 said `'system'`): `classifieds` needs the serif stack of 1990s browsers (Times, Courier), so "system" alone was ambiguous.
 - **Families expose `texture()`, not `fills()`** (D3): fills were never needed; the only thing a family paints behind text is `--nbc-texture`. `concrete` also pours the texture behind the theme root (`:scope`) and card footers, `grid` into card footers — the places core CSS leaves untextured.
-- **The texture check uses the contract's own pairs per ground**: surface-fill (fg, fg-muted), surface-alt (fg), bg (fg, fg-muted). The first draft demanded fg-muted on surface-alt too, which the contract never asks for; it failed a sound palette (`maeusebunker`, dark).
+- **The texture check applies every `CONTRAST_PAIRS` pair whose ground the texture covers** (surface fill, surface, surface-alt, page), error text and the 3:1 border and focus pairs included. A first draft hand-listed fg/fg-muted per ground; the final review showed it skipped error text, which sat at 4.49:1 on `maeusebunker`'s dark speckle — its dark danger went from `#f07a6a` to `#f58a7c` (5.13:1).
 - **The 12 KB budget is measured on the shipped file.** Study theme files are not minified, like the core ones; the four proof themes ship at 2.4–3.4 KB.
 - **The flourish lint is stricter than the core themes' own CSS**: no padding anywhere outside `::before`/`::after` (riso's card titles use `padding-inline`; study families may not).
 - **`CoreFicha` carries a bilingual `tagline`** whose `en` must equal `THEME_INFO[id].tagline`; the catalog needs Spanish taglines for the core themes too.
@@ -317,3 +317,13 @@ Plan 1 of 2 (`docs/superpowers/plans/2026-10-05-neobrutalism-study-engine.md`), 
 - **`classifieds`** sets its inks explicitly (white on link blue, black on the dark scheme's light blue) instead of `'auto'`, to keep the documented look.
 - **Open design question for curation**: in `sesc-pompeia`, primary (Lina's red) and danger are both red and differ only in value (`#b81d17` vs `#8f1d14`; dark `#ff6a5c` vs `#ff9a8c`). Contrast passes, but a destructive button reads close to a primary one.
 - **Package**: `npm pack` lists 72 files, 104.9 kB packed, 433.7 kB unpacked; no `src/study` path (no images, no fichas).
+- **Hardening from the final review** (each with a test that failed first):
+  - Family and signature CSS may declare only `--fx-*` custom properties (no redeclared tokens, no component sizing vars like `--_h`); `var()` fallbacks are scanned for colours; `@keyframes` frames are linted; `url()`, `image-set()` and other image functions are rejected; `zoom`, `box-sizing` and `all` count as geometry; quoted strings are not read as colours.
+  - Keyframes are renamed only in their prelude (quoted names too) and in `animation` / `animation-name` values, never in properties or functions of the same name.
+  - `themeProblems` checks every number and string the compiler writes (ranges, spacing and easing syntax, single-value shadows and fills), and the contract fails any stylesheet that does not parse back to exactly its tokens — for every real theme.
+  - Fills may not contain named colours, colour functions or images, so every stop stays checkable.
+  - The registry globs `themes/**` and reports stray files, modules without a default export and undeclared stylesheets; it orders by code unit, not by locale.
+  - Family and parameter names are checked as own keys (`Object.hasOwn`), and a family listed twice is an error.
+  - Ficha wording: `maeusebunker` (only titles use the condensed face), `tech` (the VT100 also blinked; the manual chapter is now cited), and possible quotes from Lars Müller, MoMA, Wired and Dialectic paraphrased. A regression test retires the flagged phrases.
+- **`dist/study.js` is written by `build-study.mjs`** rather than built as a second library entry (D6): same ESM module and declarations for consumers, one fewer build step.
+
