@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { fileURLToPath } from 'node:url';
-import { CSS_TARGET } from './css-target';
+import { CSS_TARGET } from './css-target.ts';
 
 // Library build: ESM-only JS bundle + a single dist/styles.css.
 // Type declarations are emitted separately by `tsc -p tsconfig.lib.json`,

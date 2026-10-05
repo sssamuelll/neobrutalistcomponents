@@ -6,7 +6,7 @@ import { NEO_THEMES } from '../lib/themes';
 import { FONTS } from './fonts';
 import { hasImage, hasUnresolvableColor } from './lint';
 import { IMAGE_LICENSES, LANGS, PALETTE_ORIGINS, REFERENCE_KINDS, SCENES, SHADOW_KINDS, THEME_SCENES } from './types';
-import type { CoreFicha, Ficha, L10n, Reference, StudyThemeInput } from './types';
+import type { CoreFicha, Ficha, L10n, Reference, Source, StudyThemeInput } from './types';
 
 export const ID_PATTERN = /^[a-z][a-z0-9-]{1,31}$/;
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
@@ -22,19 +22,11 @@ export function markers(text: string): number[] {
   return [...text.matchAll(/\[(\d+)\]/g)].map((m) => Number(m[1]));
 }
 
-export function referenceProblems(ref: Reference, where: string): string[] {
-  const problems = [...l10nProblems(ref.title, `${where}.title`), ...l10nProblems(ref.place, `${where}.place`)];
-  if (ref.original && (!ref.original.text.trim() || !BCP47.test(ref.original.lang))) {
-    problems.push(`${where}.original: needs text and a BCP 47 lang`);
-  }
-  if (!REFERENCE_KINDS.includes(ref.kind)) problems.push(`${where}.kind: unknown "${ref.kind}"`);
-  const [from, to] = typeof ref.date === 'number' ? [ref.date, ref.date] : ref.date;
-  if (!(Number.isInteger(from) && Number.isInteger(to) && from >= 1800 && to <= 2100 && from <= to)) {
-    problems.push(`${where}.date: ${JSON.stringify(ref.date)} is not a year or an ordered range`);
-  }
-  if (ref.sources.length < 2) problems.push(`${where}.sources: needs at least 2, has ${ref.sources.length}`);
+/** Checks every source (https, title, ISO access date) and that at least one is not on wikipedia.org. */
+export function sourceProblems(sources: readonly Source[], where: string): string[] {
+  const problems: string[] = [];
   let independent = 0;
-  ref.sources.forEach((source, i) => {
+  sources.forEach((source, i) => {
     const at = `${where}.sources[${i + 1}]`;
     try {
       const url = new URL(source.url);
@@ -46,9 +38,24 @@ export function referenceProblems(ref: Reference, where: string): string[] {
     if (!source.title.trim()) problems.push(`${at}: empty title`);
     if (!ISO_DATE.test(source.accessed)) problems.push(`${at}: accessed must be YYYY-MM-DD`);
   });
-  if (ref.sources.length >= 2 && independent === 0) {
+  if (sources.length > 0 && independent === 0) {
     problems.push(`${where}.sources: at least one source must not be on wikipedia.org`);
   }
+  return problems;
+}
+
+export function referenceProblems(ref: Reference, where: string): string[] {
+  const problems = [...l10nProblems(ref.title, `${where}.title`), ...l10nProblems(ref.place, `${where}.place`)];
+  if (ref.original && (!ref.original.text.trim() || !BCP47.test(ref.original.lang))) {
+    problems.push(`${where}.original: needs text and a BCP 47 lang`);
+  }
+  if (!REFERENCE_KINDS.includes(ref.kind)) problems.push(`${where}.kind: unknown "${ref.kind}"`);
+  const [from, to] = typeof ref.date === 'number' ? [ref.date, ref.date] : ref.date;
+  if (!(Number.isInteger(from) && Number.isInteger(to) && from >= 1800 && to <= 2100 && from <= to)) {
+    problems.push(`${where}.date: ${JSON.stringify(ref.date)} is not a year or an ordered range`);
+  }
+  if (ref.sources.length < 2) problems.push(`${where}.sources: needs at least 2, has ${ref.sources.length}`);
+  problems.push(...sourceProblems(ref.sources, where));
   if (ref.image) {
     const image = ref.image;
     if (!IMAGE_LICENSES.includes(image.license)) problems.push(`${where}.image: license "${image.license}" is not allowed`);
