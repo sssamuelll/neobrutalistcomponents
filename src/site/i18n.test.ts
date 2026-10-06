@@ -47,4 +47,19 @@ describe('site dictionary', () => {
     expect([themeCount('es', 1), themeCount('es', 9), themeCount('en', 1), themeCount('en', 9)]).toEqual(['1 tema', '9 temas', '1 theme', '9 themes']);
     expect([decadeLabel('es', 1970), decadeLabel('en', 1990)]).toEqual(['Años 70', '1990s']);
   });
+
+  it('names every decade from the 1950s to the 2020s; from 2000 the Spanish label keeps the full year', () => {
+    const decades = [1950, 1960, 1970, 1980, 1990, 2000, 2010, 2020];
+    expect(decades.map((decade) => decadeLabel('es', decade))).toEqual([
+      'Años 50',
+      'Años 60',
+      'Años 70',
+      'Años 80',
+      'Años 90',
+      'Años 2000',
+      'Años 2010',
+      'Años 2020',
+    ]);
+    expect(decades.map((decade) => decadeLabel('en', decade))).toEqual(['1950s', '1960s', '1970s', '1980s', '1990s', '2000s', '2010s', '2020s']);
+  });
 });
