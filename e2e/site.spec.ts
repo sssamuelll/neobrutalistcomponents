@@ -317,9 +317,26 @@ test('credits: every photograph and every typeface, each with its licence', asyn
   expect(requested.filter((url) => /\/assets\/(nakagin|maeusebunker|sesc-pompeia|classifieds|core-fichas)-[\w-]+\.js$/.test(url))).toEqual([]);
 });
 
-// The study's main pages in both languages, at desktop width and on a phone:
-// they render, pass axe, log no errors and never scroll sideways.
-const MAIN_PAGES = ['/', '/scenes', '/scene/japan', '/scene/germany', '/scene/usa', '/scene/latam', '/origins', '/atlas', '/method', '/credits', '/library'];
+// The study's main pages and the library's, in both languages, at desktop
+// width and on a phone: they render, pass axe, log no errors and never scroll
+// sideways.
+const MAIN_PAGES = [
+  '/',
+  '/scenes',
+  '/scene/japan',
+  '/scene/germany',
+  '/scene/usa',
+  '/scene/latam',
+  '/origins',
+  '/atlas',
+  '/method',
+  '/credits',
+  '/library',
+  '/components',
+  '/blocks',
+  '/start',
+  '/agents',
+];
 for (const width of [1280, 360]) {
   test.describe(`main pages at ${width}px`, () => {
     test.use({ viewport: { width, height: 900 } });
