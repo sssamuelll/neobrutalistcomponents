@@ -31,7 +31,7 @@ export function ThemeSwitcher({ prefs, onChange }: Props) {
             type="button"
             className="site-swatch"
             aria-pressed={prefs.theme === id}
-            title={`${THEME_INFO[id].name} — ${THEME_INFO[id].tagline}`}
+            title={`${THEME_INFO[id].name} — ${ENTRIES.get(id)?.tagline[lang] ?? THEME_INFO[id].tagline}`}
             onClick={() => onChange({ theme: id })}
           >
             <span className="site-swatch__chip" aria-hidden="true">
