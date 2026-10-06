@@ -48,12 +48,14 @@ Every theme ships a full light **and** dark scheme. Leave `mode` unset for the n
 
 The site is also a study of neobrutalism in interfaces, in Spanish and English: [the study](https://sssamuelll.github.io/neobrutalistcomponents/#/en/) follows the style from *béton brut* to today's product design through four scenes — Japan, Germany, the United States and Latin America — and their origins. Each study theme reads one documented work, and its page cites the sources.
 
+<!-- study-themes:start -->
 | Theme | Reads | Scene | Native scheme |
 | --- | --- | --- | --- |
-| `nakagin` | Nakagin Capsule Tower, Kisho Kurokawa, Tokyo, 1970–1972 | Japan | light |
-| `maeusebunker` | Mäusebunker, Gerd and Magdalena Hänska with Kurt Schmersow, Berlin, 1971–1982 | Germany | dark |
-| `sesc-pompeia` | SESC Pompéia, Lina Bo Bardi with André Vainer and Marcelo Carvalho Ferraz, São Paulo, 1977–1986 | Latin America | light |
-| `classifieds` | craigslist, Craig Newmark, San Francisco, 1995 | United States | light |
+| `maeusebunker` | Mäusebunker (former Central Animal Laboratories of the Free University of Berlin; Zentrale Tierlaboratorien der Freien Universität Berlin), Gerd Hänska, Magdalena Hänska, Kurt Schmersow, Lichterfelde, Berlin, Germany, 1971–1982 | Germany | dark |
+| `nakagin` | Nakagin Capsule Tower (中銀カプセルタワービル), Kisho Kurokawa, Ginza, Tokyo, Japan, 1970–1972 | Japan | light |
+| `sesc-pompeia` | SESC Pompéia (Centro de Lazer Fábrica da Pompéia), Lina Bo Bardi, André Vainer, Marcelo Carvalho Ferraz, Pompeia, São Paulo, Brazil, 1977–1986 | Latin America | light |
+| `classifieds` | craigslist (classified-ads website), Craig Newmark, San Francisco, United States, 1995 | United States | light |
+<!-- study-themes:end -->
 
 Study themes are used exactly like the core ones:
 

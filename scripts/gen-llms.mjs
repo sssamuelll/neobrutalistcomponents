@@ -2,10 +2,11 @@
 // (src/docs/meta/*.ts), the shared guide (src/docs/guide.ts), the theme
 // registry, the study catalog (src/study/.generated/catalog.ts, written by
 // build-study.mjs) and the live example sources, and rewrites the study-themes
-// table of skills/neobrutalist-ui/SKILL.md. Output is deterministic: the same
-// sources always produce byte-identical files (CI checks for a clean diff).
+// tables of skills/neobrutalist-ui/SKILL.md and README.md. Output is
+// deterministic: the same sources always produce byte-identical files (CI
+// checks for a clean diff).
 //
-//   node scripts/gen-llms.mjs          → public/ and the skill
+//   node scripts/gen-llms.mjs          → public/, the skill and the README
 //   node scripts/gen-llms.mjs --dist   → also copies into dist/ (npm package)
 import { runnerImport } from 'vite';
 import { readFileSync, writeFileSync, mkdirSync, copyFileSync } from 'node:fs';
@@ -223,22 +224,23 @@ mkdirSync(out, { recursive: true });
 writeFileSync(join(out, 'llms.txt'), index);
 writeFileSync(join(out, 'llms-full.txt'), full.replace(/\n{3,}/g, '\n\n').trimEnd() + '\n');
 
-// The skill's study-themes table, between its markers.
-const SKILL = join(ROOT, 'skills/neobrutalist-ui/SKILL.md');
+// The study-themes tables of the skill and the README, between their markers.
 const START = '<!-- study-themes:start -->';
 const END = '<!-- study-themes:end -->';
-const skill = readFileSync(SKILL, 'utf8');
-const [from, to] = [skill.indexOf(START), skill.indexOf(END)];
-if (from < 0 || to < from) throw new Error(`gen-llms: ${START} … ${END} not found in SKILL.md`);
-const studyTable = table(
-  ['Theme', 'Reference', 'Scene', 'Native scheme'],
-  study.map((entry) => [`\`${entry.id}\``, reference(entry), scene(entry), entry.nativeScheme]),
-);
-writeFileSync(SKILL, `${skill.slice(0, from + START.length)}\n${studyTable}\n${skill.slice(to)}`);
+const writeBetweenMarkers = (path, content) => {
+  const file = join(ROOT, path);
+  const text = readFileSync(file, 'utf8');
+  const [from, to] = [text.indexOf(START), text.indexOf(END)];
+  if (from < 0 || to < from) throw new Error(`gen-llms: ${START} … ${END} not found in ${path}`);
+  writeFileSync(file, `${text.slice(0, from + START.length)}\n${content}\n${text.slice(to)}`);
+};
+const studyRows = study.map((entry) => [`\`${entry.id}\``, reference(entry), scene(entry), entry.nativeScheme]);
+writeBetweenMarkers('skills/neobrutalist-ui/SKILL.md', table(['Theme', 'Reference', 'Scene', 'Native scheme'], studyRows));
+writeBetweenMarkers('README.md', table(['Theme', 'Reads', 'Scene', 'Native scheme'], studyRows));
 
 if (process.argv.includes('--dist')) {
   mkdirSync(join(ROOT, 'dist'), { recursive: true });
   copyFileSync(join(out, 'llms.txt'), join(ROOT, 'dist/llms.txt'));
   copyFileSync(join(out, 'llms-full.txt'), join(ROOT, 'dist/llms-full.txt'));
 }
-console.log(`gen-llms: ${COMPONENTS.length} components, ${study.length} study themes → public/llms.txt, public/llms-full.txt, SKILL.md`);
+console.log(`gen-llms: ${COMPONENTS.length} components, ${study.length} study themes → public/llms.txt, public/llms-full.txt, SKILL.md, README.md`);

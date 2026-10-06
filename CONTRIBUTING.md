@@ -44,7 +44,7 @@ skills/neobrutalist-ui/     # agent skill shipped in the package
 ```bash
 npm run check   # lint + typecheck + unit tests + build + package check
 npm run e2e     # Playwright + axe (installs nothing; run `npx playwright install chromium` once)
-npm run gen:llms  # regenerate public/llms*.txt after changing metadata or examples
+npm run gen:llms  # regenerate public/llms*.txt and the study tables of SKILL.md and README.md after changing metadata, examples or study themes
 ```
 
 ## Testing expectations
