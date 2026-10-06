@@ -1,7 +1,15 @@
 import { describe, expect, it } from 'vitest';
-import { commonsTitle, licenseName, startYear, years } from './format';
+import { aroundOriginal, commonsTitle, licenseName, startYear, years } from './format';
 
 describe('study formatting', () => {
+  it('puts a reference’s original title in a parenthesis, inside the one its title may already end with', () => {
+    expect(aroundOriginal('Nakagin Capsule Tower')).toEqual({ before: 'Nakagin Capsule Tower (', after: ')' });
+    expect(aroundOriginal('Mäusebunker (former Central Animal Laboratories of the Free University of Berlin)')).toEqual({
+      before: 'Mäusebunker (former Central Animal Laboratories of the Free University of Berlin; ',
+      after: ')',
+    });
+  });
+
   it('names licences the way their owners write them', () => {
     expect([licenseName('CC-BY-SA-4.0', 'en'), licenseName('CC-BY-2.0', 'es'), licenseName('CC0-1.0', 'en')]).toEqual(['CC BY-SA 4.0', 'CC BY 2.0', 'CC0']);
     expect([licenseName('PD', 'es'), licenseName('PD', 'en')]).toEqual(['dominio público', 'public domain']);

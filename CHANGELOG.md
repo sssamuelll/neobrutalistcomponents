@@ -3,7 +3,7 @@
 ## Unreleased
 
 ### Fixed
-- `llms.txt`, `llms-full.txt` and the skill no longer wrap a reference's original title in a second parenthesis: "Mäusebunker (former Central Animal Laboratories of the Free University of Berlin; Zentrale Tierlaboratorien der Freien Universität Berlin)".
+- Theme pages, `llms.txt`, `llms-full.txt` and the skill no longer wrap a reference's original title in a second parenthesis: "Mäusebunker (former Central Animal Laboratories of the Free University of Berlin; Zentrale Tierlaboratorien der Freien Universität Berlin)".
 - The README's study table is generated from the catalog, like the skill's, and CI checks it for drift.
 - Docs site: a theme page downloads its stylesheet once; the token tables read the theme's data chunk instead of a second copy of the stylesheet.
 - Docs site: the Start page no longer scrolls sideways on a 360 px phone. The phone sweep now covers the components index, Blocks, Start and Agents, in both languages.

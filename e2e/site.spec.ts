@@ -269,6 +269,13 @@ test('theme page: a long one-word name stays on one line on a desktop', async ({
   expect(height).toBeLessThan(fontSize * 1.5);
 });
 
+test('theme page: a reference title that ends in a parenthesis takes its original inside it', async ({ page }) => {
+  await page.goto('#/es/theme/maeusebunker');
+  const reference = page.locator('.site-band__facts dd').first();
+  await expect(reference.locator('span[lang="de"]')).toHaveText('Zentrale Tierlaboratorien der Freien Universität Berlin');
+  await expect(reference).not.toContainText(') (');
+});
+
 test('theme page: core themes say they predate the study; unknown ids are not found', async ({ page }) => {
   await page.goto('#/es/theme/tech');
   await expect(page.locator('.site-themepage__note')).toHaveText(/^Este tema es anterior al estudio/);
