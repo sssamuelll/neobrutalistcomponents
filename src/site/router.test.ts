@@ -15,14 +15,25 @@ describe('parseHash', () => {
   });
 
   it('redirects legacy addresses, keeping their path, into the fallback language', () => {
-    expect(parseHash('', 'es')).toEqual({ kind: 'redirect', to: '#/es/' });
-    expect(parseHash('#/', 'en')).toEqual({ kind: 'redirect', to: '#/en/' });
-    expect(parseHash('#/components/button', 'en')).toEqual({ kind: 'redirect', to: '#/en/components/button' });
-    expect(parseHash('#/start', 'es')).toEqual({ kind: 'redirect', to: '#/es/start' });
+    expect(parseHash('', 'es')).toMatchObject({ kind: 'redirect', to: '#/es/' });
+    expect(parseHash('#/', 'en')).toMatchObject({ kind: 'redirect', to: '#/en/' });
+    expect(parseHash('#/components/button', 'en')).toMatchObject({ kind: 'redirect', to: '#/en/components/button' });
+    expect(parseHash('#/start', 'es')).toMatchObject({ kind: 'redirect', to: '#/es/start' });
+  });
+
+  it('a legacy address carries the page it points to, so it can render at once', () => {
+    const location = parseHash('#/components/button?ref=llms', 'es');
+    expect(location).toMatchObject({
+      kind: 'redirect',
+      to: '#/es/components/button?ref=llms',
+      page: { kind: 'page', lang: 'es', route: { name: 'component', slug: 'button' }, path: '/components/button' },
+    });
+    expect(location.kind === 'redirect' && location.page.query.get('ref')).toBe('llms');
+    expect(location.kind === 'redirect' && location.page).toEqual(parseHash('#/es/components/button?ref=llms', 'en'));
   });
 
   it('sends the old Themes page to the atlas', () => {
-    expect(parseHash('#/themes', 'es')).toEqual({ kind: 'redirect', to: '#/es/atlas' });
+    expect(parseHash('#/themes', 'es')).toMatchObject({ kind: 'redirect', to: '#/es/atlas', page: { route: { name: 'atlas' } } });
   });
 });
 

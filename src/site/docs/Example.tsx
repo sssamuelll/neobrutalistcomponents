@@ -1,8 +1,26 @@
-import { useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
+import type { RefObject } from 'react';
 import { Button } from 'neobrutalistcomponents';
 import { Code2 } from 'lucide-react';
+import { useLang } from '../i18n';
+import { parseHash } from '../router';
 import { CodeBlock } from './CodeBlock';
 import type { Source } from './registry';
+
+/**
+ * Example code links to the site's pages without a language (`#/start`), the
+ * way it is meant to be pasted. On the site each of those links carries the
+ * reader's language, so following it never goes through a redirect.
+ */
+function useLinksInLanguage(stage: RefObject<HTMLElement | null>) {
+  const lang = useLang();
+  useLayoutEffect(() => {
+    for (const link of stage.current?.querySelectorAll('a[href^="#/"]') ?? []) {
+      const location = parseHash(link.getAttribute('href') ?? '', lang);
+      if (location.kind === 'redirect') link.setAttribute('href', location.to);
+    }
+  });
+}
 
 interface ExampleProps {
   title: string;
@@ -15,6 +33,8 @@ interface ExampleProps {
 
 export function Example({ title, description, source, bleed, id }: ExampleProps) {
   const [showCode, setShowCode] = useState(false);
+  const stage = useRef<HTMLDivElement>(null);
+  useLinksInLanguage(stage);
   const { Component, code } = source;
   return (
     <section className="site-example" aria-labelledby={id ? `${id}-title` : undefined} id={id}>
@@ -35,7 +55,7 @@ export function Example({ title, description, source, bleed, id }: ExampleProps)
           {showCode ? 'Hide code' : 'Show code'}
         </Button>
       </header>
-      <div className={bleed ? 'site-example__stage site-example__stage--bleed' : 'site-example__stage'}>
+      <div ref={stage} className={bleed ? 'site-example__stage site-example__stage--bleed' : 'site-example__stage'}>
         <Component />
       </div>
       {showCode && <CodeBlock code={code} label="TSX" />}

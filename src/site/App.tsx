@@ -135,14 +135,14 @@ export function App() {
   const location = useMemo(() => parseHash(hash, detectLang()), [hash]);
   const ctx = useMemo(() => ({ prefs, update }), [prefs, update]);
 
+  // A legacy address shows the page it points to at once; this only fixes the address bar.
   useEffect(() => {
     if (location.kind === 'redirect') replaceHash(location.to);
   }, [location]);
 
-  if (location.kind === 'redirect') return null;
   return (
     <SitePrefsContext value={ctx}>
-      <Site location={location} prefs={prefs} update={update} />
+      <Site location={location.kind === 'page' ? location : location.page} prefs={prefs} update={update} />
     </SitePrefsContext>
   );
 }

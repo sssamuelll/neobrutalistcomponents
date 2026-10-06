@@ -35,6 +35,23 @@ describe('App', () => {
     expect(document.title).toBe('card — neobrutalistcomponents');
   });
 
+  it('shows the page a legacy address points to at once, never a blank frame, while it fixes the address', () => {
+    vi.spyOn(window, 'scrollTo').mockImplementation(() => undefined);
+    localStorage.setItem('nbc-site-lang', 'es');
+    replaceHash('#/start');
+    // The redirect replaces the hash after the first commit: what is on screen then is the frame a visitor sees.
+    let onScreen: string | undefined;
+    const record = () => {
+      onScreen ??= document.querySelector('main h1')?.textContent ?? '(blank)';
+    };
+    window.addEventListener('hashchange', record);
+    render(<App />);
+    window.removeEventListener('hashchange', record);
+    expect(window.location.hash).toBe('#/es/start');
+    expect(onScreen).toBe('Get started');
+    expect(screen.getByRole('heading', { level: 1, name: 'Get started' })).toBeInTheDocument();
+  });
+
   it('keeps the atlas where it is while its search changes the query', () => {
     const scrollTo = vi.spyOn(window, 'scrollTo').mockImplementation(() => undefined);
     replaceHash('#/en/atlas');
