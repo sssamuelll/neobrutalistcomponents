@@ -217,6 +217,29 @@ test('theme page: a study theme renders in its own stylesheet, fetched only for 
   expect(requested.filter((url) => /\/(maeusebunker|sesc-pompeia|classifieds)-[\w-]+\.css/.test(url))).toEqual([]);
 });
 
+test('theme page: the theme’s stylesheet is downloaded once; its token tables read data the page already has', async ({ page }) => {
+  // Every response that carries Nakagin's token block, whatever its type: the
+  // <link>'s CSS, or a JS chunk holding the same stylesheet as text.
+  const carriers: Promise<string | null>[] = [];
+  page.on('response', (response) => {
+    carriers.push(
+      response.text().then(
+        (body) => (/\[data-theme=["']?nakagin["']?\]\s*\{/.test(body) ? new URL(response.url()).pathname : null),
+        () => null,
+      ),
+    );
+  });
+  await page.goto('?theme=classic&mode=light#/en/theme/nakagin');
+  const tokens = page.getByRole('table', { name: 'Color tokens, light scheme' });
+  await expect(tokens.getByRole('row', { name: /--nbc-bg\b/ })).toContainText('#d9d8d3');
+  // An ink the compiler picks itself ('auto'): the light ink on the dark primary.
+  await expect(tokens.getByRole('row', { name: /--nbc-primary-fg\b/ })).toContainText('#ecebe6');
+  await page.waitForLoadState('networkidle');
+  const sheets = (await Promise.all(carriers)).filter((path) => path !== null);
+  expect(sheets, 'downloads of the theme’s stylesheet').toHaveLength(1);
+  expect(sheets[0]).toMatch(/\/nakagin-[\w-]+\.css$/);
+});
+
 test('theme page: use across the site applies the theme and survives a reload', async ({ page }) => {
   await page.goto('?theme=classic#/en/theme/sesc-pompeia');
   await page.getByRole('button', { name: 'Use across the site' }).click();
