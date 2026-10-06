@@ -28,16 +28,16 @@ export function TokenTables({ tokens, scheme }: { tokens: Map<string, string>; s
             </tr>
           </thead>
           <tbody>
-            {COLOR_TOKENS.map((t) => (
-              <tr key={t}>
+            {COLOR_TOKENS.map((token) => (
+              <tr key={token}>
                 <th scope="row">
-                  <code>{t}</code>
+                  <code>{token}</code>
                 </th>
                 <td>
-                  <span className="site-swatch-cell" style={{ background: `var(${t})` }} />
+                  <span className="site-swatch-cell" style={{ background: `var(${token})` }} />
                 </td>
                 <td>
-                  <code>{resolveColor(tokens, t, scheme)}</code>
+                  <code>{resolveColor(tokens, token, scheme)}</code>
                 </td>
               </tr>
             ))}
