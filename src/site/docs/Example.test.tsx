@@ -36,6 +36,23 @@ describe('Example', () => {
     expect(screen.getAllByRole('link').map((link) => link.getAttribute('href'))).toEqual(['#/es/projects/acme-relaunch', '#/es/projects/atlas-api']);
   });
 
+  it('follows a language switch: a link already in one language moves to the new one', () => {
+    const source = getExample('Button', 'AsLink');
+    if (!source) throw new Error('missing example');
+    const { rerender } = render(
+      <LangContext value="es">
+        <Example title="Example" source={source} />
+      </LangContext>,
+    );
+    expect(screen.getByRole('link', { name: 'Read the setup guide' })).toHaveAttribute('href', '#/es/start');
+    rerender(
+      <LangContext value="en">
+        <Example title="Example" source={source} />
+      </LangContext>,
+    );
+    expect(screen.getByRole('link', { name: 'Read the setup guide' })).toHaveAttribute('href', '#/en/start');
+  });
+
   it('keeps the code as it is meant to be pasted: without a language', async () => {
     const { container } = show('es', getExample('Button', 'AsLink'));
     await userEvent.click(screen.getByRole('button', { name: 'Show code' }));

@@ -10,14 +10,22 @@ import type { Source } from './registry';
 /**
  * Example code links to the site's pages without a language (`#/start`), the
  * way it is meant to be pasted. On the site each of those links carries the
- * reader's language, so following it never goes through a redirect.
+ * reader's language, so following it never goes through a redirect. React
+ * leaves the attribute alone while its prop is unchanged, so after a language
+ * switch the link is rebuilt from the address the example wrote, remembered on
+ * the element, unless the example has since changed it.
  */
 function useLinksInLanguage(stage: RefObject<HTMLElement | null>) {
   const lang = useLang();
   useLayoutEffect(() => {
-    for (const link of stage.current?.querySelectorAll('a[href^="#/"]') ?? []) {
-      const location = parseHash(link.getAttribute('href') ?? '', lang);
-      if (location.kind === 'redirect') link.setAttribute('href', location.to);
+    for (const link of stage.current?.querySelectorAll<HTMLAnchorElement>('a[href^="#/"]') ?? []) {
+      const href = link.getAttribute('href') ?? '';
+      const written = href === link.dataset.siteHref ? (link.dataset.sourceHref ?? href) : href;
+      const location = parseHash(written, lang);
+      if (location.kind !== 'redirect') continue;
+      link.dataset.sourceHref = written;
+      link.dataset.siteHref = location.to;
+      link.setAttribute('href', location.to);
     }
   });
 }
