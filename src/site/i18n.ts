@@ -181,6 +181,10 @@ export const UI = {
   colSource: { es: 'Fuente', en: 'Source' },
   colFamily: { es: 'Familia', en: 'Family' },
   colUsedBy: { es: 'La usan', en: 'Used by' },
+  fontsUnavailable: {
+    es: 'No se pueden listar las tipografías: a una le falta la licencia.',
+    en: 'The typefaces cannot be listed: one has no licence on record.',
+  },
 
   // Not found
   notFoundTitle: { es: 'Nada en esta dirección', en: 'Nothing at this address' },
