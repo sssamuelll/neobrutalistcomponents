@@ -132,7 +132,7 @@ test('atlas: every theme as a card; facets and search live in the URL', async ({
   await expect(page.locator('.site-card')).toHaveCount(3);
   await page.getByLabel('Search').fill('中銀');
   await expect(page.locator('.site-card')).toHaveCount(1);
-  await expect(page.locator('.site-card h3')).toHaveText('Nakagin');
+  await expect(page.locator('.site-card h2')).toHaveText('Nakagin');
   await page.reload();
   await expect(page.getByLabel('Search')).toHaveValue('中銀');
   await expect(page.locator('.site-card')).toHaveCount(1);
@@ -155,7 +155,7 @@ test('atlas: switching language keeps the filters', async ({ page }) => {
   await expect(page.locator('.site-card')).toHaveCount(1);
   await page.getByRole('link', { name: 'English' }).click();
   await expect(page).toHaveURL(/#\/en\/atlas\?scene=japan&q=riso$/);
-  await expect(page.locator('.site-card h3')).toHaveText(['Riso']);
+  await expect(page.locator('.site-card h2')).toHaveText(['Riso']);
 });
 
 test('atlas cards paint with their own tokens without fetching any study stylesheet', async ({ page }) => {
@@ -318,8 +318,8 @@ test('credits: every photograph and every typeface, each with its licence', asyn
 });
 
 // The study's main pages and the library's, in both languages, at desktop
-// width and on a phone: they render, pass axe, log no errors and never scroll
-// sideways.
+// width and on a phone: they render, pass axe (heading order included: no
+// level skipped), log no errors and never scroll sideways.
 const MAIN_PAGES = [
   '/',
   '/scenes',
@@ -350,7 +350,10 @@ for (const width of [1280, 360]) {
           await expect(page.locator('html')).toHaveAttribute('lang', lang);
           await expect(page.locator('main [aria-busy="true"], main [role="status"]')).toHaveCount(0);
           await page.evaluate(() => document.fonts.ready);
-          const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
+          const results = await new AxeBuilder({ page })
+            .options({ rules: { 'heading-order': { enabled: true } } })
+            .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
+            .analyze();
           const summary = results.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(' ')).slice(0, 3).join(' | ')}`);
           expect(summary, 'axe violations').toEqual([]);
           expect(errors).toEqual([]);

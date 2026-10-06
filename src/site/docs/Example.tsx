@@ -29,9 +29,11 @@ interface ExampleProps {
   /** Wide previews (blocks) drop the inner padding. */
   bleed?: boolean;
   id?: string;
+  /** The title's level in the page outline: h3 under a component page's "Examples", h2 right under a page's h1 (Blocks). */
+  heading?: 'h2' | 'h3';
 }
 
-export function Example({ title, description, source, bleed, id }: ExampleProps) {
+export function Example({ title, description, source, bleed, id, heading: Heading = 'h3' }: ExampleProps) {
   const [showCode, setShowCode] = useState(false);
   const stage = useRef<HTMLDivElement>(null);
   useLinksInLanguage(stage);
@@ -40,9 +42,9 @@ export function Example({ title, description, source, bleed, id }: ExampleProps)
     <section className="site-example" aria-labelledby={id ? `${id}-title` : undefined} id={id}>
       <header className="site-example__head">
         <div>
-          <h3 className="site-example__title" id={id ? `${id}-title` : undefined}>
+          <Heading className="site-example__title" id={id ? `${id}-title` : undefined}>
             {title}
-          </h3>
+          </Heading>
           {description && <p className="site-example__desc">{description}</p>}
         </div>
         <Button
