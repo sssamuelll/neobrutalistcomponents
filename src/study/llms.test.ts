@@ -14,7 +14,8 @@ describe('agent docs carry the study catalog', () => {
   it('llms.txt links every study theme page with its reference, in the language-prefixed routes', () => {
     for (const entry of study) {
       expect(llms).toContain(`/#/en/theme/${entry.id})`);
-      expect(llms).toContain(entry.reference.title.en);
+      // Without its closing parenthesis: a title's parenthesis may enclose its original title too.
+      expect(llms).toContain(entry.reference.title.en.replace(/\)$/, ''));
     }
     expect(llms).toContain('/#/en/components/button)');
     expect(llms).not.toMatch(/\/#\/(?!en\/)/);
@@ -29,5 +30,16 @@ describe('agent docs carry the study catalog', () => {
   it('the skill gains a generated table of the study themes', () => {
     const section = skill.slice(skill.indexOf('<!-- study-themes:start -->'), skill.indexOf('<!-- study-themes:end -->'));
     for (const entry of study) expect(section).toContain(`| \`${entry.id}\` |`);
+  });
+
+  it('names a reference with its original title, never in a second parenthesis', () => {
+    for (const [name, text] of [['llms.txt', llms], ['llms-full.txt', full], ['SKILL.md', skill]]) {
+      expect(text, name).not.toMatch(/\) \(/);
+      // A title that already ends in a parenthesis takes the original inside it.
+      expect(text, name).toContain(
+        'Mäusebunker (former Central Animal Laboratories of the Free University of Berlin; Zentrale Tierlaboratorien der Freien Universität Berlin)',
+      );
+      expect(text, name).toContain('Nakagin Capsule Tower (中銀カプセルタワービル)');
+    }
   });
 });

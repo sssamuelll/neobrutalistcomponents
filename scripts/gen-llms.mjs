@@ -40,8 +40,13 @@ const groups = [...new Set(COMPONENTS.map((c) => c.group))];
 // The study's own themes (the five core themes are listed from THEME_INFO).
 const study = CATALOG.filter((entry) => !entry.predatesStudy);
 const years = (date) => (typeof date === 'number' ? String(date) : `${date[0]}–${date[1]}`);
-const reference = ({ reference: r }) =>
-  [`${r.title.en}${r.original ? ` (${r.original.text})` : ''}`, r.authors.join(', '), r.place.en, years(r.date)].filter(Boolean).join(', ');
+// 'Title (original)'. A title that already ends in a parenthesis takes the
+// original inside it — 'Mäusebunker (former …; Zentrale …)' — never a second one.
+const titled = ({ title, original }) => {
+  if (!original) return title.en;
+  return title.en.endsWith(')') ? `${title.en.slice(0, -1)}; ${original.text})` : `${title.en} (${original.text})`;
+};
+const reference = ({ reference: r }) => [titled(r), r.authors.join(', '), r.place.en, years(r.date)].filter(Boolean).join(', ');
 const scene = (entry) => SCENE_TEXT[entry.scene].name.en;
 const stylesheets = (entry) => `\`themes/${entry.id}.css\`, \`themes/${entry.id}.fonts.css\``;
 
