@@ -255,10 +255,12 @@ test('theme page: core themes say they predate the study; unknown ids are not fo
 });
 
 
-test('theme page: when its data cannot load, it says so instead of loading forever', async ({ page }) => {
+test('theme page: when its data cannot load, it says so in an alert and links back to the atlas in its language', async ({ page }) => {
   await page.route(/\/assets\/sesc-pompeia-[\w-]+\.js$/, (route) => route.abort());
-  await page.goto('#/en/theme/sesc-pompeia');
-  await expect(page.getByText('This theme could not load', { exact: false })).toBeVisible();
+  await page.goto('#/es/theme/sesc-pompeia');
+  await expect(page.getByRole('alert')).toContainText('No se pudo cargar este tema.');
+  await page.getByRole('link', { name: 'Volver al atlas' }).click();
+  await expect(page).toHaveURL(/#\/es\/atlas$/);
 });
 
 test('study home: the thesis, a tile per theme, the essay with its sources and the scenes', async ({ page }) => {
@@ -290,7 +292,7 @@ test('scenes: an index, then each scene lists its references in date order with 
 test('a study page whose essay cannot load says so instead of staying blank', async ({ page }) => {
   await page.route(/\/assets\/en-[\w-]+\.js$/, (route) => route.abort());
   await page.goto('#/en/');
-  await expect(page.getByText('This content could not load.', { exact: false })).toBeVisible();
+  await expect(page.getByRole('alert')).toContainText('This content could not load.');
   await expect(page.locator('.study-scenes__card')).toHaveCount(5);
 });
 

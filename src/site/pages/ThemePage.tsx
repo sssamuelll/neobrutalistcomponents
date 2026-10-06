@@ -146,7 +146,18 @@ function ThemeView({ entry }: { entry: CatalogEntry }) {
   const data = useThemeDetail(entry);
   const inUse = prefs.theme === entry.id;
 
-  if (status === 'error' || data.status === 'error') return <p className="site-page site-lead">{t('themeLoadError')}</p>;
+  if (status === 'error' || data.status === 'error') {
+    return (
+      <div className="site-page">
+        <p className="site-lead" role="alert">
+          {t('themeLoadError')}
+        </p>
+        <p className="site-p">
+          <a href={toHash(lang, '/atlas')}>{t('backToAtlas')}</a>
+        </p>
+      </div>
+    );
+  }
   if (status !== 'ready' || data.status !== 'ready') {
     return (
       <p className="site-page site-lead" role="status">
