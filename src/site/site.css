@@ -1431,3 +1431,107 @@ body {
     scroll-padding-block-start: 16px;
   }
 }
+
+/* ============================================================
+   Gallery timeline (Home)
+   ============================================================ */
+
+.gallery-hero {
+  min-block-size: 85vh;
+}
+
+.gallery-collection {
+  margin-block-start: 15vh;
+  padding-block-end: 20vh;
+}
+
+.gallery-collection__intro {
+  margin-block-end: 15vh;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gallery-chronology {
+  display: flex;
+  flex-direction: column;
+}
+
+.gallery-work {
+  min-block-size: 100vh;
+  display: flex;
+  align-items: center;
+  padding-block: var(--nbc-space-3xl);
+  border-block-end: 1px solid var(--nbc-border-color);
+}
+.gallery-work:last-child {
+  border-block-end: none;
+}
+
+.gallery-work__inner {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: clamp(40px, 8vw, 100px);
+  align-items: center;
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .gallery-work__inner {
+    grid-template-columns: 1fr;
+    gap: var(--nbc-space-2xl);
+  }
+}
+
+.gallery-work__meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-block-end: var(--nbc-space-xl);
+  border-block-end: 2px solid var(--nbc-fg);
+  padding-block-end: var(--nbc-space-xs);
+}
+
+.gallery-work__num {
+  font-family: var(--nbc-font-mono);
+  font-weight: bold;
+  font-size: var(--nbc-fs-sm);
+}
+
+.gallery-work__year {
+  font-family: var(--nbc-font-display);
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: var(--nbc-weight-display);
+  letter-spacing: var(--nbc-display-spacing);
+  line-height: 1;
+}
+
+.gallery-work__title {
+  margin-block: 0 var(--nbc-space-md) !important;
+  font-size: clamp(28px, 4vw, 48px) !important;
+}
+
+.gallery-work__title a {
+  text-decoration: none;
+}
+.gallery-work__title a:hover {
+  text-decoration: underline;
+}
+
+.gallery-work__tagline {
+  margin-block-end: var(--nbc-space-2xl) !important;
+  font-size: clamp(18px, 2vw, 22px) !important;
+  color: var(--nbc-fg-muted);
+}
+
+.gallery-work__facts {
+  margin-block-end: var(--nbc-space-2xl) !important;
+}
+
+.gallery-work__actions {
+  display: flex;
+  gap: var(--nbc-space-md);
+}
+
+
