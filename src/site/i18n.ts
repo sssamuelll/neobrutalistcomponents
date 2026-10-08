@@ -11,9 +11,9 @@ export const UI = {
   skip: { es: 'Saltar al contenido', en: 'Skip to content' },
   brandHome: { es: 'neobrutalistcomponents, inicio', en: 'neobrutalistcomponents home' },
   navPrimary: { es: 'Principal', en: 'Primary' },
-  navStudy: { es: 'Estudio', en: 'Study' },
-  navScenes: { es: 'Escenas', en: 'Scenes' },
-  navAtlas: { es: 'Atlas', en: 'Atlas' },
+  navStudy: { es: 'Galería', en: 'Gallery' },
+  navScenes: { es: 'Salas', en: 'Rooms' },
+  navAtlas: { es: 'Archivo', en: 'Archive' },
   navLibrary: { es: 'Librería', en: 'Library' },
   navComponents: { es: 'Componentes', en: 'Components' },
   /** Link text of the language switch: the other language's own name. */
@@ -40,9 +40,9 @@ export const UI = {
   moreThemes: { es: 'Más temas', en: 'More themes' },
 
   // Page titles
-  titleStudy: { es: 'El estudio', en: 'The study' },
-  titleScenes: { es: 'Escenas', en: 'Scenes' },
-  titleAtlas: { es: 'Atlas', en: 'Atlas' },
+  titleStudy: { es: 'La Galería', en: 'The Gallery' },
+  titleScenes: { es: 'Salas', en: 'Rooms' },
+  titleAtlas: { es: 'Archivo', en: 'Archive' },
   titleOrigins: { es: 'Orígenes', en: 'Origins' },
   titleMethod: { es: 'Método', en: 'Method' },
   titleCredits: { es: 'Créditos', en: 'Credits' },
@@ -54,12 +54,12 @@ export const UI = {
   titleNotFound: { es: 'No encontrado', en: 'Not found' },
 
   // Study home
-  studyTitle: { es: 'El neobrutalismo en las interfaces', en: 'Neobrutalism in interfaces' },
+  studyTitle: { es: 'La Galería de las Interfaces', en: 'The UI Gallery' },
   studyLead: {
-    es: 'Un estudio en cuatro escenas —Japón, Alemania, Estados Unidos y Latinoamérica— y en sus orígenes. Cada tema del atlas lee una obra documentada y cita sus fuentes.',
-    en: 'A study in four scenes — Japan, Germany, the United States and Latin America — and in their origins. Each theme in the atlas reads one documented work and cites its sources.',
+    es: 'Un museo de la historia gráfica del software, con el neobrutalismo como sala principal. Cada obra es un tema vivo: los mismos componentes, pintados con el lenguaje de su época.',
+    en: 'A museum of the graphic history of software, with neobrutalism as its main room. Every work is a living theme: the same components, painted in the language of their era.',
   },
-  scenesHeading: { es: 'Escenas', en: 'Scenes' },
+  scenesHeading: { es: 'Salas', en: 'Rooms' },
   openAtlas: { es: 'Abrir el atlas', en: 'Open the atlas' },
   readMethod: { es: 'Cómo se hace un tema', en: 'How a theme is made' },
   mosaicLabel: { es: 'Los temas del estudio', en: 'The themes of the study' },
@@ -72,6 +72,40 @@ export const UI = {
     es: 'Un tema del estudio es un tema más de la librería: importa su hoja de estilos y pasa su id a NeoProvider. Los temas del estudio llegan con la versión 1.1.0.',
     en: 'A study theme is one more library theme: import its stylesheet and pass its id to NeoProvider. Study themes ship with version 1.1.0.',
   },
+
+  // Gallery (home)
+  galleryKicker: { es: 'Exposición permanente', en: 'Permanent exhibition' },
+  galleryVisit: { es: 'Recorrer la colección', en: 'Walk the collection' },
+  galleryWall: { es: 'El muro de la colección', en: 'The collection wall' },
+  galleryGoTo: { es: 'Ir a la obra', en: 'Go to the work' },
+  collectionHeading: { es: 'La colección', en: 'The collection' },
+  collectionLead: {
+    es: 'En orden cronológico. Todas las obras están hechas con los mismos componentes y la misma geometría; lo único que cambia es la época.',
+    en: 'In chronological order. Every work is built from the same components and the same geometry; the only thing that changes is the era.',
+  },
+  chronology: { es: 'Cronología', en: 'Chronology' },
+  workNo: { es: 'Obra', en: 'Work' },
+  mediumLabel: { es: 'Técnica', en: 'Medium' },
+  mediumValue: { es: 'Componentes React sobre propiedades de CSS', en: 'React components on CSS custom properties' },
+  roomLabel: { es: 'Sala', en: 'Room' },
+  fullRecord: { es: 'Ver la ficha completa', en: 'See the full record' },
+  pieceLabel: { es: 'Pieza interactiva', en: 'Interactive piece' },
+  mainRoom: { es: 'Sala principal: el neobrutalismo', en: 'Main room: neobrutalism' },
+
+  // The interactive piece every work is painted on
+  pieceWindow: { es: 'Ajustes de la cuenta', en: 'Account settings' },
+  pieceTabs: { es: 'Secciones', en: 'Sections' },
+  pieceProfile: { es: 'Perfil', en: 'Profile' },
+  pieceAlerts: { es: 'Avisos', en: 'Alerts' },
+  pieceName: { es: 'Nombre', en: 'Name' },
+  pieceOffline: { es: 'Trabajar sin conexión', en: 'Work offline' },
+  pieceRemember: { es: 'Recordar este equipo', en: 'Remember this computer' },
+  pieceSync: { es: 'Sincronizando', en: 'Syncing' },
+  pieceSaved: { es: 'Copia guardada', en: 'Backup saved' },
+  pieceSavedBody: { es: 'Tus cambios están a salvo.', en: 'Your changes are safe.' },
+  pieceNew: { es: 'Nuevo', en: 'New' },
+  pieceCancel: { es: 'Cancelar', en: 'Cancel' },
+  pieceSave: { es: 'Guardar', en: 'Save' },
 
   // Scenes and scene pages
   scenesLead: {

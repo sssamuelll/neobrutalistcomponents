@@ -1,0 +1,36 @@
+/* Windows 95: four edge tones instead of a border. Light from the top left
+   (surface-alt, then surface), shade at the bottom right (border, then
+   fg-muted); pressed, the tones swap and the control sinks. This file is
+   compiled into @layer nbc.flourish, which already wins over the component
+   layer, so nothing here needs !important. */
+.nbc-button,
+.nbc-card {
+  border-color: transparent;
+  box-shadow:
+    inset 1px 1px 0 0 var(--nbc-surface-alt),
+    inset -1px -1px 0 0 var(--nbc-border-color),
+    inset 2px 2px 0 0 var(--nbc-surface),
+    inset -2px -2px 0 0 var(--nbc-fg-muted);
+  transform: none;
+}
+
+.nbc-button:active,
+.nbc-button[data-state='open'] {
+  box-shadow:
+    inset 1px 1px 0 0 var(--nbc-border-color),
+    inset -1px -1px 0 0 var(--nbc-surface-alt),
+    inset 2px 2px 0 0 var(--nbc-fg-muted),
+    inset -2px -2px 0 0 var(--nbc-surface);
+  transform: none;
+}
+
+.nbc-input,
+.nbc-textarea,
+.nbc-select {
+  border-color: transparent;
+  box-shadow:
+    inset 1px 1px 0 0 var(--nbc-fg-muted),
+    inset -1px -1px 0 0 var(--nbc-surface-alt),
+    inset 2px 2px 0 0 var(--nbc-border-color),
+    inset -2px -2px 0 0 var(--nbc-surface);
+}
