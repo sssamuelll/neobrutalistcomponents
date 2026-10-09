@@ -18,6 +18,12 @@ export default defineTheme({
       { title: 'Susan Kare', url: 'https://en.wikipedia.org/wiki/Susan_Kare', publisher: 'Wikipedia', accessed: '2026-10-09' },
       { title: 'Typography in 16 bits: System fonts', url: 'https://damieng.com/blog/2011/typography-in-16-bits-system-fonts/', publisher: 'Damien Guard', year: 2011, accessed: '2026-10-09' },
       { title: 'System 7 buttons', url: 'https://hilton.org.uk/blog/system-7-buttons', publisher: 'Peter Hilton', accessed: '2026-10-09' },
+      { title: 'Inside Macintosh: Text', url: 'https://developer.apple.com/library/archive/documentation/mac/pdf/Text.pdf', publisher: 'Apple Computer', year: 1993, accessed: '2026-10-10' },
+      { title: 'Inside Macintosh: Macintosh Toolbox Essentials', url: 'https://developer.apple.com/library/archive/documentation/mac/pdf/MacintoshToolboxEssentials.pdf', publisher: 'Apple Computer', year: 1992, accessed: '2026-10-10' },
+      { title: 'A brief history of Mac system fonts', url: 'https://eclecticlight.co/2024/06/25/a-brief-history-of-mac-system-fonts/', publisher: 'The Eclectic Light Company', year: 2024, accessed: '2026-10-10' },
+      { title: 'Notes on Apple 4 Fonts', url: 'https://web.archive.org/web/20120717032727/http://cajun.cs.nott.ac.uk/compsci/epo/papers/volume4/issue3/ep050cb.pdf', publisher: 'Electronic Publishing, vol. 4(3) (Charles Bigelow, Kris Holmes)', year: 1991, accessed: '2026-10-10' },
+      { title: 'Zoom Animation', url: 'https://tidbits.com/1991/12/16/zoom-animation/', publisher: 'TidBITS', year: 1991, accessed: '2026-10-10' },
+      { title: 'Macintosh Human Interface Guidelines', url: 'https://vintageapple.org/inside_r/pdf/Human_Interface_Guidelines_1992.pdf', publisher: 'Apple Computer', year: 1992, accessed: '2026-10-10' },
     ],
   },
   ficha: {
@@ -26,8 +32,8 @@ export default defineTheme({
       en: 'Apple released System 7 on 13 May 1991, with a colour interface for machines with colour screens and with TrueType scalable fonts [2]. On colour screens, Apple’s guidelines added grey and colour to window frames and controls, so the close, zoom and scroll boxes stood out and inactive windows had grey borders that fell back [1]. Chicago, by Susan Kare, remained the system font [3][4]. Buttons came in a plain style and a heavier style for the default choice, and they highlighted while pressed [5].',
     },
     reading: {
-      es: 'El tema se queda en el blanco y negro del Mac y deja el gris para lo que está al fondo, como los bordes de las ventanas inactivas. Los bordes son de 1 px y las tarjetas proyectan una sombra dura de 2 px, un parentesco que vemos con la sombra de las ventanas del Mac clásico. Chicago no tiene una versión libre; el texto va en la sans del sistema.',
-      en: 'The theme keeps to the Mac’s black and white and saves grey for what sits behind, like the borders of inactive windows. Borders are 1 px and cards cast a 2 px hard shadow, a kinship we see with the shadow under classic Mac windows. Chicago has no free version; text is set in the system sans.',
+      es: 'El tema se queda en el blanco y negro del Mac y deja el gris para lo que está al fondo, como los bordes de las ventanas inactivas. Los bordes son de 1 px y las tarjetas proyectan una sombra dura de 2 px, un parentesco que vemos con la sombra de las ventanas del Mac clásico. Chicago no tiene una versión libre; la tipografía se explica abajo.',
+      en: 'The theme keeps to the Mac’s black and white and saves grey for what sits behind, like the borders of inactive windows. Borders are 1 px and cards cast a 2 px hard shadow, a kinship we see with the shadow under classic Mac windows. Chicago has no free version; the typography is explained below.',
     },
     palette: {
       origin: 'interpreted',
@@ -36,8 +42,29 @@ export default defineTheme({
         en: 'The guidelines name the grey and colour of the frames but give no values; the theme uses white, black and neutral greys.',
       },
     },
+    lettering: {
+      original: { name: 'Chicago', designer: 'Susan Kare', year: 1984, kind: 'bitmap' },
+      documented: {
+        es: 'El Mac dibujaba sus menús y sus diálogos con la fuente del sistema, Chicago de 12 puntos, y el texto de las aplicaciones, salvo que se indicara otra, con Geneva [6]; los títulos de los controles van por defecto en la fuente del sistema [7]. Chicago era un mapa de bits que Susan Kare dibujó en la propia Apple [8]. Para System 7, que adoptó TrueType, Bigelow & Holmes hicieron versiones de contorno de Chicago, Geneva, New York y Monaco, y la de Chicago se dibujó para que a 12 puntos casi no se distinguiera en pantalla del mapa de bits original [9].',
+        en: 'The Mac drew its menus and dialogs in the system font, 12-point Chicago, and application text, unless another was set, in Geneva [6]; control titles default to the system font [7]. Chicago was a bitmap font that Susan Kare designed in-house at Apple [8]. For System 7, which adopted TrueType, Bigelow & Holmes made outline versions of Chicago, Geneva, New York and Monaco, and Chicago’s was drawn to be almost indistinguishable on screen from the original bitmap at 12 points [9].',
+      },
+      substitute: {
+        es: 'El tema usa Pixelify Sans en los títulos y en los botones, y Arimo en el texto. Pixelify Sans es una sans libre de píxel: en su trazo grueso y escalonado vemos el de Chicago, aunque sus letras no son las de Kare. Arimo, una grotesca libre, ocupa el lugar de Geneva sin copiarla.',
+        en: 'The theme uses Pixelify Sans for titles and buttons, and Arimo for text. Pixelify Sans is a free pixel sans: in its heavy, stepped stroke we see Chicago’s, though its letters are not Kare’s. Arimo, a free grotesque, stands in for Geneva without copying it.',
+      },
+    },
+    motion: {
+      documented: {
+        es: 'Al abrir o cerrar un elemento, el Finder mostraba una animación de rectángulos en zoom, conocida como ZoomRect [10]. Al soltar el botón sobre un ítem de menú, el ítem parpadeaba un momento, el menú se cerraba y la orden se ejecutaba [11].',
+        en: 'When it opened or closed an item, the Finder showed an animation of zooming rectangles, known as ZoomRect [10]. When the button was released over a menu item, the item blinked briefly, the menu closed and the command ran [11].',
+      },
+      reading: {
+        es: 'El tema lleva el zoom a la apertura de un diálogo: el cuadro entero crece en cuatro saltos desde un rectángulo pequeño. Los 200 ms son del tema; ninguna fuente que pudimos verificar da la duración. El parpadeo no tiene equivalente, porque la librería no tiene menús, y los botones se marcan al instante.',
+        en: 'The theme carries the zoom to a dialog opening: the whole box grows in four steps from a small rectangle. The 200 ms are the theme’s; no source we could verify gives the duration. The blink has no counterpart, since the library has no menus, and buttons highlight at once.',
+      },
+    },
   },
-  fonts: 'system-sans',
+  fonts: { sans: 'arimo', display: 'pixelify-sans' },
   colors: {
     bg: ['#ffffff', '#111111'],
     fg: ['#111111', '#ffffff'],
@@ -59,9 +86,10 @@ export default defineTheme({
     dangerFg: ['#ffffff', '#111111'],
     focus: ['#111111', '#ffffff'],
   },
-  type: { weightBody: 400, weightLabel: 700, weightDisplay: 700 },
+  type: { weightBody: 400, weightLabel: 700, weightDisplay: 700, displaySpacing: '0em', kerning: 'none' },
   shape: { borderWidth: 1, radius: 4, radiusControl: 4, radiusButton: 4, radiusSmall: 2 },
   elevation: flat(),
-  motion: { duration: 150, durationSlow: 300, ease: 'ease-out' },
+  motion: { duration: 0, durationSlow: 0, ease: 'linear' },
   signature: './mac-os-classic.css',
+  motionFile: './mac-os-classic.motion.css',
 });

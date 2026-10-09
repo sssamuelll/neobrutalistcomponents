@@ -18,6 +18,7 @@ export default defineTheme({
       { title: 'Byte article, page 5', url: 'https://simson.net/ref/next2/byte_article_page_5.htm', publisher: 'BYTE', accessed: '2026-10-09' },
       { title: 'NeXT Computer fonts', url: 'https://worldwideweb.cern.ch/typography/', publisher: 'CERN', accessed: '2026-10-09' },
       { title: 'NeXTSTEP', url: 'https://en.wikipedia.org/wiki/NeXTSTEP', publisher: 'Wikipedia', accessed: '2026-10-09' },
+      { title: 'prebuild(1) — NEXTSTEP 3.2', url: 'https://typewritten.org/Manual/NeXT/NEXTSTEP/3.2/man1/prebuild.html', publisher: 'NeXT (via typewritten.org)', accessed: '2026-10-10' },
     ],
   },
   ficha: {
@@ -26,8 +27,8 @@ export default defineTheme({
       en: 'NeXTSTEP shipped in 1989 [5], and NeXT’s interface guidelines ask for a simple look that uses shading for a three-dimensional effect and a scheme of black, white and grey [1]. The original screen was 1120 × 832 dots at only 2 bits a dot, which is four levels of grey [3]. The key window was marked by a black title bar, the workspace behind was dark grey, and buttons sank when pressed [1]. Keith Ohlfs drew the three-dimensional controls and the icons, and the base typeface was Helvetica, with Courier and a monospaced face called Ohlfs [2][4].',
     },
     reading: {
-      es: 'El tema trabaja con cuatro grises, como la pantalla de 2 bits, y dibuja los biseles con un borde claro arriba y a la izquierda y uno oscuro abajo y a la derecha, que se invierten al pulsar. Lo principal va en negro, como la barra de título de la ventana activa. El texto va en la sans del sistema, cerca de la Helvetica de NeXT.',
-      en: 'The theme works with four greys, like the 2-bit screen, and draws bevels with a light edge at the top and left and a dark one at the bottom and right, swapped while pressed. The primary colour is black, like the title bar of the key window. Text is set in the system sans, close to NeXT’s Helvetica.',
+      es: 'El tema trabaja con cuatro grises, como la pantalla de 2 bits, y dibuja los biseles con un borde claro arriba y a la izquierda y uno oscuro abajo y a la derecha, que se invierten al pulsar. Lo principal va en negro, como la barra de título de la ventana activa. El texto va en Arimo, cerca de la Helvetica de NeXT. NeXTSTEP encogía la ventana al miniaturizarla [1]; ningún componente de la librería tiene esa forma, así que el tema no se mueve.',
+      en: 'The theme works with four greys, like the 2-bit screen, and draws bevels with a light edge at the top and left and a dark one at the bottom and right, swapped while pressed. The primary colour is black, like the title bar of the key window. Text is set in Arimo, close to NeXT’s Helvetica. NeXTSTEP shrank a window when it was miniaturized [1]; no component of the library has that form, so the theme stands still.',
     },
     palette: {
       origin: 'interpreted',
@@ -36,8 +37,19 @@ export default defineTheme({
         en: 'The guidelines name black, white and two greys but give no values; the theme’s greys are a reading.',
       },
     },
+    lettering: {
+      original: { name: 'Helvetica', kind: 'outline' },
+      documented: {
+        es: 'NeXTSTEP tenía tres fuentes principales: Helvetica, Courier y una monoespaciada llamada Ohlfs [4]. En NeXTSTEP 3.2 (1992), algunas fuentes traían además mapas de bits de pantalla para tamaños concretos [6], y la pantalla mostraba solo cuatro niveles de gris [3].',
+        en: 'NeXTSTEP had three main fonts: Helvetica, Courier and a monospaced face called Ohlfs [4]. In NeXTSTEP 3.2 (1992), some fonts also came with screen bitmaps for particular sizes [6], and the display showed only four levels of grey [3].',
+      },
+      substitute: {
+        es: 'El tema usa Arimo, una grotesca libre, para el texto y los títulos. En sus proporciones vemos las de Helvetica; difiere en letras como la R, la G y la t.',
+        en: 'The theme uses Arimo, a free grotesque, for text and titles. In its proportions we see Helvetica’s; it differs in letters such as R, G and t.',
+      },
+    },
   },
-  fonts: 'system-sans',
+  fonts: { sans: 'arimo' },
   colors: {
     bg: ['#bfbfbf', '#1a1a1a'],
     fg: ['#111111', '#ffffff'],
@@ -62,6 +74,6 @@ export default defineTheme({
   type: { weightBody: 400, weightLabel: 700, weightDisplay: 700 },
   shape: { borderWidth: 1, radius: 2, radiusControl: 2, radiusButton: 2, radiusSmall: 1 },
   elevation: flat(),
-  motion: { duration: 150, durationSlow: 300, ease: 'ease-out' },
+  motion: { duration: 0, durationSlow: 0, ease: 'linear' },
   signature: './nextstep.css',
 });

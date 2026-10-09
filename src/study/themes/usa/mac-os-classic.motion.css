@@ -1,0 +1,15 @@
+/* Mac OS System 7: the Finder's zooming rectangles, carried by a dialog that grows in four steps. */
+@keyframes zoom {
+  from {
+    transform: scale(0.2);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .nbc-dialog[open] {
+    animation: zoom 200ms steps(4, end);
+  }
+}

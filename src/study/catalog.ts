@@ -113,7 +113,7 @@ export function studyEntry(theme: StudyThemeInput, compiled: CompiledTheme): Cat
     tagline: theme.tagline,
     reference: summary(theme.reference),
     swatch: [light('--nbc-primary'), light('--nbc-accent'), light('--nbc-fg'), light('--nbc-bg')],
-    fonts: fontKeys(theme.fonts).map((key) => FONTS[key].family),
+    fonts: [...new Set(fontKeys(theme.fonts).map((key) => FONTS[key].family))],
     fontsHref: compiled.fontsHref,
     facets: {
       scene: theme.scene,

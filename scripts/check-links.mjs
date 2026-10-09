@@ -4,11 +4,14 @@
 //   node scripts/check-links.mjs --themes=a,b           only these themes
 //   node scripts/check-links.mjs --dossier=<file.json>  each claim's quote is on its page
 //
-// OK: answered 200 (and a dossier quote is on the page). HAND: the site refuses
-// scripts (401, 403, 429) or serves a PDF: open it yourself. FAIL: anything else.
+// OK: answered 200 (and a dossier quote is on the page or in the PDF's text). HAND:
+// the site refuses scripts (401, 403, 429), or a PDF could not be read: open it
+// yourself. FAIL: anything else.
 // Exits 1 on any FAIL.
 import { runnerImport } from 'vite';
-import { readFileSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { join, resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -27,18 +30,46 @@ async function get(url) {
   }
 }
 
+/** A PDF's text through pdftotext (poppler), or null when it cannot be read. One download per URL. */
+const pdfCache = new Map();
+async function pdfText(url) {
+  if (!pdfCache.has(url)) {
+    pdfCache.set(
+      url,
+      (async () => {
+        try {
+          const res = await fetch(url, { headers: UA, redirect: 'follow', signal: AbortSignal.timeout(60_000) });
+          if (!res.ok) return null;
+          const dir = mkdtempSync(join(tmpdir(), 'check-links-'));
+          const file = join(dir, 'doc.pdf');
+          writeFileSync(file, Buffer.from(await res.arrayBuffer()));
+          try {
+            return execFileSync('pdftotext', ['-enc', 'UTF-8', file, '-'], { maxBuffer: 1 << 28 }).toString('utf8');
+          } finally {
+            rmSync(dir, { recursive: true, force: true });
+          }
+        } catch {
+          return null;
+        }
+      })(),
+    );
+  }
+  return pdfCache.get(url);
+}
+
 const verdict = (status) => (status === 200 ? 'OK' : [401, 403, 429].includes(status) ? 'HAND' : 'FAIL');
 const MARKS = { acute: 0x301, grave: 0x300, circ: 0x302, tilde: 0x303, uml: 0x308, cedil: 0x327, ring: 0x30a };
 const normalize = (text) =>
   text
     .replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/gi, ' ')
     .replace(/<img\b[^>]*\balt="([^"]*)"[^>]*>/gi, ' $1 ') // a photograph's alt text is part of what the page says
+    .replace(/<\/?(?:a|abbr|b|cite|code|em|i|small|span|strong|sub|sup)\b[^>]*>/gi, '') // inline tags join text
     .replace(/<[^>]+>/g, ' ')
     .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
     .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCodePoint(parseInt(h, 16)))
     .replace(/&([a-z])(acute|grave|circ|tilde|uml|cedil|ring);/gi, (_, letter, mark) => letter + String.fromCharCode(MARKS[mark.toLowerCase()]))
     .replace(/&szlig;/g, 'ß')
-    .normalize('NFC')
+    .normalize('NFKC')
     .replace(/&nbsp;/g, ' ')
     .replaceAll(String.fromCharCode(0xa0), ' ')
     .replace(/&amp;/g, '&')
@@ -59,7 +90,14 @@ if (dossierPath) {
     const res = await get(url);
     const label = `"${(quote ?? '').slice(0, 60)}"`;
     if (res.status !== 200) report(verdict(res.status), res.status, res.error ? `${label} (${res.error})` : label, url);
-    else if (res.type.includes('pdf') || url.toLowerCase().endsWith('.pdf')) report('HAND', res.status, `${label} (PDF)`, url);
+    else if (res.type.includes('pdf') || url.toLowerCase().endsWith('.pdf')) {
+      const body = await pdfText(url);
+      // A line-wrapped PDF splits words at hyphens: try the text with and without them.
+      const variants = body === null ? [] : [body.replaceAll(String.fromCharCode(45, 10), ''), body.replaceAll(String.fromCharCode(45, 13, 10), ''), body];
+      const found = Boolean(quote) && variants.some((variant) => normalize(variant).includes(normalize(quote)));
+      if (body === null) report('HAND', res.status, label + ' (PDF could not be downloaded or read; pdftotext must be on the PATH)', url);
+      else report(found ? 'OK' : 'FAIL', 200, found ? label + ' (PDF)' : label + ' not in the PDF (claim: ' + text + ')', url);
+    }
     else if (!quote || !normalize(res.text).includes(normalize(quote))) report('FAIL', 200, `${label} not on the page (claim: ${text})`, url);
     else report('OK', 200, label, url);
   }
