@@ -62,3 +62,11 @@ describe('FichaExtras prints the substitute as written', () => {
     expect(screen.getByText('Barlow se le parece en la proporción.')).toBeInTheDocument();
   });
 });
+
+describe('the motion specimen speaks the page language (batch 1 review)', () => {
+  it('labels the dialog close button in Spanish', () => {
+    const motion = { documented: { es: 'Se mueve [1].', en: 'It moves [1].' }, reading: { es: 'Lo imita.', en: 'It imitates that.' } };
+    renderExtras({ ...FIXTURE.ficha, motion });
+    expect(screen.getAllByRole('button', { name: 'Cerrar', hidden: true })).toHaveLength(2);
+  });
+});

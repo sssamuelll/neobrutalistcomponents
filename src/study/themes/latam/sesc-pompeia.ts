@@ -58,14 +58,10 @@ export default defineTheme({
       },
     },
     lettering: {
-      original: { name: 'Logotipo do Sesc Pompeia', designer: 'Lina Bo Bardi', kind: 'lettered' },
-      documented: {
-        es: 'Lina Bo Bardi también trabajó como diseñadora gráfica: creó el logotipo del Sesc Pompeia y los íconos que señalan algunos de sus espacios, según la página del Sesc sobre «Lina Gráfica», la exposición que el centro le dedicó en 2014 [6]. Esa fuente no describe la forma de las letras.',
-        en: 'Lina Bo Bardi also worked as a graphic designer: she created the Sesc Pompeia logotype and the icons that mark some of its spaces, according to Sesc’s page on “Lina Gráfica”, the exhibition the centre devoted to her in 2014 [6]. That source does not describe the letterforms.',
-      },
+      original: { kind: 'none' },
       substitute: {
-        es: 'El tema usa Chivo, una grotesca libre, también en los títulos. Como ninguna fuente que consultamos describe las letras del logotipo, el tema no imita su trazo: Chivo es la lectura que ya explica la ficha, firme y sin adorno, como el hormigón del centro.',
-        en: 'The theme uses Chivo, a free grotesque, for titles too. Since no source we consulted describes the logotype’s letters, the theme does not imitate its stroke: Chivo is the reading the ficha already explains, firm and plain, like the centre’s concrete.',
+        es: 'Lina Bo Bardi creó los logotipos del MASP y del Sesc Pompeia y los íconos que señalan algunos de sus espacios; el centro mostró ese trabajo en «Lina Gráfica», una de las dos exposiciones con que la homenajeó en 2014 [6]. Ninguna fuente que consultamos describe letras en esas piezas, así que el tema no imita ninguna: usa Chivo, la tipografía latinoamericana que explica la lectura [5], también en los títulos.',
+        en: 'Lina Bo Bardi created the logotypes of MASP and Sesc Pompeia and the icons that mark some of their spaces; the centre showed that work in “Lina Gráfica”, one of the two exhibitions with which it honoured her in 2014 [6]. No source we consulted describes letters in those pieces, so the theme imitates none: it uses Chivo, the Latin American typeface the reading explains [5], for titles too.',
       },
     },
   },

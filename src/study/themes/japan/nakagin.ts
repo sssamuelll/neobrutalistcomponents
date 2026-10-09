@@ -18,6 +18,7 @@ export default defineTheme({
       { title: 'The Many Lives of the Nakagin Capsule Tower', url: 'https://www.moma.org/calendar/exhibitions/5830', publisher: 'The Museum of Modern Art', year: 2025, accessed: '2026-10-05' },
       { title: 'Demolition of iconic Nakagin Capsule Tower begins in Tokyo', url: 'https://www.dezeen.com/2022/04/12/nakagin-capsule-tower-demolition-begins-tokyo/', publisher: 'Dezeen', year: 2022, accessed: '2026-10-05' },
       { title: 'Nakagin Capsule Tower', url: 'https://en.wikipedia.org/wiki/Nakagin_Capsule_Tower', publisher: 'Wikipedia', accessed: '2026-10-05' },
+      { title: 'Nakagin Capsule Tower: Retro Future Living in Tokyo', url: 'https://www.tofugu.com/travel/nakagin-capsule-tower/', publisher: 'Tofugu', year: 2018, accessed: '2026-10-09' },
     ],
     image: {
       file: 'nakagin.avif',
@@ -49,10 +50,14 @@ export default defineTheme({
       },
     },
     lettering: {
-      original: { kind: 'none' },
+      original: { name: '中銀カプセルタワービル', kind: 'lettered' },
+      documented: {
+        es: 'Una fotografía de la entrada, publicada en 2018, muestra el nombre del edificio en letras góticas blancas y gruesas sobre un muro estriado: 中銀 en kanji y el resto en katakana, sin las marcas de sonoridad, de modo que se lee カフセルタワーヒル [4]. Ninguna fuente que consultamos dice quién dibujó esas letras ni cuándo se colocaron.',
+        en: 'A photograph of the entrance, published in 2018, shows the building’s name in thick white gothic letters on a ribbed wall: 中銀 in kanji and the rest in katakana, without the voicing marks, so that it reads カフセルタワーヒル [4]. No source we consulted says who drew those letters or when they were put up.',
+      },
       substitute: {
-        es: 'El tema usa Zen Kaku Gothic New para el texto y Dela Gothic One para los títulos, dos góticas japonesas libres. Son una lectura, no un parecido: el trazo uniforme de la gótica acompaña la repetición de las cápsulas, y en el peso cerrado de Dela Gothic One vemos la masa del hormigón de los núcleos.',
-        en: 'The theme uses Zen Kaku Gothic New for text and Dela Gothic One for titles, two free Japanese gothics. They are a reading, not a likeness: the gothic’s even stroke goes with the repeated capsules, and in Dela Gothic One’s dense weight we see the mass of the concrete cores.',
+        es: 'El tema usa Zen Kaku Gothic New para el texto y Dela Gothic One para los títulos, dos góticas japonesas libres. Ninguna copia el letrero, cuyo dibujo no está documentado; como él, son góticas sin remates, y en el peso cerrado de Dela Gothic One vemos el de sus letras gruesas.',
+        en: 'The theme uses Zen Kaku Gothic New for text and Dela Gothic One for titles, two free Japanese gothics. Neither copies the sign, whose drawing is not documented; like it, they are gothics without serifs, and in Dela Gothic One’s dense weight we see that of its thick letters.',
       },
     },
   },

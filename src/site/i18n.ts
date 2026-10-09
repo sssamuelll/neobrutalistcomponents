@@ -164,7 +164,7 @@ export const UI = {
   motionHint: { es: 'Un aviso breve', en: 'A short hint' },
   motionOpen: { es: 'Abrir diálogo', en: 'Open dialog' },
   motionSwitch: { es: 'Interruptor', en: 'Switch' },
-  motionLoading: { es: 'Cargando', en: 'Loading' },
+  motionLoading: { es: 'Indicador de carga, de muestra', en: 'Loading indicator, a sample' },
   motionDialogTitle: { es: 'Un diálogo', en: 'A dialog' },
   motionDialogBody: { es: 'Así se abre un diálogo en este tema.', en: 'This is how a dialog opens in this theme.' },
   motionClose: { es: 'Cerrar', en: 'Close' },

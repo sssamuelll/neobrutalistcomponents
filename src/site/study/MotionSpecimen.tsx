@@ -19,7 +19,7 @@ export function MotionSpecimen() {
         <Switch label={t('motionSwitch')} />
       </div>
       <Progress label={t('motionLoading')} />
-      <Dialog open={open} onOpenChange={setOpen}>
+      <Dialog open={open} onOpenChange={setOpen} closeLabel={t('motionClose')}>
         <Dialog.Header>
           <Dialog.Title>{t('motionDialogTitle')}</Dialog.Title>
         </Dialog.Header>

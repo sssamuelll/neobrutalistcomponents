@@ -129,3 +129,23 @@ describe('only loading indicators loop forever (WCAG 2.2.2)', () => {
     expect(lintMotion(GOOD, 'm')).toEqual([]);
   });
 });
+
+describe('the loop limit cannot be talked around (batch 1 review)', () => {
+  const guard = (body: string) => `@media (prefers-reduced-motion: no-preference) {\n${body}\n}`;
+
+  it.each([
+    ['a selector list mixing a loader with another control', '.nbc-progress--indeterminate .nbc-progress__bar, .nbc-button { animation: a 1s infinite; }'],
+    ['a loader named only inside :not()', '.nbc-card:not(.nbc-progress--indeterminate) { animation: a 1s infinite; }'],
+    ['upper case', '.nbc-card { animation: a 1s INFINITE; }'],
+    ['a count held in a variable', '.nbc-card { animation: a 1s var(--fx-n); }'],
+    ['a count that runs past five seconds', '.nbc-card { animation: a 1s 100000; }'],
+    ['a single run longer than five seconds', '.nbc-card { animation: a 6s 1; }'],
+  ])('rejects %s', (_name, body) => {
+    expect(lintMotion(guard(body), 'm').join('\n')).toMatch(/loops forever|longer than five seconds/);
+  });
+
+  it('accepts a short counted pulse and a stepped transition', () => {
+    expect(lintMotion(guard('.nbc-button--primary { animation: pulse 1.2s ease-in-out 4; }'), 'm')).toEqual([]);
+    expect(lintMotion(guard('.nbc-switch__thumb { transition: transform 80ms steps(2, end); }'), 'm')).toEqual([]);
+  });
+});

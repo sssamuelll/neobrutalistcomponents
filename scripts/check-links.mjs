@@ -28,12 +28,19 @@ async function get(url) {
 }
 
 const verdict = (status) => (status === 200 ? 'OK' : [401, 403, 429].includes(status) ? 'HAND' : 'FAIL');
+const MARKS = { acute: 0x301, grave: 0x300, circ: 0x302, tilde: 0x303, uml: 0x308, cedil: 0x327, ring: 0x30a };
 const normalize = (text) =>
   text
-    .normalize('NFC')
     .replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<img\b[^>]*\balt="([^"]*)"[^>]*>/gi, ' $1 ') // a photograph's alt text is part of what the page says
     .replace(/<[^>]+>/g, ' ')
-    .replace(/&nbsp;|&#160;/g, ' ')
+    .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCodePoint(parseInt(h, 16)))
+    .replace(/&([a-z])(acute|grave|circ|tilde|uml|cedil|ring);/gi, (_, letter, mark) => letter + String.fromCharCode(MARKS[mark.toLowerCase()]))
+    .replace(/&szlig;/g, 'ß')
+    .normalize('NFC')
+    .replace(/&nbsp;/g, ' ')
+    .replaceAll(String.fromCharCode(0xa0), ' ')
     .replace(/&amp;/g, '&')
     .replace(/&#39;|&#x27;|&rsquo;|&lsquo;|[’‘]/g, "'")
     .replace(/&quot;|&ldquo;|&rdquo;|[“”]/g, '"')
@@ -51,8 +58,8 @@ if (dossierPath) {
   for (const { url, quote, text } of claims) {
     const res = await get(url);
     const label = `"${(quote ?? '').slice(0, 60)}"`;
-    if (res.type.includes('pdf') || url.toLowerCase().endsWith('.pdf')) report('HAND', res.status, `${label} (PDF)`, url);
-    else if (res.status !== 200) report(verdict(res.status), res.status, label, url);
+    if (res.status !== 200) report(verdict(res.status), res.status, res.error ? `${label} (${res.error})` : label, url);
+    else if (res.type.includes('pdf') || url.toLowerCase().endsWith('.pdf')) report('HAND', res.status, `${label} (PDF)`, url);
     else if (!quote || !normalize(res.text).includes(normalize(quote))) report('FAIL', 200, `${label} not on the page (claim: ${text})`, url);
     else report('OK', 200, label, url);
   }
@@ -64,7 +71,7 @@ if (dossierPath) {
   for (const theme of themes) {
     for (const source of theme.reference.sources) {
       const res = await get(source.url);
-      report(verdict(res.status), res.status, `${theme.id} source`, source.url);
+      report(verdict(res.status), res.status, res.error ? `${theme.id} source (${res.error})` : `${theme.id} source`, source.url);
     }
     if (theme.reference.archiveUrl) {
       const res = await get(theme.reference.archiveUrl);
