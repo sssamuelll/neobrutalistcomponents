@@ -3,6 +3,8 @@ import AxeBuilder from '@axe-core/playwright';
 import { NEO_THEMES } from '../src/lib/themes';
 import { SLUGS } from '../src/docs/slugs';
 import { CONTRAST_PAIRS } from '../src/lib/themes/contract';
+import { CATALOG } from '../src/study/.generated/catalog';
+import { SCENES } from '../src/study/types';
 
 const STUDY_ROUTES = ['/en/', '/en/scenes', '/en/scene/japan', '/en/origins', '/en/atlas', '/en/method', '/en/credits'];
 const DOC_ROUTES = ['/en/library', '/en/components', '/en/blocks', '/en/start', '/en/agents', ...SLUGS.map((slug) => `/en/components/${slug}`)];
@@ -126,7 +128,7 @@ test('a site-wide study theme whose stylesheet cannot load falls back to classic
 
 test('atlas: every theme as a card; facets and search live in the URL', async ({ page }) => {
   await page.goto('#/en/atlas');
-  await expect(page.locator('.site-card')).toHaveCount(9);
+  await expect(page.locator('.site-card')).toHaveCount(CATALOG.length);
   await page.getByLabel('Scene').selectOption('japan');
   await expect(page).toHaveURL(/#\/en\/atlas\?scene=japan$/);
   await expect(page.locator('.site-card')).toHaveCount(3);
@@ -138,7 +140,7 @@ test('atlas: every theme as a card; facets and search live in the URL', async ({
   await expect(page.locator('.site-card')).toHaveCount(1);
   await page.getByRole('button', { name: 'Clear filters' }).click();
   await expect(page).toHaveURL(/#\/en\/atlas$/);
-  await expect(page.locator('.site-card')).toHaveCount(9);
+  await expect(page.locator('.site-card')).toHaveCount(CATALOG.length);
 });
 
 test('atlas: typing replaces the address instead of stacking history, so Back leaves the atlas', async ({ page }) => {
@@ -293,27 +295,24 @@ test('theme page: when its data cannot load, it says so in an alert and links ba
   await expect(page).toHaveURL(/#\/es\/atlas$/);
 });
 
-test('study home: the thesis, a tile per theme, the essay with its sources and the scenes', async ({ page }) => {
+test('study home: the gallery, one work per theme in date order, each linking to its room', async ({ page }) => {
   await page.goto('#/es/');
-  await expect(page.locator('main h1')).toHaveText('El neobrutalismo en las interfaces');
-  await expect(page).toHaveTitle('El estudio — neobrutalistcomponents');
-  await expect(page.locator('.study-tile')).toHaveCount(9);
-  await expect(page.locator('.study-essay__text h2').first()).toHaveText('De dónde viene el nombre');
-  await expect(page.locator('.study-sources li')).toHaveCount(5);
-  await expect(page.locator('.study-scenes__card')).toHaveCount(5);
-  await page.locator('.study-scenes').getByRole('link', { name: 'Japón' }).click();
+  await expect(page.locator('main h1')).toHaveText('La Galería de las Interfaces');
+  await expect(page).toHaveTitle('La Galería — neobrutalistcomponents');
+  await expect(page.locator('.gallery-work')).toHaveCount(CATALOG.length);
+  await page.locator('.gallery-work', { hasText: 'Nakagin' }).getByRole('link', { name: 'Japón' }).click();
   await expect(page).toHaveURL(/#\/es\/scene\/japan$/);
 });
 
 test('scenes: an index, then each scene lists its references in date order with their themes', async ({ page }) => {
   await page.goto('#/en/scenes');
-  await expect(page.locator('main h1')).toHaveText('Scenes');
-  await expect(page.locator('.study-scenes__card')).toHaveCount(5);
+  await expect(page.locator('main h1')).toHaveText('Rooms');
+  await expect(page.locator('.study-scenes__card')).toHaveCount(SCENES.length);
   await page.goto('#/en/scene/japan');
   await expect(page).toHaveTitle('Japan — neobrutalistcomponents');
   await expect(page.locator('.study-timeline__year')).toHaveText(['1970', '1980', '1996']);
   await expect(page.locator('.study-timeline .site-card h3')).toHaveText(['Nakagin', 'Riso', 'Y2K']);
-  await expect(page.locator('nav .study-scenes__card')).toHaveCount(4);
+  await expect(page.locator('nav .study-scenes__card')).toHaveCount(SCENES.length - 1);
   await page.goto('#/en/origins');
   await expect(page.locator('.study-essay__text h2').first()).toHaveText('Béton brut');
   await expect(page.locator('.study-timeline .site-card h3')).toHaveText(['Classic', 'Swiss']);
@@ -321,9 +320,9 @@ test('scenes: an index, then each scene lists its references in date order with 
 
 test('a study page whose essay cannot load says so instead of staying blank', async ({ page }) => {
   await page.route(/\/assets\/en-[\w-]+\.js$/, (route) => route.abort());
-  await page.goto('#/en/');
+  await page.goto('#/en/origins');
   await expect(page.getByRole('alert')).toContainText('This content could not load.');
-  await expect(page.locator('.study-scenes__card')).toHaveCount(5);
+  await expect(page.locator('.study-scenes__card')).toHaveCount(SCENES.length - 1);
 });
 
 test('method: the essay, the detail families from their own metadata and the contrast contract', async ({ page }) => {
@@ -340,7 +339,7 @@ test('credits: every photograph and every typeface, each with its licence', asyn
   await page.goto('#/es/credits');
   await expect(page.locator('main h1')).toHaveText('Créditos');
   const photographs = page.locator('table[aria-labelledby="credits-photographs"] tbody tr');
-  await expect(photographs).toHaveCount(5);
+  await expect(photographs).toHaveCount(CATALOG.filter((entry) => entry.image).length);
   await expect(photographs.filter({ hasText: 'Nakagin' })).toContainText('CC BY-SA 4.0');
   const fonts = page.locator('table[aria-labelledby="credits-fonts"] tbody tr');
   await expect(fonts).toHaveCount(18);
@@ -359,6 +358,7 @@ const MAIN_PAGES = [
   '/scene/germany',
   '/scene/usa',
   '/scene/latam',
+  '/scene/italy',
   '/origins',
   '/atlas',
   '/method',
