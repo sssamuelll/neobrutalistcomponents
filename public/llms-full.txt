@@ -53,14 +53,14 @@ Each study theme reads one documented work; its page (https://sssamuelll.github.
 | `nakagin` | Nakagin Capsule Tower (中銀カプセルタワービル), Kisho Kurokawa, Ginza, Tokyo, Japan, 1970–1972 | Japan | light | Zen Kaku Gothic New, Dela Gothic One, M PLUS 1 Code | `themes/nakagin.css`, `themes/nakagin.fonts.css` |
 | `sesc-pompeia` | SESC Pompéia (Centro de Lazer Fábrica da Pompéia), Lina Bo Bardi, André Vainer, Marcelo Carvalho Ferraz, Pompeia, São Paulo, Brazil, 1977–1986 | Latin America | light | Chivo, Chivo Mono | `themes/sesc-pompeia.css`, `themes/sesc-pompeia.fonts.css` |
 | `amiga-os` | Amiga Workbench 1.3, Commodore-Amiga, RJ Mical, United States, 1988 | United States | light | Workbench, DM Mono | `themes/amiga-os.css`, `themes/amiga-os.fonts.css` |
-| `aqua` | Mac OS X (Aqua interface), Apple Computer, Cupertino, United States, 2000 | United States | light | system fonts | `themes/aqua.css`, `themes/aqua.fonts.css` |
+| `aqua` | Mac OS X (Aqua interface), Apple Computer, Cupertino, United States, 2000 | United States | light | Open Sans | `themes/aqua.css`, `themes/aqua.fonts.css` |
 | `classifieds` | craigslist (classified-ads website), Craig Newmark, San Francisco, United States, 1995 | United States | light | system fonts | `themes/classifieds.css`, `themes/classifieds.fonts.css` |
-| `iphone-os` | iPhone OS 1 (the original iPhone’s interface), Apple Inc., Cupertino, United States, 2007 | United States | light | system fonts | `themes/iphone-os.css`, `themes/iphone-os.fonts.css` |
+| `iphone-os` | iPhone OS 1 (the original iPhone’s interface), Apple Inc., Cupertino, United States, 2007 | United States | light | Arimo | `themes/iphone-os.css`, `themes/iphone-os.fonts.css` |
 | `mac-os-classic` | Mac OS System 7 (graphical user interface), Apple Computer, Cupertino, United States, 1991 | United States | light | Arimo, Pixelify Sans | `themes/mac-os-classic.css`, `themes/mac-os-classic.fonts.css` |
-| `material-design` | Material Design (version 1), Google, Mountain View, United States, 2014 | United States | light | system fonts | `themes/material-design.css`, `themes/material-design.fonts.css` |
+| `material-design` | Material Design (version 1), Google, Mountain View, United States, 2014 | United States | light | Roboto | `themes/material-design.css`, `themes/material-design.fonts.css` |
 | `nextstep` | NeXTSTEP, NeXT Computer, Keith Ohlfs, California, United States, 1989 | United States | light | Arimo | `themes/nextstep.css`, `themes/nextstep.fonts.css` |
 | `whaam` | Whaam!, Roy Lichtenstein, New York, United States, 1963 | United States | light | system fonts | `themes/whaam.css`, `themes/whaam.fonts.css` |
-| `win-xp` | Windows XP (Luna visual style), Microsoft, Redmond, United States, 2001 | United States | light | system fonts | `themes/win-xp.css`, `themes/win-xp.fonts.css` |
+| `win-xp` | Windows XP (Luna visual style), Microsoft, Redmond, United States, 2001 | United States | light | Noto Sans, Fira Sans | `themes/win-xp.css`, `themes/win-xp.fonts.css` |
 | `win95` | Windows 95 (graphical user interface), Microsoft, Redmond, United States, 1995 | United States | light | DotGothic16 | `themes/win95.css`, `themes/win95.fonts.css` |
 | `xerox-star` | Xerox Star (8010 Information System), David Canfield Smith, Charles Irby, Ralph Kimball, Bill Verplank, Eric Harslem, El Segundo and Palo Alto, United States, 1981 | United States | light | system fonts | `themes/xerox-star.css`, `themes/xerox-star.fonts.css` |
 
