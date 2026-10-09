@@ -109,9 +109,15 @@ export const UI = {
 
   // Scenes and scene pages
   scenesLead: {
-    es: 'Cuatro lecturas regionales de una misma idea, y el lugar donde empezó.',
-    en: 'Four regional readings of one idea, and the place where it began.',
+    es: 'Lecturas regionales de una misma idea, y el lugar donde empezó.',
+    en: 'Regional readings of one idea, and the place where it began.',
   },
+  mapCaption: { es: 'Proyección Equal Earth', en: 'Equal Earth projection' },
+  mapLegend: { es: 'Las salas, con sus obras y sus años', en: 'The rooms, with their works and years' },
+  colRoom: { es: 'Sala', en: 'Room' },
+  colWorks: { es: 'Obras', en: 'Works' },
+  colYears: { es: 'Años', en: 'Years' },
+  noPlace: { es: 'sin lugar', en: 'no place' },
   timelineHeading: { es: 'Línea de tiempo', en: 'Timeline' },
   sceneThemes: { es: 'Temas de esta escena', en: 'Themes in this scene' },
   otherScenes: { es: 'Otras escenas', en: 'Other scenes' },
@@ -331,6 +337,11 @@ export const PAIR_TEXT: Record<string, L10n> = {
 export function themeCount(lang: Lang, n: number): string {
   if (lang === 'es') return n === 1 ? '1 tema' : `${n} temas`;
   return n === 1 ? '1 theme' : `${n} themes`;
+}
+
+export function workCount(lang: Lang, n: number): string {
+  if (lang === 'es') return n === 1 ? '1 obra' : `${n} obras`;
+  return n === 1 ? '1 work' : `${n} works`;
 }
 
 /** 1970 → 'Años 70' / '1970s'. Outside the 1900s the Spanish label keeps the full year: 2010 → 'Años 2010'. */
