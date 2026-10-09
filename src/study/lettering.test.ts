@@ -148,3 +148,10 @@ describe('works with no documented lettering', () => {
     expect(problems(withLettering({ documented: undefined }))).toMatch(/lettering\.documented: missing/);
   });
 });
+
+describe('a lettering name may be bilingual (batch 2 review)', () => {
+  it('accepts { es, en } and checks both languages', () => {
+    expect(problems(withLettering({ original: { name: { es: 'Rótulos del interior', en: 'Interior lettering' }, kind: 'lettered' } }))).toBe('');
+    expect(problems(withLettering({ original: { name: { es: '', en: 'Interior lettering' }, kind: 'lettered' } }))).toMatch(/original\.name\.es: empty/);
+  });
+});

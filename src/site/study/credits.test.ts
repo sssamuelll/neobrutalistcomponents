@@ -8,7 +8,7 @@ describe('fontCredits', () => {
     const families = credits.map((credit) => credit.family);
     expect(families).toEqual([...families].sort());
     expect(new Set(families).size).toBe(families.length);
-    expect(families).toHaveLength(18);
+    expect(families).toHaveLength(new Set(CATALOG.flatMap((entry) => entry.fonts)).size);
     expect(credits.find((credit) => credit.family === 'Geist Mono')?.usedBy.map((entry) => entry.id)).toEqual(['classic', 'tech']);
     expect(credits.every((credit) => credit.license === 'OFL-1.1')).toBe(true);
   });

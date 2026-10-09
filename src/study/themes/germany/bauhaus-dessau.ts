@@ -34,6 +34,9 @@ export default defineTheme({
         accessed: '2026-10-09',
       },
       { title: 'Bauhaus Dessau', url: 'https://en.wikipedia.org/wiki/Bauhaus_Dessau', publisher: 'Wikipedia', accessed: '2026-10-09' },
+      { title: 'Dessau 1989/90', url: 'https://www.daidalos.org/en/articles/dessau-en/', publisher: 'Daidalos', year: 2025, accessed: '2026-10-09' },
+      { title: 'Vertikaler Schriftzug am Bauhaus Dessau wird restauriert', url: 'https://www.monopol-magazin.de/vertikaler-schriftzug-am-bauhaus-dessau-wird-restauriert', publisher: 'Monopol (dpa)', year: 2021, accessed: '2026-10-09' },
+      { title: 'Dessau: Bauhaus-Schriftzug ist zurück', url: 'https://www.radiosaw.de/artikel/dessau-bauhaus-schriftzug-ist-zurueck', publisher: 'radio SAW', year: 2024, accessed: '2026-10-09' },
     ],
     image: {
       file: 'bauhaus-dessau.avif',
@@ -54,8 +57,8 @@ export default defineTheme({
       en: 'Walter Gropius’s office planned the building, built from 1925 to 1926 and opened in December 1926 [1]. The workshop wing faces the street with a glass curtain wall in a steel frame that runs unbroken across its three floors, because the columns stand behind it [1][4]; the BAUHAUS lettering sits beside it [3]. Hinnerk Scheper’s exterior colour plan of 1926 marked doors, windows and balconies in red, and tied the parts together with a grey band [2]. The glass wall was largely lost in 1945 and rebuilt in aluminium in 1976 [1].',
     },
     reading: {
-      es: 'El tema lee la pared cortina como una retícula de 24 px sobre cada superficie, y lo deja todo plano, sin sombra, como el revoque. De Scheper toma la regla del rojo: aquí marca lo que se puede pulsar, igual que en la fachada marcaba lo que se abre. El gris de la franja va en los acentos y el oscuro de los marcos en los bordes. El texto va en la sans del sistema; el tema no intenta copiar el rótulo.',
-      en: 'The theme reads the curtain wall as a 24 px grid on every surface, and keeps everything flat, without shadow, like the render. From Scheper it takes the rule of red: here it marks what can be pressed, as on the façade it marked what opens. The grey of the band goes to the accents and the dark of the frames to the borders. Text is set in the system sans; the theme does not try to copy the lettering.',
+      es: 'El tema lee la pared cortina como una retícula de 24 px sobre cada superficie, y lo deja todo plano, sin sombra, como el revoque. De Scheper toma la regla del rojo: aquí marca lo que se puede pulsar, igual que en la fachada marcaba lo que se abre. El gris de la franja va en los acentos y el oscuro de los marcos en los bordes. El texto va en Jost, una sans geométrica; el tema no copia las letras del rótulo.',
+      en: 'The theme reads the curtain wall as a 24 px grid on every surface, and keeps everything flat, without shadow, like the render. From Scheper it takes the rule of red: here it marks what can be pressed, as on the façade it marked what opens. The grey of the band goes to the accents and the dark of the frames to the borders. Text is set in Jost, a geometric sans; the theme does not copy the sign’s letters.',
     },
     palette: {
       origin: 'interpreted',
@@ -64,8 +67,19 @@ export default defineTheme({
         en: 'Scheper’s plan names the red of the openings and the grey band, but no source gives their values; the tones are a reading.',
       },
     },
+    lettering: {
+      original: { name: 'BAUHAUS', designer: 'Herbert Bayer', kind: 'lettered' },
+      documented: {
+        es: 'Herbert Bayer diseñó las letras verticales BAUHAUS del edificio [5][6], en mayúsculas que Daidalos relaciona con su Universal, pariente de la grotesca; con ellas rompió la costumbre de la escuela de escribir solo en minúsculas [5]. Cada letra se separa del muro sobre varillas delgadas y parece suspendida delante de él [5]. El original se perdió: según Daidalos, se retiró en 1933 [5]; según una portavoz de la Fundación Bauhaus Dessau, y hasta donde se sabe, en la Segunda Guerra Mundial [6]. Las actuales son una réplica de la restauración de hacia 1976 [5][6]; se descolgaron en 2021 y volvieron a su sitio el 16 de mayo de 2024 [7].',
+        en: 'Herbert Bayer designed the building’s vertical BAUHAUS letters [5][6], in capitals that Daidalos relates to his Universal, a relative of the grotesque; with them he broke the school’s habit of writing only in lower case [5]. Each letter stands off the wall on slender rods and seems suspended in front of it [5]. The original was lost: in 1933, according to Daidalos [5]; in the Second World War, according to a spokeswoman for the Bauhaus Dessau Foundation, as far as is known [6]. The present letters are a replica from the restoration of around 1976 [5][6]; they were taken down in 2021 and returned on 16 May 2024 [7].',
+      },
+      substitute: {
+        es: 'El tema usa Jost, una sans geométrica libre, para el texto y los títulos, y pone los títulos en mayúsculas, como el letrero. En sus capitales de círculo y recta vemos la construcción de la Universal, aunque Jost no copia las letras de Bayer.',
+        en: 'The theme uses Jost, a free geometric sans, for text and titles, and sets titles in capitals, like the sign. In its capitals of circle and straight line we see the construction of the Universal, though Jost does not copy Bayer’s letters.',
+      },
+    },
   },
-  fonts: 'system-sans',
+  fonts: { sans: 'jost' },
   colors: {
     bg: ['#f8f6f3', '#161616'],
     fg: ['#141414', '#e6e3dd'],
@@ -87,7 +101,7 @@ export default defineTheme({
     dangerFg: ['#fcfdfd', '#0d0d0d'],
     focus: ['#b3261e', '#f47a7c'],
   },
-  type: { weightBody: 500, weightLabel: 700, weightDisplay: 900 },
+  type: { weightBody: 500, weightLabel: 700, weightDisplay: 900, displayTransform: 'uppercase', displaySpacing: '0.02em' },
   shape: { borderWidth: 2, radius: 0, radiusControl: 0, radiusButton: 0, radiusSmall: 0 },
   elevation: flat(),
   motion: { duration: 0, durationSlow: 0, ease: 'linear' },

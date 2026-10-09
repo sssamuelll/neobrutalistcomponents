@@ -369,7 +369,7 @@ test('credits: every photograph and every typeface, each with its licence', asyn
   await expect(photographs).toHaveCount(CATALOG.filter((entry) => entry.image).length);
   await expect(photographs.filter({ hasText: 'Nakagin' })).toContainText('CC BY-SA 4.0');
   const fonts = page.locator('table[aria-labelledby="credits-fonts"] tbody tr');
-  await expect(fonts).toHaveCount(18);
+  await expect(fonts).toHaveCount(new Set(CATALOG.flatMap((entry) => entry.fonts)).size);
   await expect(fonts.filter({ hasText: 'Geist Mono' })).toContainText('Classic, Tech');
   // The credits come from the catalog: no theme's data chunk is fetched for them.
   expect(requested.filter((url) => /\/assets\/(nakagin|maeusebunker|sesc-pompeia|classifieds|core-fichas)-[\w-]+\.js$/.test(url))).toEqual([]);

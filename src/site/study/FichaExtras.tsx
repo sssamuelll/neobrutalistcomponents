@@ -10,7 +10,8 @@ export function FichaExtras({ ficha }: { ficha: Ficha }) {
   if (!lettering && !motion) return null;
   const original = lettering?.original;
   const face = original && original.kind !== 'none' ? original : undefined;
-  const facts = face ? [face.name, face.designer, face.year].filter(Boolean).join(', ') : '';
+  const name = face ? (typeof face.name === 'string' ? face.name : face.name[lang]) : '';
+  const facts = face ? [name, face.designer, face.year].filter(Boolean).join(', ') : '';
   return (
     <>
       {lettering ? (

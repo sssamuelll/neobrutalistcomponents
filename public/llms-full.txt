@@ -47,7 +47,7 @@ Each study theme reads one documented work; its page (https://sssamuelll.github.
 
 | Theme | Reference | Scene | Native scheme | Fonts | Stylesheets |
 | --- | --- | --- | --- | --- | --- |
-| `bauhaus-dessau` | Bauhaus Building, Dessau (Bauhausgebäude Dessau), Walter Gropius, Dessau, Germany, 1925–1926 | Germany | light | system fonts | `themes/bauhaus-dessau.css`, `themes/bauhaus-dessau.fonts.css` |
+| `bauhaus-dessau` | Bauhaus Building, Dessau (Bauhausgebäude Dessau), Walter Gropius, Dessau, Germany, 1925–1926 | Germany | light | Jost | `themes/bauhaus-dessau.css`, `themes/bauhaus-dessau.fonts.css` |
 | `maeusebunker` | Mäusebunker (former Central Animal Laboratories of the Free University of Berlin; Zentrale Tierlaboratorien der Freien Universität Berlin), Gerd Hänska, Magdalena Hänska, Kurt Schmersow, Lichterfelde, Berlin, Germany, 1971–1982 | Germany | dark | Barlow, Barlow Condensed, DM Mono | `themes/maeusebunker.css`, `themes/maeusebunker.fonts.css` |
 | `carlton` | Carlton room divider, Ettore Sottsass, Milan, Italy, 1981 | Italy | light | system fonts | `themes/carlton.css`, `themes/carlton.fonts.css` |
 | `nakagin` | Nakagin Capsule Tower (中銀カプセルタワービル), Kisho Kurokawa, Ginza, Tokyo, Japan, 1970–1972 | Japan | light | Zen Kaku Gothic New, Dela Gothic One, M PLUS 1 Code | `themes/nakagin.css`, `themes/nakagin.fonts.css` |
