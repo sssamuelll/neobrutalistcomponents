@@ -96,6 +96,12 @@ export interface StudyType {
   readonly displaySpacing?: string;
   /** font-stretch for display text. Default '100%'. */
   readonly displayStretch?: string;
+  /** CSS font-feature-settings: 'normal' or tags like '"tnum", "ss01" 1'. Default 'normal'. */
+  readonly featureSettings?: string;
+  /** font-kerning. Bitmap faces do not kern: use 'none'. Default 'auto'. */
+  readonly kerning?: 'auto' | 'normal' | 'none';
+  /** text-rendering. Default 'optimizeLegibility'. */
+  readonly textRendering?: 'auto' | 'optimizeSpeed' | 'optimizeLegibility' | 'geometricPrecision';
 }
 
 /** All values in px. */
@@ -204,12 +210,41 @@ export interface Reference {
 export const PALETTE_ORIGINS = ['documented', 'sampled', 'interpreted'] as const;
 export type PaletteOrigin = (typeof PALETTE_ORIGINS)[number];
 
+export const LETTERING_KINDS = ['bitmap', 'outline', 'lettered', 'system'] as const;
+export type LetteringKind = (typeof LETTERING_KINDS)[number];
+
+/** What the work set its text in, and the free face the theme uses in its place. */
+export interface Lettering {
+  readonly original: {
+    readonly name: string;
+    readonly designer?: string;
+    readonly year?: number;
+    readonly kind: LetteringKind;
+    /** The original is itself freely licensed and loaded as is (Roboto). Waives "substitute differs from original". */
+    readonly free?: true;
+  };
+  /** What the work used; every claim carries a [n] marker into reference.sources. */
+  readonly documented: L10n;
+  /** The free face the theme loads and why it resembles the original; names it. */
+  readonly substitute: L10n;
+}
+
+/** How the work moved, when a source documents it. Absent for static works. */
+export interface MotionFicha {
+  readonly documented: L10n;
+  readonly reading: L10n;
+}
+
 export interface Ficha {
   /** 2–4 sentences of fact; every claim carries a [n] marker into reference.sources. */
   readonly documented: L10n;
   /** 2–4 sentences of interpretation: what the theme takes from the reference, and why. */
   readonly reading: L10n;
   readonly palette: { readonly origin: PaletteOrigin; readonly note: L10n };
+  /** Required of study themes by the validator (see LETTERING_PENDING); optional here so core fichas stay valid. */
+  readonly lettering?: Lettering;
+  /** Present exactly when the theme has a motionFile. */
+  readonly motion?: MotionFicha;
 }
 
 /** A family applied to a theme. Build with the family helpers (concrete(), grid()…). */
@@ -237,6 +272,8 @@ export interface StudyThemeInput {
   readonly families?: readonly FamilyUse[];
   /** Path of the theme's signature CSS, relative to its file — './<id>.css'. */
   readonly signature?: string;
+  /** Path of the theme's motion CSS, relative to its file — './<id>.motion.css'. Goes with ficha.motion. */
+  readonly motionFile?: string;
 }
 
 export type BorderFacet = 'hairline' | 'standard' | 'heavy';

@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url';
 import { NEO_THEMES, THEME_INFO } from '../lib/themes';
 import { CORE_FICHAS } from './core-fichas';
 import { STUDY_THEMES, registryProblems } from './registry';
-import { coreFichaProblems, themeProblems } from './validate';
+import { LETTERING_PENDING, coreFichaProblems, themeProblems } from './validate';
 import { compileTheme } from './compile';
 import { contractProblems } from './contract';
 
@@ -31,14 +31,27 @@ describe('proof themes', () => {
   });
 });
 
-for (const { theme, signature } of STUDY_THEMES) {
+/** The sixteen themes that predate the lettering requirement. Never add to this list. */
+const LETTERING_CEILING = ['amiga-os', 'aqua', 'bauhaus-dessau', 'carlton', 'classifieds', 'iphone-os', 'mac-os-classic', 'maeusebunker', 'material-design', 'nakagin', 'nextstep', 'sesc-pompeia', 'whaam', 'win-xp', 'win95', 'xerox-star'];
+
+describe('lettering pending list', () => {
+  it('holds only registered themes that still lack lettering, and no id twice', () => {
+    const lacking = STUDY_THEMES.filter(({ theme }) => !theme.ficha.lettering).map(({ theme }) => theme.id);
+    expect([...LETTERING_PENDING].sort()).toEqual([...lacking].sort());
+    expect(new Set(LETTERING_PENDING).size).toBe(LETTERING_PENDING.length);
+    // The list never grows: it can only hold the sixteen themes that predate the requirement.
+    expect(LETTERING_PENDING.filter((id) => !LETTERING_CEILING.includes(id))).toEqual([]);
+  });
+});
+
+for (const { theme, signature, motionCss } of STUDY_THEMES) {
   describe(`study theme "${theme.id}"`, () => {
     it('passes validation: id, bilingual text, sources, markers, image credit', () => {
       expect(themeProblems(theme)).toEqual([]);
     });
 
     it('compiles and meets the token contract in both schemes', () => {
-      const compiled = compileTheme(theme, { signature });
+      const compiled = compileTheme(theme, { signature, motionCss });
       expect(contractProblems(theme.id, compiled.tokens, compiled.css)).toEqual([]);
     });
 

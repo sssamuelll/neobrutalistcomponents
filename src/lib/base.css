@@ -35,7 +35,9 @@
   accent-color: var(--nbc-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
+  font-feature-settings: var(--nbc-font-features, inherit);
+  font-kerning: var(--nbc-font-kerning, inherit);
+  text-rendering: var(--nbc-text-rendering);
 }
 
 .nbc-root ::selection {

@@ -58,7 +58,7 @@ export function topLevelBlocks(css: string): Block[] {
 }
 
 /** Splits on `separator` outside quotes and parentheses. */
-function splitOutside(input: string, separator: string): string[] {
+export function splitOutside(input: string, separator: string): string[] {
   const parts: string[] = [];
   let depth = 0;
   let quote: string | null = null;
@@ -130,4 +130,46 @@ export function keyframeRules(css: string): KeyframeRule[] {
     }
   }
   return frames;
+}
+
+const NO_PREFERENCE = /^@media\s*\(\s*prefers-reduced-motion\s*:\s*no-preference\s*\)$/;
+const ANIMATION = /^(-webkit-)?(animation|transition)(-[a-z-]+)?$/;
+
+export interface AnimationUse {
+  readonly selector: string;
+  readonly property: string;
+  readonly value: string;
+  /** Inside @media (prefers-reduced-motion: no-preference). */
+  readonly guarded: boolean;
+}
+
+/** Every animation declaration, descending into conditional at-rules, and whether the guard wraps it. Keyframes are skipped. */
+export function animationUses(css: string, guarded = false): AnimationUse[] {
+  const uses: AnimationUse[] = [];
+  for (const block of topLevelBlocks(stripComments(css))) {
+    if (/^@keyframes\b/.test(block.prelude)) continue;
+    if (block.prelude.startsWith('@')) {
+      uses.push(...animationUses(block.body, guarded || NO_PREFERENCE.test(block.prelude)));
+      continue;
+    }
+    if (block.body.includes('{')) continue; // CSS nesting: the lint reports it
+    for (const { property, value } of parseDeclarations(block.body)) {
+      if (ANIMATION.test(property)) uses.push({ selector: block.prelude, property, value, guarded });
+    }
+  }
+  return uses;
+}
+
+/** Names of @keyframes declared below the top level (inside an at-rule): the compiler namespaces only top-level ones. */
+export function nestedKeyframeNames(css: string, depth = 0): string[] {
+  const names: string[] = [];
+  for (const block of topLevelBlocks(stripComments(css))) {
+    const keyframes = block.prelude.match(/^@keyframes\s+(["']?)([\w-]+)\1$/);
+    if (keyframes) {
+      if (depth > 0) names.push(keyframes[2]);
+    } else if (block.prelude.startsWith('@')) {
+      names.push(...nestedKeyframeNames(block.body, depth + 1));
+    }
+  }
+  return names;
 }

@@ -23,6 +23,11 @@ export const FIXTURE = defineTheme({
     documented: { es: 'Un hecho [1]. Otro hecho [2].', en: 'A fact [1]. Another fact [2].' },
     reading: { es: 'Una lectura.', en: 'A reading.' },
     palette: { origin: 'interpreted', note: { es: 'Inventada.', en: 'Made up.' } },
+    lettering: {
+      original: { name: 'Testschrift', designer: 'Nobody', year: 1971, kind: 'outline' },
+      documented: { es: 'Rotulada en una grotesca [1].', en: 'Set in a grotesque [1].' },
+      substitute: { es: 'Barlow se le parece en la proporción.', en: 'Barlow resembles it in proportion.' },
+    },
   },
   fonts: { sans: 'barlow', mono: 'dm-mono' },
   colors: {
