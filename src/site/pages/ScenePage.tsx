@@ -14,6 +14,7 @@ const ESSAYS: Record<Scene, EssaySlug> = {
   germany: 'scene-germany',
   usa: 'scene-usa',
   latam: 'scene-latam',
+  italy: 'scene-italy',
   origins: 'origins',
 };
 

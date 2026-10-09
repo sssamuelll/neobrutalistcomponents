@@ -251,6 +251,13 @@ export const SCENE_TEXT: Record<Scene, { readonly name: L10n; readonly summary: 
       en: 'Paulista brutalism, concrete poetry, Cybersyn and chicha posters.',
     },
   },
+  italy: {
+    name: { es: 'Italia', en: 'Italy' },
+    summary: {
+      es: 'La Torre Velasca, el Elea de Olivetti, Superstudio y Memphis.',
+      en: 'The Torre Velasca, Olivetti’s Elea, Superstudio and Memphis.',
+    },
+  },
   origins: {
     name: { es: 'Orígenes', en: 'Origins' },
     summary: {

@@ -1,0 +1,87 @@
+import { defineTheme, hardShadow } from '../../define';
+
+export default defineTheme({
+  id: 'carlton',
+  scene: 'italy',
+  nativeScheme: 'light',
+  name: { es: 'Carlton', en: 'Carlton' },
+  tagline: { es: 'Laminado de colores sobre una base de Bacterio.', en: 'Coloured laminate on a Bacterio base.' },
+  reference: {
+    title: { es: 'Estantería divisoria Carlton', en: 'Carlton room divider' },
+    authors: ['Ettore Sottsass'],
+    date: 1981,
+    place: { es: 'Milán, Italia', en: 'Milan, Italy' },
+    kind: 'object',
+    sources: [
+      {
+        title: 'Ettore Sottsass, Carlton room divider',
+        url: 'https://www.ngv.vic.gov.au/explore/collection/work/20879/',
+        publisher: 'National Gallery of Victoria',
+        accessed: '2026-10-09',
+      },
+      {
+        title: 'Carlton room divider',
+        url: 'https://ngv.vic.gov.au/essay/carlton-room-divider',
+        publisher: 'National Gallery of Victoria',
+        accessed: '2026-10-09',
+      },
+      {
+        title: 'Carlton by Ettore Sottsass, the bookcase that introduced a sense of innovation in design',
+        url: 'https://www.finestresullarte.info/en/works-and-artists/carlton-by-ettore-sottsass-the-bookcase-that-introduced-a-sense-innovation-in-design',
+        publisher: 'Finestre sull’Arte',
+        accessed: '2026-10-09',
+      },
+      { title: 'Ettore Sottsass', url: 'https://www.modernismmuseum.org/ettore-sottsass', publisher: 'Modernism Museum', accessed: '2026-10-09' },
+      {
+        title: 'Ettore Sottsass – Carlton 1981',
+        url: 'https://www.artribune.com/mostre-evento-arte/ettore-sottsass-carlton-1981/',
+        publisher: 'Artribune',
+        accessed: '2026-10-09',
+      },
+    ],
+  },
+  ficha: {
+    documented: {
+      es: 'Ettore Sottsass diseñó la Carlton en 1981 para Memphis, el grupo que había fundado en Milán, y se presentó en el Salone del Mobile de 1981 [2][5]. Mide unos 196 × 190 × 40 cm y es de madera revestida de laminado plástico de colores, sobre un zócalo rectangular [1][3]. Sus estantes forman cuadrados, rectángulos y triángulos con piezas en diagonal y una figura de palitos arriba, y se sostiene sola, como una escultura [2]. La base va forrada en Bacterio, un laminado de puntos irregulares que Sottsass había dibujado en 1978 [3][4].',
+      en: 'Ettore Sottsass designed the Carlton in 1981 for Memphis, the group he had founded in Milan, and it was shown at the 1981 Salone del Mobile [2][5]. It stands about 196 × 190 × 40 cm, in wood faced with coloured plastic laminate, on a rectangular plinth [1][3]. Its shelves make squares, rectangles and triangles with angled members and a stick figure on top, and it stands on its own, like a sculpture [2]. The base is covered in Bacterio, a laminate of irregular dots that Sottsass had drawn in 1978 [3][4].',
+    },
+    reading: {
+      es: 'El tema toma el laminado como superficie: colores planos y saturados, bordes negros de 3 px y botones redondeados como piezas de juguete. El fondo lleva una trama de puntos que recuerda al Bacterio de la base. Las piezas se separan con una sombra dura, como los estantes que sobresalen del mueble.',
+      en: 'The theme takes the laminate as its surface: flat, saturated colours, 3 px black borders and buttons rounded like toy parts. The background carries a dot pattern that recalls the Bacterio on the base. Pieces stand apart on a hard shadow, like the shelves that jut out of the cabinet.',
+    },
+    palette: {
+      origin: 'interpreted',
+      note: {
+        es: 'Las fuentes hablan de laminados de colores vivos, pero no dan sus valores; los tonos son una lectura. La obra sigue bajo derechos y no hay imagen libre.',
+        en: 'The sources describe brightly coloured laminates but give no values; the tones are a reading. The work is under copyright and there is no free image.',
+      },
+    },
+  },
+  fonts: 'system-sans',
+  colors: {
+    bg: ['#fdf3e6', '#261b33'],
+    fg: ['#121212', '#f2f2f2'],
+    fgMuted: ['#595959', '#b8b8b8'],
+    surface: ['#fcfcfc', '#171717'],
+    surfaceAlt: ['#fae1e8', '#342642'],
+    border: ['#141414', '#e8e8e8'],
+    primary: ['#10a5cc', '#3acfed'],
+    primaryFg: ['#0d0d0d', '#0a0a0a'],
+    accent: ['#e33b76', '#f55d91'],
+    accentFg: ['#0a0a0a', '#0a0a0a'],
+    info: ['#10a5cc', '#3acfed'],
+    infoFg: ['#0d0d0d', '#0a0a0a'],
+    success: ['#17b567', '#3be38e'],
+    successFg: ['#0a0a0a', '#0a0a0a'],
+    warning: ['#e0c114', '#fce13f'],
+    warningFg: ['#0d0d0d', '#0a0a0a'],
+    danger: ['#cc1b53', '#e8467b'],
+    dangerFg: ['#ffffff', '#0a0a0a'],
+    focus: ['#e33b76', '#f55d91'],
+  },
+  type: { weightBody: 500, weightLabel: 700, weightDisplay: 900 },
+  shape: { borderWidth: 3, radius: 16, radiusControl: 16, radiusButton: 999, radiusSmall: 8 },
+  elevation: hardShadow(6),
+  motion: { duration: 200, durationSlow: 400, ease: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)' },
+  signature: './carlton.css',
+});
