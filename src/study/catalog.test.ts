@@ -83,3 +83,10 @@ describe('catalog', () => {
     expect(ts).toContain('"--nbc-primary-fill": "var(--nbc-primary)"');
   });
 });
+
+describe('the catalog lists each family once', () => {
+  it('even when a theme uses one face for text and code', () => {
+    const theme = { ...FIXTURE, fonts: { sans: 'dm-mono' as const, mono: 'dm-mono' as const } };
+    expect(studyEntry(theme, compileTheme(theme)).fonts).toEqual(['DM Mono']);
+  });
+});
