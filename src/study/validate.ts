@@ -4,9 +4,10 @@
  */
 import { NEO_THEMES } from '../lib/themes';
 import { FONTS } from './fonts';
+import type { FontKey } from './fonts';
 import { hasImage, hasUnresolvableColor } from './lint';
-import { IMAGE_LICENSES, LANGS, PALETTE_ORIGINS, REFERENCE_KINDS, SCENES, SHADOW_KINDS, THEME_SCENES } from './types';
-import type { CoreFicha, Ficha, L10n, Reference, Source, StudyThemeInput } from './types';
+import { IMAGE_LICENSES, LANGS, LETTERING_KINDS, PALETTE_ORIGINS, REFERENCE_KINDS, SCENES, SHADOW_KINDS, THEME_SCENES } from './types';
+import type { CoreFicha, Ficha, L10n, Lettering, MotionFicha, Reference, Source, StudyThemeInput } from './types';
 
 export const ID_PATTERN = /^[a-z][a-z0-9-]{1,31}$/;
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
@@ -73,15 +74,55 @@ export function referenceProblems(ref: Reference, where: string): string[] {
   return problems;
 }
 
+/**
+ * Themes that predate the lettering requirement. Phase 2 of the lettering and
+ * motion spec removes each id as it writes that theme's lettering; the list
+ * never grows, and new themes are never in it.
+ */
+export const LETTERING_PENDING: readonly string[] = [
+  'amiga-os', 'aqua', 'bauhaus-dessau', 'carlton', 'classifieds', 'iphone-os', 'mac-os-classic', 'maeusebunker',
+  'material-design', 'nakagin', 'nextstep', 'sesc-pompeia', 'whaam', 'win-xp', 'win95', 'xerox-star',
+];
+
+function letteringProblems(lettering: Lettering | undefined, where: string): string[] {
+  if (!lettering) return [];
+  const { original } = lettering;
+  const at = `${where}.lettering`;
+  const problems = [...l10nProblems(lettering.documented, `${at}.documented`), ...l10nProblems(lettering.substitute, `${at}.substitute`)];
+  if (!original.name?.trim()) problems.push(`${at}.original.name: empty`);
+  if (!(LETTERING_KINDS as readonly string[]).includes(original.kind)) problems.push(`${at}.original.kind: unknown "${original.kind}"`);
+  if (original.year !== undefined && !(Number.isInteger(original.year) && original.year >= 1400 && original.year <= 2100)) {
+    problems.push(`${at}.original.year: ${original.year} is not a year`);
+  }
+  return problems;
+}
+
+function motionProblems(motion: MotionFicha | undefined, where: string): string[] {
+  if (!motion) return [];
+  return [...l10nProblems(motion.documented, `${where}.motion.documented`), ...l10nProblems(motion.reading, `${where}.motion.reading`)];
+}
+
+/** Every prose block of a ficha, for the marker checks. */
+function prose(ficha: Ficha): L10n[] {
+  return [
+    ficha.documented,
+    ficha.reading,
+    ...(ficha.lettering ? [ficha.lettering.documented, ficha.lettering.substitute] : []),
+    ...(ficha.motion ? [ficha.motion.documented, ficha.motion.reading] : []),
+  ];
+}
+
 export function fichaProblems(ficha: Ficha, sourceCount: number, where: string): string[] {
   const problems = [
     ...l10nProblems(ficha.documented, `${where}.documented`),
     ...l10nProblems(ficha.reading, `${where}.reading`),
     ...l10nProblems(ficha.palette?.note, `${where}.palette.note`),
+    ...letteringProblems(ficha.lettering, where),
+    ...motionProblems(ficha.motion, where),
   ];
   if (!(PALETTE_ORIGINS as readonly string[]).includes(String(ficha.palette?.origin))) problems.push(`${where}.palette.origin: unknown`);
   if (problems.length) return problems;
-  const cited = LANGS.map((lang) => new Set([...markers(ficha.documented[lang]), ...markers(ficha.reading[lang])]));
+  const cited = LANGS.map((lang) => new Set(prose(ficha).flatMap((block) => markers(block[lang]))));
   LANGS.forEach((lang, i) => {
     for (const n of cited[i]) if (n < 1 || n > sourceCount) problems.push(`${where} (${lang}): marker [${n}] has no source`);
   });
@@ -166,6 +207,25 @@ function valueProblems(theme: StudyThemeInput): string[] {
   return problems;
 }
 
+function letteringThemeProblems(theme: StudyThemeInput): string[] {
+  const { id, ficha, fonts } = theme;
+  const pending = LETTERING_PENDING.includes(id);
+  if (!ficha.lettering) return pending ? [] : [`${id}.ficha.lettering: missing`];
+  const problems = pending ? [`${id}: has lettering — remove it from LETTERING_PENDING`] : [];
+  if (typeof fonts === 'string') return problems;
+  const { original, substitute } = ficha.lettering;
+  const families = [fonts.sans, fonts.display].filter((key): key is FontKey => key !== undefined && key in FONTS).map((key) => FONTS[key].family);
+  for (const lang of LANGS) {
+    for (const family of families) {
+      if (!substitute[lang]?.includes(family)) problems.push(`${id}.ficha.lettering.substitute.${lang}: does not name ${family}, the face the theme loads`);
+    }
+  }
+  if (!original.free && families.some((family) => family.toLowerCase() === original.name.trim().toLowerCase())) {
+    problems.push(`${id}.ficha.lettering: the substitute is the original face "${original.name}"`);
+  }
+  return problems;
+}
+
 export function themeProblems(theme: StudyThemeInput): string[] {
   const { id } = theme;
   const problems: string[] = [];
@@ -177,6 +237,10 @@ export function themeProblems(theme: StudyThemeInput): string[] {
   problems.push(...l10nProblems(theme.name, `${id}.name`), ...l10nProblems(theme.tagline, `${id}.tagline`));
   problems.push(...referenceProblems(theme.reference, `${id}.reference`));
   problems.push(...fichaProblems(theme.ficha, theme.reference.sources.length, `${id}.ficha`));
+  problems.push(...letteringThemeProblems(theme));
+  if (Boolean(theme.motionFile) !== Boolean(theme.ficha.motion)) {
+    problems.push(`${id}: ${theme.ficha.motion ? 'ficha.motion has no motionFile' : 'motionFile has no ficha.motion'} — they go together`);
+  }
   if (typeof theme.fonts !== 'string') {
     for (const key of [theme.fonts.sans, theme.fonts.display, theme.fonts.mono]) {
       if (key !== undefined && !(key in FONTS)) problems.push(`${id}: unknown font "${key}"`);
