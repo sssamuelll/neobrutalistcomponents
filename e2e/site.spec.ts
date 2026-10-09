@@ -333,6 +333,16 @@ test('rooms: a focused legend row keeps its text and focus ring readable on the 
   }
 });
 
+test('rooms: map labels show only when the map is wide enough to read them', async ({ page }) => {
+  for (const [width, visible] of [[1280, true], [768, false], [360, false]] as const) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('#/en/scenes');
+    const label = page.locator('.world-map__room[data-scene="usa"] .world-map__label');
+    if (visible) await expect(label, `${width} px`).toBeVisible();
+    else await expect(label, `${width} px`).toBeHidden();
+  }
+});
+
 test('a study page whose essay cannot load says so instead of staying blank', async ({ page }) => {
   await page.route(/\/assets\/en-[\w-]+\.js$/, (route) => route.abort());
   await page.goto('#/en/origins');

@@ -1544,6 +1544,7 @@ body {
    ============================================================ */
 
 .world-map {
+  container-type: inline-size;
   margin: 0;
   padding: var(--nbc-space-lg);
   background: var(--map-plate);
@@ -1682,7 +1683,11 @@ body {
   .world-map {
     padding: var(--nbc-space-md);
   }
+}
 
+/* Labels scale with the map: under 900 px of map they would drop below ~10 px,
+   so they go and the legend leads. */
+@container (max-width: 899px) {
   .world-map__label {
     display: none;
   }
