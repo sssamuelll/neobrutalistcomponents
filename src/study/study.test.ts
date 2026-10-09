@@ -17,6 +17,11 @@ const DIR = dirname(fileURLToPath(import.meta.url));
 const IMAGE_BUDGET = 250_000;
 
 describe('study registry', () => {
+  it('hands the tests the real signature and motion CSS, not an empty string', () => {
+    const empty = STUDY_THEMES.filter(({ signature, motionCss }) => signature === '' || motionCss === '').map(({ theme }) => theme.id);
+    expect(empty).toEqual([]);
+  });
+
   it('every theme lives at themes/<scene>/<id>.ts, ids are unique, signatures exist', () => {
     expect(registryProblems()).toEqual([]);
   });

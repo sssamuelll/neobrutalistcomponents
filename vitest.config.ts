@@ -15,5 +15,8 @@ export default defineConfig({
     globals: true,
     setupFiles: ['./src/test-setup.ts'],
     include: ['src/**/*.test.{ts,tsx}'],
+    // Study theme CSS is imported with ?raw and linted and compiled in tests; by
+    // default Vitest replaces every CSS file it does not process with an empty string.
+    css: { include: [/\/src\/study\/themes\/.*\.css/] },
   },
 });
