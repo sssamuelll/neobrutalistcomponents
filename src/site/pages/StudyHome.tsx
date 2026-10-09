@@ -1,20 +1,52 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import type { RefObject } from 'react';
 import { Button, NeoProvider } from 'neobrutalistcomponents';
 import { useLang, useT, SCENE_TEXT } from '../i18n';
 import { toHash } from '../router';
 import { CATALOG } from '../study/data';
+import { Essay } from '../study/Essay';
 import type { CatalogEntry } from '../../study/catalog';
 import { startYear, years, sceneHref } from '../study/format';
 import { GalleryPiece } from '../study/GalleryPiece';
 import { useThemeStylesheet } from '../study/loader';
 
+/** True once the element is within a screen's height of the viewport; at once where IntersectionObserver is missing. */
+function useNearViewport(ref: RefObject<Element | null>): boolean {
+  const [near, setNear] = useState(() => typeof IntersectionObserver === 'undefined');
+  useEffect(() => {
+    const element = ref.current;
+    if (near || !element) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) setNear(true);
+      },
+      { rootMargin: '100% 0px' },
+    );
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [near, ref]);
+  return near;
+}
+
+/** A work's piece, painted in its theme. Mounting it fetches the theme's stylesheet and fonts. */
+function WorkStage({ id }: { id: string }) {
+  useThemeStylesheet(id);
+  return (
+    <NeoProvider theme={id} className="gallery-work__stage">
+      <GalleryPiece />
+    </NeoProvider>
+  );
+}
+
 function TimelineWork({ entry, index, total }: { entry: CatalogEntry; index: number; total: number }) {
   const lang = useLang();
   const t = useT();
-  useThemeStylesheet(entry.id);
+  const ref = useRef<HTMLElement>(null);
+  // ponytail: every work stays in the DOM; only its theme waits. Virtualise the list if the catalog outgrows that.
+  const near = useNearViewport(ref);
 
   return (
-    <article className="gallery-work" aria-label={entry.name[lang]}>
+    <article ref={ref} className="gallery-work" aria-label={entry.name[lang]}>
       <div className="gallery-work__inner">
         <div className="gallery-work__info">
           <div className="gallery-work__meta">
@@ -55,9 +87,7 @@ function TimelineWork({ entry, index, total }: { entry: CatalogEntry; index: num
           </div>
         </div>
         
-        <NeoProvider theme={entry.id} className="gallery-work__stage">
-          <GalleryPiece />
-        </NeoProvider>
+        {near ? <WorkStage id={entry.id} /> : <div className="gallery-work__stage" />}
       </div>
     </article>
   );
@@ -90,6 +120,8 @@ export function StudyHome() {
           </div>
         </div>
       </header>
+
+      <Essay slug="home" />
 
       <section id="collection" className="gallery-collection" aria-labelledby="collection-heading">
         <div className="gallery-collection__intro">
