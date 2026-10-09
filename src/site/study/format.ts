@@ -31,6 +31,14 @@ export const years = (date: Reference['date']): string => (typeof date === 'numb
 
 export const startYear = (date: Reference['date']): number => (typeof date === 'number' ? date : date[0]);
 
+/** First–last of a room's start years: '1963–2014', one year alone, '—' for a room with no works yet. */
+export function yearSpan(starts: readonly number[]): string {
+  if (!starts.length) return '—';
+  const first = Math.min(...starts);
+  const last = Math.max(...starts);
+  return first === last ? String(first) : `${first}–${last}`;
+}
+
 /** The page of a scene; Origins has its own. */
 export const sceneHref = (lang: Lang, scene: Scene): string => toHash(lang, scene === 'origins' ? '/origins' : `/scene/${scene}`);
 

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { aroundOriginal, commonsTitle, licenseName, startYear, years } from './format';
+import { aroundOriginal, commonsTitle, licenseName, startYear, yearSpan, years } from './format';
 
 describe('study formatting', () => {
   it('puts a reference’s original title in a parenthesis, inside the one its title may already end with', () => {
@@ -25,5 +25,14 @@ describe('study formatting', () => {
       'SESC Pompeia - São Paulo - 20220726142122.jpg',
     );
     expect(commonsTitle('https://commons.wikimedia.org/wiki/File:Broken_%E0%A4%A.jpg')).toBe('Broken %E0%A4%A.jpg');
+  });
+});
+
+describe('yearSpan', () => {
+  it('reads a room with no works, one year, or a span', () => {
+    expect(yearSpan([])).toBe('—');
+    expect(yearSpan([1981])).toBe('1981');
+    expect(yearSpan([1981, 1981])).toBe('1981');
+    expect(yearSpan([2014, 1963, 1995])).toBe('1963–2014');
   });
 });
