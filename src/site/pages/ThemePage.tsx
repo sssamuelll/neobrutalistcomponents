@@ -132,10 +132,10 @@ function Ficha({ detail }: { detail: ThemeDetail }) {
       <p className="site-p">{ficha.documented[lang]}</p>
       <h2 className="site-h2">{t('reading')}</h2>
       <p className="site-p">{ficha.reading[lang]}</p>
-      <FichaExtras ficha={ficha} />
       <p className="site-p site-themepage__palette">
         {t('palette')}, {PALETTE_TEXT[ficha.palette.origin][lang]}: {ficha.palette.note[lang]}
       </p>
+      <FichaExtras ficha={ficha} />
       <h2 className="site-h2">{t('sources')}</h2>
       <SourceList sources={reference.sources} />
     </section>

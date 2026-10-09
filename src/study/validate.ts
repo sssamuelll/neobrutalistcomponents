@@ -130,6 +130,13 @@ export function fichaProblems(ficha: Ficha, sourceCount: number, where: string):
   if (es.join() !== en.join()) problems.push(`${where}: markers differ between es [${es}] and en [${en}]`);
   for (let n = 1; n <= sourceCount; n += 1) if (!cited[0].has(n)) problems.push(`${where}: source [${n}] is never cited`);
   if (markers(ficha.documented.es).length === 0) problems.push(`${where}.documented: cites no source`);
+  const claims: [string, L10n | undefined][] = [['lettering.documented', ficha.lettering?.documented], ['motion.documented', ficha.motion?.documented]];
+  for (const [name, block] of claims) {
+    if (!block) continue;
+    const [es, en] = LANGS.map((lang) => [...new Set(markers(block[lang]))].sort((a, b) => a - b));
+    if (es.length === 0) problems.push(`${where}.${name}: cites no source`);
+    else if (es.join() !== en.join()) problems.push(`${where}.${name}: markers differ between es [${es}] and en [${en}]`);
+  }
   return problems;
 }
 

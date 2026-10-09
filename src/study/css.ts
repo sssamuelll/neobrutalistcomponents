@@ -58,7 +58,7 @@ export function topLevelBlocks(css: string): Block[] {
 }
 
 /** Splits on `separator` outside quotes and parentheses. */
-function splitOutside(input: string, separator: string): string[] {
+export function splitOutside(input: string, separator: string): string[] {
   const parts: string[] = [];
   let depth = 0;
   let quote: string | null = null;
@@ -133,7 +133,7 @@ export function keyframeRules(css: string): KeyframeRule[] {
 }
 
 const NO_PREFERENCE = /^@media\s*\(\s*prefers-reduced-motion\s*:\s*no-preference\s*\)$/;
-const ANIMATION = /^animation(-[a-z-]+)?$/;
+const ANIMATION = /^(-webkit-)?(animation|transition)(-[a-z-]+)?$/;
 
 export interface AnimationUse {
   readonly selector: string;
@@ -158,4 +158,18 @@ export function animationUses(css: string, guarded = false): AnimationUse[] {
     }
   }
   return uses;
+}
+
+/** Names of @keyframes declared below the top level (inside an at-rule): the compiler namespaces only top-level ones. */
+export function nestedKeyframeNames(css: string, depth = 0): string[] {
+  const names: string[] = [];
+  for (const block of topLevelBlocks(stripComments(css))) {
+    const keyframes = block.prelude.match(/^@keyframes\s+(["']?)([\w-]+)\1$/);
+    if (keyframes) {
+      if (depth > 0) names.push(keyframes[2]);
+    } else if (block.prelude.startsWith('@')) {
+      names.push(...nestedKeyframeNames(block.body, depth + 1));
+    }
+  }
+  return names;
 }

@@ -2,7 +2,7 @@
  * Lint for family and signature CSS (spec D3/D4): colors only from tokens,
  * control geometry untouched, flat rules, scoping left to the compiler.
  */
-import { animationUses, keyframeRules, stripComments, styleRules } from './css';
+import { animationUses, keyframeRules, nestedKeyframeNames, splitOutside, stripComments, styleRules } from './css';
 import type { Declaration } from './css';
 
 export const SIGNATURE_MAX_LINES = 60;
@@ -108,8 +108,20 @@ export function signatureLines(css: string): number {
   return stripComments(css).split('\n').filter((line) => line.trim()).length;
 }
 
+/** Signatures carry no animation (families are repo code, reviewed in the repo): motion lives in the motion file, where the lint can hold it. */
+export function lintNoMotion(css: string, where: string): string[] {
+  const problems: string[] = [];
+  for (const use of animationUses(css)) {
+    if (use.property.includes('animation') && use.value.trim() !== 'none') {
+      problems.push(`${where}: "${use.selector}" sets ${use.property} — motion belongs in the motion file`);
+    }
+  }
+  if (/@keyframes/.test(stripComments(css))) problems.push(`${where}: @keyframes — motion belongs in the motion file`);
+  return problems;
+}
+
 export function lintSignature(css: string, where: string): string[] {
-  const problems = lintFlourishCss(css, where);
+  const problems = [...lintFlourishCss(css, where), ...lintNoMotion(css, where)];
   const lines = signatureLines(css);
   if (lines > SIGNATURE_MAX_LINES) problems.push(`${where}: ${lines} lines, the limit is ${SIGNATURE_MAX_LINES}`);
   return problems;
@@ -137,6 +149,9 @@ export function lintMotion(css: string, where: string): string[] {
       problems.push(`${where}: "${use.selector}" sets ${use.property} outside @media (prefers-reduced-motion: no-preference)`);
     }
   }
+  for (const name of nestedKeyframeNames(css)) {
+    problems.push(`${where}: @keyframes ${name} must be at the top level — the compiler namespaces only top-level keyframes`);
+  }
   for (const frame of keyframeRules(css)) {
     for (const { property } of frame.declarations) {
       if (!FRAME_PROPERTIES.includes(property)) {
@@ -146,8 +161,8 @@ export function lintMotion(css: string, where: string): string[] {
   }
   for (const rule of styleRules(css)) {
     for (const { property, value } of rule.declarations) {
-      if (property !== 'transition' && property !== 'transition-property') continue;
-      const names = value.split(',').map((part) => part.trim().split(/\s+/)[0]);
+      if (!/^(-webkit-)?transition(-property)?$/.test(property)) continue;
+      const names = splitOutside(value, ',').map((part) => part.trim().split(/\s+/)[0]);
       for (const name of names.filter((n) => !TRANSITIONABLE.includes(n))) {
         problems.push(`${where}: "${rule.selector}" transition names ${name} — only ${ANIMATABLE.join(', ')}`);
       }

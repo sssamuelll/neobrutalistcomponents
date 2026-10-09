@@ -55,8 +55,6 @@
   --nbc-display-transform: none;
   --nbc-display-spacing: -0.02em;
   --nbc-display-stretch: 100%;
-  --nbc-font-features: normal;
-  --nbc-font-kerning: auto;
   --nbc-text-rendering: optimizeLegibility;
 
   /* ---- Color (solid) ----------------------------------------- */

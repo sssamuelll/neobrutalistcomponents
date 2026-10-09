@@ -35,8 +35,8 @@
   accent-color: var(--nbc-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-feature-settings: var(--nbc-font-features);
-  font-kerning: var(--nbc-font-kerning);
+  font-feature-settings: var(--nbc-font-features, inherit);
+  font-kerning: var(--nbc-font-kerning, inherit);
   text-rendering: var(--nbc-text-rendering);
 }
 

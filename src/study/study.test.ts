@@ -31,11 +31,16 @@ describe('proof themes', () => {
   });
 });
 
+/** The sixteen themes that predate the lettering requirement. Never add to this list. */
+const LETTERING_CEILING = ['amiga-os', 'aqua', 'bauhaus-dessau', 'carlton', 'classifieds', 'iphone-os', 'mac-os-classic', 'maeusebunker', 'material-design', 'nakagin', 'nextstep', 'sesc-pompeia', 'whaam', 'win-xp', 'win95', 'xerox-star'];
+
 describe('lettering pending list', () => {
   it('holds only registered themes that still lack lettering, and no id twice', () => {
     const lacking = STUDY_THEMES.filter(({ theme }) => !theme.ficha.lettering).map(({ theme }) => theme.id);
     expect([...LETTERING_PENDING].sort()).toEqual([...lacking].sort());
     expect(new Set(LETTERING_PENDING).size).toBe(LETTERING_PENDING.length);
+    // The list never grows: it can only hold the sixteen themes that predate the requirement.
+    expect(LETTERING_PENDING.filter((id) => !LETTERING_CEILING.includes(id))).toEqual([]);
   });
 });
 

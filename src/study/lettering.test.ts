@@ -113,3 +113,21 @@ describe('typography fields', () => {
     expect(themeProblems({ ...FIXTURE, ...type({ featureSettings: '"smcp", "tnum" 1' }) })).toEqual([]);
   });
 });
+
+describe('lettering and motion claims need a source (final review)', () => {
+  const motion = { documented: { es: 'Se mueve [1].', en: 'It moves [1].' }, reading: { es: 'Lo imita.', en: 'It imitates that.' } };
+  const withMotion = (patch: Partial<typeof motion>): Partial<StudyThemeInput> => ({
+    ficha: { ...FIXTURE.ficha, motion: { ...motion, ...patch } },
+    motionFile: './fixture.motion.css',
+  });
+
+  it('lettering.documented must cite a source, in both languages alike', () => {
+    expect(problems(withLettering({ documented: { es: 'Rotulada.', en: 'Set.' } }))).toMatch(/lettering\.documented: cites no source/);
+    expect(problems(withLettering({ documented: { es: 'Rotulada [1].', en: 'Set.' } }))).toMatch(/lettering\.documented: markers differ/);
+  });
+
+  it('motion.documented must cite a source, in both languages alike', () => {
+    expect(problems(withMotion({ documented: { es: 'Se movía.', en: 'It moved.' } }))).toMatch(/motion\.documented: cites no source/);
+    expect(problems(withMotion({ documented: { es: 'Se movía [1].', en: 'It moved.' } }))).toMatch(/motion\.documented: markers differ/);
+  });
+});

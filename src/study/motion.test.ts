@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { FIXTURE } from './__fixtures__/fixture';
 import { compileTheme } from './compile';
-import { animates, lintMotion } from './lint';
+import { animates, lintMotion, lintSignature } from './lint';
 import { collectThemes, registryProblems } from './registry';
 
 const GOOD = `@keyframes hourglass {
@@ -78,5 +78,40 @@ describe('registryProblems for motion files', () => {
     expect(themes[0].motionCss).toBe(GOOD);
     expect(problems.join('\n')).toMatch(/orphan\.css: no theme declares this file/);
     expect(problems.join('\n')).not.toMatch(/fixture\.motion\.css/);
+  });
+});
+
+describe('lintMotion closes the final review findings', () => {
+  const GUARD = (body: string) => `@media (prefers-reduced-motion: no-preference) {\n${body}\n}`;
+
+  it('rejects @keyframes below the top level: the compiler only namespaces top-level ones', () => {
+    const css = GUARD('@keyframes blink { to { opacity: 0; } }\n.nbc-card { animation: blink 1s; }');
+    expect(lintMotion(css, 'm').join('\n')).toMatch(/@keyframes blink must be at the top level/);
+  });
+
+  it('a transition needs the guard too, and counts as motion', () => {
+    expect(lintMotion('.nbc-button { transition: transform 300ms; }', 'm').join('\n')).toMatch(/sets transition outside @media/);
+    const guarded = GUARD('.nbc-button { transition: transform 300ms; }');
+    expect(lintMotion(guarded, 'm')).toEqual([]);
+    expect(animates(guarded)).toBe(true);
+    expect(lintMotion('.nbc-button { transition: none; }', 'm')).toEqual([]);
+  });
+
+  it('reads steps() and cubic-bezier() in a transition as one value each', () => {
+    const css = GUARD('.nbc-button { transition: transform 80ms steps(2, end), opacity 1s cubic-bezier(.2, .8, .2, 1); }');
+    expect(lintMotion(css, 'm')).toEqual([]);
+  });
+
+  it('sees the -webkit- prefixed spellings', () => {
+    expect(lintMotion('.nbc-card { -webkit-animation: x 1s; }', 'm').join('\n')).toMatch(/outside @media/);
+    expect(lintMotion('.nbc-card { -webkit-transition: width 1s; }', 'm').join('\n')).toMatch(/outside @media|transition names width/);
+  });
+});
+
+describe("signatures carry no motion", () => {
+  it('lintSignature rejects animation and @keyframes: they belong in the motion file', () => {
+    expect(lintSignature('.nbc-card { animation: x 1s; }', 's').join('\n')).toMatch(/motion belongs in the motion file/);
+    expect(lintSignature('@keyframes x { to { opacity: 0; } }', 's').join('\n')).toMatch(/motion belongs in the motion file/);
+    expect(lintSignature('.nbc-card { color: var(--nbc-fg); }', 's')).toEqual([]);
   });
 });
