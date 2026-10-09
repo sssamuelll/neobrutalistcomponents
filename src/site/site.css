@@ -1537,3 +1537,153 @@ body {
 }
 
 
+
+/* ============================================================
+   World map (Rooms). The plate's colours come from plateStyle()
+   (src/site/study/map-colors.ts), never from the theme's palette.
+   ============================================================ */
+
+.world-map {
+  margin: 0;
+  padding: var(--nbc-space-lg);
+  background: var(--map-plate);
+  color: var(--map-ink);
+  border: 1px solid var(--map-land);
+  font-family: var(--nbc-font-mono);
+}
+
+/* The site's focus colour belongs to the theme and may vanish on the plate. */
+.world-map :focus-visible {
+  outline: 2px solid var(--map-ink);
+  outline-offset: 2px;
+}
+
+.world-map__svg {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+}
+
+.world-map__graticule {
+  fill: none;
+  stroke: var(--map-graticule);
+  stroke-width: 0.6px;
+  vector-effect: non-scaling-stroke;
+}
+
+.world-map__room {
+  cursor: pointer;
+}
+
+.world-map[data-active] .world-map__room:not([data-active]) {
+  opacity: 0.35;
+}
+
+.world-map__label line,
+.world-map__label circle {
+  fill: none;
+  stroke: var(--map-muted);
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+}
+
+/* Sizes are in grid units: one unit is one dot. A halo in the plate's colour
+   keeps labels readable where they cross dots. */
+.world-map__label text {
+  fill: var(--map-ink);
+  font-size: 2px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  paint-order: stroke;
+  stroke: var(--map-plate);
+  stroke-width: 0.5px;
+  stroke-linejoin: round;
+}
+
+.world-map__label .world-map__facts {
+  fill: var(--map-muted);
+  font-size: 1.7px;
+}
+
+.world-map__legend {
+  inline-size: 100%;
+  margin-block-start: var(--nbc-space-lg);
+  border-collapse: collapse;
+  font-size: var(--nbc-fs-sm);
+}
+
+.world-map__legend th,
+.world-map__legend td {
+  padding: var(--nbc-space-xs) var(--nbc-space-sm);
+  border-block-start: 1px solid var(--map-land);
+  text-align: start;
+  vertical-align: top;
+  font-weight: 400;
+}
+
+.world-map__legend thead th {
+  border-block-start: none;
+  color: var(--map-muted);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.world-map__legend td:nth-child(2),
+.world-map__legend thead th:nth-child(2) {
+  text-align: end;
+}
+
+.world-map__legend td:nth-child(3) {
+  color: var(--map-muted);
+}
+
+.world-map__legend a {
+  color: var(--map-ink);
+  font-weight: 600;
+}
+
+.world-map__summary {
+  display: block;
+  color: var(--map-muted);
+}
+
+/* The active row darkens a little, so its muted text turns to ink to keep 4.5:1. */
+.world-map__legend tbody tr[data-active],
+.world-map__legend tbody tr:hover,
+.world-map__legend tbody tr:focus-within {
+  background: color-mix(in srgb, var(--map-ink) 6%, var(--map-plate));
+}
+
+.world-map__legend tbody tr:is([data-active], :hover, :focus-within) :is(.world-map__summary, td) {
+  color: var(--map-ink);
+}
+
+.world-map__caption {
+  margin-block-start: var(--nbc-space-md);
+  color: var(--map-muted);
+  font-size: var(--nbc-fs-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.world-map__caption a {
+  color: inherit;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .world-map__room,
+  .world-map__legend tbody tr {
+    transition: opacity 150ms ease, background-color 150ms ease;
+  }
+}
+
+@media (max-width: 639px) {
+  .world-map {
+    padding: var(--nbc-space-md);
+  }
+
+  .world-map__label {
+    display: none;
+  }
+}
