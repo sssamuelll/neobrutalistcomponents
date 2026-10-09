@@ -5,7 +5,7 @@ export default defineTheme({
   scene: 'usa',
   nativeScheme: 'light',
   name: { es: 'Mac OS X Aqua', en: 'Mac OS X Aqua' },
-  tagline: { es: 'La fluidez del cristal líquido: una sinfonía de translucidez, profundidad y tacto digital.', en: 'The fluidity of liquid crystal: a symphony of translucency, depth, and digital tactility.' },
+  tagline: { es: 'Botones de gel, rayas finas y un solo botón azul.', en: 'Gel buttons, fine stripes and one blue button.' },
   reference: {
     title: { es: 'Mac OS X (interfaz Aqua)', en: 'Mac OS X (Aqua interface)' },
     authors: ['Apple Computer'],
@@ -13,35 +13,27 @@ export default defineTheme({
     place: { es: 'Cupertino, Estados Unidos', en: 'Cupertino, United States' },
     kind: 'software',
     sources: [
-      {
-        title: 'Apple Human Interface Guidelines',
-        url: 'https://developer.apple.com/library/archive/documentation/UserExperience/Conceptual/OSXHIGuidelines/',
-        publisher: 'Apple Computer',
-        year: 2000,
-        accessed: '2026-10-08',
-      },
-      {
-        title: 'Aqua (user interface)',
-        url: 'https://en.wikipedia.org/wiki/Aqua_(user_interface)',
-        publisher: 'Wikipedia',
-        accessed: '2026-10-08',
-      }
+      { title: 'Aqua Human Interface Guidelines', url: 'https://daringfireball.net/misc/2026/07/2002%20Aqua%20Human%20Interface%20Guidelines.pdf', publisher: 'Apple Computer', year: 2002, accessed: '2026-10-09' },
+      { title: 'Apple Unveils Mac OS X', url: 'https://www.apple.com/newsroom/2000/01/05Apple-Unveils-Mac-OS-X/', publisher: 'Apple', year: 2000, accessed: '2026-10-09' },
+      { title: 'Aqua (user interface)', url: 'https://en.wikipedia.org/wiki/Aqua_(user_interface)', publisher: 'Wikipedia', accessed: '2026-10-09' },
+      { title: 'Aqua', url: 'https://www.salon.com/2000/01/26/aqua/', publisher: 'Salon', year: 2000, accessed: '2026-10-09' },
+      { title: 'Oral History of Bas Ording', url: 'https://www.computerhistory.org/collections/catalog/102738558', publisher: 'Computer History Museum', year: 2017, accessed: '2026-10-09' },
     ],
   },
   ficha: {
     documented: {
-      es: 'Revelada en el alba del milenio, la interfaz Aqua representó una ruptura poética con el paradigma bidimensional. A través de transparencias intrincadas, sombras hiperrealistas y una materialidad acuática, transformó la pantalla en un espacio tridimensional de pura seducción táctil [1][2].',
-      en: 'Unveiled at the dawn of the millennium, the Aqua interface represented a poetic rupture from the two-dimensional paradigm. Through intricate transparencies, hyper-realistic shadows, and an aquatic materiality, it transformed the screen into a three-dimensional space of pure tactile seduction [1][2].',
+      es: 'Apple presentó Aqua el 5 de enero de 2000 como un aspecto translúcido y luminoso, con botones, barras de desplazamiento y ventanas semitransparentes [2]. Se inspiraba en el agua, con azul, blanco y gris, controles brillantes como de gel y sombras proyectadas, y las primeras versiones tenían fondos de rayas finas [3]. En las guías de Apple solo el botón por defecto lleva color y late, los demás se dibujan transparentes, y el texto del sistema va en Lucida Grande de 13 puntos [1]. Los botones de la ventana tenían colores de semáforo [4], y Bas Ording trabajó en sus animaciones e interacciones [5].',
+      en: 'Apple presented Aqua on 5 January 2000 as a translucent, luminous look, with semi-transparent buttons, scroll bars and windows [2]. It drew on water, in blue, white and grey, with glossy gel-like controls and drop shadows, and early versions had finely striped backgrounds [3]. In Apple’s guidelines only the default button carries colour and pulses, the rest are drawn clear, and system text is set in 13-point Lucida Grande [1]. The window buttons were coloured like traffic lights [4], and Bas Ording worked on its animations and interactions [5].',
     },
     reading: {
-      es: 'Este estudio captura la esencia de la estética gelatinosa, refinando los gradientes cerúleos y los bordes esculpidos. Las sombras profundas anclan la interfaz, mientras que los fondos evocan la melancolía de las texturas primigenias.',
-      en: 'This study captures the essence of the gelatinous aesthetic, refining the cerulean gradients and sculpted edges. Deep shadows anchor the interface, while the backgrounds evoke the melancholy of primordial textures.',
+      es: 'El tema da a los botones un brillo de gel, un degradado que se corta a la mitad, y pone rayas horizontales finas en el fondo. Como en las guías, el azul se reserva para la acción principal. Las esquinas son redondas y los bordes de 1 px; el texto va en la sans del sistema, no en Lucida Grande.',
+      en: 'The theme gives buttons a gel shine, a gradient that breaks at the middle, and lays fine horizontal stripes over the background. As in the guidelines, blue is kept for the main action. Corners are round and borders 1 px; text is set in the system sans, not Lucida Grande.',
     },
     palette: {
       origin: 'interpreted',
       note: {
-        es: 'Una orquestación de azul marino luminoso y grises platino etéreos, diseñados para evocar la claridad del cristal y la quietud del agua.',
-        en: 'An orchestration of luminous marine blue and ethereal platinum grays, designed to evoke the clarity of glass and the stillness of water.',
+        es: 'Las guías nombran las apariencias Aqua, en azul, y Grafito, pero no dan valores; los tonos son una lectura.',
+        en: 'The guidelines name the Aqua appearance, in blue, and Graphite, but give no values; the tones are a reading.',
       },
     },
   },

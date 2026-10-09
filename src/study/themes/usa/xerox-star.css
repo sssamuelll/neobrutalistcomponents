@@ -5,7 +5,7 @@
   border-width: 2px;
 }
 
-body[data-nbc-theme="xerox-star"] {
+:scope {
   background-image: radial-gradient(var(--nbc-border-color) 1px, transparent 1px);
   background-size: 4px 4px;
 }

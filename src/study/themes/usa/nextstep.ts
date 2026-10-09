@@ -5,43 +5,35 @@ export default defineTheme({
   scene: 'usa',
   nativeScheme: 'light',
   name: { es: 'NeXTSTEP', en: 'NeXTSTEP' },
-  tagline: { es: 'El cincelado del futuro: elegancia fundacional tallada en una sinfonía de grises.', en: 'The chiseling of the future: foundational elegance carved in a symphony of grays.' },
+  tagline: { es: 'Cuatro grises, biseles y una barra de título negra.', en: 'Four greys, bevels and a black title bar.' },
   reference: {
     title: { es: 'NeXTSTEP', en: 'NeXTSTEP' },
-    authors: ['NeXT Computer, Inc.'],
+    authors: ['NeXT Computer', 'Keith Ohlfs'],
     date: 1989,
-    place: { es: 'Redwood City, Estados Unidos', en: 'Redwood City, United States' },
+    place: { es: 'California, Estados Unidos', en: 'California, United States' },
     kind: 'software',
     sources: [
-      {
-        title: 'NeXTSTEP User Interface Guidelines',
-        url: 'https://archive.org/details/nextstep-user-interface-guidelines',
-        publisher: 'NeXT Computer, Inc. (Internet Archive)',
-        year: 1992,
-        accessed: '2026-10-08',
-      },
-      {
-        title: 'NeXTSTEP',
-        url: 'https://en.wikipedia.org/wiki/NeXTSTEP',
-        publisher: 'Wikipedia',
-        accessed: '2026-10-08',
-      }
+      { title: 'NeXTSTEP User Interface Guidelines, Release 3', url: 'https://www.mirrorservice.org/sites/www.bitsavers.org/pdf/next/Release_3_Nov93/NeXTSTEP_User_Interface_Guidelines_Release_3_Nov93.pdf', publisher: 'NeXT Computer', year: 1993, accessed: '2026-10-09' },
+      { title: 'Keith Ohlfs Interview', url: 'https://simson.net/ref/NeXT/keith_ohlfs_article.htm', publisher: 'NeXTWORLD', year: 1992, accessed: '2026-10-09' },
+      { title: 'Byte article, page 5', url: 'https://simson.net/ref/next2/byte_article_page_5.htm', publisher: 'BYTE', accessed: '2026-10-09' },
+      { title: 'NeXT Computer fonts', url: 'https://worldwideweb.cern.ch/typography/', publisher: 'CERN', accessed: '2026-10-09' },
+      { title: 'NeXTSTEP', url: 'https://en.wikipedia.org/wiki/NeXTSTEP', publisher: 'Wikipedia', accessed: '2026-10-09' },
     ],
   },
   ficha: {
     documented: {
-      es: 'Una obra maestra de diseño concebida como el futuro del trabajo profesional. Su estética de biseles prominentes no solo dictó el lenguaje visual de la década de 1990, sino que sirvió de entorno fundacional para la World Wide Web [1][2].',
-      en: 'A design masterpiece conceived as the future of professional work. Its aesthetic of prominent bevels not only dictated the visual language of the 1990s but served as the foundational environment for the World Wide Web [1][2].',
+      es: 'NeXTSTEP salió en 1989 [5], y las guías de interfaz de NeXT piden un aspecto simple que use el sombreado para dar efecto tridimensional y una gama de negro, blanco y gris [1]. La pantalla original medía 1120 × 832 puntos con solo 2 bits por punto, es decir, cuatro niveles de gris [3]. La ventana activa se marcaba con la barra de título en negro, el espacio de trabajo de fondo era gris oscuro y los botones se hundían al pulsarlos [1]. Keith Ohlfs dibujó los controles tridimensionales y los iconos, y la tipografía base era Helvetica, con Courier y una monoespaciada llamada Ohlfs [2][4].',
+      en: 'NeXTSTEP shipped in 1989 [5], and NeXT’s interface guidelines ask for a simple look that uses shading for a three-dimensional effect and a scheme of black, white and grey [1]. The original screen was 1120 × 832 dots at only 2 bits a dot, which is four levels of grey [3]. The key window was marked by a black title bar, the workspace behind was dark grey, and buttons sank when pressed [1]. Keith Ohlfs drew the three-dimensional controls and the icons, and the base typeface was Helvetica, with Courier and a monospaced face called Ohlfs [2][4].',
     },
     reading: {
-      es: 'Un ejercicio de rigor arquitectónico. Los contrastes de iluminación simulan un relieve pesado e institucional. La interfaz abandona la planitud para presentarse como una máquina sólida y finamente calibrada.',
-      en: 'An exercise in architectural rigor. The lighting contrasts simulate a heavy, institutional relief. The interface abandons flatness to present itself as a solid, finely calibrated machine.',
+      es: 'El tema trabaja con cuatro grises, como la pantalla de 2 bits, y dibuja los biseles con un borde claro arriba y a la izquierda y uno oscuro abajo y a la derecha, que se invierten al pulsar. Lo principal va en negro, como la barra de título de la ventana activa. El texto va en la sans del sistema, cerca de la Helvetica de NeXT.',
+      en: 'The theme works with four greys, like the 2-bit screen, and draws bevels with a light edge at the top and left and a dark one at the bottom and right, swapped while pressed. The primary colour is black, like the title bar of the key window. Text is set in the system sans, close to NeXT’s Helvetica.',
     },
     palette: {
       origin: 'interpreted',
       note: {
-        es: 'Los grises neutros se despliegan para crear un contraste tridimensional majestuoso. Se ha sustituido el negro absoluto por un tono ónix profundo, enriqueciendo la percepción de sus famosos bordes cincelados.',
-        en: 'Neutral grays unfold to create majestic three-dimensional contrast. Absolute black has been replaced with a deep onyx tone, enriching the perception of its famous chiseled edges.',
+        es: 'Las guías nombran negro, blanco y dos grises, pero no dan valores; los grises del tema son una lectura.',
+        en: 'The guidelines name black, white and two greys but give no values; the theme’s greys are a reading.',
       },
     },
   },

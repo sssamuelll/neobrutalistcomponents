@@ -10,6 +10,6 @@
   box-shadow: inset 0 2px 4px color-mix(in srgb, var(--nbc-border-color) 30%, transparent);
 }
 
-body[data-nbc-theme="iphone-os"] {
+:scope {
   background-image: repeating-linear-gradient(90deg, transparent, transparent 1px, color-mix(in srgb, var(--nbc-border-color) 10%, transparent) 1px, color-mix(in srgb, var(--nbc-border-color) 10%, transparent) 2px);
 }

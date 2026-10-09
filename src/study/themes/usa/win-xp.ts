@@ -5,43 +5,34 @@ export default defineTheme({
   scene: 'usa',
   nativeScheme: 'light',
   name: { es: 'Windows XP', en: 'Windows XP' },
-  tagline: { es: 'Una oda al optimismo digital: superficies líquidas, tacto de cristal y exuberancia cromática.', en: 'An ode to digital optimism: liquid surfaces, glass-like touch, and chromatic exuberance.' },
+  tagline: { es: 'Barras de título azules redondeadas y un botón Inicio verde.', en: 'Rounded blue title bars and a green Start button.' },
   reference: {
-    title: { es: 'Windows XP (interfaz gráfica de usuario)', en: 'Windows XP (graphical user interface)' },
+    title: { es: 'Windows XP (estilo visual Luna)', en: 'Windows XP (Luna visual style)' },
     authors: ['Microsoft'],
     date: 2001,
     place: { es: 'Redmond, Estados Unidos', en: 'Redmond, United States' },
     kind: 'software',
     sources: [
-      {
-        title: 'Official Guidelines for User Interface Developers and Designers',
-        url: 'https://archive.org/details/windows-xp-guidelines',
-        publisher: 'Microsoft Press (Internet Archive)',
-        year: 2001,
-        accessed: '2026-10-08',
-      },
-      {
-        title: 'Windows XP visual styles',
-        url: 'https://en.wikipedia.org/wiki/Windows_XP_visual_styles',
-        publisher: 'Wikipedia',
-        accessed: '2026-10-08',
-      }
+      { title: 'Windows XP visual styles', url: 'https://en.wikipedia.org/wiki/Windows_XP_visual_styles', publisher: 'Wikipedia', accessed: '2026-10-09' },
+      { title: 'Tahoma font family', url: 'https://learn.microsoft.com/en-us/typography/font-list/tahoma', publisher: 'Microsoft', accessed: '2026-10-09' },
+      { title: 'Trebuchet MS font family', url: 'https://learn.microsoft.com/en-us/typography/font-list/trebuchet-ms', publisher: 'Microsoft', accessed: '2026-10-09' },
+      { title: 'The look of Luna', url: 'https://devblogs.microsoft.com/oldnewthing/?p=39953', publisher: 'The Old New Thing (Microsoft)', year: 2004, accessed: '2026-10-09' },
     ],
   },
   ficha: {
     documented: {
-      es: 'El estilo visual "Luna" rompió la hegemonía del gris corporativo. Abrazando la era del color verdadero, introdujo texturas plásticas, curvas generosas y una luminosidad que transformó el escritorio en un paisaje acogedor [1][2].',
-      en: 'The "Luna" visual style broke the hegemony of corporate gray. Embracing the true-color era, it introduced plastic textures, generous curves, and a luminosity that transformed the desktop into a welcoming landscape [1][2].',
+      es: 'Luna, el aspecto por defecto de Windows XP, lo diseñó la agencia Frog Design por encargo de Microsoft, y salió en tres combinaciones de color: azul, verde oliva y plateado [1]. Las barras de título tienen las esquinas redondeadas y van en Trebuchet MS, el botón de cerrar es rojo y el de Inicio, verde; casi todo el resto del texto va en Tahoma [1][2][3]. Tahoma, de Matthew Carter, y Trebuchet MS, de Vincent Connare, se dibujaron para leerse bien en pantalla a tamaños pequeños [2][3]. Según Raymond Chen, de Microsoft, a Luna se llegó después de mucha investigación y varios intentos fallidos [4].',
+      en: 'Luna, Windows XP’s default look, was designed by the agency Frog Design for Microsoft, and it shipped in three colour schemes: blue, olive green and silver [1]. Title bars have rounded corners and are set in Trebuchet MS, the close button is red and the Start button green; most other text is set in Tahoma [1][2][3]. Tahoma, by Matthew Carter, and Trebuchet MS, by Vincent Connare, were drawn to read well on screen at small sizes [2][3]. Raymond Chen, of Microsoft, writes that Luna came after a lot of research and several false starts [4].',
     },
     reading: {
-      es: 'Este estudio captura la materialidad de la interfaz de principios del milenio. El azul intenso y el verde pradera interactúan sobre superficies envolventes, evocando una nostalgia táctil llena de energía y vitalidad.',
-      en: 'This study captures the materiality of the early millennium interface. Intense blue and meadow green interact on enveloping surfaces, evoking a tactile nostalgia full of energy and vitality.',
+      es: 'El tema toma la combinación azul: bordes y botones principales en azul, sobre el beige claro de los diálogos. Los botones llevan un degradado suave de arriba abajo, una lectura del plástico de Luna, y las esquinas se redondean un poco. El texto va en la sans del sistema; Tahoma y Trebuchet MS no se cargan.',
+      en: 'The theme takes the blue scheme: borders and primary buttons in blue, over the pale beige of the dialogs. Buttons carry a soft top-to-bottom gradient, a reading of Luna’s plastic, and corners are slightly rounded. Text is set in the system sans; Tahoma and Trebuchet MS are not loaded.',
     },
     palette: {
       origin: 'interpreted',
       note: {
-        es: 'Conservando la vitalidad icónica del azul "Luna" y el verde pradera, la paleta se ha armonizado para aportar sofisticación. Los tonos oscuros transicionan hacia un carbón profundo para un contraste más elegante.',
-        en: 'Retaining the iconic vitality of "Luna" blue and meadow green, the palette has been harmonized to bring sophistication. Dark tones transition into a deep charcoal for a more elegant contrast.',
+        es: 'Los nombres de las tres combinaciones están documentados, sus valores no. El azul y el beige del tema son una lectura de capturas.',
+        en: 'The names of the three schemes are documented, their values are not. The theme’s blue and beige are read from screenshots.',
       },
     },
   },

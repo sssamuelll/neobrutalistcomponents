@@ -10,6 +10,6 @@
   box-shadow: inset 0 2px 4px color-mix(in srgb, var(--nbc-border-color) 40%, transparent);
 }
 
-body[data-nbc-theme="aqua"] {
+:scope {
   background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, color-mix(in srgb, var(--nbc-border-color) 15%, transparent) 2px, color-mix(in srgb, var(--nbc-border-color) 15%, transparent) 4px);
 }

@@ -5,7 +5,7 @@ export default defineTheme({
   scene: 'usa',
   nativeScheme: 'light',
   name: { es: 'Mac OS System 7', en: 'Mac OS System 7' },
-  tagline: { es: 'Claridad atemporal y rayas finas: la edad de oro del racionalismo bidimensional.', en: 'Timeless clarity and pinstripes: the golden age of two-dimensional rationalism.' },
+  tagline: { es: 'Blanco y negro, con gris y color solo en los marcos.', en: 'Black and white, with grey and colour only on the frames.' },
   reference: {
     title: { es: 'Mac OS System 7 (interfaz gráfica)', en: 'Mac OS System 7 (graphical user interface)' },
     authors: ['Apple Computer'],
@@ -13,35 +13,27 @@ export default defineTheme({
     place: { es: 'Cupertino, Estados Unidos', en: 'Cupertino, United States' },
     kind: 'software',
     sources: [
-      {
-        title: 'Macintosh Human Interface Guidelines',
-        url: 'https://archive.org/details/macintoshhumanin00appl',
-        publisher: 'Addison-Wesley (Internet Archive)',
-        year: 1992,
-        accessed: '2026-10-08',
-      },
-      {
-        title: 'System 7',
-        url: 'https://en.wikipedia.org/wiki/System_7',
-        publisher: 'Wikipedia',
-        accessed: '2026-10-08',
-      }
+      { title: 'Macintosh Human Interface Guidelines: Windows and Dialog Boxes', url: 'https://discmaster.textfiles.com/file/32778/Dev.CD%20Jun%2099%20RL%20Disk%202.toast/Technical%20Publications/mac/HIGuidelines/HIGuidelines-188.html?html=true', publisher: 'Apple Computer', accessed: '2026-10-09' },
+      { title: 'System 7', url: 'https://en.wikipedia.org/wiki/System_7', publisher: 'Wikipedia', accessed: '2026-10-09' },
+      { title: 'Susan Kare', url: 'https://en.wikipedia.org/wiki/Susan_Kare', publisher: 'Wikipedia', accessed: '2026-10-09' },
+      { title: 'Typography in 16 bits: System fonts', url: 'https://damieng.com/blog/2011/typography-in-16-bits-system-fonts/', publisher: 'Damien Guard', year: 2011, accessed: '2026-10-09' },
+      { title: 'System 7 buttons', url: 'https://hilton.org.uk/blog/system-7-buttons', publisher: 'Peter Hilton', accessed: '2026-10-09' },
     ],
   },
   ficha: {
     documented: {
-      es: 'System 7 refinó la experiencia Macintosh con una sofisticación sutil. Introdujo un relieve comedido y contornos de un solo píxel que aportaron profundidad sin comprometer la pureza gráfica de su linaje [1][2].',
-      en: 'System 7 refined the Macintosh experience with subtle sophistication. It introduced restrained relief and single-pixel contours that added depth without compromising the graphical purity of its lineage [1][2].',
+      es: 'Apple lanzó System 7 el 13 de mayo de 1991, con una interfaz en color para los equipos con pantalla en color y con fuentes escalables TrueType [2]. En color, las guías de Apple agregaban gris y color a los marcos de las ventanas y a los controles, de modo que las cajas de cerrar, ampliar y desplazar destacaban, y las ventanas inactivas tenían bordes grises que quedaban al fondo [1]. Chicago, de Susan Kare, siguió siendo la fuente del sistema [3][4]. Los botones tenían un estilo normal y otro reforzado para la opción por defecto, y se resaltaban al pulsarlos [5].',
+      en: 'Apple released System 7 on 13 May 1991, with a colour interface for machines with colour screens and with TrueType scalable fonts [2]. On colour screens, Apple’s guidelines added grey and colour to window frames and controls, so the close, zoom and scroll boxes stood out and inactive windows had grey borders that fell back [1]. Chicago, by Susan Kare, remained the system font [3][4]. Buttons came in a plain style and a heavier style for the default choice, and they highlighted while pressed [5].',
     },
     reading: {
-      es: 'Esta interpretación destila la esencia del Mac clásico. Los grises cálidos reemplazan el ruido del tramado original, mientras que sus finos bordes y superficies planas capturan una estética racionalista y profundamente elegante.',
-      en: 'This interpretation distills the essence of the classic Mac. Warm grays replace the noise of the original stippling, while its fine edges and flat surfaces capture a deeply elegant, rationalist aesthetic.',
+      es: 'El tema se queda en el blanco y negro del Mac y deja el gris para lo que está al fondo, como los bordes de las ventanas inactivas. Los bordes son de 1 px y las tarjetas proyectan una sombra dura de 2 px, un parentesco que vemos con la sombra de las ventanas del Mac clásico. Chicago no tiene una versión libre; el texto va en la sans del sistema.',
+      en: 'The theme keeps to the Mac’s black and white and saves grey for what sits behind, like the borders of inactive windows. Borders are 1 px and cards cast a 2 px hard shadow, a kinship we see with the shadow under classic Mac windows. Chicago has no free version; text is set in the system sans.',
     },
     palette: {
       origin: 'interpreted',
       note: {
-        es: 'Mantenemos un enfoque monocromático de alta legibilidad, empleando un rico tono obsidiana en lugar del negro puro para otorgar una suavidad contemporánea a la austeridad estructural del diseño.',
-        en: 'We maintain a highly legible monochromatic approach, employing a rich obsidian tone instead of pure black to grant contemporary softness to the structural austerity of the design.',
+        es: 'Las guías nombran el gris y el color de los marcos, pero no dan valores; el tema usa blanco, negro y grises neutros.',
+        en: 'The guidelines name the grey and colour of the frames but give no values; the theme uses white, black and neutral greys.',
       },
     },
   },
