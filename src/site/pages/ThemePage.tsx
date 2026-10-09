@@ -11,6 +11,7 @@ import { TokenTables } from '../docs/TokenTables';
 import { CATALOG, ENTRIES } from '../study/data';
 import { imageUrl, useThemeDetail } from '../study/detail';
 import type { ThemeDetail } from '../study/detail';
+import { FichaExtras } from '../study/FichaExtras';
 import { LICENSE_URLS, aroundOriginal, licenseName, sceneHref, startYear, years } from '../study/format';
 import { loadThemeStylesheet, useThemeStylesheet } from '../study/loader';
 import { SourceList } from '../study/SourceList';
@@ -131,6 +132,7 @@ function Ficha({ detail }: { detail: ThemeDetail }) {
       <p className="site-p">{ficha.documented[lang]}</p>
       <h2 className="site-h2">{t('reading')}</h2>
       <p className="site-p">{ficha.reading[lang]}</p>
+      <FichaExtras ficha={ficha} />
       <p className="site-p site-themepage__palette">
         {t('palette')}, {PALETTE_TEXT[ficha.palette.origin][lang]}: {ficha.palette.note[lang]}
       </p>

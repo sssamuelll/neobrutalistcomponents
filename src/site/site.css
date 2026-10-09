@@ -879,6 +879,7 @@ body {
 }
 .site-themepage__note,
 .site-themepage__palette,
+.site-themepage__lettering,
 .site-themepage__figure figcaption {
   font-size: var(--nbc-fs-sm);
   color: var(--nbc-fg-muted);

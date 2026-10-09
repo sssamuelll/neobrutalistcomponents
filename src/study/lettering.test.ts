@@ -9,8 +9,7 @@ const withLettering = (patch: Partial<NonNullable<Ficha['lettering']>>): Partial
   ficha: { ...FIXTURE.ficha, lettering: { ...FIXTURE.ficha.lettering!, ...patch } },
 });
 const withoutLettering = (id: string): StudyThemeInput => {
-  const { lettering: _lettering, ...ficha } = FIXTURE.ficha;
-  return { ...FIXTURE, id, ficha };
+  return { ...FIXTURE, id, ficha: { ...FIXTURE.ficha, lettering: undefined } };
 };
 
 describe('lettering in the ficha', () => {
