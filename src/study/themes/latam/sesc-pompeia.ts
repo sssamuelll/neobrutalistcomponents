@@ -26,6 +26,7 @@ export default defineTheme({
       },
       { title: 'As janelas do Conjunto Esportivo do Sesc Pompeia', url: 'https://portal.sescsp.org.br/online/artigo/13584_AS+JANELAS+DO+CONJUNTO+ESPORTIVO+DO+SESC+POMPEIA', publisher: 'Sesc São Paulo', year: 2019, accessed: '2026-10-05' },
       { title: 'Omnibus-Type', url: 'https://thepunch.studio/foundry/omnibus-type', publisher: 'The Punch', accessed: '2026-10-05' },
+      { title: 'As facetas de Lina Bo Bardi', url: 'https://www.sescsp.org.br/editorial/as-facetas-de-lina-bo-bardi/', publisher: 'Sesc São Paulo', year: 2014, accessed: '2026-10-09' },
     ],
     image: {
       file: 'sesc-pompeia.avif',
@@ -56,6 +57,17 @@ export default defineTheme({
         en: 'The concrete grey and the red against it are documented in words; the hex values are the theme’s reading of photographs.',
       },
     },
+    lettering: {
+      original: { name: 'Logotipo do Sesc Pompeia', designer: 'Lina Bo Bardi', kind: 'lettered' },
+      documented: {
+        es: 'Lina Bo Bardi también trabajó como diseñadora gráfica: creó el logotipo del Sesc Pompeia y los íconos que señalan algunos de sus espacios, según la página del Sesc sobre «Lina Gráfica», la exposición que el centro le dedicó en 2014 [6]. Esa fuente no describe la forma de las letras.',
+        en: 'Lina Bo Bardi also worked as a graphic designer: she created the Sesc Pompeia logotype and the icons that mark some of its spaces, according to Sesc’s page on “Lina Gráfica”, the exhibition the centre devoted to her in 2014 [6]. That source does not describe the letterforms.',
+      },
+      substitute: {
+        es: 'El tema usa Chivo, una grotesca libre, también en los títulos. Como ninguna fuente que consultamos describe las letras del logotipo, el tema no imita su trazo: Chivo es la lectura que ya explica la ficha, firme y sin adorno, como el hormigón del centro.',
+        en: 'The theme uses Chivo, a free grotesque, for titles too. Since no source we consulted describes the logotype’s letters, the theme does not imitate its stroke: Chivo is the reading the ficha already explains, firm and plain, like the centre’s concrete.',
+      },
+    },
   },
   fonts: { sans: 'chivo', mono: 'chivo-mono' },
   colors: {
@@ -82,6 +94,7 @@ export default defineTheme({
   type: { weightBody: 400, weightLabel: 700, weightDisplay: 900, labelSpacing: '0em', displaySpacing: '-0.03em' },
   shape: { borderWidth: 3, radius: 0, radiusControl: 0, radiusButton: 6, radiusSmall: 0 },
   elevation: hardShadow(5),
+  motion: { duration: 0, durationSlow: 0, ease: 'linear' },
   families: [concrete({ grain: 0.05, formwork: 0.04, board: 16 })],
   signature: './sesc-pompeia.css',
 });
