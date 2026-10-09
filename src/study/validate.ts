@@ -81,16 +81,21 @@ export function referenceProblems(ref: Reference, where: string): string[] {
  */
 export const LETTERING_PENDING: readonly string[] = [
   'amiga-os', 'aqua', 'bauhaus-dessau', 'carlton', 'classifieds', 'iphone-os', 'mac-os-classic', 'maeusebunker',
-  'material-design', 'nakagin', 'nextstep', 'sesc-pompeia', 'whaam', 'win-xp', 'win95', 'xerox-star',
+  'material-design', 'nextstep', 'whaam', 'win-xp', 'win95', 'xerox-star',
 ];
 
 function letteringProblems(lettering: Lettering | undefined, where: string): string[] {
   if (!lettering) return [];
   const { original } = lettering;
   const at = `${where}.lettering`;
-  const problems = [...l10nProblems(lettering.documented, `${at}.documented`), ...l10nProblems(lettering.substitute, `${at}.substitute`)];
-  if (!original.name?.trim()) problems.push(`${at}.original.name: empty`);
+  const problems = l10nProblems(lettering.substitute, `${at}.substitute`);
   if (!(LETTERING_KINDS as readonly string[]).includes(original.kind)) problems.push(`${at}.original.kind: unknown "${original.kind}"`);
+  if (original.kind === 'none') {
+    if (lettering.documented) problems.push(`${at}.documented: a work with no documented lettering has nothing to document — drop it`);
+    return problems;
+  }
+  problems.push(...l10nProblems(lettering.documented, `${at}.documented`));
+  if (!original.name?.trim()) problems.push(`${at}.original.name: empty`);
   if (original.year !== undefined && !(Number.isInteger(original.year) && original.year >= 1400 && original.year <= 2100)) {
     problems.push(`${at}.original.year: ${original.year} is not a year`);
   }
@@ -107,7 +112,7 @@ function prose(ficha: Ficha): L10n[] {
   return [
     ficha.documented,
     ficha.reading,
-    ...(ficha.lettering ? [ficha.lettering.documented, ficha.lettering.substitute] : []),
+    ...(ficha.lettering ? [ficha.lettering.documented, ficha.lettering.substitute].filter((block): block is L10n => block !== undefined) : []),
     ...(ficha.motion ? [ficha.motion.documented, ficha.motion.reading] : []),
   ];
 }
@@ -239,7 +244,7 @@ function letteringThemeProblems(theme: StudyThemeInput): string[] {
       if (!substitute[lang]?.includes(family)) problems.push(`${id}.ficha.lettering.substitute.${lang}: does not name ${family}, the face the theme loads`);
     }
   }
-  if (!original.free && families.some((family) => family.toLowerCase() === original.name.trim().toLowerCase())) {
+  if (original.kind !== 'none' && !original.free && families.some((family) => family.toLowerCase() === original.name.trim().toLowerCase())) {
     problems.push(`${id}.ficha.lettering: the substitute is the original face "${original.name}"`);
   }
   return problems;

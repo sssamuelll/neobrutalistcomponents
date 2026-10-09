@@ -140,6 +140,36 @@ const isRealAnimation = ({ value }: { value: string }) => value.trim() !== 'none
 /** A motion file animates when it sets at least one animation other than none. */
 export const animates = (css: string): boolean => animationUses(css).some(isRealAnimation);
 
+/** Only loading indicators may loop forever: other auto-playing motion longer than five seconds needs a pause control (WCAG 2.2.2). */
+const LOADERS = ['.nbc-progress--indeterminate', '.nbc-button--loading', '.nbc-button__spinner'];
+
+/** True when every selector of the list names a loader outside :not(). */
+const onlyLoaders = (selector: string) =>
+  splitOutside(selector, ',').every((part) => {
+    const bare = part.replace(/:not\([^)]*\)/gi, '');
+    return LOADERS.some((loader) => bare.includes(loader));
+  });
+
+/**
+ * Seconds an animation or transition value runs, in total: duration × count per
+ * layer, the longest layer wins. Infinity when it loops or hides its count in var().
+ * ponytail: delays and a count set in a separate longhand are not added up; the
+ * reviewer of each motion file reads those.
+ */
+function runSeconds(property: string, value: string): number {
+  if (/var\(/i.test(value)) return Infinity;
+  let longest = 0;
+  for (const layer of splitOutside(value, ',')) {
+    const tokens = layer.trim().toLowerCase().split(/\s+/);
+    if (tokens.includes('infinite')) return Infinity;
+    if (property.endsWith('iteration-count')) continue;
+    const times = tokens.filter((t) => /^\d*\.?\d+m?s$/.test(t)).map((t) => (t.endsWith('ms') ? parseFloat(t) / 1000 : parseFloat(t)));
+    const count = tokens.map(Number).find((n) => Number.isFinite(n)) ?? 1;
+    longest = Math.max(longest, (times[0] ?? 0) * count);
+  }
+  return longest;
+}
+
 export function lintMotion(css: string, where: string): string[] {
   const problems = lintFlourishCss(css, where);
   const lines = signatureLines(css);
@@ -147,6 +177,14 @@ export function lintMotion(css: string, where: string): string[] {
   for (const use of animationUses(css).filter(isRealAnimation)) {
     if (!use.guarded) {
       problems.push(`${where}: "${use.selector}" sets ${use.property} outside @media (prefers-reduced-motion: no-preference)`);
+    }
+    const seconds = runSeconds(use.property, use.value);
+    if (seconds > 5 && !onlyLoaders(use.selector)) {
+      problems.push(
+        seconds === Infinity
+          ? `${where}: "${use.selector}" loops forever — only loading indicators may (WCAG 2.2.2); give it a count`
+          : `${where}: "${use.selector}" runs ${seconds}s, longer than five seconds — only loading indicators may (WCAG 2.2.2)`,
+      );
     }
   }
   for (const name of nestedKeyframeNames(css)) {

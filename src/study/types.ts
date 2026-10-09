@@ -210,22 +210,26 @@ export interface Reference {
 export const PALETTE_ORIGINS = ['documented', 'sampled', 'interpreted'] as const;
 export type PaletteOrigin = (typeof PALETTE_ORIGINS)[number];
 
-export const LETTERING_KINDS = ['bitmap', 'outline', 'lettered', 'system'] as const;
+export const LETTERING_KINDS = ['bitmap', 'outline', 'lettered', 'system', 'none'] as const;
 export type LetteringKind = (typeof LETTERING_KINDS)[number];
+
+/** The face a work set its text in. */
+export interface LetteringFace {
+  readonly name: string;
+  readonly designer?: string;
+  readonly year?: number;
+  readonly kind: Exclude<LetteringKind, 'none'>;
+  /** The original is itself freely licensed and loaded as is (Roboto). Waives "substitute differs from original". */
+  readonly free?: true;
+}
 
 /** What the work set its text in, and the free face the theme uses in its place. */
 export interface Lettering {
-  readonly original: {
-    readonly name: string;
-    readonly designer?: string;
-    readonly year?: number;
-    readonly kind: LetteringKind;
-    /** The original is itself freely licensed and loaded as is (Roboto). Waives "substitute differs from original". */
-    readonly free?: true;
-  };
-  /** What the work used; every claim carries a [n] marker into reference.sources. */
-  readonly documented: L10n;
-  /** The free face the theme loads and why it resembles the original; names it. */
+  /** The work's face, or { kind: 'none' } when no source we consulted documents lettering on the work. */
+  readonly original: LetteringFace | { readonly kind: 'none' };
+  /** What the work used; every claim carries a [n] marker. Required for a face, absent for 'none'. */
+  readonly documented?: L10n;
+  /** The free face the theme loads and why; names it. */
   readonly substitute: L10n;
 }
 

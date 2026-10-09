@@ -26,6 +26,7 @@ export default defineTheme({
       },
       { title: 'As janelas do Conjunto Esportivo do Sesc Pompeia', url: 'https://portal.sescsp.org.br/online/artigo/13584_AS+JANELAS+DO+CONJUNTO+ESPORTIVO+DO+SESC+POMPEIA', publisher: 'Sesc São Paulo', year: 2019, accessed: '2026-10-05' },
       { title: 'Omnibus-Type', url: 'https://thepunch.studio/foundry/omnibus-type', publisher: 'The Punch', accessed: '2026-10-05' },
+      { title: 'As facetas de Lina Bo Bardi', url: 'https://www.sescsp.org.br/editorial/as-facetas-de-lina-bo-bardi/', publisher: 'Sesc São Paulo', year: 2014, accessed: '2026-10-09' },
     ],
     image: {
       file: 'sesc-pompeia.avif',
@@ -56,6 +57,13 @@ export default defineTheme({
         en: 'The concrete grey and the red against it are documented in words; the hex values are the theme’s reading of photographs.',
       },
     },
+    lettering: {
+      original: { kind: 'none' },
+      substitute: {
+        es: 'Lina Bo Bardi creó los logotipos del MASP y del Sesc Pompeia y los íconos que señalan algunos de sus espacios; el centro mostró ese trabajo en «Lina Gráfica», una de las dos exposiciones con que la homenajeó en 2014 [6]. Ninguna fuente que consultamos describe letras en esas piezas, así que el tema no imita ninguna: usa Chivo, la tipografía latinoamericana que explica la lectura [5], también en los títulos.',
+        en: 'Lina Bo Bardi created the logotypes of MASP and Sesc Pompeia and the icons that mark some of their spaces; the centre showed that work in “Lina Gráfica”, one of the two exhibitions with which it honoured her in 2014 [6]. No source we consulted describes letters in those pieces, so the theme imitates none: it uses Chivo, the Latin American typeface the reading explains [5], for titles too.',
+      },
+    },
   },
   fonts: { sans: 'chivo', mono: 'chivo-mono' },
   colors: {
@@ -82,6 +90,7 @@ export default defineTheme({
   type: { weightBody: 400, weightLabel: 700, weightDisplay: 900, labelSpacing: '0em', displaySpacing: '-0.03em' },
   shape: { borderWidth: 3, radius: 0, radiusControl: 0, radiusButton: 6, radiusSmall: 0 },
   elevation: hardShadow(5),
+  motion: { duration: 0, durationSlow: 0, ease: 'linear' },
   families: [concrete({ grain: 0.05, formwork: 0.04, board: 16 })],
   signature: './sesc-pompeia.css',
 });

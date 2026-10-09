@@ -131,3 +131,20 @@ describe('lettering and motion claims need a source (final review)', () => {
     expect(problems(withMotion({ documented: { es: 'Se movía [1].', en: 'It moved.' } }))).toMatch(/motion\.documented: markers differ/);
   });
 });
+
+describe('works with no documented lettering', () => {
+  const none = { original: { kind: 'none' as const }, substitute: FIXTURE.ficha.lettering!.substitute };
+
+  it('take kind none, with no name and no documented text', () => {
+    expect(themeProblems({ ...FIXTURE, ficha: { ...FIXTURE.ficha, lettering: none } })).toEqual([]);
+  });
+
+  it('cannot document lettering they do not have', () => {
+    const lettering = { ...none, documented: { es: 'Algo [1].', en: 'Something [1].' } };
+    expect(problems({ ficha: { ...FIXTURE.ficha, lettering } })).toMatch(/lettering\.documented: a work with no documented lettering/);
+  });
+
+  it('a face still needs its documented text', () => {
+    expect(problems(withLettering({ documented: undefined }))).toMatch(/lettering\.documented: missing/);
+  });
+});

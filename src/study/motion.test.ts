@@ -9,7 +9,7 @@ const GOOD = `@keyframes hourglass {
   to { transform: rotate(180deg); }
 }
 @media (prefers-reduced-motion: no-preference) {
-  .nbc-progress__bar { animation: hourglass 1s steps(4) infinite; }
+  .nbc-progress--indeterminate .nbc-progress__bar { animation: hourglass 1s steps(4) infinite; }
   .nbc-button { transition: transform 80ms steps(2); }
 }`;
 
@@ -113,5 +113,39 @@ describe("signatures carry no motion", () => {
     expect(lintSignature('.nbc-card { animation: x 1s; }', 's').join('\n')).toMatch(/motion belongs in the motion file/);
     expect(lintSignature('@keyframes x { to { opacity: 0; } }', 's').join('\n')).toMatch(/motion belongs in the motion file/);
     expect(lintSignature('.nbc-card { color: var(--nbc-fg); }', 's')).toEqual([]);
+  });
+});
+
+describe('only loading indicators loop forever (WCAG 2.2.2)', () => {
+  const guard = (body: string) => `@media (prefers-reduced-motion: no-preference) {\n${body}\n}`;
+
+  it('rejects an infinite animation on anything else', () => {
+    expect(lintMotion(guard('.nbc-button--primary { animation: pulse 1s infinite; }'), 'm').join('\n')).toMatch(/loops forever/);
+    expect(lintMotion(guard('.nbc-button--primary { animation-iteration-count: infinite; }'), 'm').join('\n')).toMatch(/loops forever/);
+  });
+
+  it('accepts a counted animation, and a loader that loops', () => {
+    expect(lintMotion(guard('.nbc-button--primary { animation: pulse 1s 4; }'), 'm')).toEqual([]);
+    expect(lintMotion(GOOD, 'm')).toEqual([]);
+  });
+});
+
+describe('the loop limit cannot be talked around (batch 1 review)', () => {
+  const guard = (body: string) => `@media (prefers-reduced-motion: no-preference) {\n${body}\n}`;
+
+  it.each([
+    ['a selector list mixing a loader with another control', '.nbc-progress--indeterminate .nbc-progress__bar, .nbc-button { animation: a 1s infinite; }'],
+    ['a loader named only inside :not()', '.nbc-card:not(.nbc-progress--indeterminate) { animation: a 1s infinite; }'],
+    ['upper case', '.nbc-card { animation: a 1s INFINITE; }'],
+    ['a count held in a variable', '.nbc-card { animation: a 1s var(--fx-n); }'],
+    ['a count that runs past five seconds', '.nbc-card { animation: a 1s 100000; }'],
+    ['a single run longer than five seconds', '.nbc-card { animation: a 6s 1; }'],
+  ])('rejects %s', (_name, body) => {
+    expect(lintMotion(guard(body), 'm').join('\n')).toMatch(/loops forever|longer than five seconds/);
+  });
+
+  it('accepts a short counted pulse and a stepped transition', () => {
+    expect(lintMotion(guard('.nbc-button--primary { animation: pulse 1.2s ease-in-out 4; }'), 'm')).toEqual([]);
+    expect(lintMotion(guard('.nbc-switch__thumb { transition: transform 80ms steps(2, end); }'), 'm')).toEqual([]);
   });
 });

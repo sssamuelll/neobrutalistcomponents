@@ -36,3 +36,37 @@ describe('FichaExtras', () => {
     expect(container).toBeEmptyDOMElement();
   });
 });
+
+describe('FichaExtras, retrofit additions', () => {
+  it('says when no source documents lettering on the work', () => {
+    renderExtras({ ...FIXTURE.ficha, lettering: { original: { kind: 'none' }, substitute: { es: 'El tema usa Barlow.', en: 'The theme uses Barlow.' } } });
+    expect(screen.getByText('Ninguna fuente que consultamos documenta rotulación en la obra.')).toBeInTheDocument();
+    expect(screen.queryByText(/La obra usaba/)).not.toBeInTheDocument();
+  });
+
+  it('shows the motion specimen with the motion section, and not without it', () => {
+    const motion = { documented: { es: 'Se mueve [1].', en: 'It moves [1].' }, reading: { es: 'Lo imita.', en: 'It imitates that.' } };
+    const { container, unmount } = renderExtras({ ...FIXTURE.ficha, motion }, 'en');
+    expect(screen.getByRole('button', { name: 'Open dialog' })).toBeInTheDocument();
+    expect(screen.getByRole('switch', { name: 'Switch' })).toBeInTheDocument();
+    expect(container.querySelector('.nbc-progress--indeterminate')).not.toBeNull();
+    unmount();
+    renderExtras(FIXTURE.ficha, 'en');
+    expect(screen.queryByRole('button', { name: 'Open dialog' })).not.toBeInTheDocument();
+  });
+});
+
+describe('FichaExtras prints the substitute as written', () => {
+  it('with no label before it (the prose already says "the theme uses")', () => {
+    renderExtras(FIXTURE.ficha);
+    expect(screen.getByText('Barlow se le parece en la proporción.')).toBeInTheDocument();
+  });
+});
+
+describe('the motion specimen speaks the page language (batch 1 review)', () => {
+  it('labels the dialog close button in Spanish', () => {
+    const motion = { documented: { es: 'Se mueve [1].', en: 'It moves [1].' }, reading: { es: 'Lo imita.', en: 'It imitates that.' } };
+    renderExtras({ ...FIXTURE.ficha, motion });
+    expect(screen.getAllByRole('button', { name: 'Cerrar', hidden: true })).toHaveLength(2);
+  });
+});

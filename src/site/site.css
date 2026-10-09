@@ -877,6 +877,17 @@ body {
   text-transform: var(--nbc-display-transform);
   overflow-wrap: anywhere;
 }
+.site-themepage__motion {
+  display: grid;
+  gap: var(--nbc-space-md);
+  margin-block: var(--nbc-space-md) var(--nbc-space-xl);
+}
+.site-themepage__motion-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--nbc-space-md);
+}
 .site-themepage__note,
 .site-themepage__palette,
 .site-themepage__lettering,

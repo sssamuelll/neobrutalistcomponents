@@ -1,4 +1,6 @@
 import { test, expect } from '@playwright/test';
+import { readdirSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import AxeBuilder from '@axe-core/playwright';
 import { NEO_THEMES } from '../src/lib/themes';
 import { SLUGS } from '../src/docs/slugs';
@@ -423,7 +425,9 @@ for (const width of [1280, 360]) {
 
 test.describe('theme and component pages at 360px', () => {
   test.use({ viewport: { width: 360, height: 800 } });
-  for (const hash of ['#/es/theme/tech', '#/en/theme/nakagin', '#/es/theme/maeusebunker', '#/en/components/button']) {
+  // Spanish strings run longer than English ones: the study pages are checked in Spanish.
+  const STUDY_PAGES = CATALOG.filter((entry) => !entry.predatesStudy).map((entry) => `#/es/theme/${entry.id}`);
+  for (const hash of ['#/es/theme/tech', '#/en/theme/maeusebunker', '#/en/components/button', ...STUDY_PAGES]) {
     test(`${hash} passes axe and never scrolls sideways`, async ({ page }) => {
       await page.goto(`?theme=classic${hash}`);
       await expect(page.locator('main h1')).toBeVisible();
@@ -437,3 +441,41 @@ test.describe('theme and component pages at 360px', () => {
   }
 });
 
+/** Study themes with a motion file, read from disk (the registry needs Vite). */
+const MOTION_THEMES = readdirSync(fileURLToPath(new URL('../src/study/themes', import.meta.url)), { recursive: true, encoding: 'utf8' })
+  .filter((file) => file.endsWith('.motion.css'))
+  .map((file) => file.split(/[\\/]/).pop()!.replace(/\.motion\.css$/, ''));
+
+for (const reducedMotion of ['no-preference', 'reduce'] as const) {
+  test.describe(`a theme's motion under prefers-reduced-motion: ${reducedMotion}`, () => {
+    test.use({ reducedMotion });
+    for (const id of MOTION_THEMES) {
+      test(`${id}: ${reducedMotion === 'reduce' ? 'nothing in its specimen moves' : 'its motion reaches the specimen'}`, async ({ page }) => {
+        await page.goto(`?theme=classic#/en/theme/${id}`);
+        await expect(page.locator('main h1')).toBeVisible();
+        await expect(page.locator('main [role="status"]')).toHaveCount(0);
+        const specimen = page.locator('.site-themepage__motion');
+        // What the specimen shows moving right now: the theme's own keyframes, or any transition longer than 1 ms.
+        const moving = () =>
+          specimen.evaluate((root, theme) => {
+            const traces: string[] = [];
+            for (const node of [root, ...root.querySelectorAll('*')]) {
+              const style = getComputedStyle(node);
+              if (style.animationName.includes(`nbc-${theme}-motion-`)) traces.push(`animation ${style.animationName}`);
+              if (style.transitionDuration.split(',').some((d) => parseFloat(d) > 0.001)) traces.push(`transition ${style.transitionProperty} ${style.transitionDuration}`);
+            }
+            return traces;
+          }, id);
+        const traces: string[] = [];
+        await specimen.getByRole('button', { name: 'Press' }).focus(); // focus opens the tooltip at once
+        traces.push(...(await moving()));
+        await specimen.getByRole('switch', { name: 'Switch' }).click();
+        traces.push(...(await moving()));
+        await specimen.getByRole('button', { name: 'Open dialog' }).click();
+        traces.push(...(await moving()));
+        if (reducedMotion === 'reduce') expect(traces).toEqual([]);
+        else expect(traces.length, 'the motion file animates nothing the specimen shows').toBeGreaterThan(0);
+      });
+    }
+  });
+}
