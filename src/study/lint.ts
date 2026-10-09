@@ -140,6 +140,9 @@ const isRealAnimation = ({ value }: { value: string }) => value.trim() !== 'none
 /** A motion file animates when it sets at least one animation other than none. */
 export const animates = (css: string): boolean => animationUses(css).some(isRealAnimation);
 
+/** Only loading indicators may loop forever: other auto-playing motion longer than five seconds needs a pause control (WCAG 2.2.2). */
+const LOADERS = ['.nbc-progress--indeterminate', '.nbc-button--loading', '.nbc-button__spinner'];
+
 export function lintMotion(css: string, where: string): string[] {
   const problems = lintFlourishCss(css, where);
   const lines = signatureLines(css);
@@ -147,6 +150,9 @@ export function lintMotion(css: string, where: string): string[] {
   for (const use of animationUses(css).filter(isRealAnimation)) {
     if (!use.guarded) {
       problems.push(`${where}: "${use.selector}" sets ${use.property} outside @media (prefers-reduced-motion: no-preference)`);
+    }
+    if (/\binfinite\b/.test(use.value) && !LOADERS.some((loader) => use.selector.includes(loader))) {
+      problems.push(`${where}: "${use.selector}" loops forever — only loading indicators may (WCAG 2.2.2); give it a count`);
     }
   }
   for (const name of nestedKeyframeNames(css)) {

@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { readdirSync } from 'node:fs';
 import AxeBuilder from '@axe-core/playwright';
 import { NEO_THEMES } from '../src/lib/themes';
 import { SLUGS } from '../src/docs/slugs';
@@ -423,7 +424,8 @@ for (const width of [1280, 360]) {
 
 test.describe('theme and component pages at 360px', () => {
   test.use({ viewport: { width: 360, height: 800 } });
-  for (const hash of ['#/es/theme/tech', '#/en/theme/nakagin', '#/es/theme/maeusebunker', '#/en/components/button']) {
+  const STUDY_PAGES = CATALOG.filter((entry) => !entry.predatesStudy).map((entry) => `#/en/theme/${entry.id}`);
+  for (const hash of ['#/es/theme/tech', '#/es/theme/maeusebunker', '#/en/components/button', ...STUDY_PAGES]) {
     test(`${hash} passes axe and never scrolls sideways`, async ({ page }) => {
       await page.goto(`?theme=classic${hash}`);
       await expect(page.locator('main h1')).toBeVisible();
@@ -437,3 +439,30 @@ test.describe('theme and component pages at 360px', () => {
   }
 });
 
+/** Study themes with a motion file, read from disk (the registry needs Vite). */
+const MOTION_THEMES = readdirSync('src/study/themes', { recursive: true, encoding: 'utf8' })
+  .filter((file) => file.endsWith('.motion.css'))
+  .map((file) => file.split(/[\\/]/).pop()!.replace(/\.motion\.css$/, ''));
+
+test.describe('a theme with motion stays still under prefers-reduced-motion: reduce', () => {
+  test.use({ reducedMotion: 'reduce' });
+  for (const id of MOTION_THEMES) {
+    test(`${id}: no animation runs when its specimen is set off`, async ({ page }) => {
+      await page.goto(`?theme=classic#/en/theme/${id}`);
+      await expect(page.locator('main h1')).toBeVisible();
+      await expect(page.locator('main [role="status"]')).toHaveCount(0);
+      const specimen = page.locator('.site-themepage__motion');
+      await specimen.getByRole('button', { name: 'Press' }).hover();
+      await specimen.getByRole('switch', { name: 'Switch' }).click();
+      await specimen.getByRole('button', { name: 'Open dialog' }).click();
+      const running = await page.evaluate(() =>
+        document
+          .getAnimations()
+          .filter((animation) => animation.playState === 'running')
+          .map((animation) => ('animationName' in animation ? (animation as CSSAnimation).animationName : `transition ${(animation as CSSTransition).transitionProperty}`))
+          .filter((name) => !name.startsWith('site-')),
+      );
+      expect(running).toEqual([]);
+    });
+  }
+});

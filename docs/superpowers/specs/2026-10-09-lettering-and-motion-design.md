@@ -47,6 +47,8 @@ lettering: {
 
 `kind`: `bitmap` (Chicago, Atari GEM), `outline` (Univers, DIN), `lettered` (hand-drawn posters: OSPAAAL, lotería), `system` (works with no face of their own, such as Craigslist).
 
+*Amended during phase 2:* `none` joins the kinds, for works on which no source we consulted documents lettering (buildings, objects). It has no name and no `documented`; the page says so in those words. §4.2 gains a loop limit: only loading indicators may loop forever (WCAG 2.2.2). The theme page shows a motion specimen (a button with a tooltip, a dialog, a switch, an indeterminate progress bar) under «Movimiento».
+
 `StudyType` gains optional `featureSettings` (`tnum`, `smcp`, `ss01`…), `kerning` (`normal` | `none`; bitmaps do not kern) and `textRendering`. Control geometry (`font-size`, `line-height`) stays invariant.
 
 ### 3.2 Registry (D5)

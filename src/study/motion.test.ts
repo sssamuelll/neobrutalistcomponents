@@ -9,7 +9,7 @@ const GOOD = `@keyframes hourglass {
   to { transform: rotate(180deg); }
 }
 @media (prefers-reduced-motion: no-preference) {
-  .nbc-progress__bar { animation: hourglass 1s steps(4) infinite; }
+  .nbc-progress--indeterminate .nbc-progress__bar { animation: hourglass 1s steps(4) infinite; }
   .nbc-button { transition: transform 80ms steps(2); }
 }`;
 
@@ -113,5 +113,19 @@ describe("signatures carry no motion", () => {
     expect(lintSignature('.nbc-card { animation: x 1s; }', 's').join('\n')).toMatch(/motion belongs in the motion file/);
     expect(lintSignature('@keyframes x { to { opacity: 0; } }', 's').join('\n')).toMatch(/motion belongs in the motion file/);
     expect(lintSignature('.nbc-card { color: var(--nbc-fg); }', 's')).toEqual([]);
+  });
+});
+
+describe('only loading indicators loop forever (WCAG 2.2.2)', () => {
+  const guard = (body: string) => `@media (prefers-reduced-motion: no-preference) {\n${body}\n}`;
+
+  it('rejects an infinite animation on anything else', () => {
+    expect(lintMotion(guard('.nbc-button--primary { animation: pulse 1s infinite; }'), 'm').join('\n')).toMatch(/loops forever/);
+    expect(lintMotion(guard('.nbc-button--primary { animation-iteration-count: infinite; }'), 'm').join('\n')).toMatch(/loops forever/);
+  });
+
+  it('accepts a counted animation, and a loader that loops', () => {
+    expect(lintMotion(guard('.nbc-button--primary { animation: pulse 1s 4; }'), 'm')).toEqual([]);
+    expect(lintMotion(GOOD, 'm')).toEqual([]);
   });
 });
