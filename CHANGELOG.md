@@ -1,8 +1,22 @@
 # Changelog
 
-## Unreleased
+## 1.2.0 — 2026-10-09
+
+Twelve study themes and a fifth scene, Italy. The study now reads interfaces from the history of software too, not only neobrutalist ones.
+
+### Added
+- Twelve study themes, each read from one documented work. Use them like the others: `themes/<id>.css` plus `themes/<id>.fonts.css`.
+  - United States: `whaam` (Roy Lichtenstein's *Whaam!*, 1963), `xerox-star` (Xerox Star, 1981), `amiga-os` (Amiga Workbench 1.3, 1988), `nextstep` (NeXTSTEP, 1989), `mac-os-classic` (Mac OS System 7, 1991), `win95` (Windows 95, 1995), `aqua` (Mac OS X's Aqua, 2000), `win-xp` (Windows XP's Luna, 2001), `iphone-os` (iPhone OS 1, 2007) and `material-design` (Material Design 1, 2014).
+  - Germany: `bauhaus-dessau` (the Bauhaus building in Dessau, 1925–26).
+  - Italy: `carlton` (Ettore Sottsass's Carlton room divider for Memphis, Milan, 1981).
+- Docs site: an Italy scene, with an essay on the Torre Velasca, Olivetti's Elea 9003, Superstudio and Memphis.
+
+### Changed
+- `neobrutalistcomponents/study`: `StudyScene` gains `'italy'`. Code that switches exhaustively over scenes needs a case for it.
+- Docs site: the home page is a gallery of every theme in date order, each shown in its own theme. Scenes are called rooms ("Salas").
 
 ### Fixed
+- Docs site: the home page's kicker meets text contrast in every theme, and the home no longer scrolls sideways on a 360 px phone.
 - Theme pages, `llms.txt`, `llms-full.txt` and the skill no longer wrap a reference's original title in a second parenthesis: "Mäusebunker (former Central Animal Laboratories of the Free University of Berlin; Zentrale Tierlaboratorien der Freien Universität Berlin)".
 - The README's study table is generated from the catalog, like the skill's, and CI checks it for drift.
 - Docs site: a theme page downloads its stylesheet once; the token tables read the theme's data chunk instead of a second copy of the stylesheet.
