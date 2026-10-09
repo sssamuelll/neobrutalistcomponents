@@ -80,8 +80,8 @@ export function referenceProblems(ref: Reference, where: string): string[] {
  * never grows, and new themes are never in it.
  */
 export const LETTERING_PENDING: readonly string[] = [
-  'amiga-os', 'aqua', 'classifieds', 'iphone-os', 'mac-os-classic',
-  'material-design', 'nextstep', 'whaam', 'win-xp', 'win95', 'xerox-star',
+  'aqua', 'classifieds', 'iphone-os',
+  'material-design', 'whaam', 'win-xp',
 ];
 
 function letteringProblems(lettering: Lettering | undefined, where: string): string[] {

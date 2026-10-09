@@ -19,12 +19,11 @@ describe('lettering in the ficha', () => {
 
   it('a theme without lettering fails, unless its id is pending', () => {
     expect(themeProblems(withoutLettering('fixture')).join('\n')).toMatch(/fixture\.ficha\.lettering: missing/);
-    expect(LETTERING_PENDING).toContain('win95');
-    expect(themeProblems(withoutLettering('win95'))).toEqual([]);
+    expect(themeProblems(withoutLettering(LETTERING_PENDING[0]))).toEqual([]);
   });
 
   it('a pending theme that already has lettering must leave the list', () => {
-    expect(themeProblems({ ...FIXTURE, id: 'win95' }).join('\n')).toMatch(/win95: has lettering — remove it from LETTERING_PENDING/);
+    expect(themeProblems({ ...FIXTURE, id: LETTERING_PENDING[0] }).join('\n')).toMatch(/: has lettering — remove it from LETTERING_PENDING/);
   });
 
   it.each([

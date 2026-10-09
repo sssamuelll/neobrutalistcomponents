@@ -1,0 +1,21 @@
+/* Windows 95: the title bar travels, then the window appears; carried by a dialog opening. */
+@keyframes caption {
+  0% {
+    transform: translateY(30vh) scale(0.4);
+    clip-path: inset(0 0 calc(100% - 2.25rem) 0);
+  }
+  70% {
+    transform: none;
+    clip-path: inset(0 0 calc(100% - 2.25rem) 0);
+  }
+  100% {
+    transform: none;
+    clip-path: inset(0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .nbc-dialog[open] .nbc-dialog__panel {
+    animation: caption 240ms steps(6, end);
+  }
+}

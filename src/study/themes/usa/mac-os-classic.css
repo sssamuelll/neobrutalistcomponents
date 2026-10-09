@@ -2,3 +2,7 @@
 .nbc-card {
   box-shadow: 2px 2px 0 0 var(--nbc-border-color);
 }
+.nbc-button,
+.nbc-badge {
+  font-family: var(--nbc-font-display);
+}
