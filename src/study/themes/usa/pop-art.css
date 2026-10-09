@@ -1,0 +1,20 @@
+/* Pop Art signature: Ben-Day dots and heavy outlines */
+:scope {
+  background-image: radial-gradient(color-mix(in srgb, var(--nbc-fg) 20%, transparent) 15%, transparent 16%), radial-gradient(color-mix(in srgb, var(--nbc-fg) 20%, transparent) 15%, transparent 16%);
+  background-size: 10px 10px;
+  background-position: 0 0, 5px 5px;
+}
+
+.nbc-card {
+  box-shadow: 6px 6px 0 0 var(--nbc-border-color);
+}
+
+.nbc-button {
+  box-shadow: 4px 4px 0 0 var(--nbc-border-color);
+  text-transform: uppercase;
+}
+
+.nbc-button:active {
+  box-shadow: none;
+  transform: translate(4px, 4px);
+}

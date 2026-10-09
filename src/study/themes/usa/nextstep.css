@@ -1,0 +1,15 @@
+/* NeXTSTEP signature: heavy 3D bevels */
+.nbc-button,
+.nbc-card {
+  border-color: var(--nbc-border-color);
+  box-shadow:
+    inset 2px 2px 0 0 var(--nbc-surface-alt),
+    inset -2px -2px 0 0 var(--nbc-fg-muted);
+}
+
+.nbc-button:active,
+.nbc-button[data-state='open'] {
+  box-shadow:
+    inset 2px 2px 0 0 var(--nbc-fg-muted),
+    inset -2px -2px 0 0 var(--nbc-surface-alt);
+}

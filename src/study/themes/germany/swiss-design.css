@@ -1,0 +1,15 @@
+/* Swiss Design signature: Absolute flatness, harsh borders, no shadows */
+.nbc-button,
+.nbc-card {
+  box-shadow: none !important;
+  border-width: 2px;
+}
+
+.nbc-button:hover {
+  background-color: var(--nbc-fg);
+  color: var(--nbc-bg);
+}
+
+.nbc-button:active {
+  transform: scale(0.98);
+}

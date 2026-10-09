@@ -18,7 +18,7 @@ describe('atlas facets', () => {
     expect(ids({ q: 'pompeia' })).toEqual(['sesc-pompeia']);
     expect(ids({ q: 'kurokawa' })).toEqual(['nakagin']);
     expect(ids({ q: 'le corbusier' })).toEqual(['classic']);
-    expect(ids({ q: 'berlín' })).toEqual(['maeusebunker']);
+    expect(ids({ q: 'berlín' })).toEqual(['bauhaus', 'maeusebunker']);
     expect(ids({ q: 'nothing like this' })).toEqual([]);
   });
 

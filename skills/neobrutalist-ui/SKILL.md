@@ -37,10 +37,23 @@ Each reads one documented work — a building, a magazine, a terminal, a website
 <!-- study-themes:start -->
 | Theme | Reference | Scene | Native scheme |
 | --- | --- | --- | --- |
+| `bauhaus` | Staatliches Bauhaus, Walter Gropius, Johannes Itten, Wassily Kandinsky, Weimar / Dessau / Berlin, Germany, 1919–1933 | Germany | light |
 | `maeusebunker` | Mäusebunker (former Central Animal Laboratories of the Free University of Berlin; Zentrale Tierlaboratorien der Freien Universität Berlin), Gerd Hänska, Magdalena Hänska, Kurt Schmersow, Lichterfelde, Berlin, Germany, 1971–1982 | Germany | dark |
+| `swiss-design` | International Typographic Style, Josef Müller-Brockmann, Armin Hofmann, Ernst Keller, Zurich / Basel, Switzerland, 1950–1970 | Germany | light |
 | `nakagin` | Nakagin Capsule Tower (中銀カプセルタワービル), Kisho Kurokawa, Ginza, Tokyo, Japan, 1970–1972 | Japan | light |
 | `sesc-pompeia` | SESC Pompéia (Centro de Lazer Fábrica da Pompéia), Lina Bo Bardi, André Vainer, Marcelo Carvalho Ferraz, Pompeia, São Paulo, Brazil, 1977–1986 | Latin America | light |
+| `amiga-os` | Amiga Workbench 1.3, Commodore International, West Chester, United States, 1988 | United States | light |
+| `aqua` | Mac OS X (Aqua interface), Apple Computer, Cupertino, United States, 2000 | United States | light |
 | `classifieds` | craigslist (classified-ads website), Craig Newmark, San Francisco, United States, 1995 | United States | light |
+| `iphone-os` | iPhone OS 1, Apple Inc., Cupertino, United States, 2007 | United States | light |
+| `mac-os-classic` | Mac OS System 7 (graphical user interface), Apple Computer, Cupertino, United States, 1991 | United States | light |
+| `material-design` | Material Design, Google, Mountain View, United States, 2014 | United States | light |
+| `memphis` | Memphis Design, Ettore Sottsass, Nathalie du Pasquier, Peter Shire, Milan, Italy / Popularized globally, 1981–1988 | United States | light |
+| `nextstep` | NeXTSTEP, NeXT Computer, Inc., Redwood City, United States, 1989 | United States | light |
+| `pop-art` | Pop Art, Andy Warhol, Roy Lichtenstein, Richard Hamilton, New York, United States / London, United Kingdom, 1950–1970 | United States | light |
+| `win-xp` | Windows XP (graphical user interface), Microsoft, Redmond, United States, 2001 | United States | light |
+| `win95` | Windows 95 (graphical user interface), Microsoft, Redmond, United States, 1995 | United States | light |
+| `xerox-star` | Xerox Star (8010 Information System), Xerox PARC, Xerox Systems Development Department, Palo Alto, United States, 1981 | United States | light |
 <!-- study-themes:end -->
 
 ## 3. Compose

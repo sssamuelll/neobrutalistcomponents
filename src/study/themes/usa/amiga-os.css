@@ -1,0 +1,10 @@
+/* Amiga OS signature */
+.nbc-button,
+.nbc-card {
+  box-shadow: 2px 2px 0 0 var(--nbc-border-color);
+}
+
+.nbc-button:active {
+  box-shadow: none;
+  transform: translate(2px, 2px);
+}

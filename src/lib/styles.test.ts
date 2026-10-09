@@ -25,9 +25,10 @@ const rel = (file: string) => relative(LIB, file);
 
 const allCss = walk(LIB).filter((f) => f.endsWith('.css'));
 const entryFiles = [join(LIB, 'styles.css'), ...NEO_THEMES.map((t) => join(THEMES_DIR, t, 'index.css'))];
-const themeFiles = allCss.filter((f) => f.startsWith(THEMES_DIR + '/'));
+const THEMES_DIR_POSIX = THEMES_DIR.replace(/\\/g, '/');
+const themeFiles = allCss.filter((f) => f.replace(/\\/g, '/').startsWith(THEMES_DIR_POSIX + '/'));
 const componentFiles = allCss.filter(
-  (f) => !themeFiles.includes(f) && !entryFiles.includes(f) && !/\/(tokens|base)\.css$/.test(f),
+  (f) => !themeFiles.includes(f) && !entryFiles.includes(f) && !/(?:\/|\\)(tokens|base)\.css$/.test(f),
 );
 
 /** `@import './x.css' layer(nbc.y);` → [{ path, layer }] */
@@ -85,14 +86,15 @@ describe('CSS conventions', () => {
     for (const file of entryFiles) {
       for (const { path, layer } of parseImports(file)) {
         expect(existsSync(path), `${rel(file)} imports missing ${rel(path)}`).toBe(true);
-        const isTheme = path.startsWith(THEMES_DIR + '/');
+        const p = path.replace(/\\/g, '/');
+        const isTheme = p.startsWith(THEMES_DIR_POSIX + '/');
         const expected = isTheme
-          ? path.endsWith('/tokens.css')
+          ? p.endsWith('/tokens.css')
             ? 'nbc.theme'
             : 'nbc.flourish'
-          : path.endsWith('/tokens.css')
+          : p.endsWith('/tokens.css')
             ? 'nbc.tokens'
-            : path.endsWith('/base.css')
+            : p.endsWith('/base.css')
               ? 'nbc.base'
               : 'nbc.components';
         expect(layer, `${rel(path)} layer`).toBe(expected);

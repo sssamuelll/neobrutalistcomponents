@@ -47,10 +47,23 @@ Each study theme reads one documented work; its page (https://sssamuelll.github.
 
 | Theme | Reference | Scene | Native scheme | Fonts | Stylesheets |
 | --- | --- | --- | --- | --- | --- |
+| `bauhaus` | Staatliches Bauhaus, Walter Gropius, Johannes Itten, Wassily Kandinsky, Weimar / Dessau / Berlin, Germany, 1919–1933 | Germany | light | system fonts | `themes/bauhaus.css`, `themes/bauhaus.fonts.css` |
 | `maeusebunker` | Mäusebunker (former Central Animal Laboratories of the Free University of Berlin; Zentrale Tierlaboratorien der Freien Universität Berlin), Gerd Hänska, Magdalena Hänska, Kurt Schmersow, Lichterfelde, Berlin, Germany, 1971–1982 | Germany | dark | Barlow, Barlow Condensed, DM Mono | `themes/maeusebunker.css`, `themes/maeusebunker.fonts.css` |
+| `swiss-design` | International Typographic Style, Josef Müller-Brockmann, Armin Hofmann, Ernst Keller, Zurich / Basel, Switzerland, 1950–1970 | Germany | light | system fonts | `themes/swiss-design.css`, `themes/swiss-design.fonts.css` |
 | `nakagin` | Nakagin Capsule Tower (中銀カプセルタワービル), Kisho Kurokawa, Ginza, Tokyo, Japan, 1970–1972 | Japan | light | Zen Kaku Gothic New, Dela Gothic One, M PLUS 1 Code | `themes/nakagin.css`, `themes/nakagin.fonts.css` |
 | `sesc-pompeia` | SESC Pompéia (Centro de Lazer Fábrica da Pompéia), Lina Bo Bardi, André Vainer, Marcelo Carvalho Ferraz, Pompeia, São Paulo, Brazil, 1977–1986 | Latin America | light | Chivo, Chivo Mono | `themes/sesc-pompeia.css`, `themes/sesc-pompeia.fonts.css` |
+| `amiga-os` | Amiga Workbench 1.3, Commodore International, West Chester, United States, 1988 | United States | light | system fonts | `themes/amiga-os.css`, `themes/amiga-os.fonts.css` |
+| `aqua` | Mac OS X (Aqua interface), Apple Computer, Cupertino, United States, 2000 | United States | light | system fonts | `themes/aqua.css`, `themes/aqua.fonts.css` |
 | `classifieds` | craigslist (classified-ads website), Craig Newmark, San Francisco, United States, 1995 | United States | light | system fonts | `themes/classifieds.css`, `themes/classifieds.fonts.css` |
+| `iphone-os` | iPhone OS 1, Apple Inc., Cupertino, United States, 2007 | United States | light | system fonts | `themes/iphone-os.css`, `themes/iphone-os.fonts.css` |
+| `mac-os-classic` | Mac OS System 7 (graphical user interface), Apple Computer, Cupertino, United States, 1991 | United States | light | system fonts | `themes/mac-os-classic.css`, `themes/mac-os-classic.fonts.css` |
+| `material-design` | Material Design, Google, Mountain View, United States, 2014 | United States | light | system fonts | `themes/material-design.css`, `themes/material-design.fonts.css` |
+| `memphis` | Memphis Design, Ettore Sottsass, Nathalie du Pasquier, Peter Shire, Milan, Italy / Popularized globally, 1981–1988 | United States | light | system fonts | `themes/memphis.css`, `themes/memphis.fonts.css` |
+| `nextstep` | NeXTSTEP, NeXT Computer, Inc., Redwood City, United States, 1989 | United States | light | system fonts | `themes/nextstep.css`, `themes/nextstep.fonts.css` |
+| `pop-art` | Pop Art, Andy Warhol, Roy Lichtenstein, Richard Hamilton, New York, United States / London, United Kingdom, 1950–1970 | United States | light | system fonts | `themes/pop-art.css`, `themes/pop-art.fonts.css` |
+| `win-xp` | Windows XP (graphical user interface), Microsoft, Redmond, United States, 2001 | United States | light | system fonts | `themes/win-xp.css`, `themes/win-xp.fonts.css` |
+| `win95` | Windows 95 (graphical user interface), Microsoft, Redmond, United States, 1995 | United States | light | system fonts | `themes/win95.css`, `themes/win95.fonts.css` |
+| `xerox-star` | Xerox Star (8010 Information System), Xerox PARC, Xerox Systems Development Department, Palo Alto, United States, 1981 | United States | light | system fonts | `themes/xerox-star.css`, `themes/xerox-star.fonts.css` |
 
 ## Composition rules
 

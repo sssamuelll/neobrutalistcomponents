@@ -1,0 +1,11 @@
+/* Xerox Star signature: 1-bit style graphics */
+.nbc-button,
+.nbc-card {
+  box-shadow: 4px 4px 0 0 var(--nbc-border-color);
+  border-width: 2px;
+}
+
+body[data-nbc-theme="xerox-star"] {
+  background-image: radial-gradient(var(--nbc-border-color) 1px, transparent 1px);
+  background-size: 4px 4px;
+}
