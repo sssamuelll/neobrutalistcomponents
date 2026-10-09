@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url';
 import { NEO_THEMES, THEME_INFO } from '../lib/themes';
 import { CORE_FICHAS } from './core-fichas';
 import { STUDY_THEMES, registryProblems } from './registry';
-import { coreFichaProblems, themeProblems } from './validate';
+import { LETTERING_PENDING, coreFichaProblems, themeProblems } from './validate';
 import { compileTheme } from './compile';
 import { contractProblems } from './contract';
 
@@ -28,6 +28,14 @@ const PROOF_THEMES = ['amiga-os', 'aqua', 'bauhaus-dessau', 'carlton', 'classifi
 describe('proof themes', () => {
   it('are all in the registry', () => {
     expect(STUDY_THEMES.map(({ theme }) => theme.id).sort()).toEqual([...PROOF_THEMES].sort());
+  });
+});
+
+describe('lettering pending list', () => {
+  it('holds only registered themes that still lack lettering, and no id twice', () => {
+    const lacking = STUDY_THEMES.filter(({ theme }) => !theme.ficha.lettering).map(({ theme }) => theme.id);
+    expect([...LETTERING_PENDING].sort()).toEqual([...lacking].sort());
+    expect(new Set(LETTERING_PENDING).size).toBe(LETTERING_PENDING.length);
   });
 });
 

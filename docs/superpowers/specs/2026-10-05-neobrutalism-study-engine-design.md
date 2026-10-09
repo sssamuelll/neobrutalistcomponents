@@ -136,6 +136,8 @@ Rules:
 - The five core themes are untouched: still hand-written in `src/lib/themes/`, still shipped as `dist/themes/<name>.css` next to `styles.css` (the core stylesheet carries no theme). Study themes follow exactly the same import pattern: `styles.css` plus one theme file.
 
 ### D7 — The ficha
+**Amended 2026-10-09 (lettering and motion).** A ficha may carry a `lettering` block (required of new themes) and a `motion` block (only where a source documents the work's movement). Both follow the marker rules below. See `2026-10-09-lettering-and-motion-design.md`.
+
 Lives in the theme file, in two parts.
 
 `reference`:

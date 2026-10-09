@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+### Added
+- Study: the ficha gains `lettering` (the original face, what was documented, the free substitute) and `motion` (documented movement), validated like the rest of the ficha. Themes may declare a `<id>.motion.css`, linted to 40 lines, five animatable properties and a `prefers-reduced-motion: no-preference` guard. `StudyType` gains `featureSettings`, `kerning` and `textRendering`. The theme page shows both sections.
+
 ### Changed
 - Docs site: the Rooms page is a world map. Each room is a region on a dot map of Natural Earth's 1:110m geography in the Equal Earth projection; the legend beneath it lists rooms, works and years, and is the keyboard and screen-reader path. Pointing at a region or a row highlights both.
 - Docs site: the home page shows the study's essay again, between the hero and the collection, and loads each work's theme as it nears the screen (453 KB on arrival instead of 1,057 KB).
