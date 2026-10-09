@@ -30,6 +30,7 @@ async function get(url) {
 const verdict = (status) => (status === 200 ? 'OK' : [401, 403, 429].includes(status) ? 'HAND' : 'FAIL');
 const normalize = (text) =>
   text
+    .normalize('NFC')
     .replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/gi, ' ')
     .replace(/<[^>]+>/g, ' ')
     .replace(/&nbsp;|&#160;/g, ' ')
