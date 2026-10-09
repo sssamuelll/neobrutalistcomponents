@@ -48,6 +48,13 @@ export default defineTheme({
         en: 'Read from photographs: pale grey capsules, concrete cores, dark glass. No source documents the colours.',
       },
     },
+    lettering: {
+      original: { kind: 'none' },
+      substitute: {
+        es: 'El tema usa Zen Kaku Gothic New para el texto y Dela Gothic One para los títulos, dos góticas japonesas libres. Son una lectura, no un parecido: el trazo uniforme de la gótica acompaña la repetición de las cápsulas, y en el peso cerrado de Dela Gothic One vemos la masa del hormigón de los núcleos.',
+        en: 'The theme uses Zen Kaku Gothic New for text and Dela Gothic One for titles, two free Japanese gothics. They are a reading, not a likeness: the gothic’s even stroke goes with the repeated capsules, and in Dela Gothic One’s dense weight we see the mass of the concrete cores.',
+      },
+    },
   },
   fonts: { sans: 'zen-kaku-gothic-new', display: 'dela-gothic-one', mono: 'm-plus-1-code' },
   colors: {
@@ -74,5 +81,6 @@ export default defineTheme({
   type: { weightBody: 400, weightLabel: 700, weightDisplay: 400, labelSpacing: '0.02em', displaySpacing: '0em' },
   shape: { borderWidth: 2, radius: 0, radiusControl: 0, radiusButton: 999, radiusSmall: 0 },
   elevation: hardShadow(5),
+  motion: { duration: 0, durationSlow: 0, ease: 'linear' },
   families: [grid({ cell: 32, strength: 0.07 })],
 });

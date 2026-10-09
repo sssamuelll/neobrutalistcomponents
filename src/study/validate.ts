@@ -81,7 +81,7 @@ export function referenceProblems(ref: Reference, where: string): string[] {
  */
 export const LETTERING_PENDING: readonly string[] = [
   'amiga-os', 'aqua', 'bauhaus-dessau', 'carlton', 'classifieds', 'iphone-os', 'mac-os-classic', 'maeusebunker',
-  'material-design', 'nakagin', 'nextstep', 'sesc-pompeia', 'whaam', 'win-xp', 'win95', 'xerox-star',
+  'material-design', 'nextstep', 'sesc-pompeia', 'whaam', 'win-xp', 'win95', 'xerox-star',
 ];
 
 function letteringProblems(lettering: Lettering | undefined, where: string): string[] {
