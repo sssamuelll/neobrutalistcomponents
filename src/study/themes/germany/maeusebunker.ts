@@ -58,6 +58,17 @@ export default defineTheme({
         en: 'The pipes’ light blue and the interior colour code are documented in words by the project site; the hex values are the theme’s reading of photographs.',
       },
     },
+    lettering: {
+      original: { name: 'Großformatige Beschriftung', kind: 'lettered' },
+      documented: {
+        es: 'Dentro del edificio, el concepto de color incluye rótulos de gran formato en las puertas de las zonas nuevas, los ascensores y las escaleras, y en los muros junto a los ascensores, siempre en mayúsculas blancas sin remates [1]. La fuente no nombra la tipografía ni quién la dibujó.',
+        en: 'Inside the building, the colour concept includes large lettering on the doors to new sections, lifts and stairwells, and on the walls by the lifts, always in white sans-serif capitals [1]. The source names neither the typeface nor who drew it.',
+      },
+      substitute: {
+        es: 'El tema usa Barlow para el texto y Barlow Condensed para los títulos, y pone títulos y etiquetas en mayúsculas, como esos rótulos. Son grotescas libres de dibujo técnico; en sus capitales sin remates vemos las de las puertas, aunque la tipografía original no está documentada.',
+        en: 'The theme uses Barlow for text and Barlow Condensed for titles, and sets titles and labels in capitals, like that lettering. They are free grotesques of technical drawing; in their sans-serif capitals we see those of the doors, though the original typeface is not documented.',
+      },
+    },
   },
   fonts: { sans: 'barlow', display: 'barlow-condensed', mono: 'dm-mono' },
   colors: {
@@ -92,5 +103,6 @@ export default defineTheme({
   },
   shape: { borderWidth: 3, radius: 0, radiusControl: 0, radiusButton: 0, radiusSmall: 0 },
   elevation: hardShadow(6),
+  motion: { duration: 0, durationSlow: 0, ease: 'linear' },
   families: [concrete({ grain: 0.07, formwork: 0.05, board: 22 })],
 });

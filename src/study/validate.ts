@@ -80,7 +80,7 @@ export function referenceProblems(ref: Reference, where: string): string[] {
  * never grows, and new themes are never in it.
  */
 export const LETTERING_PENDING: readonly string[] = [
-  'amiga-os', 'aqua', 'bauhaus-dessau', 'carlton', 'classifieds', 'iphone-os', 'mac-os-classic', 'maeusebunker',
+  'amiga-os', 'aqua', 'classifieds', 'iphone-os', 'mac-os-classic',
   'material-design', 'nextstep', 'whaam', 'win-xp', 'win95', 'xerox-star',
 ];
 

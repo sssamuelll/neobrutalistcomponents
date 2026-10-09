@@ -56,6 +56,17 @@ export default defineTheme({
         en: 'The sources describe brightly coloured laminates but give no values; the tones are a reading. The work is under copyright and there is no free image.',
       },
     },
+    lettering: {
+      original: { name: 'MEMPHIS / MADE IN ITALY MILANO / ETTORE SOTTSASS / 1981', kind: 'outline' },
+      documented: {
+        es: 'El ejemplar de la National Gallery of Victoria lleva al dorso del cajonero una etiqueta de metal impresa en tinta y perforada: MEMPHIS / MADE IN ITALY MILANO / ETTORE SOTTSASS / 1981, con el número 22 [1]. La ficha del museo no dice en qué letras está impresa ni si todos los ejemplares la llevan.',
+        en: 'The National Gallery of Victoria’s example carries on the back of its drawer cabinet a metal label printed in ink and punched: MEMPHIS / MADE IN ITALY MILANO / ETTORE SOTTSASS / 1981, numbered 22 [1]. The museum’s record does not say what letters it is printed in, or whether every example carries one.',
+      },
+      substitute: {
+        es: 'El tema usa la sans del sistema. Una etiqueta de fábrica no da una tipografía que leer, y el Carlton habla con color, laminado y forma; el tema deja esa voz a la paleta y a la sombra.',
+        en: 'The theme uses the system sans. A maker’s label gives no typeface to read, and the Carlton speaks in colour, laminate and form; the theme leaves that voice to the palette and the shadow.',
+      },
+    },
   },
   fonts: 'system-sans',
   colors: {
@@ -82,6 +93,6 @@ export default defineTheme({
   type: { weightBody: 500, weightLabel: 700, weightDisplay: 900 },
   shape: { borderWidth: 3, radius: 16, radiusControl: 16, radiusButton: 999, radiusSmall: 8 },
   elevation: hardShadow(6),
-  motion: { duration: 200, durationSlow: 400, ease: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)' },
+  motion: { duration: 0, durationSlow: 0, ease: 'linear' },
   signature: './carlton.css',
 });
