@@ -3,10 +3,9 @@ import { useLang, useT } from '../i18n';
 import { toHash } from '../router';
 import { TableScroll } from '../docs/TableScroll';
 import { FONT_LICENSE_URLS, fontCredits, specimenUrl } from '../study/credits';
+import type { FontCredit } from '../study/credits';
 import { CATALOG } from '../study/data';
 import { LICENSE_URLS, commonsTitle, licenseName } from '../study/format';
-
-const FONTS = fontCredits(CATALOG);
 
 function ThemeLinks({ entries }: { entries: readonly CatalogEntry[] }) {
   const lang = useLang();
@@ -62,6 +61,59 @@ function Photographs() {
   );
 }
 
+/** Computed on this page, never at boot: a family without a recorded licence (fonts.test.ts stops it in CI) fails this table only. */
+function typefaceCredits(): FontCredit[] | null {
+  try {
+    return fontCredits(CATALOG);
+  } catch {
+    return null;
+  }
+}
+
+function Typefaces() {
+  const t = useT();
+  const fonts = typefaceCredits();
+  if (!fonts) {
+    return (
+      <p className="site-p" role="alert">
+        {t('fontsUnavailable')}
+      </p>
+    );
+  }
+  return (
+    <TableScroll label={t('fontsHeading')}>
+      <table aria-labelledby="credits-fonts">
+        <thead>
+          <tr>
+            <th scope="col">{t('colFamily')}</th>
+            <th scope="col">{t('colLicense')}</th>
+            <th scope="col">{t('colUsedBy')}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {fonts.map((font) => (
+            <tr key={font.family}>
+              <th scope="row">
+                <a href={specimenUrl(font.family)} target="_blank" rel="noreferrer">
+                  {font.family}
+                </a>
+              </th>
+              <td>
+                <a href={FONT_LICENSE_URLS[font.license]} target="_blank" rel="noreferrer">
+                  {font.license}
+                </a>
+              </td>
+              <td>
+                <ThemeLinks entries={font.usedBy} />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </TableScroll>
+  );
+}
+
 /** Every photograph and every typeface the study uses, with its licence, generated from data. */
 export function Credits() {
   const t = useT();
@@ -83,36 +135,7 @@ export function Credits() {
         <h2 className="site-h2" id="credits-fonts">
           {t('fontsHeading')}
         </h2>
-        <TableScroll label={t('fontsHeading')}>
-          <table aria-labelledby="credits-fonts">
-            <thead>
-              <tr>
-                <th scope="col">{t('colFamily')}</th>
-                <th scope="col">{t('colLicense')}</th>
-                <th scope="col">{t('colUsedBy')}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {FONTS.map((font) => (
-                <tr key={font.family}>
-                  <th scope="row">
-                    <a href={specimenUrl(font.family)} target="_blank" rel="noreferrer">
-                      {font.family}
-                    </a>
-                  </th>
-                  <td>
-                    <a href={FONT_LICENSE_URLS[font.license]} target="_blank" rel="noreferrer">
-                      {font.license}
-                    </a>
-                  </td>
-                  <td>
-                    <ThemeLinks entries={font.usedBy} />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </TableScroll>
+        <Typefaces />
       </section>
     </div>
   );

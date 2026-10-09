@@ -59,7 +59,7 @@ export function Atlas({ query }: { query: URLSearchParams }) {
       {results.length ? (
         <ul className="site-cards">
           {results.map((entry) => (
-            <ThemeCard key={entry.id} entry={entry} />
+            <ThemeCard key={entry.id} entry={entry} heading="h2" />
           ))}
         </ul>
       ) : (

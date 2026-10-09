@@ -19,18 +19,19 @@ export type Route =
   | { name: 'agents' }
   | { name: 'not-found'; path: string };
 
-/** A parsed hash: a page in a language, or a legacy address to redirect. */
-export type Location =
-  | {
-      readonly kind: 'page';
-      readonly lang: Lang;
-      readonly route: Route;
-      /** The path without the language prefix, e.g. '/atlas'. */
-      readonly path: string;
-      /** The hash's own query, e.g. #/es/atlas?scene=japan. */
-      readonly query: URLSearchParams;
-    }
-  | { readonly kind: 'redirect'; readonly to: string };
+/** A page in a language. */
+interface PageLocation {
+  readonly kind: 'page';
+  readonly lang: Lang;
+  readonly route: Route;
+  /** The path without the language prefix, e.g. '/atlas'. */
+  readonly path: string;
+  /** The hash's own query, e.g. #/es/atlas?scene=japan. */
+  readonly query: URLSearchParams;
+}
+
+/** A parsed hash: a page in a language, or a legacy address to redirect and the page it points to. */
+export type Location = PageLocation | { readonly kind: 'redirect'; readonly to: string; readonly page: PageLocation };
 
 const SIMPLE: Readonly<Record<string, Route>> = {
   '/': { name: 'study' },
@@ -66,6 +67,8 @@ export function toHash(lang: Lang, path: string, query?: URLSearchParams): strin
   return `#/${lang}${path === '/' ? '/' : path}${search}`;
 }
 
+const pageAt = (lang: Lang, path: string, query: URLSearchParams): PageLocation => ({ kind: 'page', lang, route: routeOf(path), path, query });
+
 export function parseHash(hash: string, fallback: Lang): Location {
   const raw = hash.replace(/^#/, '');
   const cut = raw.indexOf('?');
@@ -73,12 +76,10 @@ export function parseHash(hash: string, fallback: Lang): Location {
   const query = new URLSearchParams(cut === -1 ? '' : raw.slice(cut + 1));
   const path = pathPart.replace(/\/+$/, '') || '/';
   const first = path.split('/')[1] ?? '';
-  if (isLang(first)) {
-    const rest = path.slice(first.length + 1) || '/';
-    return { kind: 'page', lang: first, route: routeOf(rest), path: rest, query };
-  }
+  if (isLang(first)) return pageAt(first, path.slice(first.length + 1) || '/', query);
   // A legacy address without a language: keep it, add one. The old Themes page is now the atlas.
-  return { kind: 'redirect', to: toHash(fallback, path === '/themes' ? '/atlas' : path, query) };
+  const target = path === '/themes' ? '/atlas' : path;
+  return { kind: 'redirect', to: toHash(fallback, target, query), page: pageAt(fallback, target, query) };
 }
 
 /**

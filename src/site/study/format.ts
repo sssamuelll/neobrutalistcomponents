@@ -22,6 +22,11 @@ export function licenseName(license: ImageLicense, lang: Lang): string {
   return license.replace(/^CC-/, 'CC ').replace(/-(\d)/, ' $1');
 }
 
+/** Where a reference's original title goes: in a parenthesis after the title, or inside the one the title already ends with. */
+export function aroundOriginal(title: string): { before: string; after: string } {
+  return title.endsWith(')') ? { before: `${title.slice(0, -1)}; `, after: ')' } : { before: `${title} (`, after: ')' };
+}
+
 export const years = (date: Reference['date']): string => (typeof date === 'number' ? String(date) : `${date[0]}–${date[1]}`);
 
 export const startYear = (date: Reference['date']): number => (typeof date === 'number' ? date : date[0]);

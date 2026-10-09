@@ -215,6 +215,10 @@ export const UI = {
   colSource: { es: 'Fuente', en: 'Source' },
   colFamily: { es: 'Familia', en: 'Family' },
   colUsedBy: { es: 'La usan', en: 'Used by' },
+  fontsUnavailable: {
+    es: 'No se pueden listar las tipografías: a una le falta la licencia.',
+    en: 'The typefaces cannot be listed: one has no licence on record.',
+  },
 
   // Not found
   notFoundTitle: { es: 'Nada en esta dirección', en: 'Nothing at this address' },
@@ -322,9 +326,10 @@ export function themeCount(lang: Lang, n: number): string {
   return n === 1 ? '1 theme' : `${n} themes`;
 }
 
-/** 1970 → 'Años 70' / '1970s'. */
+/** 1970 → 'Años 70' / '1970s'. Outside the 1900s the Spanish label keeps the full year: 2010 → 'Años 2010'. */
 export function decadeLabel(lang: Lang, decade: number): string {
-  return lang === 'es' ? `Años ${String(decade).slice(2)}` : `${decade}s`;
+  if (lang === 'en') return `${decade}s`;
+  return decade >= 1900 && decade < 2000 ? `Años ${String(decade).slice(2)}` : `Años ${decade}`;
 }
 
 export const LangContext = createContext<Lang>('en');

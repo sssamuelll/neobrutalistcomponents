@@ -8,13 +8,22 @@ const read = (path: string) => readFileSync(join(process.cwd(), path), 'utf8');
 const llms = read('public/llms.txt');
 const full = read('public/llms-full.txt');
 const skill = read('skills/neobrutalist-ui/SKILL.md');
+const readme = read('README.md');
 const study = CATALOG.filter((entry) => !entry.predatesStudy);
+
+/** The rows between a file's study-themes markers (its header and separator left out). */
+const studyRows = (text: string) => {
+  const [from, to] = [text.indexOf('<!-- study-themes:start -->'), text.indexOf('<!-- study-themes:end -->')];
+  if (from < 0 || to < from) return null;
+  return text.slice(from, to).split('\n').filter((line) => line.startsWith('| `'));
+};
 
 describe('agent docs carry the study catalog', () => {
   it('llms.txt links every study theme page with its reference, in the language-prefixed routes', () => {
     for (const entry of study) {
       expect(llms).toContain(`/#/en/theme/${entry.id})`);
-      expect(llms).toContain(entry.reference.title.en);
+      // Without its closing parenthesis: a title's parenthesis may enclose its original title too.
+      expect(llms).toContain(entry.reference.title.en.replace(/\)$/, ''));
     }
     expect(llms).toContain('/#/en/components/button)');
     expect(llms).not.toMatch(/\/#\/(?!en\/)/);
@@ -29,5 +38,24 @@ describe('agent docs carry the study catalog', () => {
   it('the skill gains a generated table of the study themes', () => {
     const section = skill.slice(skill.indexOf('<!-- study-themes:start -->'), skill.indexOf('<!-- study-themes:end -->'));
     for (const entry of study) expect(section).toContain(`| \`${entry.id}\` |`);
+  });
+
+  it('the README’s study table is generated between the same markers, with the skill’s rows', () => {
+    const rows = studyRows(readme);
+    expect(rows, 'README.md has <!-- study-themes:start --> … <!-- study-themes:end -->').not.toBeNull();
+    expect(rows).toHaveLength(study.length);
+    for (const entry of study) expect(rows?.join('\n')).toContain(`| \`${entry.id}\` |`);
+    expect(rows).toEqual(studyRows(skill));
+  });
+
+  it('names a reference with its original title, never in a second parenthesis', () => {
+    for (const [name, text] of [['llms.txt', llms], ['llms-full.txt', full], ['SKILL.md', skill]]) {
+      expect(text, name).not.toMatch(/\) \(/);
+      // A title that already ends in a parenthesis takes the original inside it.
+      expect(text, name).toContain(
+        'Mäusebunker (former Central Animal Laboratories of the Free University of Berlin; Zentrale Tierlaboratorien der Freien Universität Berlin)',
+      );
+      expect(text, name).toContain('Nakagin Capsule Tower (中銀カプセルタワービル)');
+    }
   });
 });

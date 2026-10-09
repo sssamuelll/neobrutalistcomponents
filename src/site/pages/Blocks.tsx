@@ -21,7 +21,7 @@ export function Blocks() {
       {BLOCKS.map((b) => {
         const source = getBlock(b.file);
         return source ? (
-          <Example key={b.file} id={`block-${b.file.toLowerCase()}`} title={b.title} description={b.description} source={source} bleed />
+          <Example key={b.file} id={`block-${b.file.toLowerCase()}`} title={b.title} description={b.description} source={source} bleed heading="h2" />
         ) : null;
       })}
     </div>

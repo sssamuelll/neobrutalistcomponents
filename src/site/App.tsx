@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useEffectEvent, useMemo } from 'react';
 import { NeoProvider } from 'neobrutalistcomponents';
 import { Shell } from './Shell';
 import { useSitePrefs } from './prefs';
@@ -79,8 +79,14 @@ const TITLES: Partial<Record<Route['name'], UIKey>> = {
   'not-found': 'titleNotFound',
 };
 
+function documentTitle({ lang, route }: PageLocation): string {
+  const key = TITLES[route.name];
+  const title = route.name === 'component' ? route.slug : route.name === 'theme' ? (ENTRIES.get(route.id)?.name[lang] ?? route.id) : route.name === 'scene' ? SCENE_TEXT[route.scene].name[lang] : key ? UI[key][lang] : undefined;
+  return title ? `${title} — neobrutalistcomponents` : 'neobrutalistcomponents';
+}
+
 function Site({ location, prefs, update }: { location: PageLocation; prefs: SitePrefs; update: (next: Partial<SitePrefs>) => void }) {
-  const { lang, route } = location;
+  const { lang } = location;
   const routeKey = `${lang}:${location.path}`;
   const status = useThemeStylesheet(prefs.theme);
 
@@ -89,12 +95,15 @@ function Site({ location, prefs, update }: { location: PageLocation; prefs: Site
     document.documentElement.lang = lang;
   }, [lang]);
 
-  useEffect(() => {
-    const key = TITLES[route.name];
-    const title = route.name === 'component' ? route.slug : route.name === 'theme' ? (ENTRIES.get(route.id)?.name[lang] ?? route.id) : route.name === 'scene' ? SCENE_TEXT[route.scene].name[lang] : key ? UI[key][lang] : undefined;
-    document.title = title ? `${title} — neobrutalistcomponents` : 'neobrutalistcomponents';
+  // Arriving at a page: once per route key, never when the same page renders
+  // again (a new query, a new route object for the same address).
+  const enterPage = useEffectEvent(() => {
+    document.title = documentTitle(location);
     window.scrollTo({ top: 0 });
-  }, [routeKey, route, lang]);
+  });
+  useEffect(() => {
+    enterPage();
+  }, [routeKey]);
 
   // A study theme whose stylesheet cannot load falls back to the default theme.
   useEffect(() => {
@@ -126,14 +135,14 @@ export function App() {
   const location = useMemo(() => parseHash(hash, detectLang()), [hash]);
   const ctx = useMemo(() => ({ prefs, update }), [prefs, update]);
 
+  // A legacy address shows the page it points to at once; this only fixes the address bar.
   useEffect(() => {
     if (location.kind === 'redirect') replaceHash(location.to);
   }, [location]);
 
-  if (location.kind === 'redirect') return null;
   return (
     <SitePrefsContext value={ctx}>
-      <Site location={location} prefs={prefs} update={update} />
+      <Site location={location.kind === 'page' ? location : location.page} prefs={prefs} update={update} />
     </SitePrefsContext>
   );
 }

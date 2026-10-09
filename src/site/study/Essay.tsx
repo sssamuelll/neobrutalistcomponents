@@ -8,7 +8,13 @@ export function Essay({ slug }: { slug: EssaySlug }) {
   const lang = useLang();
   const t = useT();
   const essay = useEssay(slug, lang);
-  if (essay.status === 'error') return <p className="site-p">{t('loadError')}</p>;
+  if (essay.status === 'error') {
+    return (
+      <p className="site-p" role="alert">
+        {t('loadError')}
+      </p>
+    );
+  }
   if (essay.status === 'loading') return <div className="study-essay study-essay--loading" aria-busy="true" />;
   const { html, sources } = essay.value;
   return (

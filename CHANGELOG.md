@@ -1,5 +1,20 @@
 # Changelog
 
+## Unreleased
+
+### Fixed
+- Theme pages, `llms.txt`, `llms-full.txt` and the skill no longer wrap a reference's original title in a second parenthesis: "Mäusebunker (former Central Animal Laboratories of the Free University of Berlin; Zentrale Tierlaboratorien der Freien Universität Berlin)".
+- The README's study table is generated from the catalog, like the skill's, and CI checks it for drift.
+- Docs site: a theme page downloads its stylesheet once; the token tables read the theme's data chunk instead of a second copy of the stylesheet.
+- Docs site: the Start page no longer scrolls sideways on a 360 px phone. The phone sweep now covers the components index, Blocks, Start and Agents, in both languages.
+- Docs site: links in the docs examples open the site's pages in the reader's language, and an address without a language shows its page at once instead of a blank frame.
+- Docs site: a new query on a theme, scene or component page no longer scrolls back to the top or resets the title.
+- Docs site: no heading level is skipped on the atlas and on Blocks.
+- Docs site: a section that fails to load is announced as an alert, and a theme page that fails to load links back to the atlas.
+- Docs site: the theme switcher's titles follow the page's language.
+- Docs site: Spanish decade labels keep the full year from 2000 on ("Años 2000", "Años 2010").
+- Docs site: a typeface without a recorded licence can no longer stop the site from starting; only the Credits page's typefaces table would fail.
+
 ## 1.1.0 — 2026-10-05
 
 The library becomes a study of neobrutalism in interfaces, in Spanish and English, and its first study themes ship on the same token contract.

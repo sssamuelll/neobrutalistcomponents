@@ -11,7 +11,7 @@ import { TokenTables } from '../docs/TokenTables';
 import { CATALOG, ENTRIES } from '../study/data';
 import { imageUrl, useThemeDetail } from '../study/detail';
 import type { ThemeDetail } from '../study/detail';
-import { LICENSE_URLS, licenseName, sceneHref, startYear, years } from '../study/format';
+import { LICENSE_URLS, aroundOriginal, licenseName, sceneHref, startYear, years } from '../study/format';
 import { loadThemeStylesheet, useThemeStylesheet } from '../study/loader';
 import { SourceList } from '../study/SourceList';
 import { NotFound } from './NotFound';
@@ -46,13 +46,15 @@ function Reference({ entry, detail }: { entry: CatalogEntry; detail: ThemeDetail
       <div>
         <dt>{t('refLabel')}</dt>
         <dd>
-          {reference.title[lang]}
           {reference.original ? (
             <>
-              {' '}
-              (<span lang={reference.original.lang}>{reference.original.text}</span>)
+              {aroundOriginal(reference.title[lang]).before}
+              <span lang={reference.original.lang}>{reference.original.text}</span>
+              {aroundOriginal(reference.title[lang]).after}
             </>
-          ) : null}
+          ) : (
+            reference.title[lang]
+          )}
         </dd>
       </div>
       <div>
@@ -146,7 +148,18 @@ function ThemeView({ entry }: { entry: CatalogEntry }) {
   const data = useThemeDetail(entry);
   const inUse = prefs.theme === entry.id;
 
-  if (status === 'error' || data.status === 'error') return <p className="site-page site-lead">{t('themeLoadError')}</p>;
+  if (status === 'error' || data.status === 'error') {
+    return (
+      <div className="site-page">
+        <p className="site-lead" role="alert">
+          {t('themeLoadError')}
+        </p>
+        <p className="site-p">
+          <a href={toHash(lang, '/atlas')}>{t('backToAtlas')}</a>
+        </p>
+      </div>
+    );
+  }
   if (status !== 'ready' || data.status !== 'ready') {
     return (
       <p className="site-page site-lead" role="status">

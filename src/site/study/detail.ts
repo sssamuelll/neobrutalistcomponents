@@ -1,47 +1,40 @@
 /**
- * The full data of one theme for its page, loaded on demand: a study theme's
- * data file and generated stylesheet are separate chunks; a core theme's ficha
- * comes from core-fichas.ts and its tokens from the core stylesheet.
+ * The full data of one theme for its page, loaded on demand. A study theme's
+ * data file is its own lazy chunk, and its tokens are compiled from that same
+ * data, so its stylesheet is downloaded once, by the <link> that paints the
+ * page. A core theme's ficha comes from core-fichas.ts and its tokens from the
+ * core stylesheet.
  */
-import { parseThemeTokens } from '../../lib/themes/color';
 import type { NeoBuiltinTheme } from '../../lib/themes';
 import type { CatalogEntry } from '../../study/catalog';
+import { compileTokens } from '../../study/compile';
 import type { Ficha, Reference, StudyThemeInput } from '../../study/types';
 import { THEME_TOKENS } from '../docs/themeTokens';
 import { useLazy } from './lazy';
 import type { Lazy } from './lazy';
 
 const themeModules = import.meta.glob<StudyThemeInput>('../../study/themes/*/*.ts', { import: 'default' });
-const themeStyles = import.meta.glob<string>(
-  ['../../study/.generated/themes/*.css', '!../../study/.generated/themes/*.fonts.css'],
-  { query: '?raw', import: 'default' },
-);
 const images = import.meta.glob<string>('../../study/images/*.avif', { eager: true, query: '?url', import: 'default' });
 
 export interface ThemeDetail {
   readonly reference: Reference;
   readonly ficha: Ficha;
-  /** The theme block's tokens, parsed exactly like the contract tests parse them. */
+  /**
+   * The theme block's tokens: for a study theme, compiled by the same function
+   * that writes its stylesheet; for a core theme, parsed from its stylesheet
+   * exactly like the contract tests parse it.
+   */
   readonly tokens: Map<string, string>;
 }
 
-/** A theme's reference and ficha: its own lazy chunk for a study theme, core-fichas.ts for a core one. */
-export async function loadThemeData(entry: CatalogEntry): Promise<Pick<ThemeDetail, 'reference' | 'ficha'>> {
+export async function loadDetail(entry: CatalogEntry): Promise<ThemeDetail> {
   if (entry.predatesStudy) {
     const { CORE_FICHAS } = await import('../../study/core-fichas');
     const core = CORE_FICHAS[entry.id as NeoBuiltinTheme];
-    return { reference: core.reference, ficha: core.ficha };
+    return { reference: core.reference, ficha: core.ficha, tokens: THEME_TOKENS[entry.id as NeoBuiltinTheme] };
   }
   const theme = await themeModules[`../../study/themes/${entry.scene}/${entry.id}.ts`]();
-  return { reference: theme.reference, ficha: theme.ficha };
-}
-
-export async function loadDetail(entry: CatalogEntry): Promise<ThemeDetail> {
-  const tokens = entry.predatesStudy
-    ? Promise.resolve(THEME_TOKENS[entry.id as NeoBuiltinTheme])
-    : themeStyles[`../../study/.generated/themes/${entry.id}.css`]().then((css) => parseThemeTokens(css, entry.id));
-  const [data, parsed] = await Promise.all([loadThemeData(entry), tokens]);
-  return { ...data, tokens: parsed };
+  return { reference: theme.reference, ficha: theme.ficha, tokens: compileTokens(theme) };
 }
 
 export const useThemeDetail = (entry: CatalogEntry): Lazy<ThemeDetail> => useLazy(entry.id, () => loadDetail(entry));

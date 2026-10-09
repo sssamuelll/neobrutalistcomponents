@@ -132,7 +132,7 @@ test('atlas: every theme as a card; facets and search live in the URL', async ({
   await expect(page.locator('.site-card')).toHaveCount(3);
   await page.getByLabel('Search').fill('中銀');
   await expect(page.locator('.site-card')).toHaveCount(1);
-  await expect(page.locator('.site-card h3')).toHaveText('Nakagin');
+  await expect(page.locator('.site-card h2')).toHaveText('Nakagin');
   await page.reload();
   await expect(page.getByLabel('Search')).toHaveValue('中銀');
   await expect(page.locator('.site-card')).toHaveCount(1);
@@ -155,7 +155,7 @@ test('atlas: switching language keeps the filters', async ({ page }) => {
   await expect(page.locator('.site-card')).toHaveCount(1);
   await page.getByRole('link', { name: 'English' }).click();
   await expect(page).toHaveURL(/#\/en\/atlas\?scene=japan&q=riso$/);
-  await expect(page.locator('.site-card h3')).toHaveText(['Riso']);
+  await expect(page.locator('.site-card h2')).toHaveText(['Riso']);
 });
 
 test('atlas cards paint with their own tokens without fetching any study stylesheet', async ({ page }) => {
@@ -217,6 +217,29 @@ test('theme page: a study theme renders in its own stylesheet, fetched only for 
   expect(requested.filter((url) => /\/(maeusebunker|sesc-pompeia|classifieds)-[\w-]+\.css/.test(url))).toEqual([]);
 });
 
+test('theme page: the theme’s stylesheet is downloaded once; its token tables read data the page already has', async ({ page }) => {
+  // Every response that carries Nakagin's token block, whatever its type: the
+  // <link>'s CSS, or a JS chunk holding the same stylesheet as text.
+  const carriers: Promise<string | null>[] = [];
+  page.on('response', (response) => {
+    carriers.push(
+      response.text().then(
+        (body) => (/\[data-theme=["']?nakagin["']?\]\s*\{/.test(body) ? new URL(response.url()).pathname : null),
+        () => null,
+      ),
+    );
+  });
+  await page.goto('?theme=classic&mode=light#/en/theme/nakagin');
+  const tokens = page.getByRole('table', { name: 'Color tokens, light scheme' });
+  await expect(tokens.getByRole('row', { name: /--nbc-bg\b/ })).toContainText('#d9d8d3');
+  // An ink the compiler picks itself ('auto'): the light ink on the dark primary.
+  await expect(tokens.getByRole('row', { name: /--nbc-primary-fg\b/ })).toContainText('#ecebe6');
+  await page.waitForLoadState('networkidle');
+  const sheets = (await Promise.all(carriers)).filter((path) => path !== null);
+  expect(sheets, 'downloads of the theme’s stylesheet').toHaveLength(1);
+  expect(sheets[0]).toMatch(/\/nakagin-[\w-]+\.css$/);
+});
+
 test('theme page: use across the site applies the theme and survives a reload', async ({ page }) => {
   await page.goto('?theme=classic#/en/theme/sesc-pompeia');
   await page.getByRole('button', { name: 'Use across the site' }).click();
@@ -246,6 +269,13 @@ test('theme page: a long one-word name stays on one line on a desktop', async ({
   expect(height).toBeLessThan(fontSize * 1.5);
 });
 
+test('theme page: a reference title that ends in a parenthesis takes its original inside it', async ({ page }) => {
+  await page.goto('#/es/theme/maeusebunker');
+  const reference = page.locator('.site-band__facts dd').first();
+  await expect(reference.locator('span[lang="de"]')).toHaveText('Zentrale Tierlaboratorien der Freien Universität Berlin');
+  await expect(reference).not.toContainText(') (');
+});
+
 test('theme page: core themes say they predate the study; unknown ids are not found', async ({ page }) => {
   await page.goto('#/es/theme/tech');
   await expect(page.locator('.site-themepage__note')).toHaveText(/^Este tema es anterior al estudio/);
@@ -255,10 +285,12 @@ test('theme page: core themes say they predate the study; unknown ids are not fo
 });
 
 
-test('theme page: when its data cannot load, it says so instead of loading forever', async ({ page }) => {
+test('theme page: when its data cannot load, it says so in an alert and links back to the atlas in its language', async ({ page }) => {
   await page.route(/\/assets\/sesc-pompeia-[\w-]+\.js$/, (route) => route.abort());
-  await page.goto('#/en/theme/sesc-pompeia');
-  await expect(page.getByText('This theme could not load', { exact: false })).toBeVisible();
+  await page.goto('#/es/theme/sesc-pompeia');
+  await expect(page.getByRole('alert')).toContainText('No se pudo cargar este tema.');
+  await page.getByRole('link', { name: 'Volver al atlas' }).click();
+  await expect(page).toHaveURL(/#\/es\/atlas$/);
 });
 
 test('study home: the thesis, a tile per theme, the essay with its sources and the scenes', async ({ page }) => {
@@ -290,7 +322,7 @@ test('scenes: an index, then each scene lists its references in date order with 
 test('a study page whose essay cannot load says so instead of staying blank', async ({ page }) => {
   await page.route(/\/assets\/en-[\w-]+\.js$/, (route) => route.abort());
   await page.goto('#/en/');
-  await expect(page.getByText('This content could not load.', { exact: false })).toBeVisible();
+  await expect(page.getByRole('alert')).toContainText('This content could not load.');
   await expect(page.locator('.study-scenes__card')).toHaveCount(5);
 });
 
@@ -317,9 +349,26 @@ test('credits: every photograph and every typeface, each with its licence', asyn
   expect(requested.filter((url) => /\/assets\/(nakagin|maeusebunker|sesc-pompeia|classifieds|core-fichas)-[\w-]+\.js$/.test(url))).toEqual([]);
 });
 
-// The study's main pages in both languages, at desktop width and on a phone:
-// they render, pass axe, log no errors and never scroll sideways.
-const MAIN_PAGES = ['/', '/scenes', '/scene/japan', '/scene/germany', '/scene/usa', '/scene/latam', '/origins', '/atlas', '/method', '/credits', '/library'];
+// The study's main pages and the library's, in both languages, at desktop
+// width and on a phone: they render, pass axe (heading order included: no
+// level skipped), log no errors and never scroll sideways.
+const MAIN_PAGES = [
+  '/',
+  '/scenes',
+  '/scene/japan',
+  '/scene/germany',
+  '/scene/usa',
+  '/scene/latam',
+  '/origins',
+  '/atlas',
+  '/method',
+  '/credits',
+  '/library',
+  '/components',
+  '/blocks',
+  '/start',
+  '/agents',
+];
 for (const width of [1280, 360]) {
   test.describe(`main pages at ${width}px`, () => {
     test.use({ viewport: { width, height: 900 } });
@@ -333,7 +382,10 @@ for (const width of [1280, 360]) {
           await expect(page.locator('html')).toHaveAttribute('lang', lang);
           await expect(page.locator('main [aria-busy="true"], main [role="status"]')).toHaveCount(0);
           await page.evaluate(() => document.fonts.ready);
-          const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
+          const results = await new AxeBuilder({ page })
+            .options({ rules: { 'heading-order': { enabled: true } } })
+            .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
+            .analyze();
           const summary = results.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(' ')).slice(0, 3).join(' | ')}`);
           expect(summary, 'axe violations').toEqual([]);
           expect(errors).toEqual([]);

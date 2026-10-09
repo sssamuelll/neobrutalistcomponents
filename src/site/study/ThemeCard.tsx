@@ -53,8 +53,12 @@ function Island({ entry, className, children }: { entry: CatalogEntry; className
   );
 }
 
-/** One theme as an atlas card; `as="div"` where the card is not a list item. */
-export function ThemeCard({ entry, as: Wrapper = 'li' }: { entry: CatalogEntry; as?: 'li' | 'div' }) {
+/**
+ * One theme as an atlas card; `as="div"` where the card is not a list item.
+ * `heading` is the name's level in the page outline: h2 right under the page's
+ * h1 (the atlas), h3 under a section's h2 (a scene's timeline).
+ */
+export function ThemeCard({ entry, as: Wrapper = 'li', heading = 'h3' }: { entry: CatalogEntry; as?: 'li' | 'div'; heading?: 'h2' | 'h3' }) {
   const lang = useLang();
   const t = useT();
   return (
@@ -62,7 +66,7 @@ export function ThemeCard({ entry, as: Wrapper = 'li' }: { entry: CatalogEntry; 
       <Island entry={entry} className="site-card-island">
         <Card variant="interactive" as="article" className="site-card">
           <Card.Header>
-            <Card.Title as="h3">
+            <Card.Title as={heading}>
               <a href={toHash(lang, `/theme/${entry.id}`)}>{entry.name[lang]}</a>
             </Card.Title>
             <Card.Description>
