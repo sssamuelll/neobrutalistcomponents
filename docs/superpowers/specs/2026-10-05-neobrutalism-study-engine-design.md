@@ -151,6 +151,7 @@ Rigor rules (tests enforce the mechanical ones):
 - Fichas never quote verbatim; they paraphrase. Essays may quote, only with a locatable source.
 - An influence between works is stated only when a source documents it. Otherwise it goes in `reading`, phrased as a kinship we see.
 - A live commercial brand never names a theme ("Classifieds", not "Craigslist"). Brands may be cited in the ficha as facts.
+  - Amended 2026-10-09 (owner's decision, release 1.2.0): a product from the history of software may name its theme when the product itself is the reference work (Windows 95, Windows XP, Mac OS X's Aqua, iPhone OS 1, Material Design). A live service or store still does not ("Classifieds").
 - The five core themes carry `predatesStudy: true`. Their page says the theme predates the study and names its closest reference.
 
 ### D8 — Images
