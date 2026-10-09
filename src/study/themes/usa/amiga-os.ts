@@ -29,8 +29,8 @@ export default defineTheme({
       en: 'Workbench 1.x used four colours, blue, white, black and orange, chosen so the contrast would hold on the worst television sets, and users could change them in Preferences [1][5]. The system font was Topaz/8, a monospaced 8 × 8 bitmap font [4]. The screen’s title bar served as the menu bar and carried the gadgets to drag the screen and to bring it forward or send it back [3]. Underneath ran Intuition, the windowing layer RJ Mical developed almost alone [2].',
     },
     reading: {
-      es: 'El tema pone el azul de fondo y el blanco como tinta, y deja el naranja para el acento, como en la pantalla de Workbench. El texto va en Workbench, que rehace en píxeles las fuentes del Amiga, en lugar de Topaz, que es de mapa de bits. Los bordes son finos y casi rectos, y botones y tarjetas llevan una sombra dura de 2 px.',
-      en: 'The theme sets blue as the background and white as the ink, and keeps orange for the accent, as on the Workbench screen. Text is set in Workbench, which redraws the Amiga’s fonts in pixels, in place of the bitmap Topaz. Borders are thin and nearly square, and buttons and cards carry a 2 px hard shadow.',
+      es: 'El tema pone el azul de fondo y el blanco como tinta, y deja el naranja para el acento, como en la pantalla de Workbench. El texto va en Workbench, una fuente libre que parte de versiones en píxeles de las fuentes del Amiga [8], en lugar de Topaz, que es de mapa de bits. Los bordes son finos y casi rectos, y botones y tarjetas llevan una sombra dura de 2 px.',
+      en: 'The theme sets blue as the background and white as the ink, and keeps orange for the accent, as on the Workbench screen. Text is set in Workbench, a free font that starts from pixel versions of the Amiga’s fonts [8], in place of the bitmap Topaz. Borders are thin and nearly square, and buttons and cards carry a 2 px hard shadow.',
     },
     palette: {
       origin: 'interpreted',
@@ -42,12 +42,12 @@ export default defineTheme({
     lettering: {
       original: { name: 'Topaz', year: 1985, kind: 'bitmap' },
       documented: {
-        es: 'La fuente del sistema de Workbench era Topaz, de ancho fijo [4], un mapa de bits guardado en la ROM [6]. Según la documentación de AmigaOS, al arrancar las únicas fuentes del sistema son Topaz-8 y Topaz-9, ambas en ROM, y el número da la altura en píxeles: Topaz-8 mide ocho de alto [7].',
-        en: 'Workbench’s system font was Topaz, a fixed-width face [4], a bitmap font stored in ROM [6]. According to the AmigaOS documentation, at startup the only system fonts are Topaz-8 and Topaz-9, both in ROM, and the number gives the height in pixels: Topaz-8 is eight high [7].',
+        es: 'La fuente del sistema de Workbench era Topaz, de ancho fijo [4], y se guardaba en la ROM como mapa de bits [6]. La documentación actual de AmigaOS cuenta que al arrancar solo hay dos fuentes de sistema, Topaz-8 y Topaz-9, ambas en ROM, y que su número es la altura en píxeles [7].',
+        en: 'Workbench’s system font was Topaz, a fixed-width face [4], kept in ROM as a bitmap [6]. The current AmigaOS documentation says that at startup there are just two system fonts, Topaz-8 and Topaz-9, both in ROM, and that the number is the height in pixels [7].',
       },
       substitute: {
-        es: 'El tema usa Workbench, de Jens Kutílek, una fuente libre que rehace en píxeles versiones antiguas de las fuentes de Amiga Workbench que su autor había dibujado, y que cubre menos caracteres que una fuente de texto [8]; DM Mono queda para el código. Es lo más cercano a Topaz que encontramos, aunque no es Topaz.',
-        en: 'The theme uses Workbench, by Jens Kutílek, a free font that reworks in pixels old versions of the Amiga Workbench fonts its author had drawn, and that covers fewer characters than a text face [8]; DM Mono is kept for code. It is the closest to Topaz we found, though it is not Topaz.',
+        es: 'El tema usa Workbench, de Jens Kutílek, una fuente libre que su autor sacó de versiones en píxeles de las fuentes del Commodore 64 y de Amiga Workbench que había hecho años antes, inspirada en la tipografía de las pantallas de tubo [8]; DM Mono queda para el código. Es lo más cercano a Topaz que encontramos, aunque no es Topaz: sus puntos se dibujan redondeados, como en una pantalla de tubo, no cuadrados.',
+        en: 'The theme uses Workbench, by Jens Kutílek, a free font its author drew from pixel versions of the Commodore 64 and Amiga Workbench fonts he had made years before, inspired by the type of cathode-ray screens [8]; DM Mono is kept for code. It is the closest to Topaz we found, though it is not Topaz: its dots are drawn rounded, as on a tube screen, not square.',
       },
     },
   },
@@ -73,7 +73,7 @@ export default defineTheme({
     dangerFg: ['#111111', '#111111'],
     focus: ['#ffaa00', '#ffaa00'],
   },
-  type: { weightBody: 400, weightLabel: 400, weightDisplay: 400, kerning: 'none' },
+  type: { weightBody: 400, weightLabel: 400, weightDisplay: 400, displaySpacing: '0em', kerning: 'none' },
   shape: { borderWidth: 2, radius: 2, radiusControl: 2, radiusButton: 2, radiusSmall: 1 },
   elevation: flat(),
   motion: { duration: 0, durationSlow: 0, ease: 'linear' },

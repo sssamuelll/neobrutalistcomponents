@@ -45,8 +45,8 @@ export default defineTheme({
     lettering: {
       original: { name: 'Chicago', designer: 'Susan Kare', year: 1984, kind: 'bitmap' },
       documented: {
-        es: 'El Mac dibujaba sus menús y sus diálogos con la fuente del sistema, Chicago de 12 puntos, y el texto de las aplicaciones con Geneva [6]; los títulos de los controles también van en la fuente del sistema [7]. Chicago era un mapa de bits que Susan Kare dibujó en la propia Apple [8]. Para System 7, que adoptó TrueType, Bigelow & Holmes hicieron versiones de contorno de las fuentes del sistema, y la de Chicago se dibujó para que en pantalla casi no se distinguiera del mapa de bits original [9].',
-        en: 'The Mac drew its menus and dialogs in the system font, 12-point Chicago, and application text in Geneva [6]; control titles are set in the system font too [7]. Chicago was a bitmap font that Susan Kare designed in-house at Apple [8]. For System 7, which adopted TrueType, Bigelow & Holmes made outline versions of the system fonts, and Chicago’s was drawn to be almost indistinguishable from the original bitmap on screen [9].',
+        es: 'El Mac dibujaba sus menús y sus diálogos con la fuente del sistema, Chicago de 12 puntos, y el texto de las aplicaciones, salvo que se indicara otra, con Geneva [6]; los títulos de los controles van por defecto en la fuente del sistema [7]. Chicago era un mapa de bits que Susan Kare dibujó en la propia Apple [8]. Para System 7, que adoptó TrueType, Bigelow & Holmes hicieron versiones de contorno de Chicago, Geneva, New York y Monaco, y la de Chicago se dibujó para que a 12 puntos casi no se distinguiera en pantalla del mapa de bits original [9].',
+        en: 'The Mac drew its menus and dialogs in the system font, 12-point Chicago, and application text, unless another was set, in Geneva [6]; control titles default to the system font [7]. Chicago was a bitmap font that Susan Kare designed in-house at Apple [8]. For System 7, which adopted TrueType, Bigelow & Holmes made outline versions of Chicago, Geneva, New York and Monaco, and Chicago’s was drawn to be almost indistinguishable on screen from the original bitmap at 12 points [9].',
       },
       substitute: {
         es: 'El tema usa Pixelify Sans en los títulos y en los botones, y Arimo en el texto. Pixelify Sans es una sans libre de píxel: en su trazo grueso y escalonado vemos el de Chicago, aunque sus letras no son las de Kare. Arimo, una grotesca libre, ocupa el lugar de Geneva sin copiarla.',
@@ -59,8 +59,8 @@ export default defineTheme({
         en: 'When it opened or closed an item, the Finder showed an animation of zooming rectangles, known as ZoomRect [10]. When the button was released over a menu item, the item blinked briefly, the menu closed and the command ran [11].',
       },
       reading: {
-        es: 'El tema lleva el zoom a la apertura de un diálogo: el panel crece en cuatro saltos desde un rectángulo pequeño, sin la estela de contornos del Finder. Los 200 ms son del tema; ninguna fuente que consultamos da la duración. El parpadeo no tiene equivalente, porque la librería no tiene menús, y los botones se marcan al instante.',
-        en: 'The theme carries the zoom to a dialog opening: the panel grows in four steps from a small rectangle, without the Finder’s trail of outlines. The 200 ms are the theme’s; no source we consulted gives the duration. The blink has no counterpart, since the library has no menus, and buttons highlight at once.',
+        es: 'El tema lleva el zoom a la apertura de un diálogo: el cuadro entero crece en cuatro saltos desde un rectángulo pequeño. Los 200 ms son del tema; ninguna fuente que pudimos verificar da la duración. El parpadeo no tiene equivalente, porque la librería no tiene menús, y los botones se marcan al instante.',
+        en: 'The theme carries the zoom to a dialog opening: the whole box grows in four steps from a small rectangle. The 200 ms are the theme’s; no source we could verify gives the duration. The blink has no counterpart, since the library has no menus, and buttons highlight at once.',
       },
     },
   },
@@ -86,7 +86,7 @@ export default defineTheme({
     dangerFg: ['#ffffff', '#111111'],
     focus: ['#111111', '#ffffff'],
   },
-  type: { weightBody: 400, weightLabel: 700, weightDisplay: 700, kerning: 'none' },
+  type: { weightBody: 400, weightLabel: 700, weightDisplay: 700, displaySpacing: '0em', kerning: 'none' },
   shape: { borderWidth: 1, radius: 4, radiusControl: 4, radiusButton: 4, radiusSmall: 2 },
   elevation: flat(),
   motion: { duration: 0, durationSlow: 0, ease: 'linear' },

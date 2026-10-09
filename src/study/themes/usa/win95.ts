@@ -27,7 +27,7 @@ export default defineTheme({
         accessed: '2026-10-08',
       },
       { title: 'Using MS Shell Dlg and MS Shell Dlg 2', url: 'https://learn.microsoft.com/en-us/windows/win32/intl/using-ms-shell-dlg-and-ms-shell-dlg-2', publisher: 'Microsoft Learn', accessed: '2026-10-10' },
-      { title: 'Microsoft Sans Serif', url: 'https://en.wikipedia.org/wiki/Microsoft_Sans_Serif', publisher: 'Wikipedia', accessed: '2026-10-10' },
+      { title: 'Microsoft Sans Serif font family', url: 'https://learn.microsoft.com/en-us/typography/font-list/microsoft-sans-serif', publisher: 'Microsoft Learn', accessed: '2026-10-10' },
       { title: 'Registry Riddles and Remedies', url: 'https://kaisernet.org/library/1996/0796/07fa3001.htm', publisher: 'kaisernet.org library', year: 1996, accessed: '2026-10-10' },
       { title: 'DrawAnimatedRects function (winuser.h)', url: 'https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-drawanimatedrects', publisher: 'Microsoft Learn', accessed: '2026-10-10' },
     ],
@@ -51,22 +51,22 @@ export default defineTheme({
     lettering: {
       original: { name: 'MS Sans Serif', kind: 'bitmap' },
       documented: {
-        es: 'En Windows 95, la fuente lógica de los cuadros de diálogo, MS Shell Dlg, correspondía a fuentes de mapa de bits, por lo general a una versión de MS Sans Serif propia de cada página de códigos [3]. MS Sans Serif, que se llamó Helv hasta Windows 3.1, es un mapa de bits proporcional, de dibujo muy cercano al de Arial y Helvetica, en tamaños fijos desde 8 puntos [4].',
-        en: 'In Windows 95 the dialog boxes’ logical font, MS Shell Dlg, mapped to bitmap fonts, generally to a code page-specific version of MS Sans Serif [3]. MS Sans Serif, called Helv until Windows 3.1, is a proportional bitmap font close in design to Arial and Helvetica, in fixed sizes from 8 points [4].',
+        es: 'En Windows 95, la fuente lógica de los cuadros de diálogo, MS Shell Dlg, se resolvía casi siempre en MS Sans Serif, en la versión de cada página de códigos [3]. MS Sans era la fuente de mapa de bits que traían las primeras versiones de Windows; su sucesora de contorno, Microsoft Sans Serif, se dibujó con sus mismas medidas [4].',
+        en: 'In Windows 95 the dialog boxes’ logical font, MS Shell Dlg, nearly always resolved to MS Sans Serif, in the version for each code page [3]. MS Sans was the bitmap font that came with the first versions of Windows; its outline successor, Microsoft Sans Serif, was drawn to its same metrics [4].',
       },
       substitute: {
-        es: 'El tema usa DotGothic16, una gótica libre dibujada sobre una retícula de puntos. En su mapa de bits vemos el de MS Sans Serif, aunque sus letras no son las de Microsoft.',
-        en: 'The theme uses DotGothic16, a free gothic drawn on a grid of dots. In its bitmap we see MS Sans Serif’s, though its letters are not Microsoft’s.',
+        es: 'El tema usa DotGothic16, una gótica libre de contorno dibujada sobre una retícula de puntos. En esa retícula vemos el mapa de bits de MS Sans; difiere en que todas sus letras latinas tienen el mismo ancho, y en que no son las de Microsoft.',
+        en: 'The theme uses DotGothic16, a free outline gothic drawn on a grid of dots. In that grid we see MS Sans’s bitmap; it differs in that all its Latin letters share one width, and they are not Microsoft’s.',
       },
     },
     motion: {
       documented: {
-        es: 'Windows 95 animaba las ventanas al minimizarlas y al maximizarlas, de modo que parecían plegarse y desplegarse, y un valor del registro, MinAnimate, apagaba el efecto [5]. La API describe esa animación como la barra de título que viaja de un rectángulo a otro [6].',
-        en: 'Windows 95 animated windows as they were minimized and maximized, so that they seemed to fold away and burst open, and a registry value, MinAnimate, turned the effect off [5]. The API describes that animation as the title bar travelling from one rectangle to another [6].',
+        es: 'Windows 95 animaba las ventanas al minimizarlas y al maximizarlas, de modo que parecían encogerse y estallar, y un valor del registro, MinAnimate, apagaba el efecto [5]. La función DrawAnimatedRects de la API de Windows anima la barra de título entre dos rectángulos, con un efecto que su documentación compara con minimizar o maximizar [6].',
+        en: 'Windows 95 animated windows as they were minimized and maximized, so that they seemed to collapse and burst open, and a registry value, MinAnimate, turned the effect off [5]. The Windows API function DrawAnimatedRects animates the title bar between two rectangles, an effect its documentation likens to minimizing or maximizing [6].',
       },
       reading: {
-        es: 'El tema lo lleva a la apertura de un diálogo: primero viaja una franja del alto de una barra de título y después aparece el panel entero. Los 240 ms son del tema; ninguna fuente que consultamos da la duración. Los botones se hunden al instante, sin transición.',
-        en: 'The theme carries it to a dialog opening: first a strip the height of a title bar travels, then the whole panel appears. The 240 ms are the theme’s; no source we consulted gives the duration. Buttons sink at once, with no transition.',
+        es: 'El tema lo lleva a la apertura de un diálogo: primero sube una franja del alto de una barra de título, a saltos, y después se despliega el cuadro entero. Los 240 ms son del tema; ninguna fuente que pudimos verificar da la duración. Los botones se hunden al instante, sin transición.',
+        en: 'The theme carries it to a dialog opening: first a strip the height of a title bar rises in steps, then the whole box unfolds. The 240 ms are the theme’s; no source we could verify gives the duration. Buttons sink at once, with no transition.',
       },
     },
   },
@@ -92,7 +92,7 @@ export default defineTheme({
     dangerFg: ['#ffffff', '#000000'],
     focus: ['#000000', '#ffffff'],
   },
-  type: { weightBody: 400, weightLabel: 700, weightDisplay: 400, kerning: 'none' },
+  type: { weightBody: 400, weightLabel: 400, weightDisplay: 400, displaySpacing: '0em', kerning: 'none' },
   shape: { borderWidth: 1, radius: 0, radiusControl: 0, radiusButton: 0, radiusSmall: 0 },
   elevation: flat(),
   motion: { duration: 0, durationSlow: 0, ease: 'linear' },

@@ -40,8 +40,8 @@ export default defineTheme({
     lettering: {
       original: { name: 'Helvetica', kind: 'outline' },
       documented: {
-        es: 'NeXTSTEP tenía tres fuentes principales: Helvetica, Courier y una monoespaciada llamada Ohlfs [4]. Algunas fuentes traían además mapas de bits de pantalla para tamaños concretos [6], y la pantalla mostraba solo cuatro niveles de gris [3].',
-        en: 'NeXTSTEP had three main fonts: Helvetica, Courier and a monospaced face called Ohlfs [4]. Some fonts also came with screen bitmaps for particular sizes [6], and the display showed only four levels of grey [3].',
+        es: 'NeXTSTEP tenía tres fuentes principales: Helvetica, Courier y una monoespaciada llamada Ohlfs [4]. En NeXTSTEP 3.2 (1992), algunas fuentes traían además mapas de bits de pantalla para tamaños concretos [6], y la pantalla mostraba solo cuatro niveles de gris [3].',
+        en: 'NeXTSTEP had three main fonts: Helvetica, Courier and a monospaced face called Ohlfs [4]. In NeXTSTEP 3.2 (1992), some fonts also came with screen bitmaps for particular sizes [6], and the display showed only four levels of grey [3].',
       },
       substitute: {
         es: 'El tema usa Arimo, una grotesca libre, para el texto y los títulos. En sus proporciones vemos las de Helvetica; difiere en letras como la R, la G y la t.',

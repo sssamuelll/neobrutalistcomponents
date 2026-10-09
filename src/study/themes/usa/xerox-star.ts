@@ -38,8 +38,8 @@ export default defineTheme({
       en: 'The Star shipped in 1981 [4], and its design team described the interface in BYTE in April 1982 [1][2]. The screen was a black-and-white bitmap of 1024 × 808 dots at 72 per inch, each dot controlled on its own [2][4]. Documents looked white, like paper, on a grey desktop, and icons sat on a grid of one-inch squares; a selected icon turned inverse, to black [2][3]. Properties in effect on a property sheet were shown in reverse video, and the cursor changed shape with the state of the system [5].',
     },
     reading: {
-      es: 'El tema es de un solo bit: tinta negra sobre papel blanco, sin grises intermedios entre sus colores. El gris del escritorio se hace con una trama de puntos, la única forma de tener gris en una pantalla de un bit. Botones y tarjetas llevan borde de 2 px y sombra dura, y lo activo se invierte a negro, como un icono seleccionado. La serif del sistema es una lectura: las fuentes nombran Classic y Modern, pero ninguna muestra su dibujo.',
-      en: 'The theme is one bit deep: black ink on white paper, with no in-between greys among its colours. The grey of the desktop is made with a dot pattern, the only way to get grey on a one-bit screen. Buttons and cards carry a 2 px border and a hard shadow, and what is active turns black, like a selected icon. The system serif is a reading: the sources name Classic and Modern, but none shows how they were drawn.',
+      es: 'El tema es de un solo bit: tinta negra sobre papel blanco, sin grises intermedios entre sus colores. El gris del escritorio se hace con una trama de puntos, la única forma de tener gris en una pantalla de un bit. Botones y tarjetas llevan borde de 2 px y sombra dura, y lo activo se invierte a negro, como un icono seleccionado. La serif del sistema es una lectura: las fuentes nombran Classic y Modern, pero ninguna identifica su dibujo.',
+      en: 'The theme is one bit deep: black ink on white paper, with no in-between greys among its colours. The grey of the desktop is made with a dot pattern, the only way to get grey on a one-bit screen. Buttons and cards carry a 2 px border and a hard shadow, and what is active turns black, like a selected icon. The system serif is a reading: the sources name Classic and Modern, but none identifies how they were drawn.',
     },
     palette: {
       origin: 'interpreted',
@@ -55,8 +55,8 @@ export default defineTheme({
         en: 'The Star team’s article in BYTE gives as examples one document with its normal text in 10-point Classic and another in 12-point Modern italic [2]. The screen was a 72-dot-per-inch bitmap, and the same article warns that showing the page as it will print means drawing the screen fonts with great care if they are to stay readable [2].',
       },
       substitute: {
-        es: 'El tema usa la serif del sistema. Como ninguna fuente que consultamos muestra el dibujo de Classic ni el de Modern, no imita ninguna; la serif lee el Star como un sistema pensado para la página impresa.',
-        en: 'The theme uses the system serif. Since no source we consulted shows how Classic or Modern were drawn, it imitates neither; the serif reads the Star as a system made for the printed page.',
+        es: 'El tema usa la serif del sistema. Como ninguna fuente que consultamos identifica el dibujo de Classic ni el de Modern, no imita ninguna; la serif lee el Star como un sistema pensado para la página impresa.',
+        en: 'The theme uses the system serif. Since no source we consulted identifies how Classic or Modern were drawn, it imitates neither; the serif reads the Star as a system made for the printed page.',
       },
     },
   },

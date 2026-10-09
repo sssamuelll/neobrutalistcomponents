@@ -3,10 +3,12 @@
   0% {
     transform: translateY(30vh) scale(0.4);
     clip-path: inset(0 0 calc(100% - 2.25rem) 0);
+    animation-timing-function: steps(4, end);
   }
   70% {
     transform: none;
     clip-path: inset(0 0 calc(100% - 2.25rem) 0);
+    animation-timing-function: steps(2, end);
   }
   100% {
     transform: none;
@@ -15,7 +17,7 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .nbc-dialog[open] .nbc-dialog__panel {
-    animation: caption 240ms steps(6, end);
+  .nbc-dialog[open] {
+    animation: caption 240ms;
   }
 }
