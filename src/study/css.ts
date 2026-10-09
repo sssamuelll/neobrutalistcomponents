@@ -131,3 +131,31 @@ export function keyframeRules(css: string): KeyframeRule[] {
   }
   return frames;
 }
+
+const NO_PREFERENCE = /^@media\s*\(\s*prefers-reduced-motion\s*:\s*no-preference\s*\)$/;
+const ANIMATION = /^animation(-[a-z-]+)?$/;
+
+export interface AnimationUse {
+  readonly selector: string;
+  readonly property: string;
+  readonly value: string;
+  /** Inside @media (prefers-reduced-motion: no-preference). */
+  readonly guarded: boolean;
+}
+
+/** Every animation declaration, descending into conditional at-rules, and whether the guard wraps it. Keyframes are skipped. */
+export function animationUses(css: string, guarded = false): AnimationUse[] {
+  const uses: AnimationUse[] = [];
+  for (const block of topLevelBlocks(stripComments(css))) {
+    if (/^@keyframes\b/.test(block.prelude)) continue;
+    if (block.prelude.startsWith('@')) {
+      uses.push(...animationUses(block.body, guarded || NO_PREFERENCE.test(block.prelude)));
+      continue;
+    }
+    if (block.body.includes('{')) continue; // CSS nesting: the lint reports it
+    for (const { property, value } of parseDeclarations(block.body)) {
+      if (ANIMATION.test(property)) uses.push({ selector: block.prelude, property, value, guarded });
+    }
+  }
+  return uses;
+}

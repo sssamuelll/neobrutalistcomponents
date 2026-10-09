@@ -2,7 +2,7 @@
  * Lint for family and signature CSS (spec D3/D4): colors only from tokens,
  * control geometry untouched, flat rules, scoping left to the compiler.
  */
-import { keyframeRules, stripComments, styleRules } from './css';
+import { animationUses, keyframeRules, stripComments, styleRules } from './css';
 import type { Declaration } from './css';
 
 export const SIGNATURE_MAX_LINES = 60;
@@ -112,5 +112,46 @@ export function lintSignature(css: string, where: string): string[] {
   const problems = lintFlourishCss(css, where);
   const lines = signatureLines(css);
   if (lines > SIGNATURE_MAX_LINES) problems.push(`${where}: ${lines} lines, the limit is ${SIGNATURE_MAX_LINES}`);
+  return problems;
+}
+
+export const MOTION_MAX_LINES = 40;
+
+/** What a motion file may animate or transition. */
+const ANIMATABLE = ['transform', 'opacity', 'clip-path', 'background-position', 'outline'];
+const FRAME_PROPERTIES = [...ANIMATABLE, 'animation-timing-function'];
+const TRANSITIONABLE = [...ANIMATABLE, 'none'];
+
+/** `animation: none` and `animation-name: none` stop an animation; they need no guard. */
+const isRealAnimation = ({ value }: { value: string }) => value.trim() !== 'none';
+
+/** A motion file animates when it sets at least one animation other than none. */
+export const animates = (css: string): boolean => animationUses(css).some(isRealAnimation);
+
+export function lintMotion(css: string, where: string): string[] {
+  const problems = lintFlourishCss(css, where);
+  const lines = signatureLines(css);
+  if (lines > MOTION_MAX_LINES) problems.push(`${where}: ${lines} lines, the limit is ${MOTION_MAX_LINES}`);
+  for (const use of animationUses(css).filter(isRealAnimation)) {
+    if (!use.guarded) {
+      problems.push(`${where}: "${use.selector}" sets ${use.property} outside @media (prefers-reduced-motion: no-preference)`);
+    }
+  }
+  for (const frame of keyframeRules(css)) {
+    for (const { property } of frame.declarations) {
+      if (!FRAME_PROPERTIES.includes(property)) {
+        problems.push(`${where}: @keyframes ${frame.name} animates ${property} — only ${ANIMATABLE.join(', ')}`);
+      }
+    }
+  }
+  for (const rule of styleRules(css)) {
+    for (const { property, value } of rule.declarations) {
+      if (property !== 'transition' && property !== 'transition-property') continue;
+      const names = value.split(',').map((part) => part.trim().split(/\s+/)[0]);
+      for (const name of names.filter((n) => !TRANSITIONABLE.includes(n))) {
+        problems.push(`${where}: "${rule.selector}" transition names ${name} — only ${ANIMATABLE.join(', ')}`);
+      }
+    }
+  }
   return problems;
 }
