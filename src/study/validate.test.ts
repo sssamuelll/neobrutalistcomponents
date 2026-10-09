@@ -15,7 +15,7 @@ describe('themeProblems', () => {
   it.each([
     [{ id: 'Bad_ID' }, /id must match/],
     [{ id: 'classic' }, /collides with a core theme id/],
-    [{ scene: 'origins' as never }, /scene must be one of japan, germany, usa, latam/],
+    [{ scene: 'origins' as never }, /scene must be one of japan, germany, usa, latam, italy/],
     [{ name: { es: '', en: 'Fixture' } }, /fixture\.name\.es: empty/],
     [{ reference: { ...ref, sources: [ref.sources[0]] } }, /needs at least 2, has 1/],
     [{ reference: { ...ref, sources: [ref.sources[1], { ...ref.sources[1], title: 'Other' }] } }, /at least one source must not be on wikipedia\.org/],

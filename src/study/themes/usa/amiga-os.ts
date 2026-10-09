@@ -1,0 +1,67 @@
+import { defineTheme, flat } from '../../define';
+
+export default defineTheme({
+  id: 'amiga-os',
+  scene: 'usa',
+  nativeScheme: 'light',
+  name: { es: 'Amiga Workbench', en: 'Amiga Workbench' },
+  tagline: { es: 'Cuatro colores pensados para verse en un televisor.', en: 'Four colours chosen to read on a television.' },
+  reference: {
+    title: { es: 'Amiga Workbench 1.3', en: 'Amiga Workbench 1.3' },
+    authors: ['Commodore-Amiga', 'RJ Mical'],
+    date: 1988,
+    place: { es: 'Estados Unidos', en: 'United States' },
+    kind: 'software',
+    sources: [
+      { title: 'Workbench (AmigaOS)', url: 'https://en.wikipedia.org/wiki/Workbench_(AmigaOS)', publisher: 'Wikipedia', accessed: '2026-10-09' },
+      { title: 'Intuition (Amiga)', url: 'https://en.wikipedia.org/wiki/Intuition_(Amiga)', publisher: 'Wikipedia', accessed: '2026-10-09' },
+      { title: 'Amiga ROM Kernel Reference Manual: Libraries, Screen Components', url: 'https://discmaster.textfiles.com/file/18/Amiga%20Developer%20CD%20v2.1.iso/Reference/HTML/Libraries_Manual_guide/node00DB.html?html=true', publisher: 'Commodore-Amiga', accessed: '2026-10-09' },
+      { title: 'Typography in 16 bits: System fonts', url: 'https://damieng.com/blog/2011/typography-in-16-bits-system-fonts/', publisher: 'Damien Guard', year: 2011, accessed: '2026-10-09' },
+      { title: 'The Complete Amiga 500 User Guide', url: 'https://ftp.fau.de/aminet/docs/help/A500UserGuide.pdf', publisher: 'Peter Hutchison', year: 2003, accessed: '2026-10-09' },
+    ],
+  },
+  ficha: {
+    documented: {
+      es: 'Workbench 1.x usaba cuatro colores, azul, blanco, negro y naranja, elegidos para que el contraste aguantara hasta en los peores televisores, y el usuario podía cambiarlos en Preferencias [1][5]. La fuente del sistema era Topaz/8, una fuente de mapa de bits monoespaciada de 8 × 8 puntos [4]. La barra de título de la pantalla hacía de barra de menús y llevaba los controles para arrastrar la pantalla y para pasarla al frente o al fondo [3]. Debajo corría Intuition, la capa de ventanas que RJ Mical desarrolló casi solo [2].',
+      en: 'Workbench 1.x used four colours, blue, white, black and orange, chosen so the contrast would hold on the worst television sets, and users could change them in Preferences [1][5]. The system font was Topaz/8, a monospaced 8 × 8 bitmap font [4]. The screen’s title bar served as the menu bar and carried the gadgets to drag the screen and to bring it forward or send it back [3]. Underneath ran Intuition, the windowing layer RJ Mical developed almost alone [2].',
+    },
+    reading: {
+      es: 'El tema pone el azul de fondo y el blanco como tinta, y deja el naranja para el acento, como en la pantalla de Workbench. Todo va en una monoespaciada, DM Mono, en lugar de Topaz, que es de mapa de bits. Los bordes son finos y casi rectos, y botones y tarjetas llevan una sombra dura de 2 px.',
+      en: 'The theme sets blue as the background and white as the ink, and keeps orange for the accent, as on the Workbench screen. Everything is set in a monospace, DM Mono, in place of the bitmap Topaz. Borders are thin and nearly square, and buttons and cards carry a 2 px hard shadow.',
+    },
+    palette: {
+      origin: 'interpreted',
+      note: {
+        es: 'Las fuentes documentan los cuatro colores, pero no sus valores; el azul #0055aa y el naranja #ff8800 son los que suele dar la comunidad, sin un documento primario detrás.',
+        en: 'The sources document the four colours but not their values; the #0055aa blue and #ff8800 orange are the ones the community usually gives, with no primary document behind them.',
+      },
+    },
+  },
+  fonts: { sans: 'dm-mono', mono: 'dm-mono' },
+  colors: {
+    bg: ['#0055aa', '#111111'],
+    fg: ['#ffffff', '#ffffff'],
+    fgMuted: ['#ffc266', '#ffaa00'],
+    surface: ['#0055aa', '#111111'],
+    surfaceAlt: ['#003870', '#1a1a1a'],
+    border: ['#ffaa00', '#ffffff'],
+    primary: ['#ffffff', '#ffffff'],
+    primaryFg: ['#0055aa', '#111111'],
+    accent: ['#ff8800', '#cc8800'],
+    accentFg: ['#111111', '#111111'],
+    info: ['#ffffff', '#66a3ff'],
+    infoFg: ['#0055aa', '#111111'],
+    success: ['#ffffff', '#ffffff'],
+    successFg: ['#0055aa', '#111111'],
+    warning: ['#ffaa00', '#cc8800'],
+    warningFg: ['#111111', '#111111'],
+    danger: ['#ffcc66', '#ffffff'],
+    dangerFg: ['#111111', '#111111'],
+    focus: ['#ffaa00', '#ffaa00'],
+  },
+  type: { weightBody: 500, weightLabel: 700, weightDisplay: 700 },
+  shape: { borderWidth: 2, radius: 2, radiusControl: 2, radiusButton: 2, radiusSmall: 1 },
+  elevation: flat(),
+  motion: { duration: 150, durationSlow: 300, ease: 'ease-out' },
+  signature: './amiga-os.css',
+});

@@ -1,0 +1,67 @@
+import { defineTheme, flat } from '../../define';
+
+export default defineTheme({
+  id: 'aqua',
+  scene: 'usa',
+  nativeScheme: 'light',
+  name: { es: 'Mac OS X Aqua', en: 'Mac OS X Aqua' },
+  tagline: { es: 'Botones de gel, rayas finas y un solo botón azul.', en: 'Gel buttons, fine stripes and one blue button.' },
+  reference: {
+    title: { es: 'Mac OS X (interfaz Aqua)', en: 'Mac OS X (Aqua interface)' },
+    authors: ['Apple Computer'],
+    date: 2000,
+    place: { es: 'Cupertino, Estados Unidos', en: 'Cupertino, United States' },
+    kind: 'software',
+    sources: [
+      { title: 'Aqua Human Interface Guidelines', url: 'https://daringfireball.net/misc/2026/07/2002%20Aqua%20Human%20Interface%20Guidelines.pdf', publisher: 'Apple Computer', year: 2002, accessed: '2026-10-09' },
+      { title: 'Apple Unveils Mac OS X', url: 'https://www.apple.com/newsroom/2000/01/05Apple-Unveils-Mac-OS-X/', publisher: 'Apple', year: 2000, accessed: '2026-10-09' },
+      { title: 'Aqua (user interface)', url: 'https://en.wikipedia.org/wiki/Aqua_(user_interface)', publisher: 'Wikipedia', accessed: '2026-10-09' },
+      { title: 'Aqua', url: 'https://www.salon.com/2000/01/26/aqua/', publisher: 'Salon', year: 2000, accessed: '2026-10-09' },
+      { title: 'Oral History of Bas Ording', url: 'https://www.computerhistory.org/collections/catalog/102738558', publisher: 'Computer History Museum', year: 2017, accessed: '2026-10-09' },
+    ],
+  },
+  ficha: {
+    documented: {
+      es: 'Apple presentó Aqua el 5 de enero de 2000 como un aspecto translúcido y luminoso, con botones, barras de desplazamiento y ventanas semitransparentes [2]. Se inspiraba en el agua, con azul, blanco y gris, controles brillantes como de gel y sombras proyectadas, y las primeras versiones tenían fondos de rayas finas [3]. En las guías de Apple solo el botón por defecto lleva color y late, los demás se dibujan transparentes, y el texto del sistema va en Lucida Grande de 13 puntos [1]. Los botones de la ventana tenían colores de semáforo [4], y Bas Ording trabajó en sus animaciones e interacciones [5].',
+      en: 'Apple presented Aqua on 5 January 2000 as a translucent, luminous look, with semi-transparent buttons, scroll bars and windows [2]. It drew on water, in blue, white and grey, with glossy gel-like controls and drop shadows, and early versions had finely striped backgrounds [3]. In Apple’s guidelines only the default button carries colour and pulses, the rest are drawn clear, and system text is set in 13-point Lucida Grande [1]. The window buttons were coloured like traffic lights [4], and Bas Ording worked on its animations and interactions [5].',
+    },
+    reading: {
+      es: 'El tema da a los botones un brillo de gel, un degradado que se corta a la mitad, y pone rayas horizontales finas en el fondo. Como en las guías, el azul se reserva para la acción principal. Las esquinas son redondas y los bordes de 1 px; el texto va en la sans del sistema, no en Lucida Grande.',
+      en: 'The theme gives buttons a gel shine, a gradient that breaks at the middle, and lays fine horizontal stripes over the background. As in the guidelines, blue is kept for the main action. Corners are round and borders 1 px; text is set in the system sans, not Lucida Grande.',
+    },
+    palette: {
+      origin: 'interpreted',
+      note: {
+        es: 'Las guías nombran las apariencias Aqua, en azul, y Grafito, pero no dan valores; los tonos son una lectura.',
+        en: 'The guidelines name the Aqua appearance, in blue, and Graphite, but give no values; the tones are a reading.',
+      },
+    },
+  },
+  fonts: 'system-sans',
+  colors: {
+    bg: ['#f4f5f6', '#161719'],
+    fg: ['#1a1c20', '#e6e8eb'],
+    fgMuted: ['#5c6068', '#9aa0a8'],
+    surface: ['#ffffff', '#202225'],
+    surfaceAlt: ['#eceff1', '#2a2d32'],
+    border: ['#7a808a', '#666b73'],
+    primary: ['#2862a9', '#6b9eeb'],
+    primaryFg: ['#ffffff', '#0d131a'],
+    accent: ['#2862a9', '#6b9eeb'],
+    accentFg: ['#ffffff', '#0d131a'],
+    info: ['#2862a9', '#6b9eeb'],
+    infoFg: ['#ffffff', '#0d131a'],
+    success: ['#2b763e', '#5cbd70'],
+    successFg: ['#ffffff', '#0d1510'],
+    warning: ['#e6a800', '#eebf42'],
+    warningFg: ['#1a1c20', '#1a1400'],
+    danger: ['#ba3636', '#eb6b6b'],
+    dangerFg: ['#ffffff', '#1a0505'],
+    focus: ['#2862a9', '#8cb5f2'],
+  },
+  type: { weightBody: 400, weightLabel: 600, weightDisplay: 600 },
+  shape: { borderWidth: 1, radius: 8, radiusControl: 16, radiusButton: 20, radiusSmall: 4 },
+  elevation: flat(),
+  motion: { duration: 300, durationSlow: 500, ease: 'cubic-bezier(0.25, 1, 0.5, 1)' },
+  signature: './aqua.css',
+});

@@ -6,7 +6,7 @@ import { markers, sourceProblems } from './validate';
 import type { Source } from './types';
 
 /** Every essay the site renders, by slug. */
-export const ESSAY_SLUGS = ['home', 'origins', 'method', 'scene-japan', 'scene-germany', 'scene-usa', 'scene-latam'] as const;
+export const ESSAY_SLUGS = ['home', 'origins', 'method', 'scene-japan', 'scene-germany', 'scene-usa', 'scene-latam', 'scene-italy'] as const;
 export type EssaySlug = (typeof ESSAY_SLUGS)[number];
 
 export function essayProblems(slug: string, es: string | undefined, en: string | undefined, sources: readonly Source[]): string[] {

@@ -1,0 +1,66 @@
+import { defineTheme, flat } from '../../define';
+
+export default defineTheme({
+  id: 'win-xp',
+  scene: 'usa',
+  nativeScheme: 'light',
+  name: { es: 'Windows XP', en: 'Windows XP' },
+  tagline: { es: 'Barras de título azules redondeadas y un botón Inicio verde.', en: 'Rounded blue title bars and a green Start button.' },
+  reference: {
+    title: { es: 'Windows XP (estilo visual Luna)', en: 'Windows XP (Luna visual style)' },
+    authors: ['Microsoft'],
+    date: 2001,
+    place: { es: 'Redmond, Estados Unidos', en: 'Redmond, United States' },
+    kind: 'software',
+    sources: [
+      { title: 'Windows XP visual styles', url: 'https://en.wikipedia.org/wiki/Windows_XP_visual_styles', publisher: 'Wikipedia', accessed: '2026-10-09' },
+      { title: 'Tahoma font family', url: 'https://learn.microsoft.com/en-us/typography/font-list/tahoma', publisher: 'Microsoft', accessed: '2026-10-09' },
+      { title: 'Trebuchet MS font family', url: 'https://learn.microsoft.com/en-us/typography/font-list/trebuchet-ms', publisher: 'Microsoft', accessed: '2026-10-09' },
+      { title: 'The look of Luna', url: 'https://devblogs.microsoft.com/oldnewthing/?p=39953', publisher: 'The Old New Thing (Microsoft)', year: 2004, accessed: '2026-10-09' },
+    ],
+  },
+  ficha: {
+    documented: {
+      es: 'Luna, el aspecto por defecto de Windows XP, lo diseñó la agencia Frog Design por encargo de Microsoft, y salió en tres combinaciones de color: azul, verde oliva y plateado [1]. Las barras de título tienen las esquinas redondeadas y van en Trebuchet MS, el botón de cerrar es rojo y el de Inicio, verde; casi todo el resto del texto va en Tahoma [1][2][3]. Tahoma, de Matthew Carter, y Trebuchet MS, de Vincent Connare, se dibujaron para leerse bien en pantalla a tamaños pequeños [2][3]. Según Raymond Chen, de Microsoft, a Luna se llegó después de mucha investigación y varios intentos fallidos [4].',
+      en: 'Luna, Windows XP’s default look, was designed by the agency Frog Design for Microsoft, and it shipped in three colour schemes: blue, olive green and silver [1]. Title bars have rounded corners and are set in Trebuchet MS, the close button is red and the Start button green; most other text is set in Tahoma [1][2][3]. Tahoma, by Matthew Carter, and Trebuchet MS, by Vincent Connare, were drawn to read well on screen at small sizes [2][3]. Raymond Chen, of Microsoft, writes that Luna came after a lot of research and several false starts [4].',
+    },
+    reading: {
+      es: 'El tema toma la combinación azul: bordes y botones principales en azul, sobre el beige claro de los diálogos. Los botones llevan un degradado suave de arriba abajo, una lectura del plástico de Luna, y las esquinas se redondean un poco. El texto va en la sans del sistema; Tahoma y Trebuchet MS no se cargan.',
+      en: 'The theme takes the blue scheme: borders and primary buttons in blue, over the pale beige of the dialogs. Buttons carry a soft top-to-bottom gradient, a reading of Luna’s plastic, and corners are slightly rounded. Text is set in the system sans; Tahoma and Trebuchet MS are not loaded.',
+    },
+    palette: {
+      origin: 'interpreted',
+      note: {
+        es: 'Los nombres de las tres combinaciones están documentados, sus valores no. El azul y el beige del tema son una lectura de capturas.',
+        en: 'The names of the three schemes are documented, their values are not. The theme’s blue and beige are read from screenshots.',
+      },
+    },
+  },
+  fonts: 'system-sans',
+  colors: {
+    bg: ['#ece9d8', '#1a1a1e'],
+    fg: ['#111111', '#ffffff'],
+    fgMuted: ['#4a4a4a', '#a1a1aa'],
+    surface: ['#ffffff', '#222226'],
+    surfaceAlt: ['#f4f3ee', '#2a2a30'],
+    border: ['#003399', '#4d7bc9'],
+    primary: ['#0055e5', '#3b82f6'],
+    primaryFg: ['#ffffff', '#111111'],
+    accent: ['#0055e5', '#3b82f6'],
+    accentFg: ['#ffffff', '#111111'],
+    info: ['#0055e5', '#3b82f6'],
+    infoFg: ['#ffffff', '#111111'],
+    success: ['#2e7d32', '#4ade80'],
+    successFg: ['#ffffff', '#111111'],
+    warning: ['#d97706', '#fbbf24'],
+    warningFg: ['#111111', '#111111'],
+    danger: ['#dc2626', '#f87171'],
+    dangerFg: ['#ffffff', '#111111'],
+    focus: ['#0055e5', '#3b82f6'],
+  },
+  type: { weightBody: 400, weightLabel: 600, weightDisplay: 700 },
+  shape: { borderWidth: 1, radius: 6, radiusControl: 4, radiusButton: 4, radiusSmall: 2 },
+  elevation: flat(),
+  motion: { duration: 200, durationSlow: 400, ease: 'ease-out' },
+  signature: './win-xp.css',
+});

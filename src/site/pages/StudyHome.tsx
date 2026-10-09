@@ -75,7 +75,7 @@ export function StudyHome() {
     <div className="site-page gallery-home">
       <header className="study-hero gallery-hero" aria-labelledby="study-title">
         <div className="study-hero__copy">
-          <p className="site-h3" style={{ color: 'var(--nbc-primary)' }}>{t('galleryKicker')}</p>
+          <p className="site-h3" style={{ color: 'var(--nbc-fg-muted)' }}>{t('galleryKicker')}</p>
           <h1 className="site-h1 study-hero__title" id="study-title">
             {t('studyTitle')}
           </h1>

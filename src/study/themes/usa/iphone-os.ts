@@ -1,0 +1,67 @@
+import { defineTheme, flat } from '../../define';
+
+export default defineTheme({
+  id: 'iphone-os',
+  scene: 'usa',
+  nativeScheme: 'light',
+  name: { es: 'iPhone OS 1', en: 'iPhone OS 1' },
+  tagline: { es: 'Una pantalla de 3,5 pulgadas para el dedo, en Helvetica.', en: 'A 3.5-inch screen for a finger, set in Helvetica.' },
+  reference: {
+    title: { es: 'iPhone OS 1 (interfaz del iPhone original)', en: 'iPhone OS 1 (the original iPhone’s interface)' },
+    authors: ['Apple Inc.'],
+    date: 2007,
+    place: { es: 'Cupertino, Estados Unidos', en: 'Cupertino, United States' },
+    kind: 'software',
+    sources: [
+      { title: 'Apple Reinvents the Phone with iPhone', url: 'https://www.apple.com/newsroom/2007/01/09Apple-Reinvents-the-Phone-with-iPhone/', publisher: 'Apple', year: 2007, accessed: '2026-10-09' },
+      { title: 'iPhone OS 1', url: 'https://en.wikipedia.org/wiki/IPhone_OS_1', publisher: 'Wikipedia', accessed: '2026-10-09' },
+      { title: 'Who designed the iPhone font?', url: 'https://everymac.com/systems/apple/iphone/iphone-faq/iphone-who-designed-iphone-font-used-iphone-ringtones.html', publisher: 'EveryMac', accessed: '2026-10-09' },
+      { title: 'Oral History of Bas Ording', url: 'https://www.computerhistory.org/collections/catalog/102738558', publisher: 'Computer History Museum', year: 2017, accessed: '2026-10-09' },
+      { title: 'Imran Chaudhri', url: 'https://en.wikipedia.org/wiki/Imran_Chaudhri', publisher: 'Wikipedia', accessed: '2026-10-09' },
+    ],
+  },
+  ficha: {
+    documented: {
+      es: 'Apple anunció el iPhone en enero de 2007 con una interfaz nueva sobre una pantalla multitáctil de 3,5 pulgadas, que se usaba con el dedo y sin lápiz [1]. Salió el 29 de junio de 2007 con una pantalla de inicio de iconos en retícula y un dock abajo [2], y su fuente de sistema era Helvetica [3]. La interfaz nació de los prototipos multitáctiles de Bas Ording, que había empezado en Apple con las animaciones de Aqua [4], e Imran Chaudhri, del equipo original, cocreó la pantalla de inicio en retícula [5].',
+      en: 'Apple announced the iPhone in January 2007 with a new interface on a 3.5-inch multi-touch screen, used with a finger and no stylus [1]. It shipped on 29 June 2007 with a home screen of icons on a grid and a dock along the bottom [2], and its system font was Helvetica [3]. The interface grew out of Bas Ording’s multi-touch prototypes, after he had started at Apple on Aqua’s animations [4], and Imran Chaudhri, from the original team, co-created the grid home screen [5].',
+    },
+    reading: {
+      es: 'Las fuentes no describen el acabado visual del sistema, así que esta parte es lectura de principio a fin. El tema redondea mucho las esquinas, a la medida del dedo, y da a los botones un brillo de vidrio que se corta a la mitad, el que se ve en las capturas de la época. El fondo lleva rayas verticales muy finas, y el texto va en la sans del sistema, cerca de Helvetica.',
+      en: 'Our sources do not describe the system’s visual finish, so this part is a reading from start to end. The theme rounds corners generously, sized for a finger, and gives buttons a glass shine that breaks at the middle, as seen in screenshots of the time. The background carries very fine vertical stripes, and text is set in the system sans, close to Helvetica.',
+    },
+    palette: {
+      origin: 'interpreted',
+      note: {
+        es: 'Ninguna fuente da los colores del sistema; el azul y los grises son una lectura de capturas.',
+        en: 'No source gives the system’s colours; the blue and the greys are read from screenshots.',
+      },
+    },
+  },
+  fonts: 'system-sans',
+  colors: {
+    bg: ['#eef0f3', '#111214'],
+    fg: ['#131518', '#e6e9ed'],
+    fgMuted: ['#585e66', '#9aa1ab'],
+    surface: ['#ffffff', '#1b1d21'],
+    surfaceAlt: ['#e3e6eb', '#25282d'],
+    border: ['#767e88', '#686e78'],
+    primary: ['#185cb5', '#5b95e6'],
+    primaryFg: ['#ffffff', '#09111c'],
+    accent: ['#185cb5', '#5b95e6'],
+    accentFg: ['#ffffff', '#09111c'],
+    info: ['#185cb5', '#5b95e6'],
+    infoFg: ['#ffffff', '#09111c'],
+    success: ['#23823d', '#55ba6f'],
+    successFg: ['#ffffff', '#0a1a0f'],
+    warning: ['#d6a000', '#e6b935'],
+    warningFg: ['#131518', '#1c1500'],
+    danger: ['#bd2f2f', '#e65e5e'],
+    dangerFg: ['#ffffff', '#1c0303'],
+    focus: ['#185cb5', '#7cb1f5'],
+  },
+  type: { weightBody: 400, weightLabel: 600, weightDisplay: 700 },
+  shape: { borderWidth: 1, radius: 16, radiusControl: 10, radiusButton: 10, radiusSmall: 6 },
+  elevation: flat(),
+  motion: { duration: 250, durationSlow: 450, ease: 'cubic-bezier(0.2, 0.8, 0.2, 1)' },
+  signature: './iphone-os.css',
+});

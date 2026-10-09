@@ -1481,7 +1481,7 @@ body {
 
 @media (max-width: 900px) {
   .gallery-work__inner {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--nbc-space-2xl);
   }
 }

@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { App } from '../App';
 import { replaceHash } from '../router';
 
 // A typeface whose licence went unrecorded. fonts.test.ts stops that in CI;
@@ -16,15 +17,13 @@ beforeEach(() => {
 });
 
 describe('a typeface without a recorded licence', () => {
-  it('does not stop the site from booting: other pages render', async () => {
-    const { App } = await import('../App');
+  it('does not stop the site from booting: other pages render', () => {
     replaceHash('#/en/library');
     render(<App />);
     expect(screen.getByRole('heading', { level: 1, name: 'Components that hold their shape.' })).toBeInTheDocument();
   });
 
-  it('fails only the typefaces table, inside the Credits page and its shell', async () => {
-    const { App } = await import('../App');
+  it('fails only the typefaces table, inside the Credits page and its shell', () => {
     replaceHash('#/es/credits');
     render(<App />);
     expect(screen.getByRole('heading', { level: 1, name: 'Créditos' })).toBeInTheDocument();

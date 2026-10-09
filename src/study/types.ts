@@ -5,11 +5,11 @@
  */
 import type { FontKey } from './fonts';
 
-export const SCENES = ['japan', 'germany', 'usa', 'latam', 'origins'] as const;
+export const SCENES = ['japan', 'germany', 'usa', 'latam', 'italy', 'origins'] as const;
 export type Scene = (typeof SCENES)[number];
 
 /** Scenes that host study themes. `origins` holds history and core themes only. */
-export const THEME_SCENES = ['japan', 'germany', 'usa', 'latam'] as const;
+export const THEME_SCENES = ['japan', 'germany', 'usa', 'latam', 'italy'] as const;
 export type ThemeScene = (typeof THEME_SCENES)[number];
 
 export const LANGS = ['es', 'en'] as const;

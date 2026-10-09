@@ -1,0 +1,95 @@
+import { defineTheme, flat } from '../../define';
+import { grid } from '../../families';
+
+export default defineTheme({
+  id: 'bauhaus-dessau',
+  scene: 'germany',
+  nativeScheme: 'light',
+  name: { es: 'Bauhaus Dessau', en: 'Bauhaus Dessau' },
+  tagline: { es: 'Vidrio en retícula, rojo donde se abre.', en: 'Glass in a grid, red where it opens.' },
+  reference: {
+    title: { es: 'Edificio de la Bauhaus en Dessau', en: 'Bauhaus Building, Dessau' },
+    original: { text: 'Bauhausgebäude Dessau', lang: 'de' },
+    authors: ['Walter Gropius'],
+    date: [1925, 1926],
+    place: { es: 'Dessau, Alemania', en: 'Dessau, Germany' },
+    kind: 'architecture',
+    sources: [
+      {
+        title: 'Bauhaus Building',
+        url: 'https://bauhaus-dessau.de/en/venues/bauhaus-building/',
+        publisher: 'Stiftung Bauhaus Dessau',
+        accessed: '2026-10-09',
+      },
+      {
+        title: 'Colour Plan of the Bauhaus, Dessau',
+        url: 'https://bauhauskooperation.de/en/knowledge/the-bauhaus/works/mural-painting/colour-plan-of-the-bauhaus-dessau',
+        publisher: 'Bauhaus Kooperation Berlin Dessau Weimar',
+        accessed: '2026-10-09',
+      },
+      {
+        title: 'Walter Gropius, Dessau Bauhaus, view from the southwest, built 1926',
+        url: 'https://germanhistorydocs.org/en/weimar-germany-1918-1933/walter-gropius-dessau-bauhaus-view-from-the-southwest-built-1926',
+        publisher: 'German History in Documents and Images',
+        accessed: '2026-10-09',
+      },
+      { title: 'Bauhaus Dessau', url: 'https://en.wikipedia.org/wiki/Bauhaus_Dessau', publisher: 'Wikipedia', accessed: '2026-10-09' },
+    ],
+    image: {
+      file: 'bauhaus-dessau.avif',
+      width: 1600,
+      height: 878,
+      alt: {
+        es: 'La pared cortina del ala de talleres: una retícula de vidrio y marcos oscuros sobre una franja blanca y la planta baja.',
+        en: 'The workshop wing’s curtain wall: a grid of glass and dark frames above a white band and the ground floor.',
+      },
+      author: 'Gunnar Klack',
+      license: 'CC-BY-SA-4.0',
+      sourceUrl: 'https://commons.wikimedia.org/wiki/File:2020-09-18-Dessau-Bauhaus-Fassade.jpg',
+    },
+  },
+  ficha: {
+    documented: {
+      es: 'La oficina de Walter Gropius proyectó el edificio, que se construyó entre 1925 y 1926 y se inauguró en diciembre de 1926 [1]. El ala de talleres da a la calle con una pared cortina de vidrio en marco de acero que recorre sus tres pisos sin cortes, porque los pilares quedan detrás [1][4]; junto a ella va el rótulo BAUHAUS [3]. El plan de color exterior de Hinnerk Scheper, de 1926, marcaba en rojo puertas, ventanas y balcones, y unía las partes con una franja gris [2]. La pared de vidrio se perdió casi entera en 1945 y se reconstruyó en aluminio en 1976 [1].',
+      en: 'Walter Gropius’s office planned the building, built from 1925 to 1926 and opened in December 1926 [1]. The workshop wing faces the street with a glass curtain wall in a steel frame that runs unbroken across its three floors, because the columns stand behind it [1][4]; the BAUHAUS lettering sits beside it [3]. Hinnerk Scheper’s exterior colour plan of 1926 marked doors, windows and balconies in red, and tied the parts together with a grey band [2]. The glass wall was largely lost in 1945 and rebuilt in aluminium in 1976 [1].',
+    },
+    reading: {
+      es: 'El tema lee la pared cortina como una retícula de 24 px sobre cada superficie, y lo deja todo plano, sin sombra, como el revoque. De Scheper toma la regla del rojo: aquí marca lo que se puede pulsar, igual que en la fachada marcaba lo que se abre. El gris de la franja va en los acentos y el oscuro de los marcos en los bordes. El texto va en la sans del sistema; el tema no intenta copiar el rótulo.',
+      en: 'The theme reads the curtain wall as a 24 px grid on every surface, and keeps everything flat, without shadow, like the render. From Scheper it takes the rule of red: here it marks what can be pressed, as on the façade it marked what opens. The grey of the band goes to the accents and the dark of the frames to the borders. Text is set in the system sans; the theme does not try to copy the lettering.',
+    },
+    palette: {
+      origin: 'interpreted',
+      note: {
+        es: 'El plan de Scheper nombra el rojo de las aberturas y la franja gris, pero ninguna fuente da sus valores; los tonos son una lectura.',
+        en: 'Scheper’s plan names the red of the openings and the grey band, but no source gives their values; the tones are a reading.',
+      },
+    },
+  },
+  fonts: 'system-sans',
+  colors: {
+    bg: ['#f8f6f3', '#161616'],
+    fg: ['#141414', '#e6e3dd'],
+    fgMuted: ['#666666', '#a3a3a3'],
+    surface: ['#fcfdfd', '#1f1f1f'],
+    surfaceAlt: ['#edeae1', '#2c2c2c'],
+    border: ['#1c1c1c', '#e0ddcd'],
+    primary: ['#b3261e', '#e5574f'],
+    primaryFg: ['#fcfdfd', '#0d0d0d'],
+    accent: ['#5f5f5a', '#a8a8a2'],
+    accentFg: ['#fcfdfd', '#0d0d0d'],
+    info: ['#1a4b82', '#4b8ad6'],
+    infoFg: ['#fcfdfd', '#0d0d0d'],
+    success: ['#1c1c1c', '#e6e3dd'],
+    successFg: ['#f8f6f3', '#141414'],
+    warning: ['#d19b00', '#f2c638'],
+    warningFg: ['#141414', '#141414'],
+    danger: ['#ba1c20', '#f47a7c'],
+    dangerFg: ['#fcfdfd', '#0d0d0d'],
+    focus: ['#b3261e', '#f47a7c'],
+  },
+  type: { weightBody: 500, weightLabel: 700, weightDisplay: 900 },
+  shape: { borderWidth: 2, radius: 0, radiusControl: 0, radiusButton: 0, radiusSmall: 0 },
+  elevation: flat(),
+  motion: { duration: 0, durationSlow: 0, ease: 'linear' },
+  families: [grid({ cell: 24, strength: 0.07 })],
+});

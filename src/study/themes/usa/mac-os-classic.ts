@@ -1,0 +1,67 @@
+import { defineTheme, flat } from '../../define';
+
+export default defineTheme({
+  id: 'mac-os-classic',
+  scene: 'usa',
+  nativeScheme: 'light',
+  name: { es: 'Mac OS System 7', en: 'Mac OS System 7' },
+  tagline: { es: 'Blanco y negro, con gris y color solo en los marcos.', en: 'Black and white, with grey and colour only on the frames.' },
+  reference: {
+    title: { es: 'Mac OS System 7 (interfaz gráfica)', en: 'Mac OS System 7 (graphical user interface)' },
+    authors: ['Apple Computer'],
+    date: 1991,
+    place: { es: 'Cupertino, Estados Unidos', en: 'Cupertino, United States' },
+    kind: 'software',
+    sources: [
+      { title: 'Macintosh Human Interface Guidelines: Windows and Dialog Boxes', url: 'https://discmaster.textfiles.com/file/32778/Dev.CD%20Jun%2099%20RL%20Disk%202.toast/Technical%20Publications/mac/HIGuidelines/HIGuidelines-188.html?html=true', publisher: 'Apple Computer', accessed: '2026-10-09' },
+      { title: 'System 7', url: 'https://en.wikipedia.org/wiki/System_7', publisher: 'Wikipedia', accessed: '2026-10-09' },
+      { title: 'Susan Kare', url: 'https://en.wikipedia.org/wiki/Susan_Kare', publisher: 'Wikipedia', accessed: '2026-10-09' },
+      { title: 'Typography in 16 bits: System fonts', url: 'https://damieng.com/blog/2011/typography-in-16-bits-system-fonts/', publisher: 'Damien Guard', year: 2011, accessed: '2026-10-09' },
+      { title: 'System 7 buttons', url: 'https://hilton.org.uk/blog/system-7-buttons', publisher: 'Peter Hilton', accessed: '2026-10-09' },
+    ],
+  },
+  ficha: {
+    documented: {
+      es: 'Apple lanzó System 7 el 13 de mayo de 1991, con una interfaz en color para los equipos con pantalla en color y con fuentes escalables TrueType [2]. En color, las guías de Apple agregaban gris y color a los marcos de las ventanas y a los controles, de modo que las cajas de cerrar, ampliar y desplazar destacaban, y las ventanas inactivas tenían bordes grises que quedaban al fondo [1]. Chicago, de Susan Kare, siguió siendo la fuente del sistema [3][4]. Los botones tenían un estilo normal y otro reforzado para la opción por defecto, y se resaltaban al pulsarlos [5].',
+      en: 'Apple released System 7 on 13 May 1991, with a colour interface for machines with colour screens and with TrueType scalable fonts [2]. On colour screens, Apple’s guidelines added grey and colour to window frames and controls, so the close, zoom and scroll boxes stood out and inactive windows had grey borders that fell back [1]. Chicago, by Susan Kare, remained the system font [3][4]. Buttons came in a plain style and a heavier style for the default choice, and they highlighted while pressed [5].',
+    },
+    reading: {
+      es: 'El tema se queda en el blanco y negro del Mac y deja el gris para lo que está al fondo, como los bordes de las ventanas inactivas. Los bordes son de 1 px y las tarjetas proyectan una sombra dura de 2 px, un parentesco que vemos con la sombra de las ventanas del Mac clásico. Chicago no tiene una versión libre; el texto va en la sans del sistema.',
+      en: 'The theme keeps to the Mac’s black and white and saves grey for what sits behind, like the borders of inactive windows. Borders are 1 px and cards cast a 2 px hard shadow, a kinship we see with the shadow under classic Mac windows. Chicago has no free version; text is set in the system sans.',
+    },
+    palette: {
+      origin: 'interpreted',
+      note: {
+        es: 'Las guías nombran el gris y el color de los marcos, pero no dan valores; el tema usa blanco, negro y grises neutros.',
+        en: 'The guidelines name the grey and colour of the frames but give no values; the theme uses white, black and neutral greys.',
+      },
+    },
+  },
+  fonts: 'system-sans',
+  colors: {
+    bg: ['#ffffff', '#111111'],
+    fg: ['#111111', '#ffffff'],
+    fgMuted: ['#555555', '#b3b3b3'],
+    surface: ['#ffffff', '#111111'],
+    surfaceAlt: ['#f0f0f0', '#1a1a1a'],
+    border: ['#111111', '#ffffff'],
+    primary: ['#111111', '#ffffff'],
+    primaryFg: ['#ffffff', '#111111'],
+    accent: ['#111111', '#ffffff'],
+    accentFg: ['#ffffff', '#111111'],
+    info: ['#111111', '#ffffff'],
+    infoFg: ['#ffffff', '#111111'],
+    success: ['#111111', '#ffffff'],
+    successFg: ['#ffffff', '#111111'],
+    warning: '#111111',
+    warningFg: '#ffffff',
+    danger: ['#111111', '#ffffff'],
+    dangerFg: ['#ffffff', '#111111'],
+    focus: ['#111111', '#ffffff'],
+  },
+  type: { weightBody: 400, weightLabel: 700, weightDisplay: 700 },
+  shape: { borderWidth: 1, radius: 4, radiusControl: 4, radiusButton: 4, radiusSmall: 2 },
+  elevation: flat(),
+  motion: { duration: 150, durationSlow: 300, ease: 'ease-out' },
+  signature: './mac-os-classic.css',
+});

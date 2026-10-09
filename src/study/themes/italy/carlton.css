@@ -1,0 +1,9 @@
+/* Carlton: a Bacterio-like field of uneven dots on the page, as on the
+   cabinet's base. Two dot grids of different sizes and pitches keep the
+   pattern from reading as a regular screen. */
+:scope {
+  background-image:
+    radial-gradient(circle at 30% 40%, color-mix(in srgb, var(--nbc-fg) 18%, transparent) 1.5px, transparent 2px),
+    radial-gradient(circle at 70% 75%, color-mix(in srgb, var(--nbc-fg) 18%, transparent) 1px, transparent 1.5px);
+  background-size: 14px 14px, 9px 9px;
+}
