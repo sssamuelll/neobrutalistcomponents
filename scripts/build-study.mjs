@@ -34,10 +34,10 @@ const outDirs = [join(GEN, 'themes'), ...(DIST ? [join(ROOT, 'dist/themes')] : [
 for (const dir of outDirs) mkdirSync(dir, { recursive: true });
 
 const entries = [];
-for (const { theme, signature } of study.STUDY_THEMES) {
+for (const { theme, signature, motionCss } of study.STUDY_THEMES) {
   let compiled;
   try {
-    compiled = study.compileTheme(theme, { signature, banner: `neobrutalistcomponents v${pkg.version} — study theme: ${theme.id}` });
+    compiled = study.compileTheme(theme, { signature, motionCss, banner: `neobrutalistcomponents v${pkg.version} — study theme: ${theme.id}` });
   } catch (error) {
     fail([error.message]);
   }

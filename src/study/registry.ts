@@ -2,6 +2,7 @@
  * Every study theme file, loaded eagerly — for tests and scripts/build-study.mjs
  * only. The site never imports this (it would bundle every ficha).
  */
+import { animates } from './lint';
 import type { StudyThemeInput } from './types';
 
 type ThemeModules = Readonly<Record<string, { readonly default?: unknown }>>;
@@ -22,11 +23,15 @@ export interface RegisteredTheme {
   readonly theme: StudyThemeInput;
   /** Contents of the signature file, when the theme declares one and it exists. */
   readonly signature?: string;
+  /** Contents of the motion file, when the theme declares one and it exists. */
+  readonly motionCss?: string;
 }
 
-/** The glob key a theme's declared signature lives at, next to its file. */
-const signaturePath = (path: string, theme: StudyThemeInput) =>
-  theme.signature ? `${path.slice(0, path.lastIndexOf('/'))}/${theme.signature.replace(/^\.\//, '')}` : undefined;
+/** The glob key of a file a theme declares, next to the theme file. */
+const siblingPath = (path: string, relative: string | undefined) =>
+  relative ? `${path.slice(0, path.lastIndexOf('/'))}/${relative.replace(/^\.\//, '')}` : undefined;
+const signaturePath = (path: string, theme: StudyThemeInput) => siblingPath(path, theme.signature);
+const motionPath = (path: string, theme: StudyThemeInput) => siblingPath(path, theme.motionFile);
 
 const isTheme = (value: unknown): value is StudyThemeInput =>
   typeof value === 'object' && value !== null && typeof (value as { id?: unknown }).id === 'string';
@@ -46,9 +51,10 @@ export function collectThemes(modules: ThemeModules, styles: ThemeStyles): { the
       continue;
     }
     const key = signaturePath(path, theme);
-    themes.push({ path, theme, signature: key ? styles[key] : undefined });
+    const motionKey = motionPath(path, theme);
+    themes.push({ path, theme, signature: key ? styles[key] : undefined, motionCss: motionKey ? styles[motionKey] : undefined });
   }
-  const declared = new Set(themes.map(({ path, theme }) => signaturePath(path, theme)));
+  const declared = new Set(themes.flatMap(({ path, theme }) => [signaturePath(path, theme), motionPath(path, theme)]));
   for (const path of Object.keys(styles).sort(byCodeUnit)) {
     if (!declared.has(path)) problems.push(`${path}: no theme declares this file as its signature`);
   }
@@ -65,7 +71,7 @@ export function registryProblems(
 ): string[] {
   const problems = [...fileProblems];
   const seen = new Set<string>();
-  for (const { path, theme, signature } of entries) {
+  for (const { path, theme, signature, motionCss } of entries) {
     const expected = `./themes/${theme.scene}/${theme.id}.ts`;
     if (path !== expected) {
       problems.push(`${path}: a theme with id "${theme.id}" and scene "${theme.scene}" must live at ${expected}`);
@@ -74,6 +80,11 @@ export function registryProblems(
     seen.add(theme.id);
     if (theme.signature && signature === undefined) {
       problems.push(`${theme.id}: signature ${theme.signature} not found next to the theme file`);
+    }
+    if (theme.motionFile && motionCss === undefined) {
+      problems.push(`${theme.id}: motion file ${theme.motionFile} not found next to the theme file`);
+    } else if (motionCss !== undefined && !animates(motionCss)) {
+      problems.push(`${theme.id}: ${theme.motionFile} animates nothing — drop the file and ficha.motion`);
     }
   }
   return problems;

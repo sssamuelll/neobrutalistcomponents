@@ -31,14 +31,14 @@ describe('proof themes', () => {
   });
 });
 
-for (const { theme, signature } of STUDY_THEMES) {
+for (const { theme, signature, motionCss } of STUDY_THEMES) {
   describe(`study theme "${theme.id}"`, () => {
     it('passes validation: id, bilingual text, sources, markers, image credit', () => {
       expect(themeProblems(theme)).toEqual([]);
     });
 
     it('compiles and meets the token contract in both schemes', () => {
-      const compiled = compileTheme(theme, { signature });
+      const compiled = compileTheme(theme, { signature, motionCss });
       expect(contractProblems(theme.id, compiled.tokens, compiled.css)).toEqual([]);
     });
 

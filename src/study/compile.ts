@@ -11,7 +11,7 @@ import { lightDark, normalizeHex } from './color';
 import { COLOR_VARS } from './types';
 import type { ColorToken, SchemeColor, StudyFonts, StudyThemeInput } from './types';
 import { stripComments, topLevelBlocks } from './css';
-import { lintFlourishCss, lintSignature } from './lint';
+import { lintFlourishCss, lintMotion, lintSignature } from './lint';
 import { FAMILIES } from './families';
 import { paramDeclarations, resolveParams } from './families/params';
 import type { FamilyDefinition, FillContext } from './families/types';
@@ -48,6 +48,8 @@ export interface CompileOptions {
   readonly banner?: string;
   /** Contents of the theme's signature CSS. */
   readonly signature?: string;
+  /** Contents of the theme's motion CSS. */
+  readonly motionCss?: string;
   /** Family registry. Defaults to the study's families. */
   readonly families?: Readonly<Record<string, FamilyDefinition>>;
 }
@@ -249,9 +251,11 @@ export function compileTheme(theme: StudyThemeInput, options: CompileOptions = {
   });
 
   const signature = options.signature?.trim() ? options.signature : undefined;
+  const motionCss = options.motionCss?.trim() ? options.motionCss : undefined;
   const problems = [
     ...uses.flatMap(({ def }) => lintFlourishCss(def.css, `family ${def.name}`)),
     ...(signature ? lintSignature(signature, `${theme.id} signature`) : []),
+    ...(motionCss ? lintMotion(motionCss, `${theme.id} motion`) : []),
   ];
   if (problems.length) throw new Error(`${theme.id}: flourish CSS problems:\n- ${problems.join('\n- ')}`);
 
@@ -266,6 +270,7 @@ export function compileTheme(theme: StudyThemeInput, options: CompileOptions = {
   const parts = [
     ...uses.map(({ def }) => flourishPart(def.css, theme.id, def.name, `family: ${def.name}`)),
     ...(signature ? [flourishPart(signature, theme.id, 'signature', 'signature')] : []),
+    ...(motionCss ? [flourishPart(motionCss, theme.id, 'motion', 'motion')] : []),
   ];
   const flourish = renderFlourishBlock(theme.id, parts);
   const header = `/* ${options.banner ?? `study theme: ${theme.id}`} — generated from src/study, do not edit */\n${LAYER_STATEMENT}\n`;

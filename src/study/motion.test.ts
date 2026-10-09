@@ -1,5 +1,8 @@
 import { describe, expect, it } from 'vitest';
+import { FIXTURE } from './__fixtures__/fixture';
+import { compileTheme } from './compile';
 import { animates, lintMotion } from './lint';
+import { collectThemes, registryProblems } from './registry';
 
 const GOOD = `@keyframes hourglass {
   from { transform: rotate(0deg); }
@@ -42,5 +45,38 @@ describe('lintMotion', () => {
   it('a file with keyframes but no animation animates nothing', () => {
     expect(animates('@keyframes x { to { opacity: 0; } }')).toBe(false);
     expect(animates('.nbc-card { animation: none; }')).toBe(false);
+  });
+});
+
+describe('compileTheme with motion CSS', () => {
+  it('hoists and namespaces the keyframes and keeps the guarded rule scoped to the theme', () => {
+    const { css } = compileTheme(FIXTURE, { motionCss: GOOD });
+    expect(css).toContain('@keyframes nbc-fixture-motion-hourglass');
+    expect(css).toMatch(/animation: nbc-fixture-motion-hourglass 1s steps\(4\) infinite/);
+    expect(css).toMatch(/@scope \(\[data-theme="fixture"\]\)[\s\S]*prefers-reduced-motion: no-preference/);
+  });
+
+  it('refuses motion CSS that breaks the lint', () => {
+    expect(() => compileTheme(FIXTURE, { motionCss: '.nbc-card { animation: x 1s; }' })).toThrow(/outside @media/);
+  });
+});
+
+describe('registryProblems for motion files', () => {
+  const motionTheme = { ...FIXTURE, motionFile: './fixture.motion.css' };
+  const entry = (motionCss?: string) => [{ path: './themes/germany/fixture.ts', theme: motionTheme, motionCss }];
+
+  it('reports a declared file that is missing, and one that animates nothing', () => {
+    expect(registryProblems(entry(undefined)).join('\n')).toMatch(/fixture: motion file \.\/fixture\.motion\.css not found/);
+    expect(registryProblems(entry('@keyframes x { to { opacity: 0; } }')).join('\n')).toMatch(/fixture: \.\/fixture\.motion\.css animates nothing/);
+    expect(registryProblems(entry(GOOD))).toEqual([]);
+  });
+
+  it('counts a declared motion file as declared, and reports an undeclared stylesheet', () => {
+    const modules = { './themes/germany/fixture.ts': { default: motionTheme } };
+    const styles = { './themes/germany/fixture.motion.css': GOOD, './themes/germany/orphan.css': GOOD };
+    const { themes, problems } = collectThemes(modules, styles);
+    expect(themes[0].motionCss).toBe(GOOD);
+    expect(problems.join('\n')).toMatch(/orphan\.css: no theme declares this file/);
+    expect(problems.join('\n')).not.toMatch(/fixture\.motion\.css/);
   });
 });
