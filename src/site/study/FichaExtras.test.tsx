@@ -55,3 +55,10 @@ describe('FichaExtras, retrofit additions', () => {
     expect(screen.queryByRole('button', { name: 'Open dialog' })).not.toBeInTheDocument();
   });
 });
+
+describe('FichaExtras prints the substitute as written', () => {
+  it('with no label before it (the prose already says "the theme uses")', () => {
+    renderExtras(FIXTURE.ficha);
+    expect(screen.getByText('Barlow se le parece en la proporción.')).toBeInTheDocument();
+  });
+});

@@ -158,8 +158,6 @@ export const UI = {
   lettering: { es: 'Tipografía', en: 'Typography' },
   motion: { es: 'Movimiento', en: 'Motion' },
   letteringOriginal: { es: 'La obra usaba', en: 'The work used' },
-  letteringSubstitute: { es: 'El tema usa', en: 'The theme uses' },
-  letteringFree: { es: 'una fuente libre, cargada tal cual', en: 'a free face, loaded as is' },
   letteringNone: { es: 'Ninguna fuente que consultamos documenta rotulación en la obra.', en: 'None of the sources we consulted documents lettering on the work.' },
   motionTry: { es: 'Cada control dispara su movimiento.', en: 'Each control sets off its motion.' },
   motionPress: { es: 'Pulsar', en: 'Press' },

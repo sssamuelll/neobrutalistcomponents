@@ -26,10 +26,7 @@ export function FichaExtras({ ficha }: { ficha: Ficha }) {
           ) : (
             <p className="site-p site-themepage__lettering">{t('letteringNone')}</p>
           )}
-          <p className="site-p">
-            {t('letteringSubstitute')}
-            {face?.free ? ` ${t('letteringFree')}` : ''}: {lettering.substitute[lang]}
-          </p>
+          <p className="site-p">{lettering.substitute[lang]}</p>
         </>
       ) : null}
       {motion ? (
