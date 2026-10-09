@@ -4,7 +4,7 @@ import { NEO_THEMES } from '../src/lib/themes';
 import { SLUGS } from '../src/docs/slugs';
 import { CONTRAST_PAIRS } from '../src/lib/themes/contract';
 import { CATALOG } from '../src/study/.generated/catalog';
-import { SCENES } from '../src/study/types';
+import { SCENES, THEME_SCENES } from '../src/study/types';
 
 const STUDY_ROUTES = ['/en/', '/en/scenes', '/en/scene/japan', '/en/origins', '/en/atlas', '/en/method', '/en/credits'];
 const DOC_ROUTES = ['/en/library', '/en/components', '/en/blocks', '/en/start', '/en/agents', ...SLUGS.map((slug) => `/en/components/${slug}`)];
@@ -305,11 +305,16 @@ test('study home: the essay, then the gallery, one work per theme in date order,
   await expect(page).toHaveURL(/#\/es\/scene\/japan$/);
 });
 
-test('scenes: an index, then each scene lists its references in date order with their themes', async ({ page }) => {
+test('rooms: a world map with its legend, then each room lists its references in date order with their themes', async ({ page }) => {
   await page.goto('#/en/scenes');
   await expect(page.locator('main h1')).toHaveText('Rooms');
-  await expect(page.locator('.study-scenes__card')).toHaveCount(SCENES.length);
-  await page.goto('#/en/scene/japan');
+  await expect(page.locator('.world-map__legend tbody tr')).toHaveCount(SCENES.length);
+  await expect(page.locator('.world-map__room')).toHaveCount(THEME_SCENES.length);
+  await page.locator('.world-map__room[data-scene="italy"] .world-map__label text').first().click();
+  await expect(page).toHaveURL(/#\/en\/scene\/italy$/);
+  await page.goto('#/en/scenes');
+  await page.locator('.world-map__legend').getByRole('link', { name: 'Japan' }).click();
+  await expect(page).toHaveURL(/#\/en\/scene\/japan$/);
   await expect(page).toHaveTitle('Japan — neobrutalistcomponents');
   await expect(page.locator('.study-timeline__year')).toHaveText(['1970', '1980', '1996']);
   await expect(page.locator('.study-timeline .site-card h3')).toHaveText(['Nakagin', 'Riso', 'Y2K']);
@@ -317,6 +322,15 @@ test('scenes: an index, then each scene lists its references in date order with 
   await page.goto('#/en/origins');
   await expect(page.locator('.study-essay__text h2').first()).toHaveText('Béton brut');
   await expect(page.locator('.study-timeline .site-card h3')).toHaveText(['Classic', 'Swiss']);
+});
+
+test('rooms: a focused legend row keeps its text and focus ring readable on the plate', async ({ page }) => {
+  for (const theme of ['classic', 'tech', 'whaam']) {
+    await page.goto(`?theme=${theme}#/en/scenes`);
+    await page.locator('.world-map__legend').getByRole('link', { name: 'Japan' }).focus();
+    const results = await new AxeBuilder({ page }).include('.world-map').withTags(['wcag2a', 'wcag2aa']).analyze();
+    expect(results.violations.map((v) => `${theme} ${v.id}`)).toEqual([]);
+  }
 });
 
 test('a study page whose essay cannot load says so instead of staying blank', async ({ page }) => {
