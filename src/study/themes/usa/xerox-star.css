@@ -6,6 +6,6 @@
 }
 
 :scope {
-  background-image: radial-gradient(var(--nbc-border-color) 1px, transparent 1px);
+  background-image: radial-gradient(color-mix(in srgb, var(--nbc-border-color) 30%, transparent) 1px, transparent 1px);
   background-size: 4px 4px;
 }
