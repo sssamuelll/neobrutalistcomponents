@@ -70,3 +70,11 @@ describe('the motion specimen speaks the page language (batch 1 review)', () => 
     expect(screen.getAllByRole('button', { name: 'Cerrar', hidden: true })).toHaveLength(2);
   });
 });
+
+describe('FichaExtras shows a bilingual lettering name in the page language', () => {
+  it('in English', () => {
+    const lettering = { ...FIXTURE.ficha.lettering!, original: { name: { es: 'Rótulos del interior', en: 'Interior lettering' }, kind: 'lettered' as const } };
+    renderExtras({ ...FIXTURE.ficha, lettering }, 'en');
+    expect(screen.getByText(/The work used: Interior lettering\./)).toBeInTheDocument();
+  });
+});

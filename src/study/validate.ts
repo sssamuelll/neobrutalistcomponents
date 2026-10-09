@@ -95,7 +95,11 @@ function letteringProblems(lettering: Lettering | undefined, where: string): str
     return problems;
   }
   problems.push(...l10nProblems(lettering.documented, `${at}.documented`));
-  if (!original.name?.trim()) problems.push(`${at}.original.name: empty`);
+  if (typeof original.name === 'string') {
+    if (!original.name.trim()) problems.push(`${at}.original.name: empty`);
+  } else {
+    problems.push(...l10nProblems(original.name, `${at}.original.name`));
+  }
   if (original.year !== undefined && !(Number.isInteger(original.year) && original.year >= 1400 && original.year <= 2100)) {
     problems.push(`${at}.original.year: ${original.year} is not a year`);
   }
@@ -244,7 +248,8 @@ function letteringThemeProblems(theme: StudyThemeInput): string[] {
       if (!substitute[lang]?.includes(family)) problems.push(`${id}.ficha.lettering.substitute.${lang}: does not name ${family}, the face the theme loads`);
     }
   }
-  if (original.kind !== 'none' && !original.free && families.some((family) => family.toLowerCase() === original.name.trim().toLowerCase())) {
+  const names = original.kind === 'none' ? [] : typeof original.name === 'string' ? [original.name] : LANGS.map((lang) => (original.name as L10n)[lang]);
+  if (original.kind !== 'none' && !original.free && families.some((family) => names.some((name) => family.toLowerCase() === name.trim().toLowerCase()))) {
     problems.push(`${id}.ficha.lettering: the substitute is the original face "${original.name}"`);
   }
   return problems;

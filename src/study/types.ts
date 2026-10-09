@@ -215,7 +215,8 @@ export type LetteringKind = (typeof LETTERING_KINDS)[number];
 
 /** The face a work set its text in. */
 export interface LetteringFace {
-  readonly name: string;
+  /** The face's name, or { es, en } when the letters have no name and must be described. */
+  readonly name: string | L10n;
   readonly designer?: string;
   readonly year?: number;
   readonly kind: Exclude<LetteringKind, 'none'>;

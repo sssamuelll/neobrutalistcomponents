@@ -57,9 +57,9 @@ export default defineTheme({
       },
     },
     lettering: {
-      original: { name: 'MEMPHIS / MADE IN ITALY MILANO / ETTORE SOTTSASS / 1981', kind: 'outline' },
+      original: { name: 'MEMPHIS / MADE IN ITALY MILANO / ETTORE SOTTSASS / 1981', kind: 'lettered' },
       documented: {
-        es: 'El ejemplar de la National Gallery of Victoria lleva al dorso del cajonero una etiqueta de metal impresa en tinta y perforada: MEMPHIS / MADE IN ITALY MILANO / ETTORE SOTTSASS / 1981, con el número 22 [1]. La ficha del museo no dice en qué letras está impresa ni si todos los ejemplares la llevan.',
+        es: 'El ejemplar de la National Gallery of Victoria lleva al dorso del cajonero una etiqueta de metal impresa en tinta y marcada con punzón: MEMPHIS / MADE IN ITALY MILANO / ETTORE SOTTSASS / 1981, con el número 22 [1]. La ficha del museo no dice en qué letras está impresa ni si todos los ejemplares la llevan.',
         en: 'The National Gallery of Victoria’s example carries on the back of its drawer cabinet a metal label printed in ink and punched: MEMPHIS / MADE IN ITALY MILANO / ETTORE SOTTSASS / 1981, numbered 22 [1]. The museum’s record does not say what letters it is printed in, or whether every example carries one.',
       },
       substitute: {

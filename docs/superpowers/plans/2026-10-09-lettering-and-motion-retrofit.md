@@ -135,7 +135,7 @@ Tasks 4, 8, 14, 19 and 23 apply it to their batch.
 
 - **G1. Review.** Dispatch a fresh reviewer (Agent tool, `model: opus`) with: the batch diff (`git diff main...HEAD`), the dossiers in `.superpowers/retrofit/`, this plan's Global Constraints and Review Focus. It checks every ficha sentence against its source quote, the honesty of each face choice, motion fidelity and the motion rules, and reports Critical / Important / Minor. Fix Critical and Important with a test where the finding is mechanical, by rewriting where it is prose; ledger Minor.
 - **G2.** `npm run check` → exit 0.
-- **G3.** `npx playwright test` → all pass; then `git status`: revert generated churn (`git checkout public/llms.txt public/llms-full.txt` when the diff is line endings only).
+- **G3.** `npx playwright test` → all pass; then `git status`: run `git diff --ignore-cr-at-eol --stat public/`: revert a file only when that shows nothing for it (line endings only); a real change (a theme's fonts, say) is generated content and is committed — CI's `verify` regenerates and diffs it.
 - **G4.** `git push -u origin <branch>`; `gh pr create` with, per theme: the original face, the substitute and why, motion yes/no and what, sources added.
 - **G5.** `gh pr checks <n> --watch` → `verify` and `e2e` pass.
 - **G6.** Merge only on the owner's word: `gh pr merge <n> --merge --delete-branch`, then `git checkout main && git pull --ff-only` before the next batch branches.

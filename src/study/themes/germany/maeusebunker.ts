@@ -27,6 +27,7 @@ export default defineTheme({
         accessed: '2026-10-05',
       },
       { title: 'Brutalist Mäusebunker building saved from demolition in Berlin', url: 'https://www.dezeen.com/2023/07/18/brutalist-mausebunker-saved-berlin/', publisher: 'Dezeen', year: 2023, accessed: '2026-10-05' },
+      { title: 'Barlow', url: 'https://github.com/jpt/barlow', publisher: 'Jeremy Tribby', accessed: '2026-10-09' },
     ],
     image: {
       file: 'maeusebunker.avif',
@@ -48,8 +49,8 @@ export default defineTheme({
       en: 'Gerd and Magdalena Hänska designed the building to breed laboratory animals for the Free University of Berlin; construction began in 1971 and it opened in February 1982 [1][2]. Its façade is made of storey-high precast concrete panels, some with triangular dormer windows, others with outlets for ventilation pipes [1]. The pipes are painted light blue to mark the fresh-air intake; the project site rejects the popular reading of a battleship with cannons [1]. It has been a listed monument since 2023 [2][3].',
     },
     reading: {
-      es: 'El tema está vaciado en ese hormigón: textura de encofrado detrás de la página y de cada losa, bordes de tinta de 3 px y una sombra desplazada de 6 px para la masa del edificio. Las acciones principales toman el azul claro de los tubos, y el acento ocre alude al código de colores del interior que describe el sitio del proyecto [1]. Es oscuro por defecto, leído aquí como el edificio de noche; los títulos van en una grotesca condensada y las etiquetas en mayúsculas, espaciadas como la rotulación técnica: una interpretación.',
-      en: 'The theme is cast in that concrete: board-marked texture behind the page and every slab, 3 px ink edges and a heavy 6 px offset shadow for the building’s mass. Primary actions take the pipes’ light blue, and the ochre accent nods to the interior colour code the project site describes [1]. It is dark by default, read here as the building at night; titles are set in a condensed grotesque and labels in capitals, spaced like technical lettering — an interpretation.',
+      es: 'El tema está vaciado en ese hormigón: textura de encofrado detrás de la página y de cada losa, bordes de tinta de 3 px y una sombra desplazada de 6 px para la masa del edificio. Las acciones principales toman el azul claro de los tubos, y el acento ocre alude al código de colores del interior que describe el sitio del proyecto [1]. Es oscuro por defecto, leído aquí como el edificio de noche; los títulos van en una grotesca condensada y las etiquetas en mayúsculas espaciadas, como los rótulos del interior.',
+      en: 'The theme is cast in that concrete: board-marked texture behind the page and every slab, 3 px ink edges and a heavy 6 px offset shadow for the building’s mass. Primary actions take the pipes’ light blue, and the ochre accent nods to the interior colour code the project site describes [1]. It is dark by default, read here as the building at night; titles are set in a condensed grotesque and labels in spaced capitals, like the interior lettering.',
     },
     palette: {
       origin: 'interpreted',
@@ -59,14 +60,14 @@ export default defineTheme({
       },
     },
     lettering: {
-      original: { name: 'Großformatige Beschriftung', kind: 'lettered' },
+      original: { name: { es: 'Rótulos de gran formato del interior', en: 'Large interior lettering' }, kind: 'lettered' },
       documented: {
-        es: 'Dentro del edificio, el concepto de color incluye rótulos de gran formato en las puertas de las zonas nuevas, los ascensores y las escaleras, y en los muros junto a los ascensores, siempre en mayúsculas blancas sin remates [1]. La fuente no nombra la tipografía ni quién la dibujó.',
-        en: 'Inside the building, the colour concept includes large lettering on the doors to new sections, lifts and stairwells, and on the walls by the lifts, always in white sans-serif capitals [1]. The source names neither the typeface nor who drew it.',
+        es: 'Dentro del edificio, el concepto de color incluye rótulos de gran formato en las puertas que dan paso a otra zona, a los ascensores y a las escaleras, y en los muros junto a los ascensores, siempre en mayúsculas blancas sin remates [1]. La fuente no nombra la tipografía ni quién la dibujó.',
+        en: 'Inside the building, the colour concept includes large lettering on the doors leading into another zone, to the lifts and to the stairwells, and on the walls by the lifts, always in white sans-serif capitals [1]. The source names neither the typeface nor who drew it.',
       },
       substitute: {
-        es: 'El tema usa Barlow para el texto y Barlow Condensed para los títulos, y pone títulos y etiquetas en mayúsculas, como esos rótulos. Son grotescas libres de dibujo técnico; en sus capitales sin remates vemos las de las puertas, aunque la tipografía original no está documentada.',
-        en: 'The theme uses Barlow for text and Barlow Condensed for titles, and sets titles and labels in capitals, like that lettering. They are free grotesques of technical drawing; in their sans-serif capitals we see those of the doors, though the original typeface is not documented.',
+        es: 'El tema usa Barlow para el texto y Barlow Condensed para los títulos, y pone títulos y etiquetas en mayúsculas, como esos rótulos. Barlow es una grotesca libre que toma el estilo de las placas, las señales de carretera y los autobuses de California [4]; en sus capitales sin remates vemos las de las puertas, aunque la tipografía original no está documentada.',
+        en: 'The theme uses Barlow for text and Barlow Condensed for titles, and sets titles and labels in capitals, like that lettering. Barlow is a free grotesque that takes after California’s number plates, highway signs and buses [4]; in its sans-serif capitals we see those of the doors, though the original typeface is not documented.',
       },
     },
   },
