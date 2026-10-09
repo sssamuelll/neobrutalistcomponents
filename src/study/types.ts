@@ -96,6 +96,12 @@ export interface StudyType {
   readonly displaySpacing?: string;
   /** font-stretch for display text. Default '100%'. */
   readonly displayStretch?: string;
+  /** CSS font-feature-settings: 'normal' or tags like '"tnum", "ss01" 1'. Default 'normal'. */
+  readonly featureSettings?: string;
+  /** font-kerning. Bitmap faces do not kern: use 'none'. Default 'auto'. */
+  readonly kerning?: 'auto' | 'normal' | 'none';
+  /** text-rendering. Default 'optimizeLegibility'. */
+  readonly textRendering?: 'auto' | 'optimizeSpeed' | 'optimizeLegibility' | 'geometricPrecision';
 }
 
 /** All values in px. */

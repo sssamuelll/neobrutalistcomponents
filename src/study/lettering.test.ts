@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { FIXTURE } from './__fixtures__/fixture';
+import { compileTokens } from './compile';
 import { LETTERING_PENDING, themeProblems } from './validate';
 import type { Ficha, StudyThemeInput } from './types';
 
@@ -82,5 +83,34 @@ describe('motion in the ficha', () => {
   it('motion text is checked like the rest of the ficha', () => {
     const ficha = { ...FIXTURE.ficha, motion: { ...motion, reading: { es: '', en: 'x' } } };
     expect(problems({ ficha, motionFile: './fixture.motion.css' })).toMatch(/motion\.reading\.es: empty/);
+  });
+});
+
+describe('typography fields', () => {
+  const type = (patch: Partial<StudyThemeInput['type']>) => ({ type: { ...FIXTURE.type, ...patch } });
+
+  it('compile to tokens, with defaults equal to today', () => {
+    const base = compileTokens(FIXTURE);
+    expect(base.get('--nbc-font-features')).toBe('normal');
+    expect(base.get('--nbc-font-kerning')).toBe('auto');
+    expect(base.get('--nbc-text-rendering')).toBe('optimizeLegibility');
+    const set = compileTokens({ ...FIXTURE, ...type({ featureSettings: '"tnum", "ss01" 1', kerning: 'none', textRendering: 'optimizeSpeed' }) });
+    expect(set.get('--nbc-font-features')).toBe('"tnum", "ss01" 1');
+    expect(set.get('--nbc-font-kerning')).toBe('none');
+    expect(set.get('--nbc-text-rendering')).toBe('optimizeSpeed');
+  });
+
+  it.each([
+    [{ featureSettings: 'tnum' }, /type\.featureSettings/],
+    [{ featureSettings: '"tnum"; color: red' }, /type\.featureSettings/],
+    [{ kerning: 'tight' as never }, /type\.kerning/],
+    [{ textRendering: 'fast' as never }, /type\.textRendering/],
+  ])('rejects %o', (patch, message) => {
+    expect(problems(type(patch))).toMatch(message);
+  });
+
+  it('accepts normal, tags and tags with values', () => {
+    expect(themeProblems({ ...FIXTURE, ...type({ featureSettings: 'normal' }) })).toEqual([]);
+    expect(themeProblems({ ...FIXTURE, ...type({ featureSettings: '"smcp", "tnum" 1' }) })).toEqual([]);
   });
 });

@@ -135,6 +135,9 @@ export function fichaProblems(ficha: Ficha, sourceCount: number, where: string):
 
 const SPACING = /^(normal|0|-?(\d+(\.\d+)?|\.\d+)(em|rem|px))$/;
 const STRETCH = /^\d+(\.\d+)?%$/;
+const FEATURES = /^(normal|"[A-Za-z0-9]{4}"(\s+\d+)?(\s*,\s*"[A-Za-z0-9]{4}"(\s+\d+)?)*)$/;
+const KERNINGS = ['auto', 'normal', 'none'];
+const RENDERINGS = ['auto', 'optimizeSpeed', 'optimizeLegibility', 'geometricPrecision'];
 const EASE =
   /^(linear|ease|ease-in|ease-out|ease-in-out|step-start|step-end|cubic-bezier\(\s*-?[\d.]+\s*(,\s*-?[\d.]+\s*){3}\)|steps\(\s*\d+\s*(,\s*(jump-start|jump-end|jump-none|jump-both|start|end)\s*)?\))$/;
 const TRANSFORMS = ['none', 'uppercase', 'lowercase'];
@@ -173,6 +176,15 @@ function valueProblems(theme: StudyThemeInput): string[] {
   }
   if (type.displayStretch !== undefined && !STRETCH.test(type.displayStretch)) {
     problems.push(`${id}.type.displayStretch: "${type.displayStretch}" must be a percentage`);
+  }
+  if (type.featureSettings !== undefined && !FEATURES.test(type.featureSettings)) {
+    problems.push(`${id}.type.featureSettings: "${type.featureSettings}" must be normal or OpenType tags in quotes, like "tnum", "ss01" 1`);
+  }
+  if (type.kerning !== undefined && !KERNINGS.includes(type.kerning)) {
+    problems.push(`${id}.type.kerning: "${type.kerning}" must be one of ${KERNINGS.join(', ')}`);
+  }
+  if (type.textRendering !== undefined && !RENDERINGS.includes(type.textRendering)) {
+    problems.push(`${id}.type.textRendering: "${type.textRendering}" must be one of ${RENDERINGS.join(', ')}`);
   }
   number(shape.borderWidth, 'shape.borderWidth', 0, 12, true);
   for (const key of ['radius', 'radiusControl', 'radiusButton', 'radiusSmall'] as const) number(shape[key], `shape.${key}`, 0, 999, true);

@@ -23,6 +23,9 @@ export const ENGINE_DEFAULTS = {
   displayTransform: 'none',
   displaySpacing: '-0.02em',
   displayStretch: '100%',
+  featureSettings: 'normal',
+  kerning: 'auto',
+  textRendering: 'optimizeLegibility',
   borderStyle: 'solid',
   rotate: 0,
   focus: { width: 3, offset: 2 },
@@ -165,6 +168,9 @@ export function compileTokens(theme: StudyThemeInput): Map<string, string> {
   tokens.set('--nbc-duration-slow', `${motion.durationSlow}ms`);
   tokens.set('--nbc-ease', motion.ease);
   tokens.set('--nbc-display-stretch', type.displayStretch ?? ENGINE_DEFAULTS.displayStretch);
+  tokens.set('--nbc-font-features', type.featureSettings ?? ENGINE_DEFAULTS.featureSettings);
+  tokens.set('--nbc-font-kerning', type.kerning ?? ENGINE_DEFAULTS.kerning);
+  tokens.set('--nbc-text-rendering', type.textRendering ?? ENGINE_DEFAULTS.textRendering);
   return tokens;
 }
 
