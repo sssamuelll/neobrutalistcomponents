@@ -79,10 +79,7 @@ export function referenceProblems(ref: Reference, where: string): string[] {
  * motion spec removes each id as it writes that theme's lettering; the list
  * never grows, and new themes are never in it.
  */
-export const LETTERING_PENDING: readonly string[] = [
-  'aqua', 'classifieds', 'iphone-os',
-  'material-design', 'whaam', 'win-xp',
-];
+export const LETTERING_PENDING: readonly string[] = ['classifieds', 'whaam'];
 
 function letteringProblems(lettering: Lettering | undefined, where: string): string[] {
   if (!lettering) return [];

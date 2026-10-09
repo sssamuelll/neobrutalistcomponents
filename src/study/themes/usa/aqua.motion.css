@@ -1,0 +1,35 @@
+/* Aqua: the default button's gel pulses (four times, then stops); sheets come out of the title bar. */
+@keyframes pulse {
+  0%,
+  100% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 0 100%;
+  }
+}
+
+@keyframes sheet {
+  from {
+    transform: translateY(-1.5rem);
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    transform: none;
+    clip-path: inset(0);
+  }
+}
+
+.nbc-button--primary {
+  background-size: 100% 200%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .nbc-button--primary {
+    animation: pulse 1.2s ease-in-out 4;
+  }
+
+  .nbc-dialog[open] {
+    animation: sheet 250ms ease-out;
+  }
+}

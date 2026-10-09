@@ -1,0 +1,7 @@
+/* iPhone OS 1: the switch's knob slides between its two positions. */
+@media (prefers-reduced-motion: no-preference) {
+  .nbc-switch__thumb {
+    transition-duration: 200ms;
+    transition-timing-function: ease-out;
+  }
+}

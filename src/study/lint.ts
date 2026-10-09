@@ -108,11 +108,11 @@ export function signatureLines(css: string): number {
   return stripComments(css).split('\n').filter((line) => line.trim()).length;
 }
 
-/** Signatures carry no animation (families are repo code, reviewed in the repo): motion lives in the motion file, where the lint can hold it. */
+/** Signatures carry no animation or transition (families are repo code, reviewed in the repo): motion lives in the motion file, where the lint can hold it. */
 export function lintNoMotion(css: string, where: string): string[] {
   const problems: string[] = [];
   for (const use of animationUses(css)) {
-    if (use.property.includes('animation') && use.value.trim() !== 'none') {
+    if (/animation|transition/.test(use.property) && use.value.trim() !== 'none') {
       problems.push(`${where}: "${use.selector}" sets ${use.property} — motion belongs in the motion file`);
     }
   }

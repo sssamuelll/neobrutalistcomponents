@@ -24,9 +24,13 @@ export const FONTS = {
   'dela-gothic-one': { family: 'Dela Gothic One', axes: '', fallback: 'sans', license: 'OFL-1.1', scripts: ['latin', 'japanese'] },
   'dm-mono': { family: 'DM Mono', axes: 'wght@400;500', fallback: 'mono', license: 'OFL-1.1', scripts: ['latin', 'latin-ext'] },
   dotgothic16: { family: 'DotGothic16', axes: '', fallback: 'sans', license: 'OFL-1.1', scripts: ['latin', 'japanese'] },
+  'fira-sans': { family: 'Fira Sans', axes: 'wght@700', fallback: 'sans', license: 'OFL-1.1', scripts: ['latin', 'latin-ext'] },
   jost: { family: 'Jost', axes: 'wght@500;700;900', fallback: 'sans', license: 'OFL-1.1', scripts: ['latin', 'latin-ext'] },
   'm-plus-1-code': { family: 'M PLUS 1 Code', axes: 'wght@400;500;700', fallback: 'mono', license: 'OFL-1.1', scripts: ['latin', 'japanese'] },
+  'noto-sans': { family: 'Noto Sans', axes: 'wght@400;600', fallback: 'sans', license: 'OFL-1.1', scripts: ['latin', 'latin-ext'] },
+  'open-sans': { family: 'Open Sans', axes: 'wght@400;600', fallback: 'sans', license: 'OFL-1.1', scripts: ['latin', 'latin-ext'] },
   'pixelify-sans': { family: 'Pixelify Sans', axes: 'wght@700', fallback: 'sans', license: 'OFL-1.1', scripts: ['latin', 'latin-ext'] },
+  roboto: { family: 'Roboto', axes: 'wght@400;500', fallback: 'sans', license: 'OFL-1.1', scripts: ['latin', 'latin-ext'] },
   workbench: { family: 'Workbench', axes: '', fallback: 'mono', license: 'OFL-1.1', scripts: ['latin'] },
   'zen-kaku-gothic-new': { family: 'Zen Kaku Gothic New', axes: 'wght@400;500;700;900', fallback: 'sans', license: 'OFL-1.1', scripts: ['latin', 'japanese'] },
 } as const satisfies Record<string, FontEntry>;
