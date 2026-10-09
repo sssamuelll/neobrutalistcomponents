@@ -32,6 +32,12 @@ What was *said* vs. what is *assumed* (assumptions were stated to the owner and 
 
 "Neobrutalism" as a UI label is mostly a 2020s Western web phenomenon. It descends from web brutalism (brutalistwebsites.com, 2014) and, further back, from architectural Brutalism. There is no documented "Japanese neobrutalist UI scene" as such, and the study must not invent one. What *is* documented, and what each scene studies, is the lineage of a region that feeds a brutalist interface vocabulary — e.g. Ulm and DIN signage in Germany, Metabolism and dense web portals in Japan, Paulista brutalism, concrete poetry and chicha posters in Latin America, accidental web brutalism and startup neobrutalism in the USA. Every theme is presented as **a reading** of its reference, never as "the official style of X". The rules that enforce this are in D7.
 
+### 1.2 Amended 2026-10-09: a gallery of interfaces
+
+After release 1.1.0 the owner widened the study (#20, #21, #22). The site is now a gallery of the history of interfaces, with neobrutalism at the centre of the collection. Software interfaces (Xerox Star, NeXTSTEP, Windows 95, Aqua, iPhone OS 1), buildings and objects (the Bauhaus building in Dessau, Sottsass's Carlton) and graphic works (Lichtenstein's *Whaam!*) hang beside the neobrutalist themes, in date order, grouped into rooms by region. Italy joins as a fifth room.
+
+What does not change is §1.1. Every theme still reads one documented work. Its ficha still separates sourced fact from reading. No work is presented as a forerunner of neobrutalism unless a source documents the link. D7's brand rule carries its own amendment.
+
 ---
 
 ## 2. The programme

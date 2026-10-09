@@ -295,10 +295,11 @@ test('theme page: when its data cannot load, it says so in an alert and links ba
   await expect(page).toHaveURL(/#\/es\/atlas$/);
 });
 
-test('study home: the gallery, one work per theme in date order, each linking to its room', async ({ page }) => {
+test('study home: the essay, then the gallery, one work per theme in date order, each linking to its room', async ({ page }) => {
   await page.goto('#/es/');
   await expect(page.locator('main h1')).toHaveText('La Galería de las Interfaces');
   await expect(page).toHaveTitle('La Galería — neobrutalistcomponents');
+  await expect(page.locator('.study-essay__text h2').first()).toHaveText('De dónde viene el nombre');
   await expect(page.locator('.gallery-work')).toHaveCount(CATALOG.length);
   await page.locator('.gallery-work', { hasText: 'Nakagin' }).getByRole('link', { name: 'Japón' }).click();
   await expect(page).toHaveURL(/#\/es\/scene\/japan$/);

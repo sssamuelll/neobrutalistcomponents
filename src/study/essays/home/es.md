@@ -4,6 +4,10 @@ Bordes gruesos, sombras duras de un solo color, colores planos y una estructura 
 
 La palabra empezó en la arquitectura. Le Corbusier llamó *béton brut* al hormigón que se deja a la vista, y fue su uso de la expresión lo que difundió el término brutalismo [2]. En la Gran Bretaña de los años cincuenta, arquitectos y críticos lo convirtieron en el *New Brutalism* [3]. En 2014 Pascal Deville lo llevó a la web: acuñó el término y fundó Brutalist Websites, un directorio de sitios que lo encarnan [4]. Ese directorio presenta el brutalismo web como la respuesta áspera de una generación más joven a un diseño web ligero, optimista y frívolo [5].
 
+## Cómo se recorre la galería
+
+El neobrutalismo es el centro de la colección. Junto a él cuelgan obras de otras épocas, desde un edificio de la Bauhaus hasta la primera interfaz del iPhone, pintadas con la misma librería y agrupadas en salas por región. Ninguna se presenta como antecedente del neobrutalismo. Cada una es una lectura propia, y colgadas por fecha dejan comparar cómo resolvió cada época los bordes, las sombras y el color.
+
 ## Cómo se lee cada tema
 
 La ficha de cada tema separa lo que dicen las fuentes de lo que el tema interpreta, y su paleta declara si los colores vienen de un documento, de una fotografía o de una lectura propia. Los temas no son disfraces: cambian la librería entera, componentes incluidos, sin tocar su geometría. Los controles miden 32, 40 o 48 píxeles en todos, y todos cumplen los contrastes de WCAG 2.2 en claro y en oscuro. Desde la página de cada tema se puede probar en todo el sitio.
