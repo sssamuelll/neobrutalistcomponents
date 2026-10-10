@@ -27,6 +27,8 @@ export default defineTheme({
         accessed: '2026-10-09',
       },
       { title: 'Whaam!', url: 'https://en.wikipedia.org/wiki/Whaam!', publisher: 'Wikipedia', accessed: '2026-10-09' },
+      { title: 'Bangers (description)', url: 'https://raw.githubusercontent.com/google/fonts/main/ofl/bangers/DESCRIPTION.en_us.html', publisher: 'Google Fonts', accessed: '2026-10-10' },
+      { title: 'Comic Neue (description)', url: 'https://raw.githubusercontent.com/google/fonts/main/ofl/comicneue/DESCRIPTION.en_us.html', publisher: 'Google Fonts', accessed: '2026-10-10' },
     ],
   },
   ficha: {
@@ -46,14 +48,14 @@ export default defineTheme({
       },
     },
     lettering: {
-      original: { name: { es: 'Rótulos de cómic repintados: el cartucho y WHAAM!', en: 'Repainted comic lettering: the caption and WHAAM!' }, designer: 'Roy Lichtenstein', year: 1963, kind: 'lettered' },
+      original: { name: { es: 'Rótulos de cómic repintados: el globo amarillo y WHAAM!', en: 'Repainted comic lettering: the yellow balloon and WHAAM!' }, designer: 'Roy Lichtenstein', year: 1963, kind: 'lettered' },
       documented: {
-        es: 'El dibujo preparatorio muestra que Lichtenstein cambió el original, también su texto [1]. En el cuadro, la onomatopeya WHAAM! se funde con la imagen a lo largo de una línea en zigzag y suena como una voz de fuera de cuadro que contesta al globo amarillo [1].',
-        en: 'The preparatory drawing shows that Lichtenstein changed the original, its text included [1]. In the painting, the onomatopoeia WHAAM! merges with the image along a zigzag line and sounds like a voice from outside the frame answering the yellow balloon [1].',
+        es: 'El dibujo preparatorio muestra que Lichtenstein cambió el original, también su texto [1]. Para la Tate, el WHAAM!, dispuesto en una línea quebrada y trabado con la imagen, habla desde fuera del cuadro, como si el artista contestara las palabras del globo [1].',
+        en: 'The preparatory drawing shows that Lichtenstein changed the original, its text included [1]. For Tate, the WHAAM!, laid along a jagged line and woven into the image, speaks from outside the picture, as if the artist were answering the words in the balloon [1].',
       },
       substitute: {
-        es: 'El tema usa Bangers para los títulos y Comic Neue para el texto, dos fuentes libres de rotulación de cómic. En las mayúsculas apretadas de Bangers vemos las de la onomatopeya, y en Comic Neue, la letra de los cartuchos; ninguna copia las letras que pintó Lichtenstein.',
-        en: 'The theme uses Bangers for titles and Comic Neue for text, two free comic-lettering faces. In Bangers’s tight capitals we see the onomatopoeia’s, and in Comic Neue, the hand of the captions; neither copies the letters Lichtenstein painted.',
+        es: 'El tema usa Bangers para los títulos y Comic Neue para el texto, dos fuentes libres. Bangers se dibujó a la manera de los rótulos de las portadas de superhéroes de mediados del siglo XX [4], y en sus mayúsculas estrechas e inclinadas vemos las de la onomatopeya; Comic Neue es una reinterpretación de Comic Sans [5] y pone el texto corrido en caja alta y baja. Ninguna copia las letras que pintó Lichtenstein.',
+        en: 'The theme uses Bangers for titles and Comic Neue for text, two free faces. Bangers was drawn after mid-20th-century superhero cover lettering [4], and in its narrow, slanted capitals we see the onomatopoeia’s; Comic Neue is a reinterpretation of Comic Sans [5] and sets running text in upper and lower case. Neither copies the letters Lichtenstein painted.',
       },
     },
   },
