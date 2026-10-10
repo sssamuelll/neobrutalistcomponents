@@ -18,6 +18,8 @@ export default defineTheme({
       { title: 'Aqua (user interface)', url: 'https://en.wikipedia.org/wiki/Aqua_(user_interface)', publisher: 'Wikipedia', accessed: '2026-10-09' },
       { title: 'Aqua', url: 'https://www.salon.com/2000/01/26/aqua/', publisher: 'Salon', year: 2000, accessed: '2026-10-09' },
       { title: 'Oral History of Bas Ording', url: 'https://www.computerhistory.org/collections/catalog/102738558', publisher: 'Computer History Museum', year: 2017, accessed: '2026-10-09' },
+      { title: 'A brief history of Mac system fonts', url: 'https://eclecticlight.co/2024/06/25/a-brief-history-of-mac-system-fonts/', publisher: 'The Eclectic Light Company', year: 2024, accessed: '2026-10-10' },
+      { title: 'Lucida Facts', url: 'https://web.archive.org/web/20140815105659/http://lucidafonts.com/pages/facts', publisher: 'Bigelow & Holmes (Internet Archive)', accessed: '2026-10-10' },
     ],
   },
   ficha: {
@@ -26,8 +28,8 @@ export default defineTheme({
       en: 'Apple presented Aqua on 5 January 2000 as a translucent, luminous look, with semi-transparent buttons, scroll bars and windows [2]. It drew on water, in blue, white and grey, with glossy gel-like controls and drop shadows, and early versions had finely striped backgrounds [3]. In Apple’s guidelines only the default button carries colour and pulses, the rest are drawn clear, and system text is set in 13-point Lucida Grande [1]. The window buttons were coloured like traffic lights [4], and Bas Ording worked on its animations and interactions [5].',
     },
     reading: {
-      es: 'El tema da a los botones un brillo de gel, un degradado que se corta a la mitad, y pone rayas horizontales finas en el fondo. Como en las guías, el azul se reserva para la acción principal. Las esquinas son redondas y los bordes de 1 px; el texto va en la sans del sistema, no en Lucida Grande.',
-      en: 'The theme gives buttons a gel shine, a gradient that breaks at the middle, and lays fine horizontal stripes over the background. As in the guidelines, blue is kept for the main action. Corners are round and borders 1 px; text is set in the system sans, not Lucida Grande.',
+      es: 'El tema da a los botones un brillo de gel, un degradado que se corta a la mitad, y pone rayas horizontales finas en el fondo. Como en las guías, el azul se reserva para la acción principal. Las esquinas son redondas y los bordes de 1 px; el texto va en Open Sans, en lugar de Lucida Grande.',
+      en: 'The theme gives buttons a gel shine, a gradient that breaks at the middle, and lays fine horizontal stripes over the background. As in the guidelines, blue is kept for the main action. Corners are round and borders 1 px; text is set in Open Sans, in place of Lucida Grande.',
     },
     palette: {
       origin: 'interpreted',
@@ -36,8 +38,29 @@ export default defineTheme({
         en: 'The guidelines name the Aqua appearance, in blue, and Graphite, but give no values; the tones are a reading.',
       },
     },
+    lettering: {
+      original: { name: 'Lucida Grande', designer: 'Charles Bigelow, Kris Holmes', kind: 'outline' },
+      documented: {
+        es: 'En las guías de Aqua, el texto del sistema va en Lucida Grande regular de 13 puntos, y el texto pequeño, en Lucida Grande regular de 11 [1]. Lucida Grande es de Charles Bigelow y Kris Holmes [6], y de ella Mac OS X trajo desde 2000 solo dos estilos, la regular y la negrita [7].',
+        en: 'In the Aqua guidelines, system text is set in 13-point Lucida Grande Regular, and small text in 11-point Lucida Grande Regular [1]. Lucida Grande is by Charles Bigelow and Kris Holmes [6], and from 2000 Mac OS X carried just two of its styles, regular and bold [7].',
+      },
+      substitute: {
+        es: 'El tema usa Open Sans, una sans humanista libre, para el texto y los títulos. En sus formas abiertas y su ojo grande vemos los de Lucida Grande, aunque Open Sans es más regular y no copia las letras de Bigelow y Holmes.',
+        en: 'The theme uses Open Sans, a free humanist sans, for text and titles. In its open forms and large x-height we see Lucida Grande’s, though Open Sans is more regular and does not copy Bigelow and Holmes’s letters.',
+      },
+    },
+    motion: {
+      documented: {
+        es: 'En las guías de Aqua, el botón por defecto de un diálogo tiene color y late, y las hojas se despliegan como si brotaran de la barra de título de la ventana; la barra de progreso indeterminada es un cilindro de rayas que gira [1].',
+        en: 'In the Aqua guidelines, a dialog’s default button has colour and pulses, and sheets unfold as if they sprang from the window’s title bar; the indeterminate progress bar is a striped cylinder that spins [1].',
+      },
+      reading: {
+        es: 'El tema hace latir el brillo del gel del botón principal cuatro veces, en unos cinco segundos, y se detiene: un latido sin fin necesitaría un control para pararlo. Los diálogos bajan desde el borde superior, como una hoja que sale de la barra de título; el cilindro no tiene equivalente y queda la barra de la librería. Ninguna fuente que pudimos verificar da el ritmo del latido ni la duración de la hoja; son del tema.',
+        en: 'The theme makes the shine of the primary button’s gel pulse four times, over about five seconds, and stops: an endless pulse would need a control to halt it. Dialogs come down from the top edge, like a sheet out of the title bar; the cylinder has no counterpart and the library’s bar remains. No source we could verify gives the pulse’s rhythm or the sheet’s duration; they are the theme’s.',
+      },
+    },
   },
-  fonts: 'system-sans',
+  fonts: { sans: 'open-sans' },
   colors: {
     bg: ['#f4f5f6', '#161719'],
     fg: ['#1a1c20', '#e6e8eb'],
@@ -59,9 +82,10 @@ export default defineTheme({
     dangerFg: ['#ffffff', '#1a0505'],
     focus: ['#2862a9', '#8cb5f2'],
   },
-  type: { weightBody: 400, weightLabel: 600, weightDisplay: 600 },
+  type: { weightBody: 400, weightLabel: 400, weightDisplay: 600 },
   shape: { borderWidth: 1, radius: 8, radiusControl: 16, radiusButton: 20, radiusSmall: 4 },
   elevation: flat(),
-  motion: { duration: 300, durationSlow: 500, ease: 'cubic-bezier(0.25, 1, 0.5, 1)' },
+  motion: { duration: 0, durationSlow: 0, ease: 'linear' },
   signature: './aqua.css',
+  motionFile: './aqua.motion.css',
 });

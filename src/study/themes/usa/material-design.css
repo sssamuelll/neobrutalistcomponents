@@ -1,8 +1,7 @@
-/* Material Design signature: soft shadows and ripple effect (simulated via active state) */
+/* Material Design signature: soft shadows that grow on hover and press (the motion lives in the motion file). */
 .nbc-button,
 .nbc-card {
   box-shadow: 0 2px 2px 0 color-mix(in srgb, var(--nbc-fg) 14%, transparent), 0 3px 1px -2px color-mix(in srgb, var(--nbc-fg) 12%, transparent), 0 1px 5px 0 color-mix(in srgb, var(--nbc-fg) 20%, transparent);
-  transition: box-shadow 0.25s cubic-bezier(0.4, 0.0, 0.2, 1), transform 0.25s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
 .nbc-button:hover,
@@ -12,4 +11,8 @@
 
 .nbc-button:active {
   box-shadow: 0 8px 10px 1px color-mix(in srgb, var(--nbc-fg) 14%, transparent), 0 3px 14px 2px color-mix(in srgb, var(--nbc-fg) 12%, transparent), 0 5px 5px -3px color-mix(in srgb, var(--nbc-fg) 20%, transparent);
+}
+
+.nbc-button {
+  text-transform: uppercase;
 }

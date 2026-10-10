@@ -1,0 +1,44 @@
+/* Material Design (2014): ink spreads on press; dialogs enter on the deceleration curve; shadows change at once. */
+@keyframes ink {
+  from {
+    transform: scale(0);
+    opacity: 0.4;
+  }
+  to {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+@keyframes enter {
+  from { transform: scale(0.95); }
+  to { transform: none; }
+}
+
+.nbc-button {
+  overflow: hidden;
+}
+
+.nbc-button::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: color-mix(in srgb, currentColor 35%, transparent);
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .nbc-button {
+    transition-property: transform;
+  }
+
+  .nbc-button:active::after {
+    animation: ink 225ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .nbc-dialog[open] {
+    animation: enter 200ms cubic-bezier(0, 0, 0.2, 1);
+  }
+}

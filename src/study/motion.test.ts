@@ -114,6 +114,11 @@ describe("signatures carry no motion", () => {
     expect(lintSignature('@keyframes x { to { opacity: 0; } }', 's').join('\n')).toMatch(/motion belongs in the motion file/);
     expect(lintSignature('.nbc-card { color: var(--nbc-fg); }', 's')).toEqual([]);
   });
+
+  it('lintSignature rejects transitions too', () => {
+    expect(lintSignature('.nbc-button { transition: transform 1s; }', 's').join(' ')).toMatch(/motion belongs in the motion file/);
+    expect(lintSignature('.nbc-button { transition: none; }', 's')).toEqual([]);
+  });
 });
 
 describe('only loading indicators loop forever (WCAG 2.2.2)', () => {
