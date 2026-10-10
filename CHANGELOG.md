@@ -3,6 +3,7 @@
 ## Unreleased
 
 ### Added
+- Study: the sixteen themes document their work's lettering and load a free face chosen for a stated resemblance (or say there is none to imitate); the themes whose work moved animate as it did — Mac OS System 7, Windows 95, Windows XP, Aqua, iPhone OS and Material Design — and the rest stand still. Every study theme now requires lettering, and a still work uses 0 ms. The theme page shows a motion specimen; `npm run check:links` checks sources, font licences and research quotes.
 - Study: the ficha gains `lettering` (the original face, what was documented, the free substitute) and `motion` (documented movement), validated like the rest of the ficha. Themes may declare a `<id>.motion.css`, linted to 40 lines, five animatable properties and a `prefers-reduced-motion: no-preference` guard. `StudyType` gains `featureSettings`, `kerning` and `textRendering`. The theme page shows both sections.
 
 ### Changed

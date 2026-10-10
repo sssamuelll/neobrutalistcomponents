@@ -246,7 +246,7 @@ export interface Ficha {
   /** 2–4 sentences of interpretation: what the theme takes from the reference, and why. */
   readonly reading: L10n;
   readonly palette: { readonly origin: PaletteOrigin; readonly note: L10n };
-  /** Required of study themes by the validator (see LETTERING_PENDING); optional here so core fichas stay valid. */
+  /** Required of study themes (StudyThemeInput); optional here so core fichas stay valid. */
   readonly lettering?: Lettering;
   /** Present exactly when the theme has a motionFile. */
   readonly motion?: MotionFicha;
@@ -265,7 +265,7 @@ export interface StudyThemeInput {
   readonly name: L10n;
   readonly tagline: L10n;
   readonly reference: Reference;
-  readonly ficha: Ficha;
+  readonly ficha: Ficha & { readonly lettering: Lettering };
   readonly fonts: StudyFonts;
   readonly colors: StudyColors;
   readonly fills?: StudyFills;

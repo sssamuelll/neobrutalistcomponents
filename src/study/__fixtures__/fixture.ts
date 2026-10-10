@@ -54,4 +54,5 @@ export const FIXTURE = defineTheme({
   type: { weightBody: 400, weightLabel: 600, weightDisplay: 800 },
   shape: { borderWidth: 3, radius: 0, radiusControl: 0, radiusButton: 0, radiusSmall: 0 },
   elevation: hardShadow(4),
+  motion: { duration: 0, durationSlow: 0, ease: 'linear' },
 });
