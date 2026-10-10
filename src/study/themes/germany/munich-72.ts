@@ -1,0 +1,95 @@
+import { defineTheme, flat } from '../../define';
+
+export default defineTheme({
+  id: 'munich-72',
+  scene: 'germany',
+  nativeScheme: 'light',
+  name: { es: 'Múnich 72', en: 'Munich 72' },
+  tagline: { es: 'Azul claro y blanco, sin el rojo ni el negro de 1936.', en: 'Light blue and white, without the red and black of 1936.' },
+  reference: {
+    title: { es: 'Diseño visual de los Juegos Olímpicos de Múnich 1972', en: 'Visual design of the 1972 Munich Olympic Games' },
+    original: { text: 'Visuelles Erscheinungsbild der Olympischen Spiele München 1972', lang: 'de' },
+    authors: ['Otl Aicher'],
+    date: [1968, 1972],
+    place: { es: 'Múnich, Alemania', en: 'Munich, Germany' },
+    kind: 'graphic',
+    sources: [
+      { title: 'München-72-Designer Otl Aicher: Der Regenbogenmann', url: 'https://www.t-online.de/sport/mehr-sport/id_100043502/muenchen-72-designer-otl-aicher-der-regenbogenmann.html', publisher: 't-online', accessed: '2026-10-10' },
+      { title: 'Otl Aicher: a visual communication innovator', url: 'https://languagecollections-blog.lib.cam.ac.uk/2022/05/13/otl-aicher-a-visual-communication-innovator/', publisher: 'Cambridge University Library, Languages across Borders', year: 2022, accessed: '2026-10-10' },
+      {
+        title: 'From inventing colours to designing the Olympic Games, we take a look at the extraordinary work of Otl Aicher',
+        url: 'https://www.itsnicethat.com/features/otl-aicher-design-type-thinking-graphic-design-270622',
+        publisher: 'It’s Nice That',
+        year: 2022,
+        accessed: '2026-10-10',
+      },
+      { title: 'Munich Olympics archive (exhibition text)', url: 'https://www.posterhouse.org/wp-content/uploads/2024/04/PH_Exh_Munich-Olympics_Archive.pdf', publisher: 'Poster House', accessed: '2026-10-10' },
+    ],
+    image: {
+      file: 'munich-72.avif',
+      width: 1600,
+      height: 888,
+      alt: {
+        es: 'Dos pictogramas de Otl Aicher, en blanco sobre paneles verdes del estadio olímpico de Múnich: una figura que corre y otra que patea un balón.',
+        en: 'Two of Otl Aicher’s pictograms, white on green panels at the Munich Olympic stadium: a running figure and one kicking a ball.',
+      },
+      author: 'Henning Schlottmann (User:H-stt)',
+      license: 'CC-BY-1.0',
+      sourceUrl: 'https://commons.wikimedia.org/wiki/File:Olympic_games_1972_pictogramms_olympic_station_0877.JPG',
+    },
+  },
+  ficha: {
+    documented: {
+      es: 'El Comité Olímpico Nacional alemán nombró a Otl Aicher responsable del diseño de los Juegos de 1972, con el encargo de darles un diseño de conjunto, y en mayo de 1968 aprobó por unanimidad su propuesta para la imagen visual [1]. Su paleta esquivó el rojo y el negro nacionalistas de Berlín 1936: dominaban el azul claro y el blanco, a los que se sumaban verde, naranja y amarillo, y la letra fue Univers [2]. Sus pictogramas desarrollaban los símbolos que Masaru Katsumi había hecho para Tokio 1964 [1].',
+      en: 'The German National Olympic Committee named Otl Aicher head of design for the 1972 Games, charged with giving them a design as a whole, and in May 1968 it approved his proposal for the visual identity unanimously [1]. His palette avoided the nationalist red and black of Berlin 1936: light blue and white dominated, joined by green, orange and yellow, and the typeface was Univers [2]. His pictograms developed the symbols Masaru Katsumi had made for Tokyo 1964 [1].',
+    },
+    reading: {
+      es: 'El tema toma la regla de la paleta: azul claro y blanco como base, verde y naranja en el acento y en los estados, y ni rojo ni negro; el texto va en azul oscuro y los errores en un naranja oscuro. La fotografía, de 2012, muestra dos pictogramas blancos sobre paneles verdes en el estadio. Esquinas rectas, sin sombras; nada se mueve.',
+      en: 'The theme takes the palette’s rule: light blue and white as the base, green and orange on the accent and the states, and neither red nor black; text is set in dark blue and errors in a dark orange. The photograph, from 2012, shows two white pictograms on green panels at the stadium. Square corners, no shadows; nothing moves.',
+    },
+    palette: {
+      origin: 'documented',
+      note: {
+        es: 'It’s Nice That nombra como colores principales un azul brillante y el blanco, con plata, verde claro, naranja, azul oscuro, verde oscuro y un naranja muy claro [3]; ninguna fuente que consultamos da sus valores, que son una lectura del tema.',
+        en: 'It’s Nice That names a bright blue and white as the main colours, with silver, light green, orange, dark blue, dark green and a very light orange [3]; no source we consulted gives their values, which are the theme’s reading.',
+      },
+    },
+    lettering: {
+      original: { name: 'Univers', designer: 'Adrian Frutiger', year: 1957, kind: 'outline' },
+      documented: {
+        es: 'La letra de los Juegos fue Univers [2], la familia de palo seco que el tipógrafo suizo Adrian Frutiger publicó en 1957 [4]. Los críticos conservadores de Aicher le reprocharon que no fuera una letra alemana [1]. Ninguna fuente que consultamos dice qué pesos de Univers se usaron.',
+        en: 'The Games’ typeface was Univers [2], the sans-serif family the Swiss typographer Adrian Frutiger released in 1957 [4]. Aicher’s conservative critics held against him that it was not a German typeface [1]. No source we consulted says which weights of Univers were used.',
+      },
+      substitute: {
+        es: 'El tema usa Inter, una grotesca libre de proporciones parejas y terminales horizontales, para todo el texto; busca la sobriedad de Univers sin copiar sus formas, y difiere en letras como la a, la G y la R.',
+        en: 'The theme uses Inter, a free grotesque with even proportions and horizontal terminals, for all text; it aims for Univers’ sobriety without copying its shapes, and differs in letters such as a, G and R.',
+      },
+    },
+  },
+  fonts: { sans: 'inter' },
+  colors: {
+    bg: ['#ffffff', '#0b2a4a'],
+    fg: ['#0b2a4a', '#ffffff'],
+    fgMuted: ['#3d5672', '#c4d6e8'],
+    surface: ['#f4f9fd', '#10355c'],
+    surfaceAlt: ['#dceefa', '#16426f'],
+    border: ['#0b2a4a', '#e6f2fb'],
+    primary: ['#0077b6', '#4fb3e8'],
+    primaryFg: 'auto',
+    accent: ['#2eb135', '#7ed37f'],
+    accentFg: 'auto',
+    info: ['#0077b6', '#4fb3e8'],
+    infoFg: 'auto',
+    success: ['#00754a', '#7ed37f'],
+    successFg: 'auto',
+    warning: ['#f39200', '#ffb347'],
+    warningFg: 'auto',
+    danger: ['#8a2c0d', '#ff9a6b'],
+    dangerFg: 'auto',
+    focus: ['#0b2a4a', '#ffb347'],
+  },
+  type: { weightBody: 400, weightLabel: 700, weightDisplay: 700 },
+  shape: { borderWidth: 2, radius: 0, radiusControl: 0, radiusButton: 0, radiusSmall: 0 },
+  elevation: flat(),
+  motion: { duration: 0, durationSlow: 0, ease: 'linear' },
+});

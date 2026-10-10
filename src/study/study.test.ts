@@ -28,7 +28,7 @@ describe('study registry', () => {
 });
 
 /** The proof themes of sub-project 1. Each proof-theme task adds its id. */
-const PROOF_THEMES = ['amiga-os', 'aqua', 'bauhaus-dessau', 'caracas-signage', 'carlton', 'classifieds', 'create-two-three-many-vietnams', 'dragon-quest', 'iphone-os', 'loteria', 'mac-os-classic', 'maeusebunker', 'material-design', 'nakagin', 'nextstep', 'sesc-pompeia', 'super-mario-bros', 'tokyo-1964', 'whaam', 'win-xp', 'win95', 'xerox-star'];
+const PROOF_THEMES = ['amiga-os', 'aqua', 'bauhaus-dessau', 'caracas-signage', 'carlton', 'classifieds', 'create-two-three-many-vietnams', 'din-1451', 'dragon-quest', 'iphone-os', 'lettera-22', 'loteria', 'mac-os-classic', 'maeusebunker', 'material-design', 'munich-72', 'nakagin', 'nextstep', 'sesc-pompeia', 'super-mario-bros', 'tokyo-1964', 'whaam', 'win-xp', 'win95', 'xerox-star'];
 
 describe('proof themes', () => {
   it('are all in the registry', () => {
