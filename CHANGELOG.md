@@ -1,14 +1,30 @@
 # Changelog
 
-## Unreleased
+## 1.3.0 — 2026-10-10
+
+Lettering and motion: every study theme documents the letters of its work, and the works that moved move. Thirteen new works, in every room.
 
 ### Added
+- Thirteen study themes, each read from one documented work, with its lettering. Use them like the others: `themes/<id>.css` plus `themes/<id>.fonts.css`.
+  - Japan: `tokyo-1964` (Yusaku Kamekura's poster for the Tokyo 1964 Olympics, 1961), `super-mario-bros` (Super Mario Bros., 1985), `dragon-quest` (Dragon Quest, 1986).
+  - Latin America: `loteria` (the Mexican lotería deck, 1887), `create-two-three-many-vietnams` (Alfredo Rostgaard's OSPAAAL poster, 1967), `caracas-signage` (the Caracas metro's signage, 1983).
+  - Italy: `lettera-22` (the Olivetti Lettera 22, 1950).
+  - Germany: `din-1451` (DIN 1451, 1931–36), `munich-72` (the visual design of the Munich 1972 Olympics, 1966–72).
+  - United States: `atari-gem` (GEM on the Atari ST, 1985), `win31` (Windows 3.1, 1992), `palm-os` (Palm OS on the Pilot, 1996), `beos` (BeOS 5, 2000).
+  - Dragon Quest prints a dialog's text in steps, and GEM grows the dialog from a small box, as their sources describe; the timings are the themes'.
 - Study: the sixteen themes document their work's lettering. Thirteen load a free face: the original where it is free (Roboto), otherwise one chosen for a stated resemblance or, where nothing documents the letters, for the reading; Carlton, Xerox Star and Classifieds keep the system's font. The six whose work moved (Mac OS System 7, Windows 95, Windows XP, Aqua, iPhone OS, Material Design) animate that movement on the components that can carry it, with timings each ficha marks as the theme's where no source gives one; the rest stand still apart from loading indicators. Every study theme now requires lettering, and a still work uses 0 ms. The theme page shows a motion specimen; `npm run check:links` checks sources, font licences and research quotes.
 - Study: the ficha gains `lettering` (the original face, what was documented, the free substitute) and `motion` (documented movement), validated like the rest of the ficha. Themes may declare a `<id>.motion.css`, linted to 40 lines, five animatable properties and a `prefers-reduced-motion: no-preference` guard. `StudyType` gains `featureSettings`, `kerning` and `textRendering`. The theme page shows both sections.
 
 ### Changed
 - Docs site: the Rooms page is a world map. Each room is a region on a dot map of Natural Earth's 1:110m geography in the Equal Earth projection; the legend beneath it lists rooms, works and years, and is the keyboard and screen-reader path. Pointing at a region or a row highlights both.
 - Docs site: the home page shows the study's essay again, between the hero and the collection, and loads each work's theme as it nears the screen (453 KB on arrival instead of 1,057 KB).
+
+### Fixed
+- Docs site: fixed heavy weights (600, 700, `bold`) in the site's styles now follow the theme's label weight, so a single-weight face is never given a faked bold.
+- Study: `mac-os-classic` turns ligatures off; Pixelify Sans drew fi and fl almost like an A.
+- Study: a palette note's citation markers count as citations and must point to a source.
+- Study: images under CC BY 1.0 and CC BY-SA 1.0 are accepted, like later versions.
+- `npm run check:links` reads a new work's facts and palette quotes, and names the cause of a failed fetch.
 
 ## 1.2.0 — 2026-10-09
 

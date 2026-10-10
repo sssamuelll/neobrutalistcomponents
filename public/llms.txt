@@ -2,7 +2,7 @@
 
 > Brutalist React components. Core and study themes, light and dark, one token contract. React 19, zero runtime dependencies, cascade-layered CSS driven by a closed --nbc-* token contract.
 
-Version 1.2.0. Install with `npm install neobrutalistcomponents`, import `neobrutalistcomponents/styles.css` plus one theme stylesheet, and wrap the app in `<NeoProvider theme="…">`.
+Version 1.3.0. Install with `npm install neobrutalistcomponents`, import `neobrutalistcomponents/styles.css` plus one theme stylesheet, and wrap the app in `<NeoProvider theme="…">`.
 
 ## Docs
 

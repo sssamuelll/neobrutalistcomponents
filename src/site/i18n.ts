@@ -69,8 +69,8 @@ export const UI = {
   },
   useHeading: { es: 'Usarlos en tu app', en: 'Use them in your app' },
   useBody: {
-    es: 'Un tema del estudio es un tema más de la librería: importa su hoja de estilos y pasa su id a NeoProvider. Instala la versión 1.2.0 o posterior para tener todos los temas del estudio.',
-    en: 'A study theme is one more library theme: import its stylesheet and pass its id to NeoProvider. Install version 1.2.0 or later to have every study theme.',
+    es: 'Un tema del estudio es un tema más de la librería: importa su hoja de estilos y pasa su id a NeoProvider. Instala la versión 1.3.0 o posterior para tener todos los temas del estudio.',
+    en: 'A study theme is one more library theme: import its stylesheet and pass its id to NeoProvider. Install version 1.3.0 or later to have every study theme.',
   },
 
   // Gallery (home)
@@ -182,7 +182,7 @@ export const UI = {
   specimenHeading: { es: 'El tema en uso', en: 'The theme at work' },
   tokensHeading: { es: 'Tokens y contraste', en: 'Tokens and contrast' },
   installHeading: { es: 'Instalar', en: 'Install' },
-  installStudyNote: { es: 'Disponible en neobrutalistcomponents 1.2.0.', en: 'Available in neobrutalistcomponents 1.2.0.' },
+  installStudyNote: { es: 'Disponible en neobrutalistcomponents 1.3.0.', en: 'Available in neobrutalistcomponents 1.3.0.' },
   useAcrossSite: { es: 'Usar en todo el sitio', en: 'Use across the site' },
   inUse: { es: 'En uso en todo el sitio', en: 'In use across the site' },
   previousTheme: { es: 'Anterior', en: 'Previous' },
