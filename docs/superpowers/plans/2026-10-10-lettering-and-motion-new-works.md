@@ -51,7 +51,7 @@ The Caracas Metro is a live public service, and D7 forbids a live service from n
 | `src/study/fonts.ts` | faces the new themes need |
 | `src/study/study.test.ts` | `PROOF_THEMES` gains each id |
 | `public/llms-full.txt` | regenerated; committed when its content changes |
-| `package.json`, `CHANGELOG.md` | Task 14 (release) |
+| `package.json`, `CHANGELOG.md` | Task 19 (release) |
 
 ## The new-work protocol (N1–N11)
 
