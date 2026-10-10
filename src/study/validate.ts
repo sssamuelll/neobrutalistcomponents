@@ -106,6 +106,7 @@ function prose(ficha: Ficha): L10n[] {
   return [
     ficha.documented,
     ficha.reading,
+    ...(ficha.palette?.note ? [ficha.palette.note] : []),
     ...(ficha.lettering ? [ficha.lettering.documented, ficha.lettering.substitute].filter((block): block is L10n => block !== undefined) : []),
     ...(ficha.motion ? [ficha.motion.documented, ficha.motion.reading] : []),
   ];
