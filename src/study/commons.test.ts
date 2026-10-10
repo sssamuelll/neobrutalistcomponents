@@ -5,6 +5,8 @@ describe('Commons helpers', () => {
   it.each([
     ['CC BY-SA 4.0', 'CC-BY-SA-4.0'],
     ['CC BY 2.0', 'CC-BY-2.0'],
+    ['CC BY 1.0', 'CC-BY-1.0'],
+    ['CC BY-SA 1.0', 'CC-BY-SA-1.0'],
     ['cc by-sa 3.0', 'CC-BY-SA-3.0'],
     ['CC0', 'CC0-1.0'],
     ['Public domain', 'PD'],
