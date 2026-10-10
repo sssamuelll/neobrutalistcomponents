@@ -8,7 +8,7 @@ export default defineTheme({
   tagline: { es: 'Blanco y negro a 640 × 400, y una caja que crece al abrirse.', en: 'Black and white at 640 × 400, and a box that grows as it opens.' },
   reference: {
     title: { es: 'El escritorio GEM del Atari ST (TOS 1.0)', en: 'The GEM desktop on the Atari ST (TOS 1.0)' },
-    authors: ['Digital Research', 'Atari'],
+    authors: ['Digital Research'],
     date: 1985,
     place: { es: 'Estados Unidos', en: 'United States' },
     kind: 'software',
@@ -35,8 +35,8 @@ export default defineTheme({
       width: 640,
       height: 399,
       alt: {
-        es: 'Captura de TOS 1.00 en modo monocromo: la barra de menús Desk, File, View y Options, iconos de disquetes, disco duro y papelera, y el diálogo «SET PREFERENCES» con los botones Yes y High marcados en negro.',
-        en: 'A screenshot of TOS 1.00 in monochrome mode: the Desk, File, View and Options menu bar, icons for floppy disks, a hard disk and the trash, and the “SET PREFERENCES” dialog with the Yes and High buttons selected in black.',
+        es: 'Captura de TOS 1.00 en modo monocromo: la barra de menús Desk, File, View y Options, iconos de disquetes, disco duro, cartucho y papelera, y el diálogo «SET PREFERENCES» con los botones Yes y High marcados en negro.',
+        en: 'A screenshot of TOS 1.00 in monochrome mode: the Desk, File, View and Options menu bar, icons for floppy disks, a hard disk, a cartridge and the trash, and the “SET PREFERENCES” dialog with the Yes and High buttons selected in black.',
       },
       author: 'MJaap',
       license: 'CC-BY-SA-4.0',
@@ -45,8 +45,8 @@ export default defineTheme({
   },
   ficha: {
     documented: {
-      es: 'El Atari ST empezó a fabricarse en 1985, y su sistema tiene dos partes: TOS, una versión adaptada de CP/M que hizo Digital Research, y GEM, la interfaz gráfica que corre encima; las dos van enteras en la ROM [1]. Con un monitor monocromo especial, GEM trabaja en alta resolución, 640 × 400 en dos colores; las resoluciones baja y media son 320 × 200 con 16 colores y 640 × 200 con cuatro [1]. Para las pantallas monocromas, la guía de programación de GEM fija el blanco en el índice 0 y el negro en el 1 [2].',
-      en: 'The Atari ST went into production in 1985, and its system has two parts: TOS, an adapted version of CP/M made by Digital Research, and GEM, the graphical interface that runs on top; both sit entirely in ROM [1]. With a special monochrome monitor, GEM runs in high resolution, 640 × 400 in two colours; low and medium resolution are 320 × 200 with 16 colours and 640 × 200 with four [1]. For monochrome screens, GEM’s programming guide puts white at index 0 and black at index 1 [2].',
+      es: 'El Atari ST empezó a fabricarse en 1985, y su sistema tiene dos partes: TOS, que la galería Toasty Tech describe como una especie de CP/M adaptado que proporcionó Digital Research, y GEM, la interfaz gráfica que corre encima; las dos van enteras en la ROM [1]. Con un monitor monocromo especial, GEM trabaja en alta resolución, 640 × 400 en dos colores; las resoluciones baja y media son 320 × 200 con 16 colores y 640 × 200 con cuatro [1]. Para las pantallas monocromas, la guía de programación de GEM fija el blanco en el índice 0 y el negro en el 1 [2].',
+      en: 'The Atari ST went into production in 1985, and its system has two parts: TOS, which the Toasty Tech gallery describes as a kind of customised CP/M supplied by Digital Research, and GEM, the graphical interface that runs on top; both sit entirely in ROM [1]. With a special monochrome monitor, GEM runs in high resolution, 640 × 400 in two colours; low and medium resolution are 320 × 200 with 16 colours and 640 × 200 with four [1]. For monochrome screens, GEM’s programming guide puts white at index 0 and black at index 1 [2].',
     },
     reading: {
       es: 'El tema toma la alta resolución monocroma: fondo blanco, letras y bordes negros, y la opción elegida en negro con letras blancas, como los botones marcados del diálogo de la captura, una imagen de TOS 1.00 en modo monocromo hecha en 2021. El gris del tema hace las veces de la trama de puntos del escritorio, y los colores de los estados son del tema.',
@@ -60,7 +60,7 @@ export default defineTheme({
       },
     },
     lettering: {
-      original: { name: { es: 'Las letras del sistema del ST', en: 'The ST’s system fonts' }, year: 1985, kind: 'bitmap' },
+      original: { name: { es: 'Las letras del sistema del ST', en: 'The ST’s system fonts' }, kind: 'bitmap' },
       documented: {
         es: 'Al encenderse, el ST carga tres juegos de caracteres del sistema, iguales salvo por el tamaño de la celda: 8 × 16 puntos para la alta resolución, 8 × 8 para la media y la baja, y 6 × 6 para las etiquetas de los iconos [4]. Ninguna fuente que consultamos dice quién los dibujó.',
         en: 'At power-up the ST loads three system character sets, identical except for the size of the cell: 8 × 16 dots for high resolution, 8 × 8 for medium and low, and 6 × 6 for icon labels [4]. No source we consulted says who drew them.',
@@ -72,8 +72,8 @@ export default defineTheme({
     },
     motion: {
       documented: {
-        es: 'En el escritorio GEM, la rutina GRAF_GROWBOX dibuja la caja que se expande cuando el usuario abre un icono, y GRAF_SHRINKBOX la que aparece al cerrar una ventana [3]. Para los diálogos, FORM_DIAL puede dibujar con FMD_GROW una caja que crece de pequeña a grande y, al salir, con FMD_SHRINK una que se encoge; las dos llamadas son opcionales [3]. Ninguna fuente que consultamos da la duración.',
-        en: 'On the GEM desktop, the GRAF_GROWBOX routine draws the box that expands when the user opens an icon, and GRAF_SHRINKBOX the one that appears when a window is closed [3]. For dialogs, FORM_DIAL can draw with FMD_GROW a box that grows from small to large and, on exit, with FMD_SHRINK one that shrinks; both calls are optional [3]. No source we consulted gives the duration.',
+        es: 'Al abrir un icono en el escritorio GEM, una caja se ensancha hasta su tamaño, obra de la rutina GRAF_GROWBOX; al cerrar una ventana, GRAF_SHRINKBOX dibuja la contraria [3]. Para los diálogos, FORM_DIAL puede dibujar con FMD_GROW una caja que crece de pequeña a grande y, al salir, con FMD_SHRINK una que se encoge; las dos llamadas son opcionales [3]. Ninguna fuente que consultamos da la duración.',
+        en: 'Opening an icon on the GEM desktop makes a box widen out to size, the work of the GRAF_GROWBOX routine; closing a window, GRAF_SHRINKBOX draws the reverse [3]. For dialogs, FORM_DIAL can draw with FMD_GROW a box that grows from small to large and, on exit, with FMD_SHRINK one that shrinks; both calls are optional [3]. No source we consulted gives the duration.',
       },
       reading: {
         es: 'El tema lo lleva a la apertura de un diálogo: el cuadro crece desde pequeño en ocho saltos, en 200 ms. GEM dibujaba primero un contorno vacío que crecía y después el diálogo; el tema hace crecer el diálogo mismo. La duración es del tema, y lo demás cambia al instante.',

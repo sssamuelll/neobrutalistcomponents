@@ -16,9 +16,9 @@ export default defineTheme({
       { title: 'BeOS 5.0 Personal Edition', url: 'https://toastytech.com/guis/b5pe.html', publisher: 'Toasty Tech GUI Gallery', accessed: '2026-10-10' },
       { title: 'BeOS 5 User’s Guide: The Deskbar', url: 'https://www.tunetrackersystems.com/bedocs/documentation/guide/01_basics/Basics03_Deskbar.html', publisher: 'Be Inc. (TuneTracker Systems mirror)', accessed: '2026-10-10' },
       { title: 'BeOS 5 User’s Guide: Fonts', url: 'https://www.tunetrackersystems.com/bedocs/documentation/guide/05_preferences/Preferences08_Fonts.html', publisher: 'Be Inc. (TuneTracker Systems mirror)', accessed: '2026-10-10' },
-      { title: 'The Be Book: The Interface Kit, global functions and objects', url: 'https://sowerbutts.com/bebox/torrent/Docs/BeBook/The%20Interface%20Kit/misc.html', publisher: 'Be Inc.', accessed: '2026-10-10' },
+      { title: 'The Interface Kit: Global Variables, Constants, and Defined Types', url: 'https://sowerbutts.com/bebox/torrent/Docs/BeBook/The%20Interface%20Kit/misc.html', publisher: 'Be Inc., The Be Book (mirror)', accessed: '2026-10-10' },
       { title: 'Be Inc. Licenses Font Technology From Bitstream Inc.', url: 'https://typewritten.org/Manual/Be/BeOS/R3/PressInfo/aboutbe/pressreleases/97-03-31_Bitstream.html', publisher: 'Bitstream Inc.', year: 1997, accessed: '2026-10-10' },
-      { title: 'InterfaceDefs.cpp', url: 'https://raw.githubusercontent.com/haiku/haiku/master/src/kits/interface/InterfaceDefs.cpp', publisher: 'Haiku', accessed: '2026-10-10' },
+      { title: 'InterfaceDefs.cpp', url: 'https://raw.githubusercontent.com/haiku/haiku/91bed92e0765cf9501a31035d28b67f3d09c5d32/src/kits/interface/InterfaceDefs.cpp', publisher: 'Haiku', accessed: '2026-10-10' },
     ],
     image: {
       file: 'beos.avif',
@@ -28,25 +28,25 @@ export default defineTheme({
         es: 'Captura de BeOS 5.0.3: escritorio azul, la ventana «About BeOS», el navegador NetPositive y una tetera roja en GLTeapot, cada ventana con su pestaña gris; arriba a la derecha, el Deskbar.',
         en: 'A screenshot of BeOS 5.0.3: a blue desktop, the “About BeOS” window, the NetPositive browser and a red teapot in GLTeapot, each window with its grey tab; the Deskbar at the top right.',
       },
-      author: 'The original uploader was Tullius at Norwegian Wikipedia.',
+      author: 'Tullius (Norwegian Wikipedia)',
       license: 'CC-BY-SA-3.0',
       sourceUrl: 'https://commons.wikimedia.org/wiki/File:BeOS_screenshot.png',
     },
   },
   ficha: {
     documented: {
-      es: 'BeOS es el sistema de Be Inc., una empresa de Menlo Park, California [5]. Sus ventanas llevan pestañas en vez de las barras de título habituales, y arriba a la derecha queda el Deskbar [1], una lista de servicios y aplicaciones en tres partes: el menú Be, la zona más oscura donde se ve la hora y la lista de aplicaciones en marcha [2].',
-      en: 'BeOS is the system of Be Inc., a company in Menlo Park, California [5]. Its windows carry tabs instead of the usual title bars, and the Deskbar sits at the top right [1], a list of services and applications in three parts: the Be menu, the darker area where the time shows and the list of running applications [2].',
+      es: 'BeOS es el sistema de Be Inc., una empresa de Menlo Park, California [5]. Sus ventanas llevan pestañas en vez de las barras de título habituales, y arriba a la derecha queda el Deskbar [1], que reúne servicios y programas en tres partes: el menú Be, una franja más oscura con el reloj y los programas abiertos [2].',
+      en: 'BeOS is the system of Be Inc., a company in Menlo Park, California [5]. Its windows carry tabs instead of the usual title bars, and the Deskbar sits at the top right [1], which gathers services and programs in three parts: the Be menu, a darker strip with the clock, and the programs that are open [2].',
     },
     reading: {
-      es: 'El tema toma el amarillo de la pestaña para la acción principal, el gris de los paneles y menús para el fondo, el blanco de las ventanas para las superficies y el azul del escritorio para el acento y para el fondo del esquema oscuro; el foco va en el azul de la navegación por teclado. En la captura, de BeOS 5.0.3, las pestañas se ven grises. Nada se mueve.',
-      en: 'The theme takes the tab’s yellow for the primary action, the grey of panels and menus for the ground, the white of windows for surfaces and the desktop’s blue for the accent and for the dark scheme’s ground; focus goes in the keyboard-navigation blue. In the screenshot, of BeOS 5.0.3, the tabs look grey. Nothing moves.',
+      es: 'El tema toma el amarillo de la pestaña para la acción principal, el gris de los paneles y menús para el fondo, el blanco de las ventanas para las superficies y el azul del escritorio para el acento y para el fondo del esquema oscuro; en el esquema claro, el foco va en el azul de la navegación por teclado. En la captura, de BeOS 5.0.3, las pestañas se ven grises. Nada se mueve.',
+      en: 'The theme takes the tab’s yellow for the primary action, the grey of panels and menus for the ground, the white of windows for surfaces and the desktop’s blue for the accent and for the dark scheme’s ground; in the light scheme, focus goes in the keyboard-navigation blue. In the screenshot, of BeOS 5.0.3, the tabs look grey. Nothing moves.',
     },
     palette: {
       origin: 'interpreted',
       note: {
-        es: 'Los valores salen de los colores por omisión del código de Haiku: amarillo (255, 203, 0) para la pestaña, gris (216, 216, 216) para paneles y menús, azul (51, 102, 152) para el escritorio y azul (0, 0, 229) para la navegación por teclado [6]. Ninguna fuente de Be que consultamos los da; el azul del escritorio coincide con el de la captura.',
-        en: 'The values come from the default colours in Haiku’s code: yellow (255, 203, 0) for the tab, grey (216, 216, 216) for panels and menus, blue (51, 102, 152) for the desktop and blue (0, 0, 229) for keyboard navigation [6]. No Be source we consulted gives them; the desktop blue matches the screenshot’s.',
+        es: 'Los valores salen de los colores por omisión del código de Haiku: amarillo (255, 203, 0) para la pestaña, gris (216, 216, 216) para paneles y menús, azul (51, 102, 152) para el escritorio y azul (0, 0, 229) para la navegación por teclado [6]. Ninguna fuente de Be que consultamos los da; el azul del escritorio coincide con el de la captura, y los colores de los estados son del tema.',
+        en: 'The values come from the default colours in Haiku’s code: yellow (255, 203, 0) for the tab, grey (216, 216, 216) for panels and menus, blue (51, 102, 152) for the desktop and blue (0, 0, 229) for keyboard navigation [6]. No Be source we consulted gives them; the desktop blue matches the screenshot’s, and the state colours are the theme’s.',
       },
     },
     lettering: {
