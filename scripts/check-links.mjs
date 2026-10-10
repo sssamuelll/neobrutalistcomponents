@@ -26,7 +26,7 @@ async function get(url) {
     const type = res.headers.get('content-type') ?? '';
     return { status: res.status, type, text: res.ok && !type.includes('pdf') ? await res.text() : '' };
   } catch (error) {
-    return { status: 0, type: '', text: '', error: error.message };
+    return { status: 0, type: '', text: '', error: error.cause?.code ?? error.message };
   }
 }
 
@@ -85,7 +85,12 @@ const report = (state, status, label, url) => lines.push(`${state.padEnd(4)} ${S
 const dossierPath = arg('dossier');
 if (dossierPath) {
   const dossier = JSON.parse(readFileSync(dossierPath, 'utf8'));
-  const claims = [...(dossier.lettering?.claims ?? []), ...(dossier.motion?.claims ?? [])];
+  const claims = [
+    ...(dossier.facts ?? []),
+    ...(dossier.palette?.documented ?? []).map((claim) => ({ ...claim, text: claim.colour })),
+    ...(dossier.lettering?.claims ?? []),
+    ...(dossier.motion?.claims ?? []),
+  ];
   for (const { url, quote, text } of claims) {
     const res = await get(url);
     const label = `"${(quote ?? '').slice(0, 60)}"`;
