@@ -26,10 +26,20 @@ describe('themeProblems', () => {
     [{ ficha: { ...FIXTURE.ficha, documented: { es: 'Un hecho [1]. Otro [3].', en: 'A fact [1]. Another [3].' } } }, /marker \[3\] has no source/],
     [{ ficha: { ...FIXTURE.ficha, documented: { es: 'Un hecho [1]. Otro [2].', en: 'A fact [1]. Another.' } } }, /markers differ between es/],
     [{ ficha: { ...FIXTURE.ficha, documented: { es: 'Un hecho [1].', en: 'A fact [1].' } } }, /source \[2\] is never cited/],
+    [{ ficha: { ...FIXTURE.ficha, palette: { origin: 'documented', note: { es: 'Rojo [3].', en: 'Red [3].' } } } }, /marker \[3\] has no source/],
     [{ reference: { ...ref, archiveUrl: 'https://archive.org/x' as never } }, /web\.archive\.org/],
     [{ fonts: { sans: 'comic-sans' as never } }, /unknown font "comic-sans"/],
   ])('rejects %o', (patch, message) => {
     expect(problems(patch as Partial<StudyThemeInput>)).toMatch(message);
+  });
+
+  it('counts a palette note’s marker as a citation', () => {
+    const ficha = {
+      ...FIXTURE.ficha,
+      documented: { es: 'Un hecho [1].', en: 'A fact [1].' },
+      palette: { origin: 'documented', note: { es: 'Rojo [2].', en: 'Red [2].' } },
+    } as const;
+    expect(themeProblems({ ...FIXTURE, ficha })).toEqual([]);
   });
 
   it('checks image credits: license whitelist, Commons source, avif name, alt text', () => {

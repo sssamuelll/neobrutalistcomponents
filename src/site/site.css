@@ -577,7 +577,7 @@ body {
 }
 .tok-keyword,
 .tok-tag {
-  font-weight: 700;
+  font-weight: var(--nbc-weight-label);
 }
 .tok-string {
   color: var(--nbc-fg-muted);
@@ -734,7 +734,7 @@ body {
   inline-size: 34px;
   block-size: 24px;
   margin-inline-end: var(--nbc-space-xs);
-  font-weight: 700;
+  font-weight: var(--nbc-weight-label);
   border: 1px solid color-mix(in srgb, var(--nbc-border-color) 40%, transparent);
 }
 .site-pair--ui > span {
@@ -1383,7 +1383,7 @@ body {
   border-block-start: var(--nbc-border-width) var(--nbc-border-style) var(--nbc-border-color);
 }
 .home-platform dt code {
-  font-weight: 700;
+  font-weight: var(--nbc-weight-label);
 }
 .home-platform dd {
   margin: 0;
@@ -1509,7 +1509,7 @@ body {
 
 .gallery-work__num {
   font-family: var(--nbc-font-mono);
-  font-weight: bold;
+  font-weight: var(--nbc-weight-label);
   font-size: var(--nbc-fs-sm);
 }
 
@@ -1637,7 +1637,7 @@ body {
 .world-map__legend thead th {
   border-block-start: none;
   color: var(--map-muted);
-  font-weight: 600;
+  font-weight: var(--nbc-weight-label);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -1653,7 +1653,7 @@ body {
 
 .world-map__legend a {
   color: var(--map-ink);
-  font-weight: 600;
+  font-weight: var(--nbc-weight-label);
 }
 
 .world-map__summary {
