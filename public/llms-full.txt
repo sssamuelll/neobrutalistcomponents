@@ -48,8 +48,11 @@ Each study theme reads one documented work; its page (https://sssamuelll.github.
 | Theme | Reference | Scene | Native scheme | Fonts | Stylesheets |
 | --- | --- | --- | --- | --- | --- |
 | `bauhaus-dessau` | Bauhaus Building, Dessau (Bauhausgebäude Dessau), Walter Gropius, Dessau, Germany, 1925–1926 | Germany | light | Jost | `themes/bauhaus-dessau.css`, `themes/bauhaus-dessau.fonts.css` |
+| `din-1451` | DIN 1451, the German standard lettering (DIN-Schrift), Ludwig Goller, Germany, 1931–1936 | Germany | light | Barlow, Barlow Condensed | `themes/din-1451.css`, `themes/din-1451.fonts.css` |
 | `maeusebunker` | Mäusebunker (former Central Animal Laboratories of the Free University of Berlin; Zentrale Tierlaboratorien der Freien Universität Berlin), Gerd Hänska, Magdalena Hänska, Kurt Schmersow, Lichterfelde, Berlin, Germany, 1971–1982 | Germany | dark | Barlow, Barlow Condensed, DM Mono | `themes/maeusebunker.css`, `themes/maeusebunker.fonts.css` |
+| `munich-72` | Visual design of the 1972 Munich Olympic Games (Visuelles Erscheinungsbild der Olympischen Spiele München 1972), Otl Aicher, Gerhard Joksch, Munich, Germany, 1966–1972 | Germany | light | Inter | `themes/munich-72.css`, `themes/munich-72.fonts.css` |
 | `carlton` | Carlton room divider, Ettore Sottsass, Milan, Italy, 1981 | Italy | light | system fonts | `themes/carlton.css`, `themes/carlton.fonts.css` |
+| `lettera-22` | Olivetti Lettera 22 portable typewriter, Marcello Nizzoli, Giuseppe Beccio, Ivrea, Italy, 1950 | Italy | light | Cutive Mono | `themes/lettera-22.css`, `themes/lettera-22.fonts.css` |
 | `dragon-quest` | Dragon Quest (Famicom; ドラゴンクエスト), Yuji Horii, Koichi Nakamura, Akira Toriyama, Koichi Sugiyama, Japan, 1986 | Japan | dark | DotGothic16 | `themes/dragon-quest.css`, `themes/dragon-quest.fonts.css` |
 | `nakagin` | Nakagin Capsule Tower (中銀カプセルタワービル), Kisho Kurokawa, Ginza, Tokyo, Japan, 1970–1972 | Japan | light | Zen Kaku Gothic New, Dela Gothic One, M PLUS 1 Code | `themes/nakagin.css`, `themes/nakagin.fonts.css` |
 | `super-mario-bros` | Super Mario Bros. (Famicom; スーパーマリオブラザーズ), Shigeru Miyamoto, Japan, 1985 | Japan | light | DotGothic16, Press Start 2P | `themes/super-mario-bros.css`, `themes/super-mario-bros.fonts.css` |

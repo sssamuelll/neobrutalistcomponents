@@ -86,7 +86,7 @@ export default defineTheme({
     dangerFg: ['#ffffff', '#111111'],
     focus: ['#111111', '#ffffff'],
   },
-  type: { weightBody: 400, weightLabel: 700, weightDisplay: 700, displaySpacing: '0em', kerning: 'none' },
+  type: { weightBody: 400, weightLabel: 700, weightDisplay: 700, displaySpacing: '0em', kerning: 'none', featureSettings: '"liga" 0' },
   shape: { borderWidth: 1, radius: 4, radiusControl: 4, radiusButton: 4, radiusSmall: 2 },
   elevation: flat(),
   motion: { duration: 0, durationSlow: 0, ease: 'linear' },

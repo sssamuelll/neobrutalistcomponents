@@ -6,7 +6,7 @@ export function licenseFromCommons(shortName: string): ImageLicense | null {
   const s = shortName.trim().toLowerCase().replace(/\s+/g, ' ');
   if (s === 'cc0' || s === 'cc0 1.0' || s === 'cc-zero') return 'CC0-1.0';
   if (s === 'public domain' || s === 'pd') return 'PD';
-  const m = s.match(/^cc by(-sa)? (2\.0|2\.5|3\.0|4\.0)$/);
+  const m = s.match(/^cc by(-sa)? (1\.0|2\.0|2\.5|3\.0|4\.0)$/);
   return m ? (`CC-BY${m[1] ? '-SA' : ''}-${m[2]}` as ImageLicense) : null;
 }
 
