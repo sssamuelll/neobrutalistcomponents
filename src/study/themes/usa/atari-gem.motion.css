@@ -1,0 +1,15 @@
+/* GEM: FORM_DIAL's FMD_GROW draws a box growing from small to large; carried by a dialog opening. */
+@keyframes grow {
+  from {
+    transform: scale(0.1);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .nbc-dialog[open] {
+    animation: grow 200ms steps(8, end);
+  }
+}

@@ -1,0 +1,90 @@
+import { defineTheme, flat } from '../../define';
+
+export default defineTheme({
+  id: 'beos',
+  scene: 'usa',
+  nativeScheme: 'light',
+  name: { es: 'BeOS', en: 'BeOS' },
+  tagline: { es: 'Pestañas en lugar de barras de título, y una barra de servicios en la esquina.', en: 'Tabs instead of title bars, and a services bar in the corner.' },
+  reference: {
+    title: { es: 'BeOS 5', en: 'BeOS 5' },
+    authors: ['Be Inc.'],
+    date: 2000,
+    place: { es: 'Menlo Park, California, Estados Unidos', en: 'Menlo Park, California, United States' },
+    kind: 'software',
+    sources: [
+      { title: 'BeOS 5.0 Personal Edition', url: 'https://toastytech.com/guis/b5pe.html', publisher: 'Toasty Tech GUI Gallery', accessed: '2026-10-10' },
+      { title: 'BeOS 5 User’s Guide: The Deskbar', url: 'https://www.tunetrackersystems.com/bedocs/documentation/guide/01_basics/Basics03_Deskbar.html', publisher: 'Be Inc. (TuneTracker Systems mirror)', accessed: '2026-10-10' },
+      { title: 'BeOS 5 User’s Guide: Fonts', url: 'https://www.tunetrackersystems.com/bedocs/documentation/guide/05_preferences/Preferences08_Fonts.html', publisher: 'Be Inc. (TuneTracker Systems mirror)', accessed: '2026-10-10' },
+      { title: 'The Be Book: The Interface Kit, global functions and objects', url: 'https://sowerbutts.com/bebox/torrent/Docs/BeBook/The%20Interface%20Kit/misc.html', publisher: 'Be Inc.', accessed: '2026-10-10' },
+      { title: 'Be Inc. Licenses Font Technology From Bitstream Inc.', url: 'https://typewritten.org/Manual/Be/BeOS/R3/PressInfo/aboutbe/pressreleases/97-03-31_Bitstream.html', publisher: 'Bitstream Inc.', year: 1997, accessed: '2026-10-10' },
+      { title: 'InterfaceDefs.cpp', url: 'https://raw.githubusercontent.com/haiku/haiku/master/src/kits/interface/InterfaceDefs.cpp', publisher: 'Haiku', accessed: '2026-10-10' },
+    ],
+    image: {
+      file: 'beos.avif',
+      width: 1024,
+      height: 768,
+      alt: {
+        es: 'Captura de BeOS 5.0.3: escritorio azul, la ventana «About BeOS», el navegador NetPositive y una tetera roja en GLTeapot, cada ventana con su pestaña gris; arriba a la derecha, el Deskbar.',
+        en: 'A screenshot of BeOS 5.0.3: a blue desktop, the “About BeOS” window, the NetPositive browser and a red teapot in GLTeapot, each window with its grey tab; the Deskbar at the top right.',
+      },
+      author: 'The original uploader was Tullius at Norwegian Wikipedia.',
+      license: 'CC-BY-SA-3.0',
+      sourceUrl: 'https://commons.wikimedia.org/wiki/File:BeOS_screenshot.png',
+    },
+  },
+  ficha: {
+    documented: {
+      es: 'BeOS es el sistema de Be Inc., una empresa de Menlo Park, California [5]. Sus ventanas llevan pestañas en vez de las barras de título habituales, y arriba a la derecha queda el Deskbar [1], una lista de servicios y aplicaciones en tres partes: el menú Be, la zona más oscura donde se ve la hora y la lista de aplicaciones en marcha [2].',
+      en: 'BeOS is the system of Be Inc., a company in Menlo Park, California [5]. Its windows carry tabs instead of the usual title bars, and the Deskbar sits at the top right [1], a list of services and applications in three parts: the Be menu, the darker area where the time shows and the list of running applications [2].',
+    },
+    reading: {
+      es: 'El tema toma el amarillo de la pestaña para la acción principal, el gris de los paneles y menús para el fondo, el blanco de las ventanas para las superficies y el azul del escritorio para el acento y para el fondo del esquema oscuro; el foco va en el azul de la navegación por teclado. En la captura, de BeOS 5.0.3, las pestañas se ven grises. Nada se mueve.',
+      en: 'The theme takes the tab’s yellow for the primary action, the grey of panels and menus for the ground, the white of windows for surfaces and the desktop’s blue for the accent and for the dark scheme’s ground; focus goes in the keyboard-navigation blue. In the screenshot, of BeOS 5.0.3, the tabs look grey. Nothing moves.',
+    },
+    palette: {
+      origin: 'interpreted',
+      note: {
+        es: 'Los valores salen de los colores por omisión del código de Haiku: amarillo (255, 203, 0) para la pestaña, gris (216, 216, 216) para paneles y menús, azul (51, 102, 152) para el escritorio y azul (0, 0, 229) para la navegación por teclado [6]. Ninguna fuente de Be que consultamos los da; el azul del escritorio coincide con el de la captura.',
+        en: 'The values come from the default colours in Haiku’s code: yellow (255, 203, 0) for the tab, grey (216, 216, 216) for panels and menus, blue (51, 102, 152) for the desktop and blue (0, 0, 229) for keyboard navigation [6]. No Be source we consulted gives them; the desktop blue matches the screenshot’s.',
+      },
+    },
+    lettering: {
+      original: { name: { es: 'Las letras del sistema: normal, negrita y de ancho fijo', en: 'The system fonts: plain, bold and fixed' }, kind: 'outline' },
+      documented: {
+        es: 'BeOS tiene tres letras de sistema, normal, negrita y de ancho fijo, y las trae en TrueType [3]; la negrita es la de los títulos de ventanas y grupos [4]. En 1997, Be licenció de Bitstream sus procesadores de fuentes y un juego básico de letras [5]. Ninguna fuente que consultamos nombra las letras por omisión.',
+        en: 'BeOS has three system fonts, plain, bold and fixed-width, and ships them as TrueType [3]; the bold one is for window and group titles [4]. In 1997 Be licensed Bitstream’s font processors and a basic set of fonts [5]. No source we consulted names the default faces.',
+      },
+      substitute: {
+        es: 'El tema usa Arimo, una grotesca libre, en normal y en negrita. En la captura, los menús y los títulos van en una grotesca de ese corte; Arimo difiere en el dibujo de letras como la R y la G.',
+        en: 'The theme uses Arimo, a free grotesque, in regular and bold. In the screenshot, menus and titles are set in a grotesque of that kind; Arimo differs in the drawing of letters such as R and G.',
+      },
+    },
+  },
+  fonts: { sans: 'arimo' },
+  colors: {
+    bg: ['#d8d8d8', '#336698'],
+    fg: ['#000000', '#ffffff'],
+    fgMuted: ['#3c3c3c', '#dde6f0'],
+    surface: ['#ffffff', '#2a557f'],
+    surfaceAlt: ['#e8e8e8', '#22476b'],
+    border: ['#000000', '#ffffff'],
+    primary: ['#ffcb00', '#ffcb00'],
+    primaryFg: 'auto',
+    accent: ['#336698', '#d8d8d8'],
+    accentFg: 'auto',
+    info: ['#0000e5', '#9db8ff'],
+    infoFg: 'auto',
+    success: ['#2e7d32', '#7cc98a'],
+    successFg: 'auto',
+    warning: ['#c87800', '#ffb24d'],
+    warningFg: 'auto',
+    danger: ['#b3261e', '#ffb8b0'],
+    dangerFg: 'auto',
+    focus: ['#0000e5', '#ffcb00'],
+  },
+  type: { weightBody: 400, weightLabel: 700, weightDisplay: 700 },
+  shape: { borderWidth: 1, radius: 0, radiusControl: 0, radiusButton: 0, radiusSmall: 0 },
+  elevation: flat(),
+  motion: { duration: 0, durationSlow: 0, ease: 'linear' },
+});

@@ -1,0 +1,100 @@
+import { defineTheme, flat } from '../../define';
+
+export default defineTheme({
+  id: 'win31',
+  scene: 'usa',
+  nativeScheme: 'light',
+  name: { es: 'Windows 3.1', en: 'Windows 3.1' },
+  tagline: { es: 'Los menús en System, y TrueType por primera vez.', en: 'Menus in System, and TrueType for the first time.' },
+  reference: {
+    title: { es: 'Windows 3.1', en: 'Windows 3.1' },
+    authors: ['Microsoft'],
+    date: 1992,
+    place: { es: 'Estados Unidos', en: 'United States' },
+    kind: 'software',
+    sources: [
+      { title: 'A brief history of TrueType', url: 'https://learn.microsoft.com/en-us/typography/truetype/history', publisher: 'Microsoft Learn', accessed: '2026-10-10' },
+      {
+        title: 'Microsoft Windows User’s Guide, version 3.1',
+        url: 'https://bitsavers.trailing-edge.com/pdf/microsoft/windows_3.1/Microsoft_Windows_3.1/PC21669-0492_Windows_3.1_Users_Guide_Apr92.pdf',
+        publisher: 'Microsoft (bitsavers)',
+        year: 1992,
+        accessed: '2026-10-10',
+      },
+      {
+        title: 'Microsoft Windows 3.1 Resource Kit',
+        url: 'https://bitsavers.trailing-edge.com/pdf/microsoft/resource_kits/0030-31645_Windows_3.1_Resource_Kit_199202.pdf',
+        publisher: 'Microsoft (bitsavers)',
+        year: 1992,
+        accessed: '2026-10-10',
+      },
+      { title: 'The Microsoft Windows Palette Manager', url: 'https://www.compuphase.com/palette.htm', publisher: 'CompuPhase', accessed: '2026-10-10' },
+    ],
+    image: {
+      file: 'win31.avif',
+      width: 1600,
+      height: 1067,
+      alt: {
+        es: 'Una IBM ThinkPad 300C abierta con el escritorio de Windows 3.1 en pantalla: un fondo de piezas de ajedrez sobre un tablero y, abajo a la izquierda, el icono del Administrador de programas.',
+        en: 'An open IBM ThinkPad 300C with the Windows 3.1 desktop on screen: a wallpaper of chess pieces on a board and, at the bottom left, the Program Manager icon.',
+      },
+      author: 'Christopher Ross Hind',
+      license: 'CC-BY-SA-4.0',
+      sourceUrl: 'https://commons.wikimedia.org/wiki/File:IBM_ThinkPad_300C_(Windows_3.1_Desktop).jpg',
+    },
+  },
+  ficha: {
+    documented: {
+      es: 'Windows 3.1 salió en abril de 1992, y fue la primera versión de Windows que traía TrueType [1]. Su guía del usuario presenta el Administrador de programas como la aplicación central del sistema, que arranca con Windows y sigue abierta mientras se trabaja, y el Administrador de archivos como la herramienta para ordenar archivos y directorios [2]. El esquema de colores Windows Default es el que se ve al arrancar por primera vez, y el único que no se puede borrar [2].',
+      en: 'Windows 3.1 came out in April 1992, the first version of Windows to ship with TrueType [1]. Its user’s guide presents Program Manager as the system’s central application, which starts with Windows and stays open while one works, and File Manager as the tool for sorting files and directories [2]. The Windows Default colour scheme is the one seen on first start-up, and the only one that cannot be deleted [2].',
+    },
+    reading: {
+      es: 'El tema toma la paleta de 16 colores del sistema: el gris claro en el fondo, el azul oscuro en las acciones principales, el blanco en las superficies y el negro en las letras y los bordes de un píxel. Todo el texto va en una letra de píxeles gruesa. La fotografía, de 2021, muestra el escritorio en una ThinkPad de la época. Nada se mueve.',
+      en: 'The theme takes the system’s 16-colour palette: light grey on the ground, dark blue on primary actions, white on surfaces and black on the letters and the one-pixel borders. All text is set in a heavy pixel face. The photograph, from 2021, shows the desktop on a ThinkPad of the period. Nothing moves.',
+    },
+    palette: {
+      origin: 'interpreted',
+      note: {
+        es: 'La paleta de 16 colores del sistema incluye un gris claro (192, 192, 192) y un azul oscuro (0, 0, 128) [4]; ninguna fuente que consultamos dice qué colores usaba el esquema Windows Default, así que el reparto es del tema.',
+        en: 'The system’s 16-colour palette includes a light grey (192, 192, 192) and a dark blue (0, 0, 128) [4]; no source we consulted says which colours the Windows Default scheme used, so the distribution is the theme’s.',
+      },
+    },
+    lettering: {
+      original: { name: 'System', designer: 'Microsoft', kind: 'bitmap' },
+      documented: {
+        es: 'System, una letra proporcional, dibuja por omisión los menús, los controles de los diálogos y otros textos de Windows 3.x [3]. El mismo Resource Kit lista MS Sans Serif entre las letras para pantallas VGA, en tamaños de 8 a 24 puntos [3]. Ninguna fuente que consultamos dice quién dibujó System.',
+        en: 'System, a proportional face, draws menus, dialog controls and other text in Windows 3.x by default [3]. The same Resource Kit lists MS Sans Serif among the faces for VGA screens, in sizes from 8 to 24 points [3]. No source we consulted says who drew System.',
+      },
+      substitute: {
+        es: 'El tema usa Jersey 10, una letra libre de píxeles, proporcional como System y de trazo grueso, para todo el texto. No copia las formas de System, que no vemos en ninguna fuente libre; tiene un solo peso, y nada se engrosa.',
+        en: 'The theme uses Jersey 10, a free pixel face, proportional like System and heavy-stroked, for all text. It does not copy System’s shapes, which we see in no free source; it has a single weight, and nothing is thickened.',
+      },
+    },
+  },
+  fonts: { sans: 'jersey-10' },
+  colors: {
+    bg: ['#c0c0c0', '#101018'],
+    fg: ['#000000', '#ffffff'],
+    fgMuted: ['#404040', '#c0c0c0'],
+    surface: ['#ffffff', '#1c1c28'],
+    surfaceAlt: ['#dfdfdf', '#2a2a3a'],
+    border: ['#000000', '#c0c0c0'],
+    primary: ['#000080', '#8080ff'],
+    primaryFg: 'auto',
+    accent: ['#008080', '#00c0c0'],
+    accentFg: 'auto',
+    info: ['#000080', '#8080ff'],
+    infoFg: 'auto',
+    success: ['#008000', '#40c040'],
+    successFg: 'auto',
+    warning: ['#808000', '#e0e000'],
+    warningFg: 'auto',
+    danger: ['#800000', '#ff6060'],
+    dangerFg: 'auto',
+    focus: ['#800000', '#e0e000'],
+  },
+  type: { weightBody: 400, weightLabel: 400, weightDisplay: 400, displaySpacing: '0em', kerning: 'none' },
+  shape: { borderWidth: 1, radius: 0, radiusControl: 0, radiusButton: 0, radiusSmall: 0 },
+  elevation: flat(),
+  motion: { duration: 0, durationSlow: 0, ease: 'linear' },
+});
