@@ -24,6 +24,18 @@ export default defineTheme({
       { title: '1953 Olivetti Lettera 22', url: 'https://typewriterdatabase.com/1953-olivetti-lettera-22.19241.typewriter', publisher: 'The Typewriter Database', accessed: '2026-10-10' },
       { title: 'Olivetti Lettera 22 (1950)', url: 'https://mytypewriter.com/products/olivetti-lettera-22-1950', publisher: 'myTypewriter.com', accessed: '2026-10-10' },
     ],
+    image: {
+      file: 'lettera-22.avif',
+      width: 1600,
+      height: 1115,
+      alt: {
+        es: 'Una Olivetti Lettera 22 de color gris pardo expuesta en el MoMA: teclas redondas negras, una tecla roja a la derecha, la placa «Lettera 22» y el rótulo «olivetti» junto al rodillo.',
+        en: 'A brownish-grey Olivetti Lettera 22 on display at MoMA: round black keys, a red key on the right, the “Lettera 22” badge and the “olivetti” lettering by the platen.',
+      },
+      author: 'David Orban',
+      license: 'CC-BY-2.0',
+      sourceUrl: 'https://commons.wikimedia.org/wiki/File:Olivetti_Lettera_22_at_the_MOMA.jpg',
+    },
   },
   ficha: {
     documented: {
@@ -31,14 +43,14 @@ export default defineTheme({
       en: 'The architect and designer Marcello Nizzoli drew the Lettera 22 between 1948 and 1950, on a project by the engineer Giuseppe Beccio, and Olivetti put it on sale in 1950 [1]. MoMA keeps an example given by Olivetti, with an enamelled metal housing, made in Ivrea [2]. In 1954 it won the Compasso d’Oro, which rewarded the consistency of its style and its technical quality [3].',
     },
     reading: {
-      es: 'El tema toma una Lettera 22 gris fotografiada en Wikimedia Commons: el gris pardo del esmalte en las superficies y el acento, el negro de las teclas en los bordes, las letras y las acciones principales. Las esquinas se redondean como la carcasa, los botones son redondos como las teclas y todo el texto va en letra de máquina de escribir. Es un objeto: nada se mueve.',
-      en: 'The theme takes a grey Lettera 22 photographed on Wikimedia Commons: the brownish grey of the enamel on surfaces and the accent, the black of the keys on borders, letters and primary actions. Corners round off like the housing, buttons are round like the keys, and all text is set in typewriter type. It is an object: nothing moves.',
+      es: 'El tema toma la Lettera 22 expuesta en el MoMA, fotografiada en 2009: el gris pardo del esmalte en las superficies y el acento, el negro de las teclas en los bordes, las letras y las acciones principales. Las esquinas se redondean como la carcasa, los botones son redondos como las teclas y todo el texto va en letra de máquina de escribir. Es un objeto: nada se mueve.',
+      en: 'The theme takes the Lettera 22 on display at MoMA, photographed in 2009: the brownish grey of the enamel on surfaces and the accent, the black of the keys on borders, letters and primary actions. Corners round off like the housing, buttons are round like the keys, and all text is set in typewriter type. It is an object: nothing moves.',
     },
     palette: {
       origin: 'sampled',
       note: {
-        es: 'Los valores salen de una fotografía de una Lettera 22 gris en Wikimedia Commons, «Olivetti Lettera 22 by LjL», que no mostramos porque no declara autor. Una tienda de máquinas de escribir cuenta que el azul era el color más común, y que también las había verdes y grises [5].',
-        en: 'The values come from a photograph of a grey Lettera 22 on Wikimedia Commons, “Olivetti Lettera 22 by LjL”, which we do not show because it names no author. A typewriter shop says blue was the commonest colour, and that green and grey ones were also made [5].',
+        es: 'El gris pardo del esmalte y el negro de las teclas salen de la fotografía, tomada con una luz cálida que tiñe el esmalte hacia el ocre; los demás colores son del tema. Una tienda de máquinas de escribir cuenta que el azul era el color más común, y que también las había verdes y grises [5].',
+        en: 'The brownish grey of the enamel and the black of the keys come from the photograph, taken in a warm light that tints the enamel towards ochre; the other colours are the theme’s. A typewriter shop says blue was the commonest colour, and that green and grey ones were also made [5].',
       },
     },
     lettering: {
@@ -59,11 +71,11 @@ export default defineTheme({
     fg: ['#1a1a1a', '#ece9e3'],
     fgMuted: ['#4a4741', '#b3aea5'],
     surface: ['#f6f4f0', '#262522'],
-    surfaceAlt: ['#d6d2ca', '#3a3833'],
+    surfaceAlt: ['#ddd6c5', '#3a3730'],
     border: ['#1a1a1a', '#ece9e3'],
     primary: ['#1a1a1a', '#d8d3ca'],
     primaryFg: 'auto',
-    accent: ['#96918a', '#a8a297'],
+    accent: ['#9a8a68', '#b3a585'],
     accentFg: 'auto',
     info: ['#1f5fa8', '#7fa7d9'],
     infoFg: 'auto',

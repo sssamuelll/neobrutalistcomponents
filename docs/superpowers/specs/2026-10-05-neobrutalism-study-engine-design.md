@@ -165,7 +165,7 @@ Rigor rules (tests enforce the mechanical ones):
 ### D8 — Images
 - `scripts/fetch-image.mjs <commons file URL> <id>`: reads author, license and title from the Wikimedia Commons API (`extmetadata`) instead of having them typed by hand, downloads the original, converts it to AVIF at most 1600 px wide (target ≤ 250 KB) into `src/study/images/`, and prints the `ImageCredit` to paste into the theme file.
 - `ImageCredit`: `{ file, width, height, alt: L10n, author, license, sourceUrl }`.
-- License whitelist: `CC0-1.0`, `PD`, `CC-BY-{2.0,2.5,3.0,4.0}`, `CC-BY-SA-{2.0,2.5,3.0,4.0}`. NC, ND and fair use are rejected by a test.
+- License whitelist: `CC0-1.0`, `PD`, `CC-BY-{1.0,2.0,2.5,3.0,4.0}`, `CC-BY-SA-{1.0,2.0,2.5,3.0,4.0}`. NC, ND and fair use are rejected by a test.
 - Every image shows its credit beneath it: author, license with a link, "via Wikimedia Commons". A Credits page lists them all.
 - Images live only in the site, never in the npm package, which stays MIT-only. A `NOTICE` in `src/study/images/` states that each image keeps its original license.
 - No free image → the ficha links the source or the Wayback Machine and shows the theme's palette instead. Never a stand-in image.

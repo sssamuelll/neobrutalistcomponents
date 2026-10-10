@@ -9,8 +9,8 @@ export default defineTheme({
   reference: {
     title: { es: 'Diseño visual de los Juegos Olímpicos de Múnich 1972', en: 'Visual design of the 1972 Munich Olympic Games' },
     original: { text: 'Visuelles Erscheinungsbild der Olympischen Spiele München 1972', lang: 'de' },
-    authors: ['Otl Aicher'],
-    date: [1968, 1972],
+    authors: ['Otl Aicher', 'Gerhard Joksch'],
+    date: [1966, 1972],
     place: { es: 'Múnich, Alemania', en: 'Munich, Germany' },
     kind: 'graphic',
     sources: [
@@ -23,15 +23,15 @@ export default defineTheme({
         year: 2022,
         accessed: '2026-10-10',
       },
-      { title: 'Munich Olympics archive (exhibition text)', url: 'https://www.posterhouse.org/wp-content/uploads/2024/04/PH_Exh_Munich-Olympics_Archive.pdf', publisher: 'Poster House', accessed: '2026-10-10' },
+      { title: 'Munich 1972: Sports Posters of the XXth Olympic Games', url: 'https://www.posterhouse.org/wp-content/uploads/2024/04/PH_Exh_Munich-Olympics_Archive.pdf', publisher: 'Poster House', year: 2024, accessed: '2026-10-10' },
     ],
     image: {
       file: 'munich-72.avif',
       width: 1600,
       height: 888,
       alt: {
-        es: 'Dos pictogramas de Otl Aicher, en blanco sobre paneles verdes del estadio olímpico de Múnich: una figura que corre y otra que patea un balón.',
-        en: 'Two of Otl Aicher’s pictograms, white on green panels at the Munich Olympic stadium: a running figure and one kicking a ball.',
+        es: 'Dos pictogramas de los Juegos de 1972, en blanco sobre paneles verdes del estadio olímpico de Múnich: una figura que corre y otra que patea un balón.',
+        en: 'Two pictograms of the 1972 Games, white on green panels at the Munich Olympic stadium: a running figure and one kicking a ball.',
       },
       author: 'Henning Schlottmann (User:H-stt)',
       license: 'CC-BY-1.0',
@@ -40,25 +40,25 @@ export default defineTheme({
   },
   ficha: {
     documented: {
-      es: 'El Comité Olímpico Nacional alemán nombró a Otl Aicher responsable del diseño de los Juegos de 1972, con el encargo de darles un diseño de conjunto, y en mayo de 1968 aprobó por unanimidad su propuesta para la imagen visual [1]. Su paleta esquivó el rojo y el negro nacionalistas de Berlín 1936: dominaban el azul claro y el blanco, a los que se sumaban verde, naranja y amarillo, y la letra fue Univers [2]. Sus pictogramas desarrollaban los símbolos que Masaru Katsumi había hecho para Tokio 1964 [1].',
-      en: 'The German National Olympic Committee named Otl Aicher head of design for the 1972 Games, charged with giving them a design as a whole, and in May 1968 it approved his proposal for the visual identity unanimously [1]. His palette avoided the nationalist red and black of Berlin 1936: light blue and white dominated, joined by green, orange and yellow, and the typeface was Univers [2]. His pictograms developed the symbols Masaru Katsumi had made for Tokyo 1964 [1].',
+      es: 'En 1966, el comité organizador de los Juegos de Múnich llamó a Otl Aicher para que se ocupara de su diseño visual, y su equipo trabajó en el programa cerca de seis años; la exposición de Poster House recuerda que ese programa, que suele atribuirse a Aicher solo, fue obra de un equipo [4]. Según t-online, el Comité Olímpico Nacional aprobó por unanimidad su propuesta para la imagen visual en mayo de 1968 [1]. La paleta huía del rojo y el negro nacionalistas de Berlín 1936: mandaban el azul claro y el blanco, con verde, naranja y amarillo al lado, y la letra elegida fue Univers [2]. Los pictogramas de los deportes desarrollaban los símbolos que Masaru Katsumi había hecho para Tokio 1964 [1].',
+      en: 'In 1966 the Munich organising committee asked Otl Aicher to take charge of the Games’ visual design, and his team spent close to six years on the programme; Poster House’s exhibition points out that the programme, often credited to Aicher alone, was a team’s work [4]. According to t-online, the National Olympic Committee approved his proposal for the visual identity unanimously in May 1968 [1]. The palette kept away from the nationalist red and black of Berlin 1936: light blue and white led, with green, orange and yellow beside them, and the face chosen was Univers [2]. The sport pictograms built on the symbols Masaru Katsumi had made for Tokyo 1964 [1].',
     },
     reading: {
-      es: 'El tema toma la regla de la paleta: azul claro y blanco como base, verde y naranja en el acento y en los estados, y ni rojo ni negro; el texto va en azul oscuro y los errores en un naranja oscuro. La fotografía, de 2012, muestra dos pictogramas blancos sobre paneles verdes en el estadio. Esquinas rectas, sin sombras; nada se mueve.',
-      en: 'The theme takes the palette’s rule: light blue and white as the base, green and orange on the accent and the states, and neither red nor black; text is set in dark blue and errors in a dark orange. The photograph, from 2012, shows two white pictograms on green panels at the stadium. Square corners, no shadows; nothing moves.',
+      es: 'El tema toma la regla de la paleta: azul claro y blanco como base, verde y naranja en el acento y en los estados, y ni rojo ni negro; el texto va en azul oscuro y los errores en un naranja quemado. La fotografía, de 2012, muestra dos pictogramas de los Juegos en blanco sobre paneles verdes del estadio. Esquinas rectas, sin sombras; nada se mueve.',
+      en: 'The theme takes the palette’s rule: light blue and white as the base, green and orange on the accent and the states, and neither red nor black; text is set in dark blue and errors in a burnt orange. The photograph, from 2012, shows two of the Games’ pictograms in white on green panels at the stadium. Square corners, no shadows; nothing moves.',
     },
     palette: {
       origin: 'documented',
       note: {
-        es: 'It’s Nice That nombra como colores principales un azul brillante y el blanco, con plata, verde claro, naranja, azul oscuro, verde oscuro y un naranja muy claro [3]; ninguna fuente que consultamos da sus valores, que son una lectura del tema.',
-        en: 'It’s Nice That names a bright blue and white as the main colours, with silver, light green, orange, dark blue, dark green and a very light orange [3]; no source we consulted gives their values, which are the theme’s reading.',
+        es: 'It’s Nice That nombra como colores principales un azul brillante y el blanco, con plata, verde claro, naranja, azul oscuro, verde oscuro y un naranja muy claro [3]; Cambridge suma el amarillo [2], y las fuentes no coinciden en la lista completa. Ninguna fuente que consultamos da sus valores, que son una lectura del tema.',
+        en: 'It’s Nice That names a bright blue and white as the main colours, with silver, light green, orange, dark blue, dark green and a very light orange [3]; Cambridge adds yellow [2], and the sources do not agree on the full list. No source we consulted gives their values, which are the theme’s reading.',
       },
     },
     lettering: {
       original: { name: 'Univers', designer: 'Adrian Frutiger', year: 1957, kind: 'outline' },
       documented: {
-        es: 'La letra de los Juegos fue Univers [2], la familia de palo seco que el tipógrafo suizo Adrian Frutiger publicó en 1957 [4]. Los críticos conservadores de Aicher le reprocharon que no fuera una letra alemana [1]. Ninguna fuente que consultamos dice qué pesos de Univers se usaron.',
-        en: 'The Games’ typeface was Univers [2], the sans-serif family the Swiss typographer Adrian Frutiger released in 1957 [4]. Aicher’s conservative critics held against him that it was not a German typeface [1]. No source we consulted says which weights of Univers were used.',
+        es: 'La letra de los Juegos fue Univers [2], la familia de palo seco que dibujó Adrian Frutiger y que salió en 1957 [4]. Los críticos conservadores de Aicher le reprocharon que no fuera una letra alemana [1]. Ninguna fuente que consultamos dice qué pesos de Univers se usaron.',
+        en: 'The Games’ face was Univers [2], the sans-serif family drawn by Adrian Frutiger and out in 1957 [4]. Aicher’s conservative critics held against him that it was not a German typeface [1]. No source we consulted says which weights of Univers were used.',
       },
       substitute: {
         es: 'El tema usa Inter, una grotesca libre de proporciones parejas y terminales horizontales, para todo el texto; busca la sobriedad de Univers sin copiar sus formas, y difiere en letras como la a, la G y la R.',
@@ -82,11 +82,11 @@ export default defineTheme({
     infoFg: 'auto',
     success: ['#00754a', '#7ed37f'],
     successFg: 'auto',
-    warning: ['#f39200', '#ffb347'],
+    warning: ['#f39200', '#ffd166'],
     warningFg: 'auto',
-    danger: ['#8a2c0d', '#ff9a6b'],
+    danger: ['#a34700', '#ff8a50'],
     dangerFg: 'auto',
-    focus: ['#0b2a4a', '#ffb347'],
+    focus: ['#0b2a4a', '#bfe6ff'],
   },
   type: { weightBody: 400, weightLabel: 700, weightDisplay: 700 },
   shape: { borderWidth: 2, radius: 0, radiusControl: 0, radiusButton: 0, radiusSmall: 0 },

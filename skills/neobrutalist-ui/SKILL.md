@@ -40,7 +40,7 @@ Each reads one documented work — a building, a magazine, a terminal, a website
 | `bauhaus-dessau` | Bauhaus Building, Dessau (Bauhausgebäude Dessau), Walter Gropius, Dessau, Germany, 1925–1926 | Germany | light |
 | `din-1451` | DIN 1451, the German standard lettering (DIN-Schrift), Ludwig Goller, Germany, 1931–1936 | Germany | light |
 | `maeusebunker` | Mäusebunker (former Central Animal Laboratories of the Free University of Berlin; Zentrale Tierlaboratorien der Freien Universität Berlin), Gerd Hänska, Magdalena Hänska, Kurt Schmersow, Lichterfelde, Berlin, Germany, 1971–1982 | Germany | dark |
-| `munich-72` | Visual design of the 1972 Munich Olympic Games (Visuelles Erscheinungsbild der Olympischen Spiele München 1972), Otl Aicher, Munich, Germany, 1968–1972 | Germany | light |
+| `munich-72` | Visual design of the 1972 Munich Olympic Games (Visuelles Erscheinungsbild der Olympischen Spiele München 1972), Otl Aicher, Gerhard Joksch, Munich, Germany, 1966–1972 | Germany | light |
 | `carlton` | Carlton room divider, Ettore Sottsass, Milan, Italy, 1981 | Italy | light |
 | `lettera-22` | Olivetti Lettera 22 portable typewriter, Marcello Nizzoli, Giuseppe Beccio, Ivrea, Italy, 1950 | Italy | light |
 | `dragon-quest` | Dragon Quest (Famicom; ドラゴンクエスト), Yuji Horii, Koichi Nakamura, Akira Toriyama, Koichi Sugiyama, Japan, 1986 | Japan | dark |
