@@ -41,8 +41,8 @@ export default defineTheme({
     lettering: {
       original: { name: 'Lucida Grande', designer: 'Charles Bigelow, Kris Holmes', kind: 'outline' },
       documented: {
-        es: 'En las guías de Aqua, el texto del sistema va en Lucida Grande regular de 13 puntos, y el texto pequeño, en Lucida Grande regular de 11 [1]. Lucida Grande es de Charles Bigelow y Kris Holmes [6], y Apple solo publicó con Mac OS X, desde 2000, sus versiones regular y negrita [7].',
-        en: 'In the Aqua guidelines, system text is set in 13-point Lucida Grande Regular, and small text in 11-point Lucida Grande Regular [1]. Lucida Grande is by Charles Bigelow and Kris Holmes [6], and Apple released only its regular and bold with Mac OS X, from 2000 [7].',
+        es: 'En las guías de Aqua, el texto del sistema va en Lucida Grande regular de 13 puntos, y el texto pequeño, en Lucida Grande regular de 11 [1]. Lucida Grande es de Charles Bigelow y Kris Holmes [6], y de ella Mac OS X trajo desde 2000 solo dos estilos, la regular y la negrita [7].',
+        en: 'In the Aqua guidelines, system text is set in 13-point Lucida Grande Regular, and small text in 11-point Lucida Grande Regular [1]. Lucida Grande is by Charles Bigelow and Kris Holmes [6], and from 2000 Mac OS X carried just two of its styles, regular and bold [7].',
       },
       substitute: {
         es: 'El tema usa Open Sans, una sans humanista libre, para el texto y los títulos. En sus formas abiertas y su ojo grande vemos los de Lucida Grande, aunque Open Sans es más regular y no copia las letras de Bigelow y Holmes.',
@@ -51,12 +51,12 @@ export default defineTheme({
     },
     motion: {
       documented: {
-        es: 'En las guías de Aqua, el botón por defecto de un diálogo tiene color y late, y las hojas aparecen con una animación que parece salir de la barra de título de la ventana [1].',
-        en: 'In the Aqua guidelines, a dialog’s default button has colour and pulses, and sheets appear with an animation that seems to come out of the window’s title bar [1].',
+        es: 'En las guías de Aqua, el botón por defecto de un diálogo tiene color y late, y las hojas se despliegan como si brotaran de la barra de título de la ventana; la barra de progreso indeterminada es un cilindro de rayas que gira [1].',
+        en: 'In the Aqua guidelines, a dialog’s default button has colour and pulses, and sheets unfold as if they sprang from the window’s title bar; the indeterminate progress bar is a striped cylinder that spins [1].',
       },
       reading: {
-        es: 'El tema hace latir la luz del gel del botón principal cuatro veces, en unos cinco segundos, y se detiene: un latido sin fin necesitaría un control para pararlo. Los diálogos bajan desde el borde superior, como una hoja que sale de la barra de título. Ninguna fuente que pudimos verificar da el ritmo del latido ni la duración de la hoja; son del tema.',
-        en: 'The theme makes the light of the primary button’s gel pulse four times, over about five seconds, and stops: an endless pulse would need a control to halt it. Dialogs come down from the top edge, like a sheet out of the title bar. No source we could verify gives the pulse’s rhythm or the sheet’s duration; they are the theme’s.',
+        es: 'El tema hace latir el brillo del gel del botón principal cuatro veces, en unos cinco segundos, y se detiene: un latido sin fin necesitaría un control para pararlo. Los diálogos bajan desde el borde superior, como una hoja que sale de la barra de título; el cilindro no tiene equivalente y queda la barra de la librería. Ninguna fuente que pudimos verificar da el ritmo del latido ni la duración de la hoja; son del tema.',
+        en: 'The theme makes the shine of the primary button’s gel pulse four times, over about five seconds, and stops: an endless pulse would need a control to halt it. Dialogs come down from the top edge, like a sheet out of the title bar; the cylinder has no counterpart and the library’s bar remains. No source we could verify gives the pulse’s rhythm or the sheet’s duration; they are the theme’s.',
       },
     },
   },
@@ -82,7 +82,7 @@ export default defineTheme({
     dangerFg: ['#ffffff', '#1a0505'],
     focus: ['#2862a9', '#8cb5f2'],
   },
-  type: { weightBody: 400, weightLabel: 600, weightDisplay: 600 },
+  type: { weightBody: 400, weightLabel: 400, weightDisplay: 600 },
   shape: { borderWidth: 1, radius: 8, radiusControl: 16, radiusButton: 20, radiusSmall: 4 },
   elevation: flat(),
   motion: { duration: 0, durationSlow: 0, ease: 'linear' },

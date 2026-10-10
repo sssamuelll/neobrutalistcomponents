@@ -1,18 +1,18 @@
-/* Aqua: the default button's gel pulses (four times, then stops); sheets come out of the title bar. */
+/* Aqua: the default button's gel shine pulses (four times, then stops); sheets come out of the title bar. */
 @keyframes pulse {
   0%,
   100% {
-    background-position: 0 0;
+    opacity: 0;
   }
   50% {
-    background-position: 0 100%;
+    opacity: 1;
   }
 }
 
 @keyframes sheet {
   from {
-    transform: translateY(-1.5rem);
-    clip-path: inset(0 0 100% 0);
+    transform: translateY(-100%);
+    clip-path: inset(100% 0 0 0);
   }
   to {
     transform: none;
@@ -21,11 +21,22 @@
 }
 
 .nbc-button--primary {
-  background-size: 100% 200%;
+  isolation: isolate;
+}
+
+.nbc-button--primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--nbc-surface-alt) 55%, transparent), transparent 55%);
+  opacity: 0;
+  pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .nbc-button--primary {
+  .nbc-button--primary::before {
     animation: pulse 1.2s ease-in-out 4;
   }
 

@@ -12,3 +12,7 @@
 .nbc-button:active {
   box-shadow: 0 8px 10px 1px color-mix(in srgb, var(--nbc-fg) 14%, transparent), 0 3px 14px 2px color-mix(in srgb, var(--nbc-fg) 12%, transparent), 0 5px 5px -3px color-mix(in srgb, var(--nbc-fg) 20%, transparent);
 }
+
+.nbc-button {
+  text-transform: uppercase;
+}

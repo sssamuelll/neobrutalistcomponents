@@ -18,7 +18,7 @@ export default defineTheme({
       { title: 'Who designed the iPhone font?', url: 'https://everymac.com/systems/apple/iphone/iphone-faq/iphone-who-designed-iphone-font-used-iphone-ringtones.html', publisher: 'EveryMac', accessed: '2026-10-09' },
       { title: 'Oral History of Bas Ording', url: 'https://www.computerhistory.org/collections/catalog/102738558', publisher: 'Computer History Museum', year: 2017, accessed: '2026-10-09' },
       { title: 'Imran Chaudhri', url: 'https://en.wikipedia.org/wiki/Imran_Chaudhri', publisher: 'Wikipedia', accessed: '2026-10-09' },
-      { title: 'Helvetica', url: 'https://www.fonts.com/font/linotype/helvetica', publisher: 'Fonts.com (Monotype)', accessed: '2026-10-10' },
+      { title: 'Helvetica', url: 'https://www.myfonts.com/collections/helvetica-font-linotype', publisher: 'MyFonts (Monotype)', accessed: '2026-10-10' },
       { title: 'Macworld 2007', url: 'https://www.allaboutstevejobs.com/videos/keynotes/macworld_2007', publisher: 'allaboutstevejobs.com (keynote transcript)', year: 2007, accessed: '2026-10-10' },
       { title: 'setOn(_:animated:)', url: 'https://developer.apple.com/tutorials/data/documentation/uikit/uiswitch/seton(_:animated:).json', publisher: 'Apple Developer Documentation (UIKit)', accessed: '2026-10-10' },
     ],

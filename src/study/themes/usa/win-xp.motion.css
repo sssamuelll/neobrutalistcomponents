@@ -1,4 +1,4 @@
-/* Windows XP: tooltips fade in; the marquee progress bar steps every 30 ms (40 steps of the 1.2 s slide). */
+/* Windows XP: tooltips fade in. */
 @keyframes fade {
   from {
     opacity: 0;
@@ -11,9 +11,5 @@
 @media (prefers-reduced-motion: no-preference) {
   .nbc-tooltip:popover-open {
     animation: fade 200ms linear;
-  }
-
-  .nbc-progress--indeterminate .nbc-progress__bar {
-    animation-timing-function: steps(40, end);
   }
 }
