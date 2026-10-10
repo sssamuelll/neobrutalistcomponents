@@ -67,13 +67,17 @@ The site is also a study of neobrutalism in interfaces, in Spanish and English: 
 | `sesc-pompeia` | SESC Pompéia (Centro de Lazer Fábrica da Pompéia), Lina Bo Bardi, André Vainer, Marcelo Carvalho Ferraz, Pompeia, São Paulo, Brazil, 1977–1986 | Latin America | light |
 | `amiga-os` | Amiga Workbench 1.3, Commodore-Amiga, RJ Mical, United States, 1988 | United States | light |
 | `aqua` | Mac OS X (Aqua interface), Apple Computer, Cupertino, United States, 2000 | United States | light |
+| `atari-gem` | The GEM desktop on the Atari ST (TOS 1.0), Digital Research, United States, 1985 | United States | light |
+| `beos` | BeOS 5, Be Inc., Menlo Park, California, United States, 2000 | United States | light |
 | `classifieds` | craigslist (classified-ads website), Craig Newmark, San Francisco, United States, 1995 | United States | light |
 | `iphone-os` | iPhone OS 1 (the original iPhone’s interface), Apple Inc., Cupertino, United States, 2007 | United States | light |
 | `mac-os-classic` | Mac OS System 7 (graphical user interface), Apple Computer, Cupertino, United States, 1991 | United States | light |
 | `material-design` | Material Design (version 1), Google, Mountain View, United States, 2014 | United States | light |
 | `nextstep` | NeXTSTEP, NeXT Computer, Keith Ohlfs, California, United States, 1989 | United States | light |
+| `palm-os` | Palm OS on the Pilot 1000, Palm Computing, Rob Haitani, United States, 1996 | United States | light |
 | `whaam` | Whaam!, Roy Lichtenstein, New York, United States, 1963 | United States | light |
 | `win-xp` | Windows XP (Luna visual style), Microsoft, Redmond, United States, 2001 | United States | light |
+| `win31` | Windows 3.1, Microsoft, United States, 1992 | United States | light |
 | `win95` | Windows 95 (graphical user interface), Microsoft, Redmond, United States, 1995 | United States | light |
 | `xerox-star` | Xerox Star (8010 Information System), David Canfield Smith, Charles Irby, Ralph Kimball, Bill Verplank, Eric Harslem, El Segundo and Palo Alto, United States, 1981 | United States | light |
 <!-- study-themes:end -->

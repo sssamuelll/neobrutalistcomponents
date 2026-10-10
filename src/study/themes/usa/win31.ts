@@ -1,0 +1,100 @@
+import { defineTheme, flat } from '../../define';
+
+export default defineTheme({
+  id: 'win31',
+  scene: 'usa',
+  nativeScheme: 'light',
+  name: { es: 'Windows 3.1', en: 'Windows 3.1' },
+  tagline: { es: 'Los menús en System, y TrueType por primera vez.', en: 'Menus in System, and TrueType for the first time.' },
+  reference: {
+    title: { es: 'Windows 3.1', en: 'Windows 3.1' },
+    authors: ['Microsoft'],
+    date: 1992,
+    place: { es: 'Estados Unidos', en: 'United States' },
+    kind: 'software',
+    sources: [
+      { title: 'A brief history of TrueType', url: 'https://learn.microsoft.com/en-us/typography/truetype/history', publisher: 'Microsoft Learn', accessed: '2026-10-10' },
+      {
+        title: 'Microsoft Windows User’s Guide, version 3.1',
+        url: 'https://bitsavers.trailing-edge.com/pdf/microsoft/windows_3.1/Microsoft_Windows_3.1/PC21669-0492_Windows_3.1_Users_Guide_Apr92.pdf',
+        publisher: 'Microsoft (bitsavers)',
+        year: 1992,
+        accessed: '2026-10-10',
+      },
+      {
+        title: 'Microsoft Windows 3.1 Resource Kit',
+        url: 'https://bitsavers.trailing-edge.com/pdf/microsoft/resource_kits/0030-31645_Windows_3.1_Resource_Kit_199202.pdf',
+        publisher: 'Microsoft (bitsavers)',
+        year: 1992,
+        accessed: '2026-10-10',
+      },
+      { title: 'The Microsoft Windows Palette Manager', url: 'https://www.compuphase.com/palette.htm', publisher: 'CompuPhase', accessed: '2026-10-10' },
+    ],
+    image: {
+      file: 'win31.avif',
+      width: 459,
+      height: 160,
+      alt: {
+        es: 'Un diálogo de Windows 3.1 sobre fondo blanco: el título «Application Error», el aviso «EXAMPLE caused a General Protection Fault in module TEST.EXE at 0001:0197.» y un botón gris con relieve que dice «Close».',
+        en: 'A Windows 3.1 dialog on a white ground: the title “Application Error”, the message “EXAMPLE caused a General Protection Fault in module TEST.EXE at 0001:0197.” and a grey bevelled button reading “Close”.',
+      },
+      author: 'Microsoft Corporation',
+      license: 'PD',
+      sourceUrl: 'https://commons.wikimedia.org/wiki/File:General_Protection_Fault_example_in_Windows_3.1.png',
+    },
+  },
+  ficha: {
+    documented: {
+      es: 'Windows 3.1 salió en abril de 1992, y fue la primera versión de Windows que traía TrueType [1]. Su guía del usuario presenta el Administrador de programas como la aplicación central del sistema, que arranca con Windows y sigue abierta mientras se trabaja, y el Administrador de archivos como la herramienta para ordenar archivos y directorios [2]. El esquema de colores Windows Default es el que se ve al arrancar por primera vez, y el único que no se puede borrar [2].',
+      en: 'Windows 3.1 came out in April 1992, the first version of Windows to ship with TrueType [1]. Its user’s guide presents Program Manager as the system’s central application, which starts with Windows and stays open while one works, and File Manager as the tool for sorting files and directories [2]. The Windows Default colour scheme is the one seen on first start-up, and the only one that cannot be deleted [2].',
+    },
+    reading: {
+      es: 'El tema toma dos colores de la paleta del sistema, el gris claro para el fondo y el azul oscuro para las acciones principales, y del diálogo de la captura el blanco de las superficies y el negro de las letras y los bordes de un píxel; los demás son del tema. Todo el texto va en una letra de píxeles gruesa. Nada se mueve.',
+      en: 'The theme takes two colours from the system palette, light grey for the ground and dark blue for primary actions, and from the screenshot’s dialog the white of surfaces and the black of letters and one-pixel borders; the rest are the theme’s. All text is set in a heavy pixel face. Nothing moves.',
+    },
+    palette: {
+      origin: 'interpreted',
+      note: {
+        es: 'Según CompuPhase, Windows reserva 20 colores fijos del sistema, entre ellos un gris claro (192, 192, 192) y un azul oscuro (0, 0, 128) [4]; ninguna fuente que consultamos dice qué colores usaba el esquema Windows Default, así que el reparto es del tema.',
+        en: 'According to CompuPhase, Windows reserves 20 fixed system colours, among them a light grey (192, 192, 192) and a dark blue (0, 0, 128) [4]; no source we consulted says which colours the Windows Default scheme used, so the distribution is the theme’s.',
+      },
+    },
+    lettering: {
+      original: { name: 'System', designer: 'Microsoft', kind: 'bitmap' },
+      documented: {
+        es: 'Si nada indica otra cosa, Windows 3.x escribe sus menús, los controles de sus diálogos y otros textos con System, una letra de ancho proporcional [3]. El mismo Resource Kit lista MS Sans Serif entre las letras para pantallas VGA, en tamaños de 8 a 24 puntos [3]. Ninguna fuente que consultamos dice quién dibujó System.',
+        en: 'Unless told otherwise, Windows 3.x sets its menus, its dialog controls and other text in System, a proportional-width face [3]. The same Resource Kit lists MS Sans Serif among the faces for VGA screens, in sizes from 8 to 24 points [3]. No source we consulted says who drew System.',
+      },
+      substitute: {
+        es: 'El tema usa Jersey 10, una letra libre de píxeles, proporcional y de trazo grueso, para todo el texto. En la captura vemos System, gruesa y bastante ancha; Jersey 10 comparte el trazo grueso de píxeles y difiere en que es más estrecha. Tiene un solo peso, y nada se engrosa.',
+        en: 'The theme uses Jersey 10, a free pixel face, proportional and heavy-stroked, for all text. In the screenshot we see System, heavy and fairly wide; Jersey 10 shares the heavy pixel stroke and differs in being narrower. It has a single weight, and nothing is thickened.',
+      },
+    },
+  },
+  fonts: { sans: 'jersey-10' },
+  colors: {
+    bg: ['#c0c0c0', '#101018'],
+    fg: ['#000000', '#ffffff'],
+    fgMuted: ['#404040', '#c0c0c0'],
+    surface: ['#ffffff', '#1c1c28'],
+    surfaceAlt: ['#dfdfdf', '#2a2a3a'],
+    border: ['#000000', '#c0c0c0'],
+    primary: ['#000080', '#8080ff'],
+    primaryFg: 'auto',
+    accent: ['#008080', '#00c0c0'],
+    accentFg: 'auto',
+    info: ['#000080', '#8080ff'],
+    infoFg: 'auto',
+    success: ['#008000', '#40c040'],
+    successFg: 'auto',
+    warning: ['#808000', '#e0e000'],
+    warningFg: 'auto',
+    danger: ['#800000', '#ff6060'],
+    dangerFg: 'auto',
+    focus: ['#000080', '#e0e000'],
+  },
+  type: { weightBody: 400, weightLabel: 400, weightDisplay: 400, displaySpacing: '0em', kerning: 'none' },
+  shape: { borderWidth: 1, radius: 0, radiusControl: 0, radiusButton: 0, radiusSmall: 0 },
+  elevation: flat(),
+  motion: { duration: 0, durationSlow: 0, ease: 'linear' },
+});
