@@ -26,7 +26,7 @@ async function get(url) {
     const type = res.headers.get('content-type') ?? '';
     return { status: res.status, type, text: res.ok && !type.includes('pdf') ? await res.text() : '' };
   } catch (error) {
-    return { status: 0, type: '', text: '', error: error.message };
+    return { status: 0, type: '', text: '', error: error.cause?.code ?? error.message };
   }
 }
 
