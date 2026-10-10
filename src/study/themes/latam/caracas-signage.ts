@@ -5,7 +5,7 @@ export default defineTheme({
   scene: 'latam',
   nativeScheme: 'light',
   name: { es: 'Señalética de Caracas', en: 'Caracas signage' },
-  tagline: { es: 'Una M roja sobre negro, y cada línea con su color.', en: 'A red M on black, and every line in its colour.' },
+  tagline: { es: 'Una M roja en Helvetica, y cada línea con su color.', en: 'A red M in Helvetica, and every line in its colour.' },
   reference: {
     title: { es: 'Señalética e identidad gráfica del metro de Caracas', en: 'Signage and graphic identity of the Caracas metro' },
     original: { text: 'Metro de Caracas', lang: 'es' },
@@ -14,11 +14,11 @@ export default defineTheme({
     place: { es: 'Caracas, Venezuela', en: 'Caracas, Venezuela' },
     kind: 'signage',
     sources: [
-      { title: 'Metro de Caracas', url: 'https://es.wikipedia.org/wiki/Metro_de_Caracas', publisher: 'Wikipedia', accessed: '2026-10-10' },
+      { title: 'La época en la que el Metro fue “la gran solución para Caracas”', url: 'https://eldiario.com/2021/01/02/epoca-metro-gran-solucion-caracas/', publisher: 'El Diario', accessed: '2026-10-10' },
       {
-        title: 'Diagramas y abstracciones: el Metro de Caracas',
+        title: 'Del plano al diagrama',
         url: 'https://web.archive.org/web/20240907062711/https://guiaccs.com/planos/diagramas-y-abstracciones-el-metro-de-caracas/',
-        publisher: 'Guía de Caracas (Internet Archive)',
+        publisher: 'Caracas del valle al mar, guía de arquitectura y paisaje (Internet Archive)',
         accessed: '2026-10-10',
       },
     ],
@@ -37,22 +37,22 @@ export default defineTheme({
   },
   ficha: {
     documented: {
-      es: 'La Línea 1 del metro de Caracas abrió el 2 de enero de 1983, entre Propatria y La Hoyada [1]. El estudio BMPT hizo el concepto gráfico inicial, y la señalización, el equipamiento y la integración de obras de artistas como Soto, Cruz-Diez y Gego se hicieron bajo la dirección de Max Pedemonte, en la División de Arquitectura de la empresa [2]. El logotipo es una M roja que hace con la M de metro lo que el metro de Londres había hecho con su U, acompañada por los colores de las líneas; la Línea 1 es naranja [2].',
-      en: 'Line 1 of the Caracas metro opened on 2 January 1983, between Propatria and La Hoyada [1]. The studio BMPT made the first graphic concept, and the signage, the fittings and the integration of works by artists such as Soto, Cruz-Diez and Gego were carried out under Max Pedemonte, in the company’s Architecture Division [2]. The logo is a red M that does with the M of metro what the London Underground had done with its U, joined by the lines’ colours; Line 1 is orange [2].',
+      es: 'El metro de Caracas abrió el 2 de enero de 1983, con un primer tramo de Propatria a La Hoyada [1]. El estudio BMPT hizo el concepto gráfico inicial, y Max Pedemonte dirigió desde la División de Arquitectura de la empresa la señalización, el equipamiento y la integración de obras de artistas como Soto, Cruz-Diez y Gego [2]. El logotipo es una M roja en Helvetica que hace con la M de metro lo que el metro de Londres había hecho con su U; cada uno de los cuatro tramos del sistema tenía su color, naranja, amarillo, azul y verde, y esos colores corrían también en una franja horizontal sobre los vagones [2].',
+      en: 'The Caracas metro opened on 2 January 1983, its first stretch running from Propatria to La Hoyada [1]. The studio BMPT made the first graphic concept, and Max Pedemonte, from the company’s Architecture Division, directed the signage, the fittings and the integration of works by artists such as Soto, Cruz-Diez and Gego [2]. The logo is a red M in Helvetica that does with the M of metro what the London Underground had done with its U; each of the system’s four sections had its colour, orange, yellow, blue and green, and those colours also ran as a horizontal stripe along the cars [2].',
     },
     reading: {
-      es: 'El tema toma el letrero de la entrada: una banda negra con la M roja y el nombre en blanco. El negro va en los bordes y en el texto, el rojo de la M en las acciones principales y el azul de los azulejos de la fachada en el acento. Esquinas rectas, sin sombras, como un cartel atornillado al muro; nada se mueve.',
-      en: 'The theme takes the sign over the entrance: a black band with the red M and the name in white. Black goes on the borders and the text, the M’s red on primary actions and the blue of the façade tiles on the accent. Square corners, no shadows, like a sign bolted to the wall; nothing moves.',
+      es: 'El tema toma un letrero de entrada de hoy, el de Propatria, fotografiado en 2025: una banda negra con la M roja y el nombre en blanco. Ninguna fuente que consultamos fecha ese letrero ni dice quién lo diseñó. El negro va en los bordes y en el texto, el rojo de la M en las acciones principales y el azul de los azulejos en el acento. Esquinas rectas, sin sombras, como un cartel atornillado al muro; nada se mueve.',
+      en: 'The theme takes a present-day entrance sign, Propatria’s, photographed in 2025: a black band with the red M and the name in white. No source we consulted dates that sign or says who designed it. Black goes on the borders and the text, the M’s red on primary actions and the tiles’ blue on the accent. Square corners, no shadows, like a sign bolted to the wall; nothing moves.',
     },
     palette: {
-      origin: 'sampled',
+      origin: 'interpreted',
       note: {
-        es: 'El rojo del logotipo y el naranja de la Línea 1 están documentados con palabras [2]; los valores salen de la fotografía de la entrada de Propatria, con el negro de la banda y el azul de los azulejos.',
-        en: 'The logo’s red and Line 1’s orange are documented in words [2]; the values come from the photograph of the Propatria entrance, with the band’s black and the tiles’ blue.',
+        es: 'El rojo del logotipo y los colores de los cuatro tramos están documentados con palabras [2]. Los valores parten de la fotografía de Propatria, de 2025, con el negro de la banda y el azul de los azulejos, y son más saturados que lo que muestra la foto.',
+        en: 'The logo’s red and the four sections’ colours are documented in words [2]. The values start from the 2025 photograph of Propatria, with the band’s black and the tiles’ blue, and are more saturated than the photo shows.',
       },
     },
     lettering: {
-      original: { name: 'Helvetica', designer: 'Max Miedinger, Eduard Hoffmann', kind: 'outline' },
+      original: { name: { es: 'Helvetica, en la M del logotipo', en: 'Helvetica, in the logo’s M' }, designer: 'Max Miedinger, Eduard Hoffmann', kind: 'outline' },
       documented: {
         es: 'El logotipo del metro usa Helvetica para su M roja [2]. Ninguna fuente que consultamos dice en qué letra se compusieron los nombres de las estaciones.',
         en: 'The metro’s logo sets its red M in Helvetica [2]. No source we consulted says what letters the station names were set in.',
@@ -83,7 +83,7 @@ export default defineTheme({
     warningFg: 'auto',
     danger: ['#a61b1b', '#ff7a6e'],
     dangerFg: 'auto',
-    focus: ['#c4371a', '#ff6a3d'],
+    focus: ['#2f4fa3', '#8aa4e8'],
   },
   type: { weightBody: 400, weightLabel: 700, weightDisplay: 700, displaySpacing: '-0.01em' },
   shape: { borderWidth: 2, radius: 0, radiusControl: 0, radiusButton: 0, radiusSmall: 0 },

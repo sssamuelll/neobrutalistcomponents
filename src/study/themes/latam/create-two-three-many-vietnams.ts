@@ -5,7 +5,7 @@ export default defineTheme({
   scene: 'latam',
   nativeScheme: 'light',
   name: { es: 'Muchos Vietnam', en: 'Many Vietnams' },
-  tagline: { es: 'Una foto repetida en rojo, un titular negro y una línea escrita a mano.', en: 'One photograph repeated in red, a black headline and a handwritten line.' },
+  tagline: { es: 'Fotos repetidas en rojo, un titular negro y una línea escrita a mano.', en: 'Photographs repeated in red, a black headline and a handwritten line.' },
   reference: {
     title: { es: 'Crear dos, tres… muchos Vietnam (cartel de la OSPAAAL)', en: 'Create two, three… many Vietnams (OSPAAAL poster)' },
     authors: ['Alfredo Rostgaard'],
@@ -25,8 +25,8 @@ export default defineTheme({
   },
   ficha: {
     documented: {
-      es: 'Alfredo Rostgaard hizo este cartel para la OSPAAAL en 1967, en solidaridad con Vietnam: una litografía en color, en rojo, con fotografías repetidas de Che Guevara fumando, cuyo título viene de un texto de Guevara publicado en la revista Tricontinental en abril de 1967 [1]. Como primer director creativo de la OSPAAAL, Rostgaard armaba montajes que repetían dos o tres fotografías, y el V&A pone este cartel como ejemplo [2]. La mayoría de los carteles de la organización se imprimían en offset [3].',
-      en: 'Alfredo Rostgaard made this poster for OSPAAAL in 1967, in solidarity with Vietnam: a colour lithograph, in red, with repeated photographs of Che Guevara smoking, whose title comes from a text by Guevara published in Tricontinental magazine in April 1967 [1]. As OSPAAAL’s first creative director, Rostgaard built montages that repeated two or three photographs, and the V&A gives this poster as an example [2]. Most of the organisation’s posters were printed in offset [3].',
+      es: 'Alfredo Rostgaard hizo este cartel para la OSPAAAL en 1967, en solidaridad con Vietnam. Es una litografía impresa en rojo donde fotos de Che Guevara fumando se repiten por todo el pliego, y su título cita un artículo de Guevara que la revista Tricontinental publicó en abril de 1967 [1]. Como primer director creativo de la OSPAAAL, Rostgaard armaba montajes que repetían dos o tres fotografías, y el V&A pone este cartel como ejemplo [2]. La mayoría de los carteles de la organización se imprimían en offset [3].',
+      en: 'Alfredo Rostgaard made this poster for OSPAAAL in 1967, in solidarity with Vietnam. It is a lithograph printed in red, where pictures of Che Guevara smoking recur across the sheet, and its title quotes an article by Guevara that Tricontinental magazine ran in April 1967 [1]. As OSPAAAL’s first creative director, Rostgaard built montages that repeated two or three photographs, and the V&A gives this poster as an example [2]. Most of the organisation’s posters were printed in offset [3].',
     },
     reading: {
       es: 'El tema toma las tres franjas del cartel: arriba el crema del papel con el titular, en medio el rojo de las fotos, abajo el negro. El rojo va en las acciones principales y el negro en los bordes y en el texto. Esquinas rectas y sin sombras, como un pliego impreso; nada se mueve.',
@@ -35,8 +35,8 @@ export default defineTheme({
     palette: {
       origin: 'interpreted',
       note: {
-        es: 'El V&A describe el cartel en rojo [1] y cuenta que, por la escasez de tinta, los carteles se imprimían a menudo con dos o tres colores [2]; los valores son una lectura de la imagen del museo.',
-        en: 'The V&A describes the poster as red [1] and says that, with ink in short supply, posters were often printed in two or three colours [2]; the values are a reading of the museum’s image.',
+        es: 'El V&A describe el cartel en rojo [1] y cuenta que, como escaseaba la tinta, los carteles de la organización solían arreglarse con dos o tres colores [2]; los valores son una lectura de la imagen del museo.',
+        en: 'The V&A describes the poster as red [1] and says that ink was scarce, so the organisation’s posters often made do with two or three colours [2]; the values are a reading of the museum’s image.',
       },
     },
     lettering: {

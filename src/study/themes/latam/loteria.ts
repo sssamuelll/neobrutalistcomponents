@@ -19,15 +19,14 @@ export default defineTheme({
         publisher: 'The Historical Marker Database (marker by the Mexican Embassy in the United States and the Mexican Cultural Institute)',
         accessed: '2026-10-10',
       },
-      { title: 'Clemente Jacques, el creador de la lotería mexicana', url: 'https://gecentenarios.com/clemente-jacques-el-creador-de-la-loteria-mexicana/', publisher: 'Grandes Empresas Centenarias', accessed: '2026-10-10' },
+      { title: 'Clemente Jacques, el creador de la lotería mexicana', url: 'https://gecentenarios.com/clemente-jacques-el-creador-de-la-loteria-mexicana/', publisher: 'Grupo Editorial Centenarios', accessed: '2026-10-10' },
       { title: 'Sobre nosotros', url: 'https://www.clementejacques.com.mx/sobre-nosotros/', publisher: 'Clemente Jacques', accessed: '2026-10-10' },
-      { title: 'Lotería', url: 'https://en.wikipedia.org/wiki/Loter%C3%ADa', publisher: 'Wikipedia', accessed: '2026-10-10' },
     ],
   },
   ficha: {
     documented: {
-      es: 'La baraja tradicional de la lotería mexicana tiene 54 cartas, y cada una lleva una imagen, un número y un nombre propios [1][2]. Una placa histórica la atribuye a Don Clemente Jacques, en México, en 1887 [1]; la empresa que lleva su nombre cuenta que Jacques importaba y vendía el juego antes de fundar su fábrica [3]. Al jugar, cada quien marca en su tabla, con una ficha o algo parecido, la carta que sale [4].',
-      en: 'The traditional Mexican lotería deck has 54 cards, each with an image, a number and a name of its own [1][2]. A historical marker credits it to Don Clemente Jacques, in Mexico, in 1887 [1]; the company that bears his name says Jacques imported and sold the game before he founded his factory [3]. In play, each player marks the card that comes up on their board with a chip or something like it [4].',
+      es: 'La baraja tradicional de la lotería mexicana tiene 54 cartas, y cada una lleva una imagen, un número y un nombre propios [1][2]. Una placa histórica la atribuye a Don Clemente Jacques, en México, en 1887 [1]; la empresa que lleva su nombre cuenta que Jacques importaba y vendía el juego antes de fundar su fábrica [3]. Se juega de forma parecida al bingo, y a quien canta las cartas se le llama el gritón [1].',
+      en: 'Fifty-four cards make up the traditional Mexican lotería deck, and on every one an image comes with a number and a name [1][2]. A historical marker credits it to Don Clemente Jacques, in Mexico, in 1887 [1]; the company that bears his name says Jacques imported and sold the game before he founded his factory [3]. It plays much like bingo, and whoever calls out the cards is known as the gritón [1].',
     },
     reading: {
       es: 'El tema arma la interfaz como una carta: un marco negro fino, fondos planos de colores claros y el nombre en mayúsculas al pie. El crema del papel es el fondo, el azul claro de muchas cartas va en las superficies alternas y el amarillo, en el acento. Nada se mueve: es una baraja impresa.',
@@ -72,7 +71,7 @@ export default defineTheme({
     warningFg: 'auto',
     danger: ['#b3202e', '#ff8a8f'],
     dangerFg: 'auto',
-    focus: ['#b3202e', '#f2d43b'],
+    focus: ['#1f6f9c', '#f2d43b'],
   },
   type: { weightBody: 400, weightLabel: 600, weightDisplay: 700, displayTransform: 'uppercase', displaySpacing: '0.02em' },
   shape: { borderWidth: 2, radius: 4, radiusControl: 4, radiusButton: 4, radiusSmall: 2 },
