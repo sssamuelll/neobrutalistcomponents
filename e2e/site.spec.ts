@@ -133,7 +133,7 @@ test('atlas: every theme as a card; facets and search live in the URL', async ({
   await expect(page.locator('.site-card')).toHaveCount(CATALOG.length);
   await page.getByLabel('Scene').selectOption('japan');
   await expect(page).toHaveURL(/#\/en\/atlas\?scene=japan$/);
-  await expect(page.locator('.site-card')).toHaveCount(3);
+  await expect(page.locator('.site-card')).toHaveCount(CATALOG.filter((entry) => entry.facets.scene === 'japan').length);
   await page.getByLabel('Search').fill('中銀');
   await expect(page.locator('.site-card')).toHaveCount(1);
   await expect(page.locator('.site-card h2')).toHaveText('Nakagin');
@@ -318,8 +318,8 @@ test('rooms: a world map with its legend, then each room lists its references in
   await page.locator('.world-map__legend').getByRole('link', { name: 'Japan' }).click();
   await expect(page).toHaveURL(/#\/en\/scene\/japan$/);
   await expect(page).toHaveTitle('Japan — neobrutalistcomponents');
-  await expect(page.locator('.study-timeline__year')).toHaveText(['1970', '1980', '1996']);
-  await expect(page.locator('.study-timeline .site-card h3')).toHaveText(['Nakagin', 'Riso', 'Y2K']);
+  await expect(page.locator('.study-timeline__year')).toHaveText(['1961', '1970', '1980', '1985', '1986', '1996']);
+  await expect(page.locator('.study-timeline .site-card h3')).toHaveText(['Tokyo 1964', 'Nakagin', 'Riso', 'Super Mario Bros.', 'Dragon Quest', 'Y2K']);
   await expect(page.locator('nav .study-scenes__card')).toHaveCount(SCENES.length - 1);
   await page.goto('#/en/origins');
   await expect(page.locator('.study-essay__text h2').first()).toHaveText('Béton brut');
