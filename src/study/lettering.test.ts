@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { FIXTURE } from './__fixtures__/fixture';
 import { compileTokens } from './compile';
-import { LETTERING_PENDING, themeProblems } from './validate';
+import { themeProblems } from './validate';
 import type { Ficha, StudyThemeInput } from './types';
 
 const problems = (patch: Partial<StudyThemeInput>) => themeProblems({ ...FIXTURE, ...patch }).join('\n');
@@ -9,7 +9,7 @@ const withLettering = (patch: Partial<NonNullable<Ficha['lettering']>>): Partial
   ficha: { ...FIXTURE.ficha, lettering: { ...FIXTURE.ficha.lettering!, ...patch } },
 });
 const withoutLettering = (id: string): StudyThemeInput => {
-  return { ...FIXTURE, id, ficha: { ...FIXTURE.ficha, lettering: undefined } };
+  return { ...FIXTURE, id, ficha: { ...FIXTURE.ficha, lettering: undefined as never } };
 };
 
 describe('lettering in the ficha', () => {
@@ -17,13 +17,8 @@ describe('lettering in the ficha', () => {
     expect(themeProblems(FIXTURE)).toEqual([]);
   });
 
-  it('a theme without lettering fails, unless its id is pending', () => {
+  it('a theme without lettering fails', () => {
     expect(themeProblems(withoutLettering('fixture')).join('\n')).toMatch(/fixture\.ficha\.lettering: missing/);
-    expect(themeProblems(withoutLettering(LETTERING_PENDING[0]))).toEqual([]);
-  });
-
-  it('a pending theme that already has lettering must leave the list', () => {
-    expect(themeProblems({ ...FIXTURE, id: LETTERING_PENDING[0] }).join('\n')).toMatch(/: has lettering — remove it from LETTERING_PENDING/);
   });
 
   it.each([
@@ -41,13 +36,13 @@ describe('lettering in the ficha', () => {
   });
 
   it('a source cited only by lettering or motion text counts as cited', () => {
-    const ficha: Ficha = {
+    const ficha: StudyThemeInput['ficha'] = {
       ...FIXTURE.ficha,
       documented: { es: 'Un hecho [1].', en: 'A fact [1].' },
-      lettering: { ...FIXTURE.ficha.lettering!, documented: { es: 'Rotulada [2].', en: 'Set [2].' } },
+      lettering: { ...FIXTURE.ficha.lettering, documented: { es: 'Rotulada [2].', en: 'Set [2].' } },
     };
     expect(themeProblems({ ...FIXTURE, ficha })).toEqual([]);
-    const uncited: Ficha = { ...ficha, lettering: { ...ficha.lettering!, documented: { es: 'Rotulada.', en: 'Set.' } } };
+    const uncited: StudyThemeInput['ficha'] = { ...ficha, lettering: { ...ficha.lettering, documented: { es: 'Rotulada.', en: 'Set.' } } };
     expect(problems({ ficha: uncited })).toMatch(/source \[2\] is never cited/);
   });
 
@@ -152,5 +147,12 @@ describe('a lettering name may be bilingual (batch 2 review)', () => {
   it('accepts { es, en } and checks both languages', () => {
     expect(problems(withLettering({ original: { name: { es: 'Rótulos del interior', en: 'Interior lettering' }, kind: 'lettered' } }))).toBe('');
     expect(problems(withLettering({ original: { name: { es: '', en: 'Interior lettering' }, kind: 'lettered' } }))).toMatch(/original\.name\.es: empty/);
+  });
+});
+
+describe('a still work uses 0 ms', () => {
+  it('a theme without ficha.motion sets duration and durationSlow to 0', () => {
+    expect(problems({ motion: { duration: 120, durationSlow: 220, ease: 'linear' } })).toMatch(/fixture\.motion: the work did not move/);
+    expect(problems({ motion: undefined })).toMatch(/fixture\.motion: the work did not move/);
   });
 });

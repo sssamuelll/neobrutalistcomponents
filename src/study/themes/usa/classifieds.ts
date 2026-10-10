@@ -25,6 +25,8 @@ export default defineTheme({
       { title: 'HTML Living Standard — 15 Rendering', url: 'https://html.spec.whatwg.org/multipage/rendering.html', publisher: 'WHATWG', accessed: '2026-10-05' },
       { title: 'craigslist.org, capture of 2 December 1998', url: 'https://web.archive.org/web/19981202212015/http://www.craigslist.org/', publisher: 'Internet Archive', year: 1998, accessed: '2026-10-05' },
       { title: 'Help On Mosaic v0.13', url: 'https://stuff.mit.edu/afs/sipb/project/www/doc/Mosaic-2.4/help-on-version-0.13.html', publisher: 'NCSA (mirror at MIT SIPB)', accessed: '2026-10-05' },
+      { title: 'craigslist (archived 2 March 2000)', url: 'https://web.archive.org/web/20000302010837/http://craigslist.org/', publisher: 'Internet Archive', year: 2000, accessed: '2026-10-10' },
+      { title: 'craigslist (archived 1 January 2005)', url: 'https://web.archive.org/web/20050101084947/http://www.craigslist.org/', publisher: 'Internet Archive', year: 2005, accessed: '2026-10-10' },
     ],
     archiveUrl: 'https://web.archive.org/web/19981202212015/http://www.craigslist.org/',
   },
@@ -34,14 +36,25 @@ export default defineTheme({
       en: 'Craig Newmark started craigslist in early 1995 as an e-mail list of San Francisco events; its posts later moved to a website [1]. In 2009 Wired observed that the site still looked like the early Web, built of long lists of blue links [2], and in 2017 the AIGA journal Dialectic singled it out as one of the best-known examples of brutalism on the web [3]. The earliest archived page, from December 1998, sets no link colours of its own, so links appeared in the browser’s defaults [5].',
     },
     reading: {
-      es: 'El tema es esa página por defecto del navegador convertida en componentes: papel blanco, texto negro con serifa, un borde negro finísimo y ninguna sombra. Las acciones principales toman el azul de enlace no visitado #0000EE y el acento es el morado de visitado #551A8B [4][6]. Un botón fantasma se dibuja como un enlace subrayado que se vuelve rojo al pulsarlo, como un enlace activo; el rojo del tema es más oscuro que el #FF0000 del estándar para que el texto blanco de los botones de peligro siga siendo legible [4].',
-      en: 'The theme is that default browser page made into components: white paper, black serif text, a hairline black edge and no shadows. Primary actions take the unvisited-link blue #0000EE and the accent is the visited purple #551A8B [4][6]. A ghost button is drawn as an underlined link that turns red while pressed, like an active link; the theme’s red is darker than the standard’s #FF0000 so that white text on danger buttons stays legible [4].',
+      es: 'El tema es esa página convertida en componentes: el fondo blanco que ella misma pedía, texto negro con serifa, un borde negro finísimo y ninguna sombra. Las acciones principales toman el azul de enlace no visitado #0000EE y el acento es el morado de visitado #551A8B [4][6]. Un botón fantasma se dibuja como un enlace subrayado que se vuelve rojo al pulsarlo, como un enlace activo; el rojo del tema es más oscuro que el #FF0000 del estándar para que el texto blanco de los botones de peligro siga siendo legible [4].',
+      en: 'The theme is that page made into components: the white ground it asked for itself, black serif text, a hairline black edge and no shadows. Primary actions take the unvisited-link blue #0000EE and the accent is the visited purple #551A8B [4][6]. A ghost button is drawn as an underlined link that turns red while pressed, like an active link; the theme’s red is darker than the standard’s #FF0000 so that white text on danger buttons stays legible [4].',
     },
     palette: {
       origin: 'documented',
       note: {
         es: '#0000EE y #551A8B son los colores de enlace por defecto del estándar HTML actual; Mosaic ya dibujaba los enlaces no visitados en azul y los visitados en morado oscuro. El esquema oscuro es del tema.',
         en: '#0000EE and #551A8B are the default link colours of today’s HTML standard; Mosaic already drew unvisited links blue and visited ones dark purple. The dark scheme is the theme’s own.',
+      },
+    },
+    lettering: {
+      original: { name: { es: 'La fuente por defecto del navegador', en: 'The browser’s default font' }, kind: 'system' },
+      documented: {
+        es: 'La página de 1998 solo fija tamaños con etiquetas FONT SIZE y no nombra ninguna tipografía [5], así que cada lector veía el texto en la tipografía por defecto de su navegador. En marzo de 2000 la página de inicio ya pedía Arial, Helvetica y Verdana [7], y en enero de 2005 una hoja de estilo ponía las listas de enlaces en una sans genérica, mientras el logotipo pedía «times roman» [8].',
+        en: 'The 1998 page sets only sizes, with FONT SIZE tags, and names no typeface [5], so each reader saw the text in their browser’s default typeface. By March 2000 the home page asked for Arial, Helvetica and Verdana [7], and in January 2005 a style sheet set the link lists in a generic sans, while the logo asked for “times roman” [8].',
+      },
+      substitute: {
+        es: 'El tema usa Times New Roman, o la serif del sistema donde no la hay, y lee la página de 1998, la que no pedía ninguna tipografía. Que esa tipografía por defecto fuera una serif es la lectura del tema: ninguna fuente que pudimos verificar dice cuál mostraba cada navegador.',
+        en: 'The theme uses Times New Roman, or the system serif where it is missing, and reads the 1998 page, the one that asked for no typeface. That the default was a serif is the theme’s reading: no source we could verify says which one each browser showed.',
       },
     },
   },

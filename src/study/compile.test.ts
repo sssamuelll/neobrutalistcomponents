@@ -55,7 +55,7 @@ describe('compileTokens', () => {
   });
 
   it('applies the engine defaults for optional groups', () => {
-    const tokens = compileTokens(FIXTURE);
+    const tokens = compileTokens({ ...FIXTURE, motion: undefined });
     expect(tokens.get('--nbc-label-transform')).toBe('none');
     expect(tokens.get('--nbc-label-spacing')).toBe('normal');
     expect(tokens.get('--nbc-display-spacing')).toBe('-0.02em');

@@ -27,6 +27,8 @@ export default defineTheme({
         accessed: '2026-10-09',
       },
       { title: 'Whaam!', url: 'https://en.wikipedia.org/wiki/Whaam!', publisher: 'Wikipedia', accessed: '2026-10-09' },
+      { title: 'Bangers (description)', url: 'https://raw.githubusercontent.com/google/fonts/main/ofl/bangers/DESCRIPTION.en_us.html', publisher: 'Google Fonts', accessed: '2026-10-10' },
+      { title: 'Comic Neue (description)', url: 'https://raw.githubusercontent.com/google/fonts/main/ofl/comicneue/DESCRIPTION.en_us.html', publisher: 'Google Fonts', accessed: '2026-10-10' },
     ],
   },
   ficha: {
@@ -45,8 +47,19 @@ export default defineTheme({
         en: 'The sources describe flat colour fields and a yellow balloon, with no values. The tones are a reading; the work is still under copyright, so the ficha links Tate’s page instead of an image.',
       },
     },
+    lettering: {
+      original: { name: { es: 'Rótulos de cómic repintados: el globo amarillo y WHAAM!', en: 'Repainted comic lettering: the yellow balloon and WHAAM!' }, designer: 'Roy Lichtenstein', year: 1963, kind: 'lettered' },
+      documented: {
+        es: 'El dibujo preparatorio muestra que Lichtenstein cambió el original, también su texto [1]. Para la Tate, el WHAAM!, dispuesto en una línea quebrada y trabado con la imagen, habla desde fuera del cuadro, como si el artista contestara las palabras del globo [1].',
+        en: 'The preparatory drawing shows that Lichtenstein changed the original, its text included [1]. For Tate, the WHAAM!, laid along a jagged line and woven into the image, speaks from outside the picture, as if the artist were answering the words in the balloon [1].',
+      },
+      substitute: {
+        es: 'El tema usa Bangers para los títulos y Comic Neue para el texto, dos fuentes libres. Bangers se dibujó a la manera de los rótulos de las portadas de superhéroes de mediados del siglo XX [4], y en sus mayúsculas estrechas e inclinadas vemos las de la onomatopeya; Comic Neue es una reinterpretación de Comic Sans [5] y pone el texto corrido en caja alta y baja. Ninguna copia las letras que pintó Lichtenstein.',
+        en: 'The theme uses Bangers for titles and Comic Neue for text, two free faces. Bangers was drawn after mid-20th-century superhero cover lettering [4], and in its narrow, slanted capitals we see the onomatopoeia’s; Comic Neue is a reinterpretation of Comic Sans [5] and sets running text in upper and lower case. Neither copies the letters Lichtenstein painted.',
+      },
+    },
   },
-  fonts: 'system-sans',
+  fonts: { sans: 'comic-neue', display: 'bangers' },
   colors: {
     bg: ['#faef32', '#1a0b1c'],
     fg: ['#0d0d0d', '#f2f2f2'],
@@ -68,9 +81,9 @@ export default defineTheme({
     dangerFg: ['#ffffff', '#0a0a0a'],
     focus: ['#0a0a0a', '#6aa6f2'],
   },
-  type: { weightBody: 600, weightLabel: 800, weightDisplay: 900, labelTransform: 'uppercase' },
+  type: { weightBody: 400, weightLabel: 700, weightDisplay: 400, labelTransform: 'uppercase', displaySpacing: '0.01em' },
   shape: { borderWidth: 4, radius: 0, radiusControl: 0, radiusButton: 0, radiusSmall: 0 },
   elevation: flat(),
-  motion: { duration: 100, durationSlow: 200, ease: 'linear' },
+  motion: { duration: 0, durationSlow: 0, ease: 'linear' },
   signature: './whaam.css',
 });

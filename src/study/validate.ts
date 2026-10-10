@@ -74,13 +74,6 @@ export function referenceProblems(ref: Reference, where: string): string[] {
   return problems;
 }
 
-/**
- * Themes that predate the lettering requirement. Phase 2 of the lettering and
- * motion spec removes each id as it writes that theme's lettering; the list
- * never grows, and new themes are never in it.
- */
-export const LETTERING_PENDING: readonly string[] = ['classifieds', 'whaam'];
-
 function letteringProblems(lettering: Lettering | undefined, where: string): string[] {
   if (!lettering) return [];
   const { original } = lettering;
@@ -234,9 +227,8 @@ function valueProblems(theme: StudyThemeInput): string[] {
 
 function letteringThemeProblems(theme: StudyThemeInput): string[] {
   const { id, ficha, fonts } = theme;
-  const pending = LETTERING_PENDING.includes(id);
-  if (!ficha.lettering) return pending ? [] : [`${id}.ficha.lettering: missing`];
-  const problems = pending ? [`${id}: has lettering — remove it from LETTERING_PENDING`] : [];
+  if (!ficha.lettering) return [`${id}.ficha.lettering: missing`];
+  const problems: string[] = [];
   if (typeof fonts === 'string') return problems;
   const { original, substitute } = ficha.lettering;
   const families = [fonts.sans, fonts.display].filter((key): key is FontKey => key !== undefined && key in FONTS).map((key) => FONTS[key].family);
@@ -266,6 +258,9 @@ export function themeProblems(theme: StudyThemeInput): string[] {
   problems.push(...letteringThemeProblems(theme));
   if (Boolean(theme.motionFile) !== Boolean(theme.ficha.motion)) {
     problems.push(`${id}: ${theme.ficha.motion ? 'ficha.motion has no motionFile' : 'motionFile has no ficha.motion'} — they go together`);
+  }
+  if (!theme.ficha.motion && (theme.motion?.duration !== 0 || theme.motion?.durationSlow !== 0)) {
+    problems.push(`${id}.motion: the work did not move — set duration and durationSlow to 0`);
   }
   if (typeof theme.fonts !== 'string') {
     for (const key of [theme.fonts.sans, theme.fonts.display, theme.fonts.mono]) {

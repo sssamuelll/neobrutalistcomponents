@@ -55,8 +55,8 @@ export default defineTheme({
         en: 'The Star team’s article in BYTE gives as examples one document with its normal text in 10-point Classic and another in 12-point Modern italic [2]. The screen was a 72-dot-per-inch bitmap, and the same article warns that showing the page as it will print means drawing the screen fonts with great care if they are to stay readable [2].',
       },
       substitute: {
-        es: 'El tema usa la serif del sistema. Como ninguna fuente que consultamos identifica el dibujo de Classic ni el de Modern, no imita ninguna; la serif lee el Star como un sistema pensado para la página impresa.',
-        en: 'The theme uses the system serif. Since no source we consulted identifies how Classic or Modern were drawn, it imitates neither; the serif reads the Star as a system made for the printed page.',
+        es: 'El tema usa Times New Roman, o la serif del sistema donde no la hay. Como ninguna fuente que consultamos identifica el dibujo de Classic ni el de Modern, no imita ninguna; la serif lee el Star como un sistema pensado para la página impresa.',
+        en: 'The theme uses Times New Roman, or the system serif where it is missing. Since no source we consulted identifies how Classic or Modern were drawn, it imitates neither; the serif reads the Star as a system made for the printed page.',
       },
     },
   },
