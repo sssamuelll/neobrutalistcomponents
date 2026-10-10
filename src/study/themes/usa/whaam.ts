@@ -45,8 +45,19 @@ export default defineTheme({
         en: 'The sources describe flat colour fields and a yellow balloon, with no values. The tones are a reading; the work is still under copyright, so the ficha links Tate’s page instead of an image.',
       },
     },
+    lettering: {
+      original: { name: { es: 'Rótulos de cómic repintados: el cartucho y WHAAM!', en: 'Repainted comic lettering: the caption and WHAAM!' }, designer: 'Roy Lichtenstein', year: 1963, kind: 'lettered' },
+      documented: {
+        es: 'El dibujo preparatorio muestra que Lichtenstein cambió el original, también su texto [1]. En el cuadro, la onomatopeya WHAAM! se funde con la imagen a lo largo de una línea en zigzag y suena como una voz de fuera de cuadro que contesta al globo amarillo [1].',
+        en: 'The preparatory drawing shows that Lichtenstein changed the original, its text included [1]. In the painting, the onomatopoeia WHAAM! merges with the image along a zigzag line and sounds like a voice from outside the frame answering the yellow balloon [1].',
+      },
+      substitute: {
+        es: 'El tema usa Bangers para los títulos y Comic Neue para el texto, dos fuentes libres de rotulación de cómic. En las mayúsculas apretadas de Bangers vemos las de la onomatopeya, y en Comic Neue, la letra de los cartuchos; ninguna copia las letras que pintó Lichtenstein.',
+        en: 'The theme uses Bangers for titles and Comic Neue for text, two free comic-lettering faces. In Bangers’s tight capitals we see the onomatopoeia’s, and in Comic Neue, the hand of the captions; neither copies the letters Lichtenstein painted.',
+      },
+    },
   },
-  fonts: 'system-sans',
+  fonts: { sans: 'comic-neue', display: 'bangers' },
   colors: {
     bg: ['#faef32', '#1a0b1c'],
     fg: ['#0d0d0d', '#f2f2f2'],
@@ -68,9 +79,9 @@ export default defineTheme({
     dangerFg: ['#ffffff', '#0a0a0a'],
     focus: ['#0a0a0a', '#6aa6f2'],
   },
-  type: { weightBody: 600, weightLabel: 800, weightDisplay: 900, labelTransform: 'uppercase' },
+  type: { weightBody: 400, weightLabel: 700, weightDisplay: 400, labelTransform: 'uppercase', displaySpacing: '0.01em' },
   shape: { borderWidth: 4, radius: 0, radiusControl: 0, radiusButton: 0, radiusSmall: 0 },
   elevation: flat(),
-  motion: { duration: 100, durationSlow: 200, ease: 'linear' },
+  motion: { duration: 0, durationSlow: 0, ease: 'linear' },
   signature: './whaam.css',
 });

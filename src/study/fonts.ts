@@ -17,10 +17,12 @@ export interface FontEntry {
 
 export const FONTS = {
   arimo: { family: 'Arimo', axes: 'wght@400;700', fallback: 'sans', license: 'OFL-1.1', scripts: ['latin', 'latin-ext'] },
+  bangers: { family: 'Bangers', axes: '', fallback: 'sans', license: 'OFL-1.1', scripts: ['latin', 'latin-ext'] },
   barlow: { family: 'Barlow', axes: 'wght@400;500;600;700', fallback: 'sans', license: 'OFL-1.1', scripts: ['latin', 'latin-ext'] },
   'barlow-condensed': { family: 'Barlow Condensed', axes: 'wght@600;700;800', fallback: 'sans', license: 'OFL-1.1', scripts: ['latin', 'latin-ext'] },
   chivo: { family: 'Chivo', axes: 'wght@400;500;700;900', fallback: 'sans', license: 'OFL-1.1', scripts: ['latin', 'latin-ext'] },
   'chivo-mono': { family: 'Chivo Mono', axes: 'wght@400;500;700', fallback: 'mono', license: 'OFL-1.1', scripts: ['latin', 'latin-ext'] },
+  'comic-neue': { family: 'Comic Neue', axes: 'wght@400;700', fallback: 'sans', license: 'OFL-1.1', scripts: ['latin'] },
   'dela-gothic-one': { family: 'Dela Gothic One', axes: '', fallback: 'sans', license: 'OFL-1.1', scripts: ['latin', 'japanese'] },
   'dm-mono': { family: 'DM Mono', axes: 'wght@400;500', fallback: 'mono', license: 'OFL-1.1', scripts: ['latin', 'latin-ext'] },
   dotgothic16: { family: 'DotGothic16', axes: '', fallback: 'sans', license: 'OFL-1.1', scripts: ['latin', 'japanese'] },

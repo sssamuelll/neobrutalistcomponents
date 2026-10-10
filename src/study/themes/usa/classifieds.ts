@@ -25,6 +25,8 @@ export default defineTheme({
       { title: 'HTML Living Standard — 15 Rendering', url: 'https://html.spec.whatwg.org/multipage/rendering.html', publisher: 'WHATWG', accessed: '2026-10-05' },
       { title: 'craigslist.org, capture of 2 December 1998', url: 'https://web.archive.org/web/19981202212015/http://www.craigslist.org/', publisher: 'Internet Archive', year: 1998, accessed: '2026-10-05' },
       { title: 'Help On Mosaic v0.13', url: 'https://stuff.mit.edu/afs/sipb/project/www/doc/Mosaic-2.4/help-on-version-0.13.html', publisher: 'NCSA (mirror at MIT SIPB)', accessed: '2026-10-05' },
+      { title: 'craigslist (archived 2 March 2000)', url: 'https://web.archive.org/web/20000302010837/http://craigslist.org/', publisher: 'Internet Archive', year: 2000, accessed: '2026-10-10' },
+      { title: 'craigslist (archived 1 January 2005)', url: 'https://web.archive.org/web/20050101084947/http://www.craigslist.org/', publisher: 'Internet Archive', year: 2005, accessed: '2026-10-10' },
     ],
     archiveUrl: 'https://web.archive.org/web/19981202212015/http://www.craigslist.org/',
   },
@@ -42,6 +44,17 @@ export default defineTheme({
       note: {
         es: '#0000EE y #551A8B son los colores de enlace por defecto del estándar HTML actual; Mosaic ya dibujaba los enlaces no visitados en azul y los visitados en morado oscuro. El esquema oscuro es del tema.',
         en: '#0000EE and #551A8B are the default link colours of today’s HTML standard; Mosaic already drew unvisited links blue and visited ones dark purple. The dark scheme is the theme’s own.',
+      },
+    },
+    lettering: {
+      original: { name: { es: 'La fuente por defecto del navegador', en: 'The browser’s default font' }, kind: 'system' },
+      documented: {
+        es: 'La página de 1998 solo fija tamaños con etiquetas FONT SIZE y no nombra ninguna tipografía [5], así que cada lector veía el texto en la fuente por defecto de su navegador. En marzo de 2000 las páginas ya pedían Arial, Helvetica y Verdana [7], y en enero de 2005 una hoja de estilo fijaba una sans genérica, con el logotipo en Times [8].',
+        en: 'The 1998 page sets only sizes, with FONT SIZE tags, and names no typeface [5], so each reader saw the text in their browser’s default font. By March 2000 the pages asked for Arial, Helvetica and Verdana [7], and in January 2005 a style sheet set a generic sans, with the logo in Times [8].',
+      },
+      substitute: {
+        es: 'El tema usa la serif del sistema y lee la página de 1998, la que no pedía ninguna tipografía. Que esa fuente por defecto fuera una serif es la lectura del tema: ninguna fuente que pudimos verificar dice cuál mostraba cada navegador.',
+        en: 'The theme uses the system serif and reads the 1998 page, the one that asked for no typeface. That the default was a serif is the theme’s reading: no source we could verify says which one each browser showed.',
       },
     },
   },
