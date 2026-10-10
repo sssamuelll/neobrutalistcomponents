@@ -40,7 +40,10 @@ Each reads one documented work — a building, a magazine, a terminal, a website
 | `bauhaus-dessau` | Bauhaus Building, Dessau (Bauhausgebäude Dessau), Walter Gropius, Dessau, Germany, 1925–1926 | Germany | light |
 | `maeusebunker` | Mäusebunker (former Central Animal Laboratories of the Free University of Berlin; Zentrale Tierlaboratorien der Freien Universität Berlin), Gerd Hänska, Magdalena Hänska, Kurt Schmersow, Lichterfelde, Berlin, Germany, 1971–1982 | Germany | dark |
 | `carlton` | Carlton room divider, Ettore Sottsass, Milan, Italy, 1981 | Italy | light |
+| `dragon-quest` | Dragon Quest (Famicom; ドラゴンクエスト), Yuji Horii, Koichi Nakamura, Akira Toriyama, Koichi Sugiyama, Japan, 1986 | Japan | dark |
 | `nakagin` | Nakagin Capsule Tower (中銀カプセルタワービル), Kisho Kurokawa, Ginza, Tokyo, Japan, 1970–1972 | Japan | light |
+| `super-mario-bros` | Super Mario Bros. (Famicom; スーパーマリオブラザーズ), Shigeru Miyamoto, Japan, 1985 | Japan | light |
+| `tokyo-1964` | Poster for the Tokyo 1964 Olympic Games, Yusaku Kamekura, Tokyo, Japan, 1961 | Japan | light |
 | `caracas-signage` | Signage and graphic identity of the Caracas metro (Metro de Caracas), Max Pedemonte, BMPT, Caracas, Venezuela, 1983 | Latin America | light |
 | `create-two-three-many-vietnams` | Create two, three… many Vietnams (OSPAAAL poster), Alfredo Rostgaard, Cuba, 1967 | Latin America | light |
 | `loteria` | Mexican lotería (the Don Clemente deck), Clemente Jacques, Mexico, 1887 | Latin America | light |

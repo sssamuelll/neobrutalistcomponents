@@ -16,6 +16,7 @@ export interface FontEntry {
 }
 
 export const FONTS = {
+  anton: { family: 'Anton', axes: '', fallback: 'sans', license: 'OFL-1.1', scripts: ['latin', 'latin-ext'] },
   arimo: { family: 'Arimo', axes: 'wght@400;700', fallback: 'sans', license: 'OFL-1.1', scripts: ['latin', 'latin-ext'] },
   bangers: { family: 'Bangers', axes: '', fallback: 'sans', license: 'OFL-1.1', scripts: ['latin', 'latin-ext'] },
   barlow: { family: 'Barlow', axes: 'wght@400;500;600;700', fallback: 'sans', license: 'OFL-1.1', scripts: ['latin', 'latin-ext'] },
@@ -32,6 +33,7 @@ export const FONTS = {
   'noto-sans': { family: 'Noto Sans', axes: 'wght@400;600', fallback: 'sans', license: 'OFL-1.1', scripts: ['latin', 'latin-ext'] },
   'open-sans': { family: 'Open Sans', axes: 'wght@400;600', fallback: 'sans', license: 'OFL-1.1', scripts: ['latin', 'latin-ext'] },
   'pixelify-sans': { family: 'Pixelify Sans', axes: 'wght@700', fallback: 'sans', license: 'OFL-1.1', scripts: ['latin', 'latin-ext'] },
+  'press-start-2p': { family: 'Press Start 2P', axes: '', fallback: 'mono', license: 'OFL-1.1', scripts: ['latin', 'latin-ext'] },
   roboto: { family: 'Roboto', axes: 'wght@400;500;700', fallback: 'sans', license: 'OFL-1.1', scripts: ['latin', 'latin-ext'] },
   workbench: { family: 'Workbench', axes: '', fallback: 'mono', license: 'OFL-1.1', scripts: ['latin'] },
   'zen-kaku-gothic-new': { family: 'Zen Kaku Gothic New', axes: 'wght@400;500;700;900', fallback: 'sans', license: 'OFL-1.1', scripts: ['latin', 'japanese'] },

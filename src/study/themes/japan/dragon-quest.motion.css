@@ -1,0 +1,15 @@
+/* Dragon Quest: a message is sent out a character at a time; carried by a dialog opening. */
+@keyframes print {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .nbc-dialog[open] .nbc-dialog__content {
+    animation: print 900ms steps(30, end);
+  }
+}
