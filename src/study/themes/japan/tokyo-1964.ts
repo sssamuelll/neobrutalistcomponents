@@ -5,7 +5,7 @@ export default defineTheme({
   scene: 'japan',
   nativeScheme: 'light',
   name: { es: 'Tokio 1964', en: 'Tokyo 1964' },
-  tagline: { es: 'Un disco rojo, cinco aros dorados y dos palabras.', en: 'A red disc, five gold rings and two words.' },
+  tagline: { es: 'Un disco rojo, cinco aros dorados, un nombre y un año.', en: 'A red disc, five gold rings, a name and a year.' },
   reference: {
     title: { es: 'Cartel de los Juegos Olímpicos de Tokio 1964', en: 'Poster for the Tokyo 1964 Olympic Games' },
     authors: ['Yusaku Kamekura'],
@@ -27,8 +27,8 @@ export default defineTheme({
   },
   ficha: {
     documented: {
-      es: 'Yusaku Kamekura hizo este cartel en 1961 para los Juegos Olímpicos de Tokio de 1964, y el Walker Art Center lo cataloga como una litografía offset sobre papel [1]. Sobre el fondo blanco flota un gran disco rojo, y debajo van los cinco aros olímpicos en dorado y la inscripción «TOKYO 1964» en letras de palo seco doradas y gruesas [2]. Nippon Design Center presenta ese conjunto como el primer cartel y el logotipo de los Juegos [3]. Fue el primero de tres carteles: el de los corredores salió al año siguiente y el del nadador en 1963 [4].',
-      en: 'Yusaku Kamekura made this poster in 1961 for the 1964 Tokyo Olympic Games, and the Walker Art Center catalogues it as an offset lithograph on paper [1]. A big red disc floats on the white ground, and below it come the five Olympic rings in gold and the words “TOKYO 1964” in heavy gold sans-serif letters [2]. Nippon Design Center presents that ensemble as the Games’ first poster and their logo [3]. It was the first of three posters: the runners followed the next year and the swimmer in 1963 [4].',
+      es: 'Yusaku Kamekura hizo este cartel en 1961 para los Juegos Olímpicos de Tokio de 1964, y el Walker Art Center lo cataloga como una litografía offset sobre papel [1]. Casi toda la hoja la ocupa un disco rojo sobre blanco; debajo quedan los cinco aros y «TOKYO 1964», aros y letras en dorado, las letras de palo seco y gruesas [2]. Nippon Design Center presenta ese conjunto como el primer cartel y el logotipo de los Juegos [3]. Fue el primero de los cuatro carteles que Kamekura hizo para los Juegos, y los otros tres fueron los primeros carteles olímpicos con fotografía [2].',
+      en: 'Yusaku Kamekura made this poster in 1961 for the 1964 Tokyo Olympic Games, and the Walker Art Center catalogues it as an offset lithograph on paper [1]. Most of the sheet is a red disc on white; below it sit the five rings and “TOKYO 1964”, rings and letters alike in gold, the letters a thick sans-serif [2]. Nippon Design Center presents that ensemble as the Games’ first poster and their logo [3]. It was the first of the four posters Kamekura made for the Games, and the other three were the first Olympic posters to use photography [2].',
     },
     reading: {
       es: 'El tema toma los tres colores del cartel: el blanco del fondo, el rojo del disco en las acciones principales y el dorado de los aros en el acento. Los títulos van en mayúsculas estrechas y gruesas, como la inscripción. Esquinas rectas, sin sombras; nada se mueve, es un cartel impreso.',
@@ -44,8 +44,8 @@ export default defineTheme({
     lettering: {
       original: { name: 'Schmalfette Grotesk', designer: 'Walter Haettenschweiler', kind: 'outline' },
       documented: {
-        es: 'Según Fonts In Use, los tres carteles de la serie usaron la Schmalfette Grotesk de Walter Haettenschweiler [4]; It’s Nice That describe la inscripción del primero como una palo seco dorada y gruesa [2].',
-        en: 'According to Fonts In Use, all three posters in the series used Walter Haettenschweiler’s Schmalfette Grotesk [4]; It’s Nice That describes the first one’s inscription as a heavy gold sans-serif [2].',
+        es: 'Según Fonts In Use, los tres carteles que describe como un tríptico, este entre ellos, usaron la Schmalfette Grotesk de Walter Haettenschweiler [4]; It’s Nice That describe la inscripción de este como una palo seco dorada y gruesa [2].',
+        en: 'According to Fonts In Use, the three posters it describes as a triptych, this one among them, used Walter Haettenschweiler’s Schmalfette Grotesk [4]; It’s Nice That describes this one’s inscription as a heavy gold sans-serif [2].',
       },
       substitute: {
         es: 'El tema usa Anton para los títulos y Noto Sans para el texto. Anton es una grotesca libre, estrecha y gruesa, que busca la compresión y el peso de la inscripción; difiere en el dibujo de cada letra. Anton tiene un solo peso, y los títulos no se engrosan.',
