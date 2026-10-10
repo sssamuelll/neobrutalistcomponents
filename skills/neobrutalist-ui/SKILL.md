@@ -41,6 +41,9 @@ Each reads one documented work — a building, a magazine, a terminal, a website
 | `maeusebunker` | Mäusebunker (former Central Animal Laboratories of the Free University of Berlin; Zentrale Tierlaboratorien der Freien Universität Berlin), Gerd Hänska, Magdalena Hänska, Kurt Schmersow, Lichterfelde, Berlin, Germany, 1971–1982 | Germany | dark |
 | `carlton` | Carlton room divider, Ettore Sottsass, Milan, Italy, 1981 | Italy | light |
 | `nakagin` | Nakagin Capsule Tower (中銀カプセルタワービル), Kisho Kurokawa, Ginza, Tokyo, Japan, 1970–1972 | Japan | light |
+| `caracas-signage` | Signage and graphic identity of the Caracas metro (Metro de Caracas), Max Pedemonte, BMPT, Caracas, Venezuela, 1983 | Latin America | light |
+| `create-two-three-many-vietnams` | Create two, three… many Vietnams (OSPAAAL poster), Alfredo Rostgaard, Cuba, 1967 | Latin America | light |
+| `loteria` | Mexican lotería (the Don Clemente deck), Clemente Jacques, Mexico, 1887 | Latin America | light |
 | `sesc-pompeia` | SESC Pompéia (Centro de Lazer Fábrica da Pompéia), Lina Bo Bardi, André Vainer, Marcelo Carvalho Ferraz, Pompeia, São Paulo, Brazil, 1977–1986 | Latin America | light |
 | `amiga-os` | Amiga Workbench 1.3, Commodore-Amiga, RJ Mical, United States, 1988 | United States | light |
 | `aqua` | Mac OS X (Aqua interface), Apple Computer, Cupertino, United States, 2000 | United States | light |
