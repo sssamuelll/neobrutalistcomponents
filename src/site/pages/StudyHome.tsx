@@ -1,5 +1,6 @@
 import { useSitePrefsContext } from '../prefsContext';
 import { ENTRIES } from '../study/data';
+import { ComponentWall } from '../home/ComponentWall';
 import { Monument } from '../home/Monument';
 
 /** The home page: the monument, then (in later tasks) the wall of components, the work's card and take-it. */
@@ -9,6 +10,7 @@ export function StudyHome() {
   return (
     <div className="monument-home">
       <Monument entry={entry} />
+      <ComponentWall key={entry.id} entry={entry} />
     </div>
   );
 }

@@ -1774,3 +1774,64 @@ body {
     display: none;
   }
 }
+
+/* ---- Home: the wall of components ---- */
+.wall__title {
+  margin-block-start: 0;
+}
+.wall__grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--nbc-space-lg);
+  align-items: start;
+}
+.wall__block--hang,
+.wall__block--status {
+  grid-column: span 5;
+}
+.wall__block--room,
+.wall__block--settings {
+  grid-column: span 7;
+}
+.wall__block--guestbook {
+  grid-column: 1 / -1;
+}
+.wall__stack,
+.wall__panel {
+  display: grid;
+  gap: var(--nbc-space-md);
+}
+.wall__panel {
+  padding-block-start: var(--nbc-space-lg);
+}
+.wall__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--nbc-space-sm);
+}
+.wall__badges,
+.wall__search {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--nbc-space-sm);
+  margin: 0;
+}
+.wall__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--nbc-space-xs) var(--nbc-space-md);
+  font-size: var(--nbc-fs-sm);
+  font-weight: var(--nbc-weight-label);
+}
+@media (max-width: 899px) {
+  .wall__grid > * {
+    grid-column: 1 / -1;
+  }
+}
+@media (max-width: 639px) {
+  .wall__room-col {
+    display: none;
+  }
+}
