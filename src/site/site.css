@@ -1590,6 +1590,8 @@ body {
 .monument-home {
   --home-gutter: clamp(16px, 3vw, 32px);
   display: grid;
+  /* minmax(0, …): the title's unwrapped lines must never widen the plate they are fitted to. */
+  grid-template-columns: minmax(0, 1fr);
   gap: clamp(64px, 9vw, 120px);
   padding: var(--home-gutter) var(--home-gutter) clamp(64px, 9vw, 120px);
 }
@@ -1770,7 +1772,7 @@ body {
     place-items: center;
     min-block-size: 44px;
   }
-  .monument__repo {
+  .monument__nav .monument__repo {
     display: none;
   }
 }
@@ -1799,6 +1801,7 @@ body {
 .wall__stack,
 .wall__panel {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--nbc-space-md);
 }
 .wall__panel {
@@ -1935,6 +1938,7 @@ body {
 /* ---- Home: take it ---- */
 .take-it {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--nbc-space-lg);
 }
 .take-it .site-h2 {

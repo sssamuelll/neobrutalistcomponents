@@ -33,6 +33,13 @@ export const TITLE_LINES: Record<Lang, Record<TitleLayout, readonly TitleLine[]>
   },
 };
 
+/** Scales every size down by one factor when the title is taller than `room`; never up, and not at all when the room is unknown. */
+export function capSizes(sizes: readonly number[], height: number, room: number): number[] {
+  if (!(height > room) || room <= 0) return [...sizes];
+  const factor = room / height;
+  return sizes.map((size) => Math.floor(size * factor * 10) / 10);
+}
+
 /** Font sizes in px from each line's width at 100 px: fitted lines fill `available`, connectors take the smallest fitted size. */
 export function fitSizes(widthsAt100: readonly number[], fits: readonly boolean[], available: number): number[] {
   const fitted = widthsAt100.map((width) => (width > 0 ? Math.floor(((100 * available) / width) * 10) / 10 : 0));

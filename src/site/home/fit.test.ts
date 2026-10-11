@@ -1,5 +1,16 @@
 import { describe, expect, it } from 'vitest';
-import { TITLE_LINES, fitSizes } from './fit';
+import { TITLE_LINES, capSizes, fitSizes } from './fit';
+
+describe('capSizes', () => {
+  it('scales every line down by one factor when the title is taller than its room', () => {
+    expect(capSizes([200, 400], 600, 450)).toEqual([150, 300]);
+  });
+
+  it('never scales up, and leaves sizes alone when the room is unknown', () => {
+    expect(capSizes([200, 400], 300, 450)).toEqual([200, 400]);
+    expect(capSizes([200, 400], 600, Number.NaN)).toEqual([200, 400]);
+  });
+});
 
 describe('fitSizes', () => {
   it('sizes each fitted line to fill the width, from its width at 100 px', () => {

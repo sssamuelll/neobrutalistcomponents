@@ -15,6 +15,13 @@ import { WorkLine } from './WorkLine';
 /** The id of the monument's bottom bar; the shell reveals its slim bar once this has scrolled away. */
 export const MONUMENT_NAV_ID = 'monument-nav';
 
+/** The title's room on the first screen: the plate's minimum height less everything else in it. */
+const titleRoom = (title: HTMLElement) => {
+  const plate = title.closest<HTMLElement>('.monument');
+  if (!plate) return Number.NaN;
+  return parseFloat(getComputedStyle(plate).minHeight) - (plate.offsetHeight - title.offsetHeight);
+};
+
 const SECTIONS: readonly { key: UIKey; path: string }[] = [
   { key: 'navComponents', path: '/components' },
   { key: 'navScenes', path: '/scenes' },
@@ -46,7 +53,7 @@ export function Monument({ entry }: { entry: CatalogEntry }) {
         </a>
         <ModeSelect mode={prefs.mode} onChange={(mode) => update({ mode })} />
       </p>
-      <FitTitle key={prefs.theme} lines={TITLE_LINES[lang][phone ? 'phone' : 'wide']} label={t('monumentTitle')} className="monument__title" />
+      <FitTitle key={prefs.theme} lines={TITLE_LINES[lang][phone ? 'phone' : 'wide']} label={t('monumentTitle')} className="monument__title" maxHeight={titleRoom} />
       <ThemeRibbon active={prefs.theme} onPick={pick} />
       <WorkLine entry={entry} />
       <nav id={MONUMENT_NAV_ID} className="monument__nav" aria-label={t('navGallery')}>
