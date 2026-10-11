@@ -297,14 +297,122 @@ test('theme page: when its data cannot load, it says so in an alert and links ba
   await expect(page).toHaveURL(/#\/es\/atlas$/);
 });
 
-test('study home: the essay, then the gallery, one work per theme in date order, each linking to its room', async ({ page }) => {
-  await page.goto('#/es/');
-  await expect(page.locator('main h1')).toHaveText('La Galería de las Interfaces');
+test('home: the monument names the gallery, offers every theme, and a chip repaints the site', async ({ page }) => {
+  await page.goto('?theme=classic#/es/');
+  await expect(page.getByRole('heading', { level: 1, name: 'Galería de las Interfaces' })).toBeVisible();
   await expect(page).toHaveTitle('La Galería — neobrutalistcomponents');
+  const ribbon = page.getByRole('group', { name: 'Temas' });
+  await expect(ribbon.getByRole('button')).toHaveCount(CATALOG.length);
+  await ribbon.getByRole('button', { name: 'Dragon Quest, 1986: usar este tema' }).click();
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dragon-quest');
+  await expect(page).toHaveURL(/[?&]theme=dragon-quest/);
+  await expect(page.locator('.monument__work')).toContainText('Dragon Quest · Yuji Horii, Koichi Nakamura y equipo · 1986');
+});
+
+test('home: the ribbon paints its chips without fetching a study stylesheet, and asks only for subsets of their fonts', async ({ page }) => {
+  const requested: string[] = [];
+  page.on('request', (request) => requested.push(request.url()));
+  await page.goto('?theme=classic#/en/');
+  await expect(page.locator('main h1')).toBeVisible();
+  await page.waitForLoadState('networkidle');
+  expect(requested.filter((url) => /\/(nakagin|dragon-quest|win95|maeusebunker)-[\w-]+\.css$/.test(url))).toEqual([]);
+  const studyFonts = requested.filter((url) => url.includes('fonts.googleapis.com') && /DotGothic16|Dela\+Gothic/.test(url));
+  expect(studyFonts.length).toBeGreaterThan(0);
+  expect(studyFonts.every((url) => url.includes('text='))).toBe(true);
+});
+
+for (const [width, height, lines] of [[1280, 720, 2], [1280, 800, 2], [360, 800, 3]] as const) {
+  test(`home: at ${width}×${height} the title has ${lines} lines, fills the plate unless that would push the sections off the first screen`, async ({ page }) => {
+    await page.setViewportSize({ width, height });
+    await page.goto('?theme=classic#/es/');
+    await page.evaluate(() => document.fonts.ready);
+    await expect(page.locator('.fit-title__line')).toHaveCount(lines);
+    await expect
+      .poll(() =>
+        page.locator('.fit-title').evaluate((title) => {
+          const inner = title.clientWidth;
+          const widths = [...title.querySelectorAll<HTMLElement>('[data-fit="true"]')].map((line) => line.getBoundingClientRect().width);
+          const fills = Math.max(...widths) >= inner * 0.97;
+          return widths.every((w) => w <= inner + 1) && (fills || title.hasAttribute('data-capped'));
+        }),
+      )
+      .toBe(true);
+    const navBottom = await page.locator('#monument-nav').evaluate((nav) => nav.getBoundingClientRect().bottom);
+    expect(navBottom).toBeLessThanOrEqual(height);
+  });
+}
+
+test('home: under reduced motion the ribbon stands still', async ({ page }) => {
+  await page.goto('?theme=classic#/en/');
+  const track = page.locator('.ribbon__track');
+  const before = await track.evaluate((el) => el.scrollLeft);
+  await page.waitForTimeout(1200);
+  expect(await track.evaluate((el) => el.scrollLeft)).toBe(before);
+});
+
+test.describe('home without reduced motion', () => {
+  test.use({ reducedMotion: 'no-preference' });
+  test('the ribbon drifts, and holds while the pointer is on it', async ({ page }) => {
+    await page.goto('?theme=classic#/en/');
+    const track = page.locator('.ribbon__track');
+    const start = await track.evaluate((el) => el.scrollLeft);
+    await page.waitForTimeout(1200);
+    const drifted = await track.evaluate((el) => el.scrollLeft);
+    expect(drifted - start).toBeGreaterThan(20);
+    await track.hover();
+    const held = await track.evaluate((el) => el.scrollLeft);
+    await page.waitForTimeout(800);
+    expect(await track.evaluate((el) => el.scrollLeft)).toBe(held);
+  });
+});
+
+test('home: on a desktop the bar hides behind the monument and appears once it has passed', async ({ page }) => {
+  await page.goto('?theme=classic#/en/');
+  await expect(page.locator('main h1')).toBeVisible();
+  await expect(page.locator('.site-bar')).toBeHidden();
+  await page.locator('#take-it-title').scrollIntoViewIfNeeded();
+  await expect(page.locator('.site-bar')).toBeVisible();
+  await expect(page.locator('.site-bar').getByRole('link', { name: 'Archive' })).toBeVisible();
+});
+
+test.describe('home and menu on a phone', () => {
+  test.use({ viewport: { width: 390, height: 844 } });
+
+  test('the whole plate, its sections included, fits the first screen', async ({ page }) => {
+    await page.goto('?theme=classic#/es/');
+    await page.evaluate(() => document.fonts.ready);
+    const bottom = await page.locator('#monument-nav').evaluate((nav) => nav.getBoundingClientRect().bottom);
+    expect(bottom).toBeLessThanOrEqual(844);
+  });
+
+  test('the menu opens from the bar, holds the navigation, and Escape closes it back to its button', async ({ page }) => {
+    await page.goto('?theme=classic#/es/library');
+    const menu = page.getByRole('button', { name: 'Menú' });
+    await menu.click();
+    const sheet = page.getByRole('dialog', { name: 'Menú' });
+    await expect(sheet.getByRole('link', { name: 'Archivo' })).toBeVisible();
+    await page.keyboard.press('Escape');
+    await expect(sheet).toBeHidden();
+    await expect(menu).toBeFocused();
+  });
+
+  for (const theme of ['dragon-quest', 'maeusebunker']) {
+    test(`the home in ${theme} passes axe and never scrolls sideways`, async ({ page }) => {
+      await page.setViewportSize({ width: 360, height: 800 });
+      await page.goto(`?theme=${theme}#/es/`);
+      await expect(page.locator('main h1')).toBeVisible();
+      await page.evaluate(() => document.fonts.ready);
+      const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
+      expect(results.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(' ')).slice(0, 3).join(' | ')}`)).toEqual([]);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(360);
+    });
+  }
+});
+
+test('about: the gallery essay, in its own page', async ({ page }) => {
+  await page.goto('#/es/about');
+  await expect(page.locator('main h1')).toHaveText('Sobre la galería');
   await expect(page.locator('.study-essay__text h2').first()).toHaveText('De dónde viene el nombre');
-  await expect(page.locator('.gallery-work')).toHaveCount(CATALOG.length);
-  await page.locator('.gallery-work', { hasText: 'Nakagin' }).getByRole('link', { name: 'Japón' }).click();
-  await expect(page).toHaveURL(/#\/es\/scene\/japan$/);
 });
 
 test('rooms: a world map with its legend, then each room lists its references in date order with their themes', async ({ page }) => {
@@ -390,6 +498,7 @@ const MAIN_PAGES = [
   '/atlas',
   '/method',
   '/credits',
+  '/about',
   '/library',
   '/components',
   '/blocks',

@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased
+
+### Changed
+- Docs site: the home page is a monument. One plate in the active theme carries the gallery's name, fitted to the width in the theme's own display face, a drifting ribbon of every theme (each chip painted in its own tokens; pressing one repaints the whole site) and the work it is painted in. Below it: a wall of all sixteen components in that theme, the work's card (photo or documentary plate, authors, date, sources) and how to take the theme.
+- Docs site: on phones the header is one 48 px bar with a menu sheet. On the home, the desktop bar appears once the monument has scrolled away.
+
+### Added
+- Docs site: an About page (`#/es/about`) holds the gallery essay that used to open the home.
+- Docs site: code blocks copy in the page's language and select their text when the clipboard is unavailable.
+
 ## 1.3.0 — 2026-10-10
 
 Lettering and motion: every study theme documents the letters of its work, and the works that moved move. Thirteen new works, in every room.
