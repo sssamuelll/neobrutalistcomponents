@@ -56,16 +56,24 @@ export function ThemeSwitcher({ prefs, onChange }: Props) {
           {t('moreThemes')}
         </a>
       </div>
-      <label className="site-switcher__mode">
-        <span className="site-visually-hidden">{t('colorScheme')}</span>
-        <select value={prefs.mode} onChange={(e) => onChange({ mode: e.target.value as ModePref })}>
-          {MODES.map((m) => (
-            <option key={m.value} value={m.value}>
-              {t(m.label)}
-            </option>
-          ))}
-        </select>
-      </label>
+      <ModeSelect mode={prefs.mode} onChange={(mode) => onChange({ mode })} />
     </div>
+  );
+}
+
+/** The colour-scheme select: the theme's own scheme, light, dark or the system's. */
+export function ModeSelect({ mode, onChange }: { mode: ModePref; onChange: (mode: ModePref) => void }) {
+  const t = useT();
+  return (
+    <label className="site-switcher__mode">
+      <span className="site-visually-hidden">{t('colorScheme')}</span>
+      <select value={mode} onChange={(e) => onChange(e.target.value as ModePref)}>
+        {MODES.map((m) => (
+          <option key={m.value} value={m.value}>
+            {t(m.label)}
+          </option>
+        ))}
+      </select>
+    </label>
   );
 }

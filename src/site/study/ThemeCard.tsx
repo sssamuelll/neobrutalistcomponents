@@ -8,9 +8,8 @@ import { toHash } from '../router';
 import { years } from './format';
 import { loadFonts } from './loader';
 
-/** Loads a study theme's fonts once its island comes near the viewport. */
-function useFontsNearViewport(ref: RefObject<HTMLElement | null>, entry: CatalogEntry) {
-  const href = entry.predatesStudy ? null : entry.fontsHref;
+/** Loads a fonts stylesheet once its island comes near the viewport. */
+function useFontsNearViewport(ref: RefObject<HTMLElement | null>, href: string | null) {
   useEffect(() => {
     const element = ref.current;
     if (!href || !element) return;
@@ -35,11 +34,12 @@ function useFontsNearViewport(ref: RefObject<HTMLElement | null>, entry: Catalog
 /**
  * A theme's own island: study themes paint with their catalog tokens set
  * inline, so no stylesheet is fetched; core themes are always loaded.
+ * `withFonts={false}` leaves font loading to the caller (the home's ribbon loads subsets).
  */
-function Island({ entry, className, children }: { entry: CatalogEntry; className: string; children: ReactNode }) {
+export function Island({ entry, className, children, withFonts = true }: { entry: CatalogEntry; className: string; children: ReactNode; withFonts?: boolean }) {
   const { prefs } = useSitePrefsContext();
   const ref = useRef<HTMLElement>(null);
-  useFontsNearViewport(ref, entry);
+  useFontsNearViewport(ref, withFonts && !entry.predatesStudy ? entry.fontsHref : null);
   return (
     <NeoProvider
       ref={ref}

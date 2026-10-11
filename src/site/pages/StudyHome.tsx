@@ -1,5 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
-import type { RefObject } from 'react';
+import { useMemo, useRef } from 'react';
 import { Button, NeoProvider } from 'neobrutalistcomponents';
 import { useLang, useT, SCENE_TEXT } from '../i18n';
 import { toHash } from '../router';
@@ -9,24 +8,7 @@ import type { CatalogEntry } from '../../study/catalog';
 import { startYear, years, sceneHref } from '../study/format';
 import { GalleryPiece } from '../study/GalleryPiece';
 import { useThemeStylesheet } from '../study/loader';
-
-/** True once the element is within a screen's height of the viewport; at once where IntersectionObserver is missing. */
-function useNearViewport(ref: RefObject<Element | null>): boolean {
-  const [near, setNear] = useState(() => typeof IntersectionObserver === 'undefined');
-  useEffect(() => {
-    const element = ref.current;
-    if (near || !element) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((entry) => entry.isIntersecting)) setNear(true);
-      },
-      { rootMargin: '100% 0px' },
-    );
-    observer.observe(element);
-    return () => observer.disconnect();
-  }, [near, ref]);
-  return near;
-}
+import { useNearViewport } from '../study/useNearViewport';
 
 /** A work's piece, painted in its theme. Mounting it fetches the theme's stylesheet and fonts. */
 function WorkStage({ id }: { id: string }) {

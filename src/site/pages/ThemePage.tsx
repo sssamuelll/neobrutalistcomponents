@@ -12,7 +12,9 @@ import { CATALOG, ENTRIES } from '../study/data';
 import { imageUrl, useThemeDetail } from '../study/detail';
 import type { ThemeDetail } from '../study/detail';
 import { FichaExtras } from '../study/FichaExtras';
-import { LICENSE_URLS, aroundOriginal, licenseName, sceneHref, startYear, years } from '../study/format';
+import { aroundOriginal, sceneHref, startYear, years } from '../study/format';
+import { PhotoFigure } from '../study/PhotoFigure';
+import { installCode } from '../install';
 import { loadThemeStylesheet, useThemeStylesheet } from '../study/loader';
 import { SourceList } from '../study/SourceList';
 import { NotFound } from './NotFound';
@@ -22,15 +24,6 @@ function schemeFor(native: 'light' | 'dark', mode: NeoMode | 'native'): Scheme {
   if (mode === 'system') return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   return native;
 }
-
-const installCode = (id: string, fonts: boolean) => `import { NeoProvider } from 'neobrutalistcomponents';
-import 'neobrutalistcomponents/styles.css';
-import 'neobrutalistcomponents/themes/${id}.css';
-import 'neobrutalistcomponents/themes/${id}.fonts.css'; // ${fonts ? 'optional: loads the theme’s fonts' : 'system fonts: nothing to load'}
-
-export function App() {
-  return <NeoProvider theme="${id}">{/* your app */}</NeoProvider>;
-}`;
 
 /** Themes of the same scene, by the reference's start year. */
 const siblingsOf = (entry: CatalogEntry) =>
@@ -87,28 +80,9 @@ function Reference({ entry, detail }: { entry: CatalogEntry; detail: ThemeDetail
 }
 
 function Figure({ detail }: { detail: ThemeDetail }) {
-  const lang = useLang();
   const t = useT();
   const { image, archiveUrl, sources } = detail.reference;
-  const url = image ? imageUrl(image.file) : undefined;
-  if (image && url) {
-    return (
-      <figure className="site-themepage__figure">
-        <img src={url} alt={image.alt[lang]} width={image.width} height={image.height} loading="lazy" decoding="async" />
-        <figcaption>
-          {t('photoBy')} {image.author},{' '}
-          <a href={LICENSE_URLS[image.license]} target="_blank" rel="noreferrer">
-            {licenseName(image.license, lang)}
-          </a>
-          , {t('via')}{' '}
-          <a href={image.sourceUrl} target="_blank" rel="noreferrer">
-            Wikimedia Commons
-          </a>
-          ; {t('converted')}.
-        </figcaption>
-      </figure>
-    );
-  }
+  if (image && imageUrl(image.file)) return <PhotoFigure image={image} className="site-themepage__figure" />;
   const href = archiveUrl ?? sources[0].url;
   return (
     <div className="site-themepage__noimage">
