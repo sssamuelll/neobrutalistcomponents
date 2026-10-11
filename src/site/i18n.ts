@@ -99,6 +99,12 @@ export const UI = {
   workKicker: { es: 'La obra', en: 'The work' },
   plateLabel: { es: 'Lámina documental: no hay una imagen libre de esta obra.', en: 'Documentary plate: there is no free image of this work.' },
   swatchesLabel: { es: 'Colores del tema', en: 'The theme’s colours' },
+  takeHeading: { es: 'Llévatelo', en: 'Take it' },
+  takeLead: { es: 'Instala la librería y pinta tu app con {name}.', en: 'Install the library and paint your app with {name}.' },
+  copyCss: { es: 'Copiar CSS', en: 'Copy CSS' },
+  cssCopied: { es: 'CSS copiado', en: 'CSS copied' },
+  cssFailed: { es: 'No se pudo copiar el CSS', en: 'The CSS could not be copied' },
+  agentsLink: { es: 'Guía para agentes', en: 'Guide for agents' },
 
   // Study home
   studyLead: {

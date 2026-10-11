@@ -1931,3 +1931,25 @@ body {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* ---- Home: take it ---- */
+.take-it {
+  display: grid;
+  gap: var(--nbc-space-lg);
+}
+.take-it .site-h2 {
+  margin: 0;
+}
+.take-it__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--nbc-space-md);
+  margin: 0;
+  font-weight: var(--nbc-weight-label);
+}
+@media (max-width: 639px) {
+  .take-it__actions .nbc-button {
+    inline-size: 100%;
+  }
+}
