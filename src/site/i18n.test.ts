@@ -14,6 +14,8 @@ import {
   UI,
   decadeLabel,
   themeCount,
+  fill,
+  sourceCount,
 } from './i18n';
 
 const entries = (record: Record<string, L10n>, prefix: string) => Object.entries(record).map(([k, v]) => [`${prefix}.${k}`, v] as const);
@@ -61,5 +63,16 @@ describe('site dictionary', () => {
       'Años 2020',
     ]);
     expect(decades.map((decade) => decadeLabel('en', decade))).toEqual(['1950s', '1960s', '1970s', '1980s', '1990s', '2000s', '2010s', '2020s']);
+  });
+});
+
+describe('fill and sourceCount', () => {
+  it('fills named slots and leaves unknown ones as written', () => {
+    expect(fill('Colgar {name}', { name: 'Nakagin' })).toBe('Colgar Nakagin');
+    expect(fill('Sala {room}', {})).toBe('Sala {room}');
+  });
+
+  it('counts sources in both languages', () => {
+    expect([sourceCount('es', 1), sourceCount('es', 4), sourceCount('en', 1), sourceCount('en', 4)]).toEqual(['1 fuente', '4 fuentes', '1 source', '4 sources']);
   });
 });

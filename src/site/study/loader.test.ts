@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from 'vitest';
-import { isKnownTheme, loadFonts, loadThemeStylesheet } from './loader';
+import { isKnownTheme, loadFontSubset, loadFonts, loadThemeStylesheet, subsetFontsHref } from './loader';
 
 const links = (selector: string) => [...document.head.querySelectorAll<HTMLLinkElement>(selector)];
 
@@ -47,5 +47,27 @@ describe('theme loader', () => {
     loadFonts('https://fonts.googleapis.com/css2?family=Chivo&display=swap');
     loadFonts(null);
     expect(links('link[data-nbc-fonts]')).toHaveLength(1);
+  });
+});
+
+describe('font subsets', () => {
+  it('asks Google Fonts for the label’s glyphs only, in both cases', () => {
+    expect(subsetFontsHref('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap', 'Dragon')).toBe(
+      'https://fonts.googleapis.com/css2?family=DotGothic16&display=swap&text=DragonRAGONd',
+    );
+  });
+
+  it('adds a subset while the full family is not loaded', () => {
+    loadFontSubset('https://fonts.googleapis.com/css2?family=Subset+One&display=swap', 'Ab');
+    expect(links('link[data-nbc-fonts]').map((link) => link.href)).toEqual([
+      'https://fonts.googleapis.com/css2?family=Subset+One&display=swap&text=AbBa',
+    ]);
+  });
+
+  it('never adds a subset after the full family, whose glyphs it would hide', () => {
+    const full = 'https://fonts.googleapis.com/css2?family=Subset+Two&display=swap';
+    loadFonts(full);
+    loadFontSubset(full, 'Ab');
+    expect(links('link[data-nbc-fonts]').map((link) => link.href)).toEqual([full]);
   });
 });

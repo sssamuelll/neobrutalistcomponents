@@ -64,6 +64,21 @@ export function loadFonts(href: string | null | undefined): void {
   document.head.append(link);
 }
 
+/** A Google Fonts stylesheet limited to the glyphs of `text`, upper and lower case included. */
+export function subsetFontsHref(href: string, text: string): string {
+  const glyphs = [...new Set([...text, ...text.toUpperCase(), ...text.toLowerCase()])].join('');
+  return `${href}${href.includes('?') ? '&' : '?'}text=${encodeURIComponent(glyphs)}`;
+}
+
+/**
+ * Loads only the glyphs a label needs, unless the full family is already in the page: an
+ * @font-face declared after the full one, with the same family, would hide the glyphs it lacks.
+ */
+export function loadFontSubset(href: string | null | undefined, text: string): void {
+  if (!href || fontLinks.has(href)) return;
+  loadFonts(subsetFontsHref(href, text));
+}
+
 export type ThemeStatus = 'ready' | 'loading' | 'error';
 
 const statusNow = (id: string): ThemeStatus => (CORE.has(id) || loaded.has(id) ? 'ready' : 'loading');

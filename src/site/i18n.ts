@@ -358,6 +358,16 @@ export function workCount(lang: Lang, n: number): string {
   return n === 1 ? '1 work' : `${n} works`;
 }
 
+export function sourceCount(lang: Lang, n: number): string {
+  if (lang === 'es') return n === 1 ? '1 fuente' : `${n} fuentes`;
+  return n === 1 ? '1 source' : `${n} sources`;
+}
+
+/** 'Colgar {name}' with { name: 'Nakagin' } → 'Colgar Nakagin'. A slot without a value stays as written. */
+export function fill(template: string, values: Readonly<Record<string, string>>): string {
+  return template.replace(/\{(\w+)\}/g, (slot, key: string) => values[key] ?? slot);
+}
+
 /** 1970 → 'Años 70' / '1970s'. Outside the 1900s the Spanish label keeps the full year: 2010 → 'Años 2010'. */
 export function decadeLabel(lang: Lang, decade: number): string {
   if (lang === 'en') return `${decade}s`;
