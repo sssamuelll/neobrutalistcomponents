@@ -37,7 +37,8 @@ function useDrift(trackRef: RefObject<HTMLUListElement | null>) {
 
     const enter = () => (hold.hover = true);
     const leave = () => (hold.hover = false);
-    const focusIn = () => (hold.focus = true);
+    // Only keyboard focus holds the drift: a click or a tap also focuses the chip, and must not stop it for good.
+    const focusIn = (event: FocusEvent) => (hold.focus = (event.target as Element).matches(':focus-visible'));
     const focusOut = (event: FocusEvent) => (hold.focus = track.contains(event.relatedTarget as Node | null));
     const touchStart = () => (hold.touchUntil = Infinity);
     const touchEnd = () => (hold.touchUntil = performance.now() + TOUCH_RESUME_MS);

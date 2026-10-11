@@ -1,7 +1,8 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { LangContext } from '../i18n';
 import { ENTRIES } from '../study/data';
+import { loadDetail } from '../study/detail';
 import { TakeIt } from './TakeIt';
 
 const setClipboard = (value: unknown) => Object.defineProperty(navigator, 'clipboard', { value, configurable: true });
@@ -36,6 +37,16 @@ describe('TakeIt', () => {
     const css = writeText.mock.calls[0][0] as string;
     expect(css.startsWith("[data-theme='nakagin'] {\n")).toBe(true);
     expect(css).toMatch(/^ {2}--nbc-bg: /m);
+  });
+
+  it('writes to the clipboard within the click once the theme’s data has loaded (Safari keeps the gesture only that long)', async () => {
+    await loadDetail(ENTRIES.get('nakagin')!);
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    setClipboard({ writeText });
+    show('nakagin');
+    await act(async () => {});
+    fireEvent.click(screen.getByRole('button', { name: 'Copiar CSS' }));
+    expect(writeText).toHaveBeenCalledTimes(1);
   });
 
   it('says so when the CSS cannot be copied', async () => {

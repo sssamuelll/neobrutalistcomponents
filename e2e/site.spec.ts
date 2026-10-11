@@ -364,6 +364,39 @@ test.describe('home without reduced motion', () => {
     await page.waitForTimeout(800);
     expect(await track.evaluate((el) => el.scrollLeft)).toBe(held);
   });
+
+  test('a chip pressed with the pointer does not stop the drift once the pointer leaves', async ({ page }) => {
+    await page.goto('?theme=classic#/en/');
+    const track = page.locator('.ribbon__track');
+    await page.getByRole('button', { name: 'Classic: use this theme' }).click();
+    await page.mouse.move(5, 5);
+    const start = await track.evaluate((el) => el.scrollLeft);
+    await page.waitForTimeout(1200);
+    expect((await track.evaluate((el) => el.scrollLeft)) - start).toBeGreaterThan(20);
+  });
+});
+
+for (const width of [660, 800]) {
+  test(`home: at ${width}px the revealed bar never hides a focused element (scroll padding covers it)`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 800 });
+    await page.goto('?theme=classic#/en/');
+    await expect(page.locator('main h1')).toBeVisible();
+    await page.locator('#take-it-title').scrollIntoViewIfNeeded();
+    const bar = page.locator('.site-bar');
+    await expect(bar).toBeVisible();
+    const barHeight = await bar.evaluate((el) => el.getBoundingClientRect().height);
+    const padding = await page.evaluate(() => parseFloat(getComputedStyle(document.documentElement).scrollPaddingBlockStart));
+    expect(padding).toBeGreaterThanOrEqual(barHeight);
+  });
+}
+
+test('home: at 1280px in dragon-quest the home passes axe', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.goto('?theme=dragon-quest#/es/');
+  await expect(page.locator('main h1')).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+  const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
+  expect(results.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(' ')).slice(0, 3).join(' | ')}`)).toEqual([]);
 });
 
 test('home: on a desktop the bar hides behind the monument and appears once it has passed', async ({ page }) => {

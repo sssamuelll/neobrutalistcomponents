@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import type { CatalogEntry } from '../../study/catalog';
 import { REPO_URL } from '../../docs/guide';
 import { useLang, useT } from '../i18n';
@@ -36,11 +37,16 @@ export function Monument({ entry }: { entry: CatalogEntry }) {
   const { prefs, update } = useSitePrefsContext();
   const phone = useMediaQuery('(max-width: 639px)');
   const other = lang === 'es' ? 'en' : 'es';
+  const latest = useRef('');
   // The stylesheet loads before the switch, so the page never drops to its loading screen.
-  // A theme that cannot load leaves the site as it was.
+  // Only the last chip pressed is applied, whichever stylesheet arrives first; a theme that
+  // cannot load leaves the site as it was.
   const pick = (id: string) => {
+    latest.current = id;
     loadThemeStylesheet(id).then(
-      () => update({ theme: id }),
+      () => {
+        if (latest.current === id) update({ theme: id });
+      },
       () => undefined,
     );
   };

@@ -50,6 +50,22 @@ describe('the home', () => {
     expect(document.querySelector('.monument__work')).toHaveTextContent('Nakagin · Kisho Kurokawa · 1970–1972 · Ver la obra');
   });
 
+  it('when two chips are pressed, the last one wins even if the first one loads later', async () => {
+    render(<App />);
+    fireEvent.click(screen.getByRole('button', { name: 'SESC Pompéia, 1977–1986: usar este tema' }));
+    fireEvent.click(screen.getByRole('button', { name: 'BeOS, 2000: usar este tema' }));
+    const slow = document.head.querySelector('link[data-nbc-theme="sesc-pompeia"]')!;
+    const fast = document.head.querySelector('link[data-nbc-theme="beos"]')!;
+    act(() => {
+      fast.dispatchEvent(new Event('load'));
+    });
+    await waitFor(() => expect(document.documentElement.dataset.theme).toBe('beos'));
+    await act(async () => {
+      slow.dispatchEvent(new Event('load'));
+    });
+    expect(document.documentElement.dataset.theme).toBe('beos');
+  });
+
   it('a chip whose stylesheet cannot load leaves the site in its theme, without an unhandled error', async () => {
     render(<App />);
     fireEvent.click(screen.getByRole('button', { name: 'Mäusebunker, 1971–1982: usar este tema' }));

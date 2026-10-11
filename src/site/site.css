@@ -2031,6 +2031,10 @@ body {
   .site-bar--home .site-switcher {
     display: none;
   }
+  /* The fixed bar wraps to about 110 px below 900 px wide: focus and in-page jumps land below it. */
+  html:has(.site-bar--home) {
+    scroll-padding-block-start: 120px;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .site-bar--home,
