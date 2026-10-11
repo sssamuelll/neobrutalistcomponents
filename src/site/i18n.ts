@@ -96,6 +96,9 @@ export const UI = {
   copyCode: { es: 'Copiar', en: 'Copy' },
   copied: { es: 'Copiado', en: 'Copied' },
   selectAndCopy: { es: 'Selecciona y copia', en: 'Select and copy' },
+  workKicker: { es: 'La obra', en: 'The work' },
+  plateLabel: { es: 'Lámina documental: no hay una imagen libre de esta obra.', en: 'Documentary plate: there is no free image of this work.' },
+  swatchesLabel: { es: 'Colores del tema', en: 'The theme’s colours' },
 
   // Study home
   studyLead: {
@@ -116,7 +119,7 @@ export const UI = {
     en: 'A study theme is one more library theme: import its stylesheet and pass its id to NeoProvider. Install version 1.3.0 or later to have every study theme.',
   },
 
-  fullRecord: { es: 'Ver la ficha completa', en: 'See the full record' },
+  fullRecord: { es: 'Leer la ficha completa', en: 'Read the full record' },
 
   // Scenes and scene pages
   scenesLead: {
