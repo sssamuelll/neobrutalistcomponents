@@ -57,9 +57,13 @@ export const UI = {
   // Home
   ribbonLabel: { es: 'Temas', en: 'Themes' },
   useTheme: { es: 'usar este tema', en: 'use this theme' },
+  monumentTitle: { es: 'Galería de las Interfaces', en: 'Gallery of Interfaces' },
+  navGallery: { es: 'Secciones de la galería', en: 'Gallery sections' },
+  houseTheme: { es: 'Tema de la casa', en: 'House theme' },
+  seeWork: { es: 'Ver la obra', en: 'See the work' },
+  seeTheme: { es: 'Ver el tema', en: 'See the theme' },
 
   // Study home
-  studyTitle: { es: 'La Galería de las Interfaces', en: 'The UI Gallery' },
   studyLead: {
     es: 'Un museo de la historia gráfica del software, con el neobrutalismo como sala principal. Cada obra es un tema vivo: los mismos componentes, pintados con el lenguaje de su época.',
     en: 'A museum of the graphic history of software, with neobrutalism as its main room. Every work is a living theme: the same components, painted in the language of their era.',
@@ -78,39 +82,7 @@ export const UI = {
     en: 'A study theme is one more library theme: import its stylesheet and pass its id to NeoProvider. Install version 1.3.0 or later to have every study theme.',
   },
 
-  // Gallery (home)
-  galleryKicker: { es: 'Exposición permanente', en: 'Permanent exhibition' },
-  galleryVisit: { es: 'Recorrer la colección', en: 'Walk the collection' },
-  galleryWall: { es: 'El muro de la colección', en: 'The collection wall' },
-  galleryGoTo: { es: 'Ir a la obra', en: 'Go to the work' },
-  collectionHeading: { es: 'La colección', en: 'The collection' },
-  collectionLead: {
-    es: 'En orden cronológico. Todas las obras están hechas con los mismos componentes y la misma geometría; lo único que cambia es la época.',
-    en: 'In chronological order. Every work is built from the same components and the same geometry; the only thing that changes is the era.',
-  },
-  chronology: { es: 'Cronología', en: 'Chronology' },
-  workNo: { es: 'Obra', en: 'Work' },
-  mediumLabel: { es: 'Técnica', en: 'Medium' },
-  mediumValue: { es: 'Componentes React sobre propiedades de CSS', en: 'React components on CSS custom properties' },
-  roomLabel: { es: 'Sala', en: 'Room' },
   fullRecord: { es: 'Ver la ficha completa', en: 'See the full record' },
-  pieceLabel: { es: 'Pieza interactiva', en: 'Interactive piece' },
-  mainRoom: { es: 'Sala principal: el neobrutalismo', en: 'Main room: neobrutalism' },
-
-  // The interactive piece every work is painted on
-  pieceWindow: { es: 'Ajustes de la cuenta', en: 'Account settings' },
-  pieceTabs: { es: 'Secciones', en: 'Sections' },
-  pieceProfile: { es: 'Perfil', en: 'Profile' },
-  pieceAlerts: { es: 'Avisos', en: 'Alerts' },
-  pieceName: { es: 'Nombre', en: 'Name' },
-  pieceOffline: { es: 'Trabajar sin conexión', en: 'Work offline' },
-  pieceRemember: { es: 'Recordar este equipo', en: 'Remember this computer' },
-  pieceSync: { es: 'Sincronizando', en: 'Syncing' },
-  pieceSaved: { es: 'Copia guardada', en: 'Backup saved' },
-  pieceSavedBody: { es: 'Tus cambios están a salvo.', en: 'Your changes are safe.' },
-  pieceNew: { es: 'Nuevo', en: 'New' },
-  pieceCancel: { es: 'Cancelar', en: 'Cancel' },
-  pieceSave: { es: 'Guardar', en: 'Save' },
 
   // Scenes and scene pages
   scenesLead: {
