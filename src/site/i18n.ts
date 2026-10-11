@@ -11,6 +11,8 @@ export const UI = {
   skip: { es: 'Saltar al contenido', en: 'Skip to content' },
   brandHome: { es: 'neobrutalistcomponents, inicio', en: 'neobrutalistcomponents home' },
   navPrimary: { es: 'Principal', en: 'Primary' },
+  menuOpen: { es: 'Menú', en: 'Menu' },
+  menuClose: { es: 'Cerrar el menú', en: 'Close the menu' },
   navStudy: { es: 'Galería', en: 'Gallery' },
   navScenes: { es: 'Salas', en: 'Rooms' },
   navAtlas: { es: 'Archivo', en: 'Archive' },

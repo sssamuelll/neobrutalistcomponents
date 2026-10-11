@@ -1,4 +1,7 @@
+import { useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
+import { Button, Dialog } from 'neobrutalistcomponents';
+import { MONUMENT_NAV_ID } from './home/Monument';
 import { ThemeSwitcher } from './ThemeSwitcher';
 import type { SitePrefs } from './prefs';
 import { toHash } from './router';
@@ -27,11 +30,27 @@ interface ShellProps {
   children: ReactNode;
 }
 
+/** On the home page: true once the monument's bottom bar has scrolled above the viewport. */
+function usePastMonument(home: boolean): boolean {
+  const [past, setPast] = useState(false);
+  useEffect(() => {
+    const target = home ? document.getElementById(MONUMENT_NAV_ID) : null;
+    if (!target || typeof IntersectionObserver === 'undefined') return;
+    const observer = new IntersectionObserver(([record]) => setPast(!record.isIntersecting && record.boundingClientRect.top < 0));
+    observer.observe(target);
+    return () => observer.disconnect();
+  }, [home]);
+  return home && past;
+}
+
 export function Shell({ location, prefs, onPrefsChange, children }: ShellProps) {
   const t = useT();
   const { lang, route } = location;
   const other = lang === 'es' ? 'en' : 'es';
   const englishDocs = lang === 'es' && DOCS.includes(route.name);
+  const home = route.name === 'study';
+  const pastMonument = usePastMonument(home);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <div className="site">
@@ -45,7 +64,7 @@ export function Shell({ location, prefs, onPrefsChange, children }: ShellProps) 
       >
         {t('skip')}
       </a>
-      <header className="site-bar">
+      <header className={home ? 'site-bar site-bar--home' : 'site-bar'} data-revealed={pastMonument ? '' : undefined}>
         <a className="site-brand" href={toHash(lang, '/')} aria-label={t('brandHome')}>
           <span className="site-brand__mark" aria-hidden="true">
             nb
@@ -73,7 +92,37 @@ export function Shell({ location, prefs, onPrefsChange, children }: ShellProps) 
             GitHub
           </a>
         </div>
+        <Button variant="secondary" size="sm" className="site-bar__menu" aria-haspopup="dialog" aria-expanded={menuOpen} onClick={() => setMenuOpen(true)}>
+          {t('menuOpen')}
+        </Button>
       </header>
+      <Dialog open={menuOpen} onOpenChange={setMenuOpen} size="sm" className="site-menu" closeLabel={t('menuClose')}>
+        <Dialog.Header>
+          <Dialog.Title>{t('menuOpen')}</Dialog.Title>
+        </Dialog.Header>
+        <Dialog.Content
+          onClick={(event) => {
+            if ((event.target as Element).closest('a')) setMenuOpen(false);
+          }}
+        >
+          <nav className="site-menu__nav" aria-label={t('navPrimary')}>
+            {NAV.map((item) => (
+              <a key={item.path} href={toHash(lang, item.path)} aria-current={item.match.includes(route.name) ? 'page' : undefined}>
+                {t(item.key)}
+              </a>
+            ))}
+          </nav>
+          <ThemeSwitcher prefs={prefs} onChange={onPrefsChange} />
+          <p className="site-menu__end">
+            <a href={toHash(other, location.path, location.query)} hrefLang={other} lang={other}>
+              {t('switchLanguage')}
+            </a>
+            <a href={REPO_URL} target="_blank" rel="noreferrer">
+              GitHub
+            </a>
+          </p>
+        </Dialog.Content>
+      </Dialog>
       <main id="main" className="site-main" tabIndex={-1}>
         {englishDocs ? <p className="site-docs-note">{t('docsInEnglish')}</p> : null}
         {englishDocs ? <div lang="en">{children}</div> : children}
