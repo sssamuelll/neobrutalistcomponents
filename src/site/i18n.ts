@@ -54,6 +54,10 @@ export const UI = {
   titleAgents: { es: 'Para agentes', en: 'For agents' },
   titleNotFound: { es: 'No encontrado', en: 'Not found' },
 
+  // Home
+  ribbonLabel: { es: 'Temas', en: 'Themes' },
+  useTheme: { es: 'usar este tema', en: 'use this theme' },
+
   // Study home
   studyTitle: { es: 'La Galería de las Interfaces', en: 'The UI Gallery' },
   studyLead: {
