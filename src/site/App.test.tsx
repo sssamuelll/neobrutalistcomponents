@@ -52,6 +52,15 @@ describe('App', () => {
     expect(screen.getByRole('heading', { level: 1, name: 'Get started' })).toBeInTheDocument();
   });
 
+  it('serves the gallery essay at /about, with its own title', async () => {
+    vi.spyOn(window, 'scrollTo').mockImplementation(() => undefined);
+    replaceHash('#/es/about');
+    render(<App />);
+    expect(screen.getByRole('heading', { level: 1, name: 'Sobre la galería' })).toBeInTheDocument();
+    expect(document.title).toBe('Sobre la galería — neobrutalistcomponents');
+    expect(await screen.findByRole('heading', { level: 2, name: 'De dónde viene el nombre' })).toBeInTheDocument();
+  });
+
   it('keeps the atlas where it is while its search changes the query', () => {
     const scrollTo = vi.spyOn(window, 'scrollTo').mockImplementation(() => undefined);
     replaceHash('#/en/atlas');

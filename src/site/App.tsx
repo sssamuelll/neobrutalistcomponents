@@ -20,6 +20,7 @@ import { Scenes } from './pages/Scenes';
 import { ScenePage } from './pages/ScenePage';
 import { Method } from './pages/Method';
 import { Credits } from './pages/Credits';
+import { About } from './pages/About';
 import { ENTRIES } from './study/data';
 import { Blocks } from './pages/Blocks';
 import { Start } from './pages/Start';
@@ -43,6 +44,8 @@ function Page({ location }: { location: PageLocation }) {
       return <Method />;
     case 'credits':
       return <Credits />;
+    case 'about':
+      return <About />;
     case 'library':
       return <Library />;
     case 'atlas':
@@ -71,6 +74,7 @@ const TITLES: Partial<Record<Route['name'], UIKey>> = {
   origins: 'titleOrigins',
   method: 'titleMethod',
   credits: 'titleCredits',
+  about: 'titleAbout',
   library: 'titleLibrary',
   components: 'titleComponents',
   blocks: 'titleBlocks',

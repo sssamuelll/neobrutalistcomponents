@@ -45,6 +45,7 @@ describe('routeOf', () => {
     ['/origins', { name: 'origins' }],
     ['/method', { name: 'method' }],
     ['/credits', { name: 'credits' }],
+    ['/about', { name: 'about' }],
     ['/library', { name: 'library' }],
     ['/components/button', { name: 'component', slug: 'button' }],
   ])('%s', (path, route) => {

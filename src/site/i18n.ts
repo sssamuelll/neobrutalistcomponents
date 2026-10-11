@@ -46,6 +46,7 @@ export const UI = {
   titleOrigins: { es: 'Orígenes', en: 'Origins' },
   titleMethod: { es: 'Método', en: 'Method' },
   titleCredits: { es: 'Créditos', en: 'Credits' },
+  titleAbout: { es: 'Sobre la galería', en: 'About the gallery' },
   titleLibrary: { es: 'Librería', en: 'Library' },
   titleComponents: { es: 'Componentes', en: 'Components' },
   titleBlocks: { es: 'Bloques', en: 'Blocks' },

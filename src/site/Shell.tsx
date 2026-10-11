@@ -83,6 +83,7 @@ export function Shell({ location, prefs, onPrefsChange, children }: ShellProps) 
           {PACKAGE} v{pkg.version}. {t('footerNote')}
         </p>
         <nav aria-label={t('footerNav')} className="site-footer__links">
+          <a href={toHash(lang, '/about')}>{t('titleAbout')}</a>
           <a href={toHash(lang, '/credits')}>{t('footerCredits')}</a>
           <a href={REPO_URL} target="_blank" rel="noreferrer">
             GitHub

@@ -11,6 +11,7 @@ export type Route =
   | { name: 'origins' }
   | { name: 'method' }
   | { name: 'credits' }
+  | { name: 'about' }
   | { name: 'library' }
   | { name: 'components' }
   | { name: 'component'; slug: string }
@@ -40,6 +41,7 @@ const SIMPLE: Readonly<Record<string, Route>> = {
   '/origins': { name: 'origins' },
   '/method': { name: 'method' },
   '/credits': { name: 'credits' },
+  '/about': { name: 'about' },
   '/library': { name: 'library' },
   '/components': { name: 'components' },
   '/blocks': { name: 'blocks' },
