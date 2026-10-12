@@ -13,11 +13,11 @@ describe('WorkCard when the ficha cannot load', () => {
   it('keeps what the catalog knows and the link to the work, without a broken image', () => {
     render(
       <LangContext value="es">
-        <WorkCard entry={ENTRIES.get('nakagin')!} />
+        <WorkCard entry={ENTRIES.get('xerox-star')!} />
       </LangContext>,
     );
-    expect(screen.getByRole('heading', { level: 2, name: 'Nakagin' })).toBeInTheDocument();
-    expect(screen.getByText('Kisho Kurokawa')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2, name: 'Xerox Star' })).toBeInTheDocument();
+    expect(screen.getByText('David Canfield Smith, Charles Irby, Ralph Kimball, Bill Verplank, Eric Harslem')).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Leer la ficha completa' })).toBeInTheDocument();
     expect(screen.queryByRole('img')).toBeNull();
     expect(screen.queryByText(/fuentes$/)).toBeNull();

@@ -40,8 +40,8 @@ describe('parseHash', () => {
 describe('routeOf', () => {
   it.each([
     ['/scenes', { name: 'scenes' }],
-    ['/scene/japan', { name: 'scene', scene: 'japan' }],
-    ['/theme/sesc-pompeia', { name: 'theme', id: 'sesc-pompeia' }],
+    ['/scene/usa', { name: 'scene', scene: 'usa' }],
+    ['/theme/xerox-star', { name: 'theme', id: 'xerox-star' }],
     ['/origins', { name: 'origins' }],
     ['/method', { name: 'method' }],
     ['/credits', { name: 'credits' }],

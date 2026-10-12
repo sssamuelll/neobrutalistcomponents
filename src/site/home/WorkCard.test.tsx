@@ -13,19 +13,19 @@ const show = (id: string) =>
 
 describe('WorkCard', () => {
   it('shows a work’s free photograph with its credit, its facts and its sources', async () => {
-    show('nakagin');
-    expect(screen.getByRole('heading', { level: 2, name: 'Nakagin' })).toBeInTheDocument();
-    expect(screen.getByText('Kisho Kurokawa')).toBeInTheDocument();
-    expect(await screen.findByRole('img', { name: /cápsulas grises/ })).toBeInTheDocument();
-    expect(screen.getByText(/Foto: Dllu/)).toBeInTheDocument();
-    expect(screen.getByText('4 fuentes')).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Leer la ficha completa' })).toHaveAttribute('href', '#/es/theme/nakagin');
+    show('xerox-star');
+    expect(screen.getByRole('heading', { level: 2, name: 'Xerox Star' })).toBeInTheDocument();
+    expect(screen.getByText('David Canfield Smith, Charles Irby, Ralph Kimball, Bill Verplank, Eric Harslem')).toBeInTheDocument();
+    expect(await screen.findByRole('img', { name: /Xerox Star 8010 en exhibición/ })).toBeInTheDocument();
+    expect(screen.getByText(/Foto: vonguard/)).toBeInTheDocument();
+    expect(screen.getByText('5 fuentes')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Leer la ficha completa' })).toHaveAttribute('href', '#/es/theme/xerox-star');
   });
 
   it('shows a documentary plate when there is no free image, naming the palette’s origin', async () => {
-    show('dragon-quest');
+    show('aqua');
     expect(await screen.findByText('Lámina documental: no hay una imagen libre de esta obra.')).toBeInTheDocument();
-    expect(screen.getByRole('list', { name: 'Colores del tema' }).querySelectorAll('li')).toHaveLength(ENTRIES.get('dragon-quest')!.swatch.length);
+    expect(screen.getByRole('list', { name: 'Colores del tema' }).querySelectorAll('li')).toHaveLength(ENTRIES.get('aqua')!.swatch.length);
     expect(screen.getByText(/^Paleta, /)).toBeInTheDocument();
     expect(screen.queryByRole('img')).toBeNull();
   });

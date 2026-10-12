@@ -14,8 +14,8 @@ const show = (id: string) =>
 
 describe('ComponentWall', () => {
   it('names the work it is painted in, or the house theme', () => {
-    show('dragon-quest');
-    expect(screen.getByRole('heading', { level: 2, name: 'Los mismos componentes, en el idioma de Dragon Quest' })).toBeInTheDocument();
+    show('aqua');
+    expect(screen.getByRole('heading', { level: 2, name: 'Los mismos componentes, en el idioma de Mac OS X Aqua' })).toBeInTheDocument();
   });
 
   it('says «en el tema» for a house theme', () => {
@@ -24,7 +24,7 @@ describe('ComponentWall', () => {
   });
 
   it('shows all sixteen components, each block linking to their pages', () => {
-    const { container } = show('dragon-quest');
+    const { container } = show('aqua');
     const missing = SLUGS.filter((slug) => !container.querySelector(`a[href="#/es/components/${slug}"]`));
     expect(missing).toEqual([]);
     expect(screen.getByRole('table')).toBeInTheDocument();
@@ -35,11 +35,11 @@ describe('ComponentWall', () => {
   });
 
   it('opens a real dialog that holds the theme’s install lines', () => {
-    show('dragon-quest');
+    show('aqua');
     fireEvent.click(screen.getByRole('button', { name: 'Colgar' }));
-    const dialog = screen.getByRole('dialog', { name: 'Colgar Dragon Quest' });
+    const dialog = screen.getByRole('dialog', { name: 'Colgar Mac OS X Aqua' });
     expect(dialog).toHaveAttribute('open');
-    expect(dialog).toHaveTextContent("import 'neobrutalistcomponents/themes/dragon-quest.css';");
+    expect(dialog).toHaveTextContent("import 'neobrutalistcomponents/themes/aqua.css';");
   });
 
   it('lists the room around the active work and marks it', () => {

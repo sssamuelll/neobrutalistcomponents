@@ -21,8 +21,8 @@ afterEach(() => {
 
 describe('Island', () => {
   it('paints with the catalog tokens and leaves the fonts alone when told to', () => {
-    const { container } = show('dragon-quest', false);
-    expect(container.firstElementChild).toHaveAttribute('data-theme', 'dragon-quest');
+    const { container } = show('aqua', false);
+    expect(container.firstElementChild).toHaveAttribute('data-theme', 'aqua');
     expect(fontLinks()).toEqual([]);
   });
 

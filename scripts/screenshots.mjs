@@ -16,7 +16,7 @@ const arg = (name, fallback) => {
   return hit ? hit.slice(name.length + 3) : fallback;
 };
 const base = arg('base', 'http://localhost:5173/');
-const routes = arg('routes', '/en/,/en/atlas,/en/theme/nakagin,/en/components/button,/en/blocks').split(',');
+const routes = arg('routes', '/en/,/en/atlas,/en/theme/xerox-star,/en/components/button,/en/blocks').split(',');
 const themes = arg('themes', 'classic,tech,swiss,y2k,riso').split(',');
 const modes = arg('modes', 'native,dark').split(',');
 const width = Number(arg('width', '1440'));

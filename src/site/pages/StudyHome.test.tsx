@@ -39,22 +39,22 @@ describe('the home', () => {
 
   it('a chip loads its theme first, then repaints the site and names the new work', async () => {
     render(<App />);
-    fireEvent.click(screen.getByRole('button', { name: 'Nakagin, 1970–1972: usar este tema' }));
-    const link = document.head.querySelector('link[data-nbc-theme="nakagin"]');
+    fireEvent.click(screen.getByRole('button', { name: 'Xerox Star, 1981: usar este tema' }));
+    const link = document.head.querySelector('link[data-nbc-theme="xerox-star"]');
     expect(link).not.toBeNull();
     expect(document.documentElement.dataset.theme).toBe('classic');
     act(() => {
       link!.dispatchEvent(new Event('load'));
     });
-    await waitFor(() => expect(document.documentElement.dataset.theme).toBe('nakagin'));
-    expect(document.querySelector('.monument__work')).toHaveTextContent('Nakagin · Kisho Kurokawa · 1970–1972 · Ver la obra');
+    await waitFor(() => expect(document.documentElement.dataset.theme).toBe('xerox-star'));
+    expect(document.querySelector('.monument__work')).toHaveTextContent('Xerox Star · David Canfield Smith, Charles Irby y equipo · 1981 · Ver la obra');
   });
 
   it('when two chips are pressed, the last one wins even if the first one loads later', async () => {
     render(<App />);
-    fireEvent.click(screen.getByRole('button', { name: 'SESC Pompéia, 1977–1986: usar este tema' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Mac OS System 7, 1991: usar este tema' }));
     fireEvent.click(screen.getByRole('button', { name: 'BeOS, 2000: usar este tema' }));
-    const slow = document.head.querySelector('link[data-nbc-theme="sesc-pompeia"]')!;
+    const slow = document.head.querySelector('link[data-nbc-theme="mac-os-classic"]')!;
     const fast = document.head.querySelector('link[data-nbc-theme="beos"]')!;
     act(() => {
       fast.dispatchEvent(new Event('load'));
@@ -68,8 +68,8 @@ describe('the home', () => {
 
   it('a chip whose stylesheet cannot load leaves the site in its theme, without an unhandled error', async () => {
     render(<App />);
-    fireEvent.click(screen.getByRole('button', { name: 'Mäusebunker, 1971–1982: usar este tema' }));
-    const link = document.head.querySelector('link[data-nbc-theme="maeusebunker"]');
+    fireEvent.click(screen.getByRole('button', { name: 'Windows 95, 1995: usar este tema' }));
+    const link = document.head.querySelector('link[data-nbc-theme="win95"]');
     await act(async () => {
       link!.dispatchEvent(new Event('error'));
     });
