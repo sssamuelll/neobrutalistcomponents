@@ -1,17 +1,23 @@
-## Vernacular brutalism
+## The desktop reaches the market
 
-The journal *Dialectic* counts Bloomberg Businessweek features, the Drudge Report and, as the best-known example, Craigslist among brutalist websites [1]. In 2016, The Washington Post opened its piece on the trend for sites that look bad on purpose with Hacker News, Pinboard, the Drudge Report, Adult Swim and Bloomberg Businessweek features: hand-coded HTML with graphic nods to the 1990s [2]. Nielsen Norman Group calls the Drudge Report's stripped-down, pre-CSS look brutalist [3].
+Xerox announced the 8010 Star as a personal computer for offices: its bitmap screen showed pictures of documents, folders and file drawers on a grey-patterned desktop [1]. It was the first commercial system to show several programs at once, each in its own area of the screen; after testing it with users, its designers kept application windows from overlapping. It sold less than hoped [2]. On the Atari ST, manufactured from 1985, GEM ran on top of TOS, both stored in ROM, with windows that overlapped as on the Macintosh [3]. The Amiga's Workbench 1.x came with four default colours, blue, white, black and orange, which the user could change in the preferences [4].
 
-## Type let loose
+## Relief
 
-*Emigre* was founded in 1984 by Rudy VanderLans and Zuzana Licko, in step with the arrival of the Macintosh; Emigre Inc. carries on as a digital type foundry in Berkeley [4][5]. The magazine ran from 1984 to 2005, edited by VanderLans from Berkeley and Sacramento, and each issue showed new typefaces, many of them by Licko; SFMOMA counts the pair among the first to exploit the freedom the Macintosh gave to layout and type [6]. The final issue, number 69, came out in November 2005 [4][5].
+Keith Ohlfs is credited with much of NeXTSTEP's look, from its three-dimensional controls to nearly all of its icons [5]. On colour screens, System 7 added colour and greys to window frames and controls, and inactive windows took on grey borders that fell into the background [6]. In 1995 Microsoft published its interface guidelines for Windows 95 as a book [7]. The Windows API names colours for three-dimensional elements: a face, light tones for edges facing the light and shadows for edges facing away from it [8].
 
-*Ray Gun*, an alternative-rock magazine, first appeared in 1992 in Santa Monica, California, with Marvin Scott Jarrett as publisher and David Carson as art director, and closed in 2000 [7]. Its grunge typography was often barely readable: an interview with Bryan Ferry was set entirely in Zapf Dingbats, a symbol font [7].
+## Off the desktop
 
-## Product neobrutalism
+craigslist began in 1995 as an e-mail list of events in San Francisco and later moved to a website [9]. Palm Computing launched the Pilot and Palm OS, which set off the handheld computer industry [10]. BeOS put tabs in place of title bars [11].
 
-Nielsen Norman Group gives Figma's brand refresh and Gumroad as examples of neobrutalism [3]. Sahil Lavingia, Gumroad's founder, introduced the new brand on 26 November 2021 [8].
+## Gloss
+
+In January 2000 Apple presented Aqua, with buttons, scroll bars and windows that seemed to give off light and let what lay behind them partly show through [12]. Luna, Windows XP's look, came, according to Microsoft's Raymond Chen, after much research and several false starts [13].
+
+## Touch and flatness
+
+Apple announced the iPhone in 2007 on a 3.5-inch multi-touch screen, and presented the fingers as the pointing device everyone is born with [14]. Google presented Material Design in 2014 [15]: a material inspired by paper and ink that takes grid, type and colour from print design, with full-bleed images and large type [16]. In it shadow is the only cue to how far apart two surfaces are [17].
 
 ## What the themes take
 
-Classifieds reads Craigslist: text, links and little else. Tech reads Digital Equipment Corporation's VT100 video terminal: monospaced type on a dark ground.
+Five examples among the room's themes. Xerox Star takes the single bit: black ink on white and grey made with a dot pattern. Windows 95 takes the relief of face, light and shadow. Aqua takes the gloss and the fine stripes of the background, and Material the shadow that grows on hover and on press. Classifieds reads craigslist: text, links and little else.

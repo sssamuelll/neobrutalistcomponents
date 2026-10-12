@@ -58,7 +58,7 @@ describe('App', () => {
     render(<App />);
     expect(screen.getByRole('heading', { level: 1, name: 'Sobre la galería' })).toBeInTheDocument();
     expect(document.title).toBe('Sobre la galería — neobrutalistcomponents');
-    expect(await screen.findByRole('heading', { level: 2, name: 'De dónde viene el nombre' })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { level: 2, name: 'Por qué se estudia así' })).toBeInTheDocument();
   });
 
   it('keeps the atlas where it is while its search changes the query', () => {

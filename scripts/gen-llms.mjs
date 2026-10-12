@@ -87,7 +87,7 @@ const index = [
   ]),
   '## Study themes',
   '',
-  `Themes of the [neobrutalism study](${pageUrl('/')}), each read from one documented work. Same contract and geometry as the five core themes; import \`${pkg.name}/themes/<id>.css\`.`,
+  `Themes of the [study of the graphical user interface](${pageUrl('/')}), each read from one documented work. Same contract and geometry as the five core themes; import \`${pkg.name}/themes/<id>.css\`.`,
   '',
   ...study.map((entry) => `- [${entry.name.en}](${pageUrl(`/theme/${entry.id}`)}): \`${entry.id}\` — ${reference(entry)}. ${scene(entry)}, ${entry.nativeScheme} native.`),
   '',

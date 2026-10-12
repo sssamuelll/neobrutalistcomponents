@@ -441,7 +441,7 @@ test.describe('home and menu on a phone', () => {
 test('about: the gallery essay, in its own page', async ({ page }) => {
   await page.goto('#/es/about');
   await expect(page.locator('main h1')).toHaveText('Sobre la galería');
-  await expect(page.locator('.study-essay__text h2').first()).toHaveText('De dónde viene el nombre');
+  await expect(page.locator('.study-essay__text h2').first()).toHaveText('Por qué se estudia así');
 });
 
 test('rooms: a world map with its legend, then each room lists its references in date order with their themes', async ({ page }) => {

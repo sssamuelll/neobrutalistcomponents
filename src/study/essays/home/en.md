@@ -1,13 +1,13 @@
-Thick borders, hard single-colour shadows, flat colour and a structure left in plain sight. Nielsen Norman Group describes neobrutalism as a visual trend of high contrast, blocky layouts, bold colours and deliberately unpolished elements; compared with web brutalism, it says, neobrutalism mixes that roughness with nostalgic 1990s graphics and comes out more colourful and more orderly [1].
+This gallery studies the history of the graphical user interface. Here a graphical interface means software that a person operated on a screen: a window system, an operating system, a website, a design system. Video games are left out. The collection opens with the Xerox Star, which Xerox announced as a personal computer for offices and whose screen showed pictures of documents, folders and file drawers on a grey-patterned desktop [1].
 
-## Where the name comes from
+## Why it is studied this way
 
-The word began in architecture. Le Corbusier called concrete left exposed *béton brut*, and his use of the phrase is what spread the term brutalism [2]. In 1950s Britain, architects and critics turned it into the *New Brutalism* [3]. In 2014 Pascal Deville brought it to the web: he coined the term and founded Brutalist Websites, a directory of sites that embody it [4]. That directory presents web brutalism as a younger generation's rough answer to light, optimistic and frivolous web design [5].
+Each theme starts from a single documented work and reads it with the same library. Its ficha cites its sources, paraphrases them and separates what they say from what the theme reads into them; the palette states whether the colours come from a document, a screenshot or a reading of our own. The themes restyle the whole library, components included, without touching its geometry: controls are 32, 40 or 48 pixels tall in every one of them, and every one meets WCAG 2.2 contrast in light and dark. Each theme's page lets you try it across the site.
 
 ## How to walk the gallery
 
-Neobrutalism is the centre of the collection. Beside it hang works from other periods, from a Bauhaus building to the first iPhone’s interface, painted with the same library and grouped into rooms by region. None is presented as a forerunner of neobrutalism. Each is a reading of its own, and hung in date order they let you compare how each period handled borders, shadows and colour.
+For now the works hang in rooms by region, and within each room by date, so you can compare how each system handled windows, relief, gloss and colour. Rooms by period and by movement will come later. No work is presented as a forerunner of another: each is a reading of its own. Apart from them hangs the house, with the library's own themes.
 
-## How each theme reads
+## The latest chapter
 
-Each theme's ficha separates what the sources say from what the theme reads into them, and its palette states whether the colours come from a document, a photograph or a reading of our own. The themes are not costumes: they restyle the whole library, components included, without touching its geometry. Controls are 32, 40 or 48 pixels tall in every one of them, and every one meets WCAG 2.2 contrast in light and dark. Each theme's page lets you try it across the site.
+Neobrutalism is the latest chapter of this history, not its centre. For Nielsen Norman Group it is a style of heavy outlines, saturated colour, strong blocks and sharp contrast, born in response to smooth, minimal design [2]. The library takes its name from that word, and the word comes from architecture: by speaking of *béton brut*, Le Corbusier spread the term brutalism [3]. The house's essay tells the whole path, from concrete to the web.

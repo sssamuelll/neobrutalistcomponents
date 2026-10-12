@@ -1,6 +1,6 @@
 # neobrutalistcomponents
 
-**Components that hold their shape.** Sixteen brutalist React components on one token contract. Five core themes plus the themes of a study of neobrutalism, light and dark, and the same geometry in every one — documented for people and for the agents that build with them.
+**Components that hold their shape.** Sixteen brutalist React components on one token contract. Five core themes plus the themes of a study of the history of the graphical user interface, light and dark, and the same geometry in every one — documented for people and for the agents that build with them.
 
 ```bash
 npm install neobrutalistcomponents
@@ -46,7 +46,7 @@ Every theme ships a full light **and** dark scheme. Leave `mode` unset for the n
 
 ## The study
 
-The site is also a study of neobrutalism in interfaces, in Spanish and English: [the study](https://sssamuelll.github.io/neobrutalistcomponents/#/en/) follows the style from *béton brut* to today's product design through four scenes — Japan, Germany, the United States and Latin America — and their origins. Each study theme reads one documented work, and its page cites the sources.
+The site is also a study of the history of the graphical user interface, in Spanish and English: [the study](https://sssamuelll.github.io/neobrutalistcomponents/#/en/) hangs documented interfaces from the Xerox Star to Material Design in rooms by region, and the library's own five themes apart, in the house, with the story of its name. Each study theme reads one documented work, and its page cites the sources.
 
 <!-- study-themes:start -->
 | Theme | Reads | Scene | Native scheme |

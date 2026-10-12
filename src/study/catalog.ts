@@ -169,13 +169,13 @@ export function renderPackageModule(entries: readonly CatalogEntry[]): { js: str
   const slim = entries.map((entry) => ({ ...entry, vars: undefined, image: undefined }));
   const studyIds = entries.filter((entry) => !entry.predatesStudy).map((entry) => JSON.stringify(entry.id));
   const js = [
-    '// neobrutalistcomponents/study — the theme catalog of the neobrutalism study (data only).',
+    '// neobrutalistcomponents/study — the theme catalog of the study of the graphical user interface (data only).',
     `export const STUDY_CATALOG = Object.freeze(${JSON.stringify(slim, null, 2)});`,
     '',
   ].join('\n');
   const kind = union(REFERENCE_KINDS);
   const dts = [
-    '/** neobrutalistcomponents/study — the theme catalog of the neobrutalism study. */',
+    '/** neobrutalistcomponents/study — the theme catalog of the study of the graphical user interface. */',
     `export type StudyThemeId = ${studyIds.length ? studyIds.join(' | ') : 'never'};`,
     `export type StudyScene = ${union(SCENES)};`,
     'export interface StudyText {',
