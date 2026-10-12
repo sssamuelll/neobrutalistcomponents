@@ -1,8 +1,7 @@
-import { THEME_SCENES } from '../../study/types';
 import type { ThemeScene } from '../../study/types';
 import { SCENE_TEXT, useLang, workCount } from '../i18n';
 import { sceneHref } from './format';
-import { roomFacts } from './rooms';
+import { OPEN_THEME_SCENES, roomFacts } from './rooms';
 import { MAP_GRATICULE, MAP_LAND, MAP_ROOMS, MAP_SIZE } from './world-map.generated';
 
 const [COLS, ROWS] = MAP_SIZE;
@@ -27,13 +26,13 @@ export function WorldMap({ active, onActive }: { active: ThemeScene | null; onAc
     <svg className="world-map__svg" viewBox={`0 0 ${COLS} ${ROWS}`} aria-hidden="true" focusable="false">
       <defs>
         <Dots id="world-map-land" fill="var(--map-land)" />
-        {THEME_SCENES.map((scene) => (
+        {OPEN_THEME_SCENES.map((scene) => (
           <Dots key={scene} id={`world-map-${scene}`} fill={`var(--map-room-${scene})`} />
         ))}
       </defs>
       <path className="world-map__graticule" d={MAP_GRATICULE} />
       <path d={MAP_LAND} fill="url(#world-map-land)" />
-      {THEME_SCENES.map((scene) => {
+      {OPEN_THEME_SCENES.map((scene) => {
         const room = MAP_ROOMS[scene];
         const { works, years } = roomFacts(scene);
         const [ax, ay] = room.anchor;

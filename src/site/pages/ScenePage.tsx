@@ -1,4 +1,3 @@
-import { SCENES } from '../../study/types';
 import type { Scene } from '../../study/types';
 import type { EssaySlug } from '../../study/essays';
 import { SCENE_TEXT, useLang, useT } from '../i18n';
@@ -6,6 +5,7 @@ import { toHash } from '../router';
 import { CATALOG } from '../study/data';
 import { Essay } from '../study/Essay';
 import { startYear } from '../study/format';
+import { OPEN_SCENES } from '../study/rooms';
 import { SceneCards } from '../study/SceneCards';
 import { ThemeCard } from '../study/ThemeCard';
 
@@ -55,7 +55,7 @@ export function ScenePage({ scene }: { scene: Scene }) {
         <h2 className="site-h2" id="scene-others">
           {t('otherScenes')}
         </h2>
-        <SceneCards scenes={SCENES.filter((other) => other !== scene)} />
+        <SceneCards scenes={OPEN_SCENES.filter((other) => other !== scene)} />
       </nav>
     </div>
   );

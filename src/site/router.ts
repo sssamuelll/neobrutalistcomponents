@@ -1,5 +1,6 @@
 import { useSyncExternalStore } from 'react';
-import { LANGS, THEME_SCENES } from '../study/types';
+import { LANGS } from '../study/types';
+import { OPEN_THEME_SCENES } from './study/rooms';
 import type { Lang, ThemeScene } from '../study/types';
 
 export type Route =
@@ -50,7 +51,7 @@ const SIMPLE: Readonly<Record<string, Route>> = {
 };
 
 const isLang = (value: string): value is Lang => (LANGS as readonly string[]).includes(value);
-const isThemeScene = (value: string): value is ThemeScene => (THEME_SCENES as readonly string[]).includes(value);
+const isThemeScene = (value: string): value is ThemeScene => (OPEN_THEME_SCENES as readonly string[]).includes(value);
 
 export function routeOf(path: string): Route {
   if (Object.hasOwn(SIMPLE, path)) return SIMPLE[path];

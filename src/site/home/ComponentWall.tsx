@@ -1,14 +1,13 @@
 import { useState } from 'react';
 import { Alert, Badge, Button, Card, Checkbox, Dialog, Input, Kbd, Progress, Radio, RadioGroup, Select, Switch, Table, Tabs, Textarea, Tooltip } from 'neobrutalistcomponents';
 import type { CatalogEntry } from '../../study/catalog';
-import { THEME_SCENES } from '../../study/types';
 import { CodeBlock } from '../docs/CodeBlock';
 import { KIND_TEXT, SCENE_TEXT, fill, useLang, useT } from '../i18n';
 import { installCode } from '../install';
 import { toHash } from '../router';
 import { CATALOG } from '../study/data';
 import { years } from '../study/format';
-import { isPlaced } from '../study/rooms';
+import { OPEN_THEME_SCENES, isPlaced } from '../study/rooms';
 import { copyProps } from './copyLabels';
 import { roomRows } from './works';
 
@@ -118,8 +117,8 @@ function SettingsBlock({ entry }: { entry: CatalogEntry }) {
             <Tabs.Tab value="visit">{t('wallTabVisit')}</Tabs.Tab>
           </Tabs.List>
           <Tabs.Panel value="room" className="wall__panel">
-            <Select label={t('colRoom')} defaultValue={isPlaced(entry.scene) ? entry.scene : THEME_SCENES[0]}>
-              {THEME_SCENES.map((scene) => (
+            <Select label={t('colRoom')} defaultValue={isPlaced(entry.scene) ? entry.scene : OPEN_THEME_SCENES[0]}>
+              {OPEN_THEME_SCENES.map((scene) => (
                 <option key={scene} value={scene}>
                   {SCENE_TEXT[scene].name[lang]}
                 </option>

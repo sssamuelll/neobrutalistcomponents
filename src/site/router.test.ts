@@ -52,6 +52,11 @@ describe('routeOf', () => {
     expect(routeOf(path)).toEqual(route);
   });
 
+  it('a room without works is not a page', () => {
+    expect(routeOf('/scene/usa')).toEqual({ name: 'scene', scene: 'usa' });
+    expect(routeOf('/scene/japan')).toEqual({ name: 'not-found', path: '/scene/japan' });
+  });
+
   it('origins is its own page, not a scene; unknown paths are not found', () => {
     expect(routeOf('/scene/origins')).toEqual({ name: 'not-found', path: '/scene/origins' });
     expect(routeOf('/theme/Bad_Id')).toEqual({ name: 'not-found', path: '/theme/Bad_Id' });

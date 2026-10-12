@@ -8,6 +8,11 @@ afterEach(() => {
 });
 
 describe('theme loader', () => {
+  it('a retired theme is unknown to the site', () => {
+    expect(isKnownTheme('nakagin')).toBe(false);
+    expect(isKnownTheme('xerox-star')).toBe(true);
+  });
+
   it('knows core and study themes, nothing else', () => {
     expect(['classic', 'riso', 'nakagin', 'classifieds'].map(isKnownTheme)).toEqual([true, true, true, true]);
     expect(['nope', 'constructor', ''].map(isKnownTheme)).toEqual([false, false, false]);

@@ -1,12 +1,12 @@
 import { Card } from 'neobrutalistcomponents';
-import { SCENES } from '../../study/types';
+import { OPEN_SCENES } from './rooms';
 import type { Scene } from '../../study/types';
 import { SCENE_TEXT, themeCount, useLang } from '../i18n';
 import { CATALOG } from './data';
 import { sceneHref } from './format';
 
 /** The four scenes and Origins as cards, each with a dot per theme (its primary colour). */
-export function SceneCards({ scenes = SCENES, heading = 'h3' }: { scenes?: readonly Scene[]; heading?: 'h2' | 'h3' }) {
+export function SceneCards({ scenes = OPEN_SCENES, heading = 'h3' }: { scenes?: readonly Scene[]; heading?: 'h2' | 'h3' }) {
   const lang = useLang();
   return (
     <ul className="study-scenes">
