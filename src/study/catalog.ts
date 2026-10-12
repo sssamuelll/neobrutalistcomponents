@@ -9,6 +9,7 @@ import type { NeoBuiltinTheme, NeoThemeInfo } from '../lib/themes';
 import { fontKeys } from './compile';
 import type { CompiledTheme } from './compile';
 import { FONTS } from './fonts';
+import { isRetired } from './retired';
 import { REFERENCE_KINDS, SCENES, SHADOW_KINDS } from './types';
 import type { BorderFacet, CoreFicha, CornerFacet, Facets, ImageCredit, L10n, Reference, Scene, StudyThemeInput } from './types';
 
@@ -36,6 +37,8 @@ export interface CatalogEntry {
   readonly fontsHref: string | null;
   readonly facets: Facets;
   readonly predatesStudy: boolean;
+  /** Retired from the gallery (src/study/retired.ts): still in the package until 2.0.0, never on the site. */
+  readonly deprecated: boolean;
   /** Study themes: the tokens an atlas card paints with, without loading the stylesheet. Core themes: null. */
   readonly vars: Readonly<Record<string, string>> | null;
   /** Site only: the photograph's credit, for the Credits page (no ficha chunk to load); null without one. */
@@ -125,6 +128,7 @@ export function studyEntry(theme: StudyThemeInput, compiled: CompiledTheme): Cat
       corners: cornerFacet(theme.shape.radiusButton),
     },
     predatesStudy: false,
+    deprecated: isRetired(theme.id),
     vars: Object.fromEntries(PREVIEW_TOKENS.map((name) => [name, tokens.get(name) ?? ''])),
     image: imageCredit(theme.reference),
   };
@@ -143,6 +147,7 @@ export function coreEntry(id: NeoBuiltinTheme, info: NeoThemeInfo, core: CoreFic
     fontsHref,
     facets: { scene: core.scene, decade: decadeOf(core.reference.date), kind: core.reference.kind, scheme: info.nativeScheme, ...core.facets },
     predatesStudy: true,
+    deprecated: false,
     vars: null,
     image: imageCredit(core.reference),
   };
@@ -206,6 +211,8 @@ export function renderPackageModule(entries: readonly CatalogEntry[]): { js: str
     '  };',
     '  /** True for the five core themes, which predate the study. */',
     '  readonly predatesStudy: boolean;',
+    '  /** Retired from the gallery; the stylesheet is removed in 2.0.0. */',
+    '  readonly deprecated: boolean;',
     '}',
     'export declare const STUDY_CATALOG: readonly StudyCatalogEntry[];',
     '',

@@ -72,6 +72,12 @@ describe('catalog', () => {
     expect(load(renderPackageModule([withImage]).js)[0]).not.toHaveProperty('image');
   });
 
+  it('marks a study theme deprecated only when it is retired', () => {
+    expect(entry.deprecated).toBe(false);
+    expect(load(renderPackageModule([{ ...entry, deprecated: true }]).js)[0].deprecated).toBe(true);
+    expect(renderPackageModule([entry]).dts).toContain('readonly deprecated: boolean;');
+  });
+
   it('types StudyThemeId as never when there are no study themes', () => {
     expect(renderPackageModule([{ ...entry, predatesStudy: true }]).dts).toContain('export type StudyThemeId = never;');
   });

@@ -37,7 +37,12 @@ const entries = [];
 for (const { theme, signature, motionCss } of study.STUDY_THEMES) {
   let compiled;
   try {
-    compiled = study.compileTheme(theme, { signature, motionCss, banner: `neobrutalistcomponents v${pkg.version} — study theme: ${theme.id}` });
+    const banner = `neobrutalistcomponents v${pkg.version} — study theme: ${theme.id}`;
+    compiled = study.compileTheme(theme, {
+      signature,
+      motionCss,
+      banner: study.isRetired(theme.id) ? `${study.retiredBanner(theme.id)} ${banner}` : banner,
+    });
   } catch (error) {
     fail([error.message]);
   }
