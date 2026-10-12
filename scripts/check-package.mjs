@@ -29,6 +29,13 @@ check(
   [...coreThemes, ...studyIds].sort().join() === themeIds.join(),
   `dist/themes (${themeIds.join(', ')}) does not match core + study themes`,
 );
+for (const entry of STUDY_CATALOG) {
+  const head = readFileSync(join(ROOT, `dist/themes/${entry.id}.css`), 'utf8').slice(0, 200);
+  check(
+    entry.deprecated === head.startsWith('/* Deprecated in 1.4.0, removed in 2.0.0: '),
+    `dist/themes/${entry.id}.css: deprecated is ${entry.deprecated} but its banner says otherwise`,
+  );
+}
 
 const targets = Object.entries(pkg.exports).flatMap(([key, value]) => {
   const paths = typeof value === 'string' ? [value] : Object.values(value);

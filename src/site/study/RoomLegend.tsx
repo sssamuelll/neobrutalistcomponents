@@ -1,8 +1,7 @@
-import { SCENES } from '../../study/types';
 import type { ThemeScene } from '../../study/types';
 import { SCENE_TEXT, useLang, useT } from '../i18n';
 import { sceneHref } from './format';
-import { isPlaced, roomFacts } from './rooms';
+import { OPEN_SCENES, isPlaced, roomFacts } from './rooms';
 
 /** The rooms as a table: the map's legend, and its keyboard and screen-reader path. */
 export function RoomLegend({ active, onActive }: { active: ThemeScene | null; onActive: (scene: ThemeScene | null) => void }) {
@@ -19,7 +18,7 @@ export function RoomLegend({ active, onActive }: { active: ThemeScene | null; on
         </tr>
       </thead>
       <tbody>
-        {SCENES.map((scene) => {
+        {OPEN_SCENES.map((scene) => {
           const { works, years } = roomFacts(scene);
           const enter = isPlaced(scene) ? () => onActive(scene) : undefined;
           const leave = isPlaced(scene) ? () => onActive(null) : undefined;

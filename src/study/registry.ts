@@ -18,7 +18,7 @@ const THEME_PATH = /^\.\/themes\/[^/]+\/[^/]+\.ts$/;
 const byCodeUnit = (a: string, b: string) => (a < b ? -1 : a > b ? 1 : 0);
 
 export interface RegisteredTheme {
-  /** Glob key, e.g. './themes/japan/nakagin.ts'. */
+  /** Glob key, e.g. './themes/usa/xerox-star.ts'. */
   readonly path: string;
   readonly theme: StudyThemeInput;
   /** Contents of the signature file, when the theme declares one and it exists. */

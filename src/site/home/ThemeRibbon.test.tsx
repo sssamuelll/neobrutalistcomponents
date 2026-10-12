@@ -5,12 +5,12 @@ import { SitePrefsContext } from '../prefsContext';
 import { CATALOG } from '../study/data';
 import { ThemeRibbon } from './ThemeRibbon';
 
-const ctx = { prefs: { theme: 'dragon-quest', mode: 'native' as const }, update: () => undefined };
+const ctx = { prefs: { theme: 'aqua', mode: 'native' as const }, update: () => undefined };
 const show = (onPick = vi.fn()) =>
   render(
     <LangContext value="es">
       <SitePrefsContext value={ctx}>
-        <ThemeRibbon active="dragon-quest" onPick={onPick} />
+        <ThemeRibbon active="aqua" onPick={onPick} />
       </SitePrefsContext>
     </LangContext>,
   );
@@ -20,15 +20,15 @@ describe('ThemeRibbon', () => {
     show();
     const group = screen.getByRole('group', { name: 'Temas' });
     expect(within(group).getAllByRole('button')).toHaveLength(CATALOG.length);
-    expect(screen.getByRole('button', { name: 'Dragon Quest, 1986: usar este tema' })).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByRole('button', { name: 'Mac OS X Aqua, 2000: usar este tema' })).toHaveAttribute('aria-pressed', 'true');
     expect(screen.getByRole('button', { name: 'Classic: usar este tema' })).toHaveAttribute('aria-pressed', 'false');
   });
 
   it('picks the theme of the chip pressed', () => {
     const onPick = vi.fn();
     show(onPick);
-    fireEvent.click(screen.getByRole('button', { name: 'Nakagin, 1970–1972: usar este tema' }));
-    expect(onPick).toHaveBeenCalledWith('nakagin');
+    fireEvent.click(screen.getByRole('button', { name: 'Xerox Star, 1981: usar este tema' }));
+    expect(onPick).toHaveBeenCalledWith('xerox-star');
   });
 
   it('repeats the list for the loop, hidden and out of the tab order', () => {

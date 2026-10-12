@@ -6,3 +6,4 @@ export { contractProblems } from './contract';
 export { coreEntry, studyEntry, renderSiteModule, renderPackageModule } from './catalog';
 export { CORE_FICHAS } from './core-fichas';
 export { NEO_THEMES, THEME_INFO } from '../lib/themes';
+export { isRetired, retiredBanner } from './retired';

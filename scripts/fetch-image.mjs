@@ -3,7 +3,7 @@
 // 1600 px wide and 250 000 bytes, into src/study/images/<name>.avif, and
 // prints the `image: { … }` block to paste into the ficha.
 //
-//   npm run fetch:image -- https://commons.wikimedia.org/wiki/File:Example.jpg nakagin
+//   npm run fetch:image -- https://commons.wikimedia.org/wiki/File:Example.jpg xerox-star
 import { runnerImport } from 'vite';
 import sharp from 'sharp';
 import { mkdirSync, writeFileSync } from 'node:fs';

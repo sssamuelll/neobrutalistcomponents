@@ -1,6 +1,6 @@
 ## Una obra por tema
 
-Cada tema del estudio parte de una sola obra documentada: un edificio, una publicación, un objeto, un sitio web. Su ficha cita al menos dos fuentes, y al menos una no es Wikipedia. Las fuentes se parafrasean, nunca se citan textualmente, y cada afirmación lleva el número de su fuente, el mismo en español y en inglés.
+Cada tema del estudio parte de una sola obra documentada: una interfaz gráfica que alguien operaba en una pantalla, como un sistema operativo, un entorno de ventanas, un sitio web o un sistema de diseño; los videojuegos quedan fuera. Su ficha cita al menos dos fuentes, y al menos una no es Wikipedia. Las fuentes se parafrasean, nunca se citan textualmente, y cada afirmación lleva el número de su fuente, el mismo en español y en inglés.
 
 ## Lo documentado y la lectura
 

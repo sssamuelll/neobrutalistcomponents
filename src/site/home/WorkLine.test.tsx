@@ -14,11 +14,11 @@ const show = (id: string, lang: Lang) =>
 
 describe('WorkLine', () => {
   it('names the work, two authors and the team, its years, and links to it', () => {
-    show('dragon-quest', 'es');
+    show('xerox-star', 'es');
     const line = document.querySelector('.monument__work');
-    expect(line).toHaveTextContent('Dragon Quest · Yuji Horii, Koichi Nakamura y equipo · 1986 · Ver la obra →');
+    expect(line).toHaveTextContent('Xerox Star · David Canfield Smith, Charles Irby y equipo · 1981 · Ver la obra →');
     expect(line).toHaveAttribute('aria-live', 'polite');
-    expect(screen.getByRole('link', { name: 'Ver la obra' })).toHaveAttribute('href', '#/es/theme/dragon-quest');
+    expect(screen.getByRole('link', { name: 'Ver la obra' })).toHaveAttribute('href', '#/es/theme/xerox-star');
   });
 
   it('calls a house theme what it is', () => {

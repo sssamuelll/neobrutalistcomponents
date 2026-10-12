@@ -40,8 +40,8 @@ describe('parseHash', () => {
 describe('routeOf', () => {
   it.each([
     ['/scenes', { name: 'scenes' }],
-    ['/scene/japan', { name: 'scene', scene: 'japan' }],
-    ['/theme/sesc-pompeia', { name: 'theme', id: 'sesc-pompeia' }],
+    ['/scene/usa', { name: 'scene', scene: 'usa' }],
+    ['/theme/xerox-star', { name: 'theme', id: 'xerox-star' }],
     ['/origins', { name: 'origins' }],
     ['/method', { name: 'method' }],
     ['/credits', { name: 'credits' }],
@@ -50,6 +50,11 @@ describe('routeOf', () => {
     ['/components/button', { name: 'component', slug: 'button' }],
   ])('%s', (path, route) => {
     expect(routeOf(path)).toEqual(route);
+  });
+
+  it('a room without works is not a page', () => {
+    expect(routeOf('/scene/usa')).toEqual({ name: 'scene', scene: 'usa' });
+    expect(routeOf('/scene/japan')).toEqual({ name: 'not-found', path: '/scene/japan' });
   });
 
   it('origins is its own page, not a scene; unknown paths are not found', () => {

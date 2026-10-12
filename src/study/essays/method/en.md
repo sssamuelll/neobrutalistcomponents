@@ -1,6 +1,6 @@
 ## One work per theme
 
-Every study theme starts from a single documented work: a building, a publication, an object, a website. Its ficha cites at least two sources, at least one of them not Wikipedia. Sources are paraphrased, never quoted, and every statement carries the number of its source, the same in Spanish and in English.
+Every study theme starts from a single documented work: a graphical interface someone operated on a screen, such as an operating system, a window environment, a website or a design system; video games are left out. Its ficha cites at least two sources, at least one of them not Wikipedia. Sources are paraphrased, never quoted, and every statement carries the number of its source, the same in Spanish and in English.
 
 ## The documented and the reading
 

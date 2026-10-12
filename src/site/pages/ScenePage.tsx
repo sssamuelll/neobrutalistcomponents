@@ -1,4 +1,3 @@
-import { SCENES } from '../../study/types';
 import type { Scene } from '../../study/types';
 import type { EssaySlug } from '../../study/essays';
 import { SCENE_TEXT, useLang, useT } from '../i18n';
@@ -6,17 +5,12 @@ import { toHash } from '../router';
 import { CATALOG } from '../study/data';
 import { Essay } from '../study/Essay';
 import { startYear } from '../study/format';
+import { OPEN_SCENES } from '../study/rooms';
 import { SceneCards } from '../study/SceneCards';
 import { ThemeCard } from '../study/ThemeCard';
 
-const ESSAYS: Record<Scene, EssaySlug> = {
-  japan: 'scene-japan',
-  germany: 'scene-germany',
-  usa: 'scene-usa',
-  latam: 'scene-latam',
-  italy: 'scene-italy',
-  origins: 'origins',
-};
+/** Rooms with an essay. A room without works is never routed (rooms.ts). */
+const ESSAYS: Partial<Record<Scene, EssaySlug>> = { usa: 'scene-usa', origins: 'origins' };
 
 /** A scene (or Origins): its essay, its references in date order with their themes, and the other scenes. */
 export function ScenePage({ scene }: { scene: Scene }) {
@@ -35,7 +29,7 @@ export function ScenePage({ scene }: { scene: Scene }) {
         <p className="site-lead">{SCENE_TEXT[scene].summary[lang]}</p>
       </header>
 
-      <Essay slug={ESSAYS[scene]} />
+      {ESSAYS[scene] && <Essay slug={ESSAYS[scene]} />}
 
       <section className="study-section" aria-labelledby="scene-themes">
         <h2 className="site-h2" id="scene-themes">
@@ -55,7 +49,7 @@ export function ScenePage({ scene }: { scene: Scene }) {
         <h2 className="site-h2" id="scene-others">
           {t('otherScenes')}
         </h2>
-        <SceneCards scenes={SCENES.filter((other) => other !== scene)} />
+        <SceneCards scenes={OPEN_SCENES.filter((other) => other !== scene)} />
       </nav>
     </div>
   );

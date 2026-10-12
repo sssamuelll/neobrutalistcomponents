@@ -1,3 +1,5 @@
+En esta sala cuelgan los cinco temas con los que nació la librería. Cada uno lee una obra, del hormigón de Le Corbusier a una terminal de DEC, y ninguna es una interfaz gráfica. Por eso cuelgan aparte. Este ensayo cuenta de dónde viene el nombre de la librería, una palabra que empezó en la arquitectura.
+
 ## Béton brut
 
 Le Corbusier llamó *béton brut*, hormigón bruto, al hormigón que se deja tal como sale del encofrado. En la entrega de la Unité d'habitation de Marsella, el 14 de octubre de 1952, contó que había aprendido a apreciar las marcas que el encofrado deja en esa superficie [1]. Fue su uso de la expresión lo que difundió la palabra brutalismo [1][2], y la Fondation Le Corbusier cuenta las Unités d'habitation entre sus obras brutalistas [3].

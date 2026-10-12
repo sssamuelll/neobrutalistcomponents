@@ -95,7 +95,7 @@ export const CORE_FICHAS: Record<NeoBuiltinTheme, CoreFicha> = {
     predatesStudy: true,
   },
   tech: {
-    scene: 'usa',
+    scene: 'origins',
     tagline: { es: 'Sofisticación de terminal.', en: 'Terminal sophistication.' },
     reference: {
       title: { es: 'Terminal de vídeo DEC VT100', en: 'DEC VT100 video terminal' },
@@ -142,7 +142,7 @@ export const CORE_FICHAS: Record<NeoBuiltinTheme, CoreFicha> = {
     predatesStudy: true,
   },
   y2k: {
-    scene: 'japan',
+    scene: 'origins',
     tagline: { es: 'Energía de carta holográfica.', en: 'Holographic trading-card energy.' },
     reference: {
       title: { es: 'Cartas holográficas del juego de cartas Pokémon', en: 'Holofoil cards of the Pokémon Trading Card Game' },
@@ -183,7 +183,7 @@ export const CORE_FICHAS: Record<NeoBuiltinTheme, CoreFicha> = {
     predatesStudy: true,
   },
   riso: {
-    scene: 'japan',
+    scene: 'origins',
     tagline: { es: 'Dos tintas, un poco desplazadas.', en: 'Two inks, slightly off.' },
     reference: {
       title: { es: 'El risógrafo (RISOGRAPH)', en: 'The Risograph (RISOGRAPH)' },

@@ -5,10 +5,15 @@ import AxeBuilder from '@axe-core/playwright';
 import { NEO_THEMES } from '../src/lib/themes';
 import { SLUGS } from '../src/docs/slugs';
 import { CONTRAST_PAIRS } from '../src/lib/themes/contract';
-import { CATALOG } from '../src/study/.generated/catalog';
-import { SCENES, THEME_SCENES } from '../src/study/types';
+import { CATALOG as GENERATED } from '../src/study/.generated/catalog';
+import { SCENES } from '../src/study/types';
 
-const STUDY_ROUTES = ['/en/', '/en/scenes', '/en/scene/japan', '/en/origins', '/en/atlas', '/en/method', '/en/credits'];
+// The site shows only current works (src/study/retired.ts).
+const CATALOG = GENERATED.filter((entry) => !entry.deprecated);
+const OPEN_SCENES = SCENES.filter((scene) => CATALOG.some((entry) => entry.scene === scene));
+const OPEN_THEME_SCENES = OPEN_SCENES.filter((scene) => scene !== 'origins');
+
+const STUDY_ROUTES = ['/en/', '/en/scenes', '/en/scene/usa', '/en/origins', '/en/atlas', '/en/method', '/en/credits'];
 const DOC_ROUTES = ['/en/library', '/en/components', '/en/blocks', '/en/start', '/en/agents', ...SLUGS.map((slug) => `/en/components/${slug}`)];
 const ROUTES = [...STUDY_ROUTES, ...DOC_ROUTES];
 
@@ -62,9 +67,9 @@ test('production CSS keeps token colors: borders, shadows and page color resolve
 });
 
 // The same regression for study themes: their stylesheets are separate assets,
-// minified on their own, so check one resolves too (Nakagin: 2px, hard shadow).
+// minified on their own, so check one resolves too (Xerox Star: 2px, a hard shadow from its signature, white ground).
 test('production CSS keeps a study theme\'s token colors: border, shadow and ground resolve', async ({ page }) => {
-  await page.goto('?theme=classic&mode=light#/en/theme/nakagin');
+  await page.goto('?theme=classic&mode=light#/en/theme/xerox-star');
   const button = page.locator('.site-themepage .nbc-button--primary').first();
   await expect(button).toBeVisible();
   const style = await button.evaluate((el) => {
@@ -72,9 +77,9 @@ test('production CSS keeps a study theme\'s token colors: border, shadow and gro
     return { border: cs.borderTopWidth, shadow: cs.boxShadow };
   });
   expect(style.border).toBe('2px');
-  expect(style.shadow).toMatch(/5px 5px 0px/);
+  expect(style.shadow).toMatch(/4px 4px 0px/);
   const ground = await page.locator('.site-themepage').evaluate((el) => getComputedStyle(el).backgroundColor);
-  expect(ground).toBe('rgb(217, 216, 211)');
+  expect(ground).toBe('rgb(255, 255, 255)');
 });
 
 test('language routes: legacy addresses redirect, the switch keeps the page, html lang follows', async ({ page }) => {
@@ -101,12 +106,12 @@ test('a legacy address redirects without a history entry: Back returns to the pa
   await expect(page.locator('main h1')).toHaveText('Components that hold their shape.');
 });
 
-test('the site can run in a study theme: ?theme=nakagin loads its stylesheet and the switcher shows it', async ({ page }) => {
-  await page.goto('?theme=nakagin#/en/library');
-  await expect(page.locator('html')).toHaveAttribute('data-theme', 'nakagin');
+test('the site can run in a study theme: ?theme=xerox-star loads its stylesheet and the switcher shows it', async ({ page }) => {
+  await page.goto('?theme=xerox-star#/en/library');
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'xerox-star');
   const radius = await page.locator('main .nbc-button--primary').first().evaluate((el) => getComputedStyle(el).borderTopLeftRadius);
-  expect(radius).toBe('999px');
-  await expect(page.getByRole('button', { name: 'Nakagin' })).toHaveAttribute('aria-pressed', 'true');
+  expect(radius).toBe('2px');
+  await expect(page.getByRole('button', { name: 'Xerox Star' })).toHaveAttribute('aria-pressed', 'true');
   await page.getByRole('link', { name: 'More themes' }).click();
   await expect(page).toHaveURL(/#\/en\/atlas$/);
 });
@@ -118,11 +123,11 @@ test('an unknown ?theme falls back to classic', async ({ page }) => {
 
 test('a site-wide study theme whose stylesheet cannot load falls back to classic', async ({ page }) => {
   let requested = false;
-  await page.route(/\/assets\/nakagin-[\w-]+\.css$/, (route) => {
+  await page.route(/\/assets\/xerox-star-[\w-]+\.css$/, (route) => {
     requested = true;
     return route.abort();
   });
-  await page.goto('?theme=nakagin#/en/library');
+  await page.goto('?theme=xerox-star#/en/library');
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'classic');
   await expect(page.locator('main h1')).toHaveText('Components that hold their shape.');
   expect(requested, 'the site tried to load the stylesheet').toBe(true);
@@ -131,14 +136,14 @@ test('a site-wide study theme whose stylesheet cannot load falls back to classic
 test('atlas: every theme as a card; facets and search live in the URL', async ({ page }) => {
   await page.goto('#/en/atlas');
   await expect(page.locator('.site-card')).toHaveCount(CATALOG.length);
-  await page.getByLabel('Scene').selectOption('japan');
-  await expect(page).toHaveURL(/#\/en\/atlas\?scene=japan$/);
-  await expect(page.locator('.site-card')).toHaveCount(CATALOG.filter((entry) => entry.facets.scene === 'japan').length);
-  await page.getByLabel('Search').fill('中銀');
+  await page.getByLabel('Scene').selectOption('usa');
+  await expect(page).toHaveURL(/#\/en\/atlas\?scene=usa$/);
+  await expect(page.locator('.site-card')).toHaveCount(CATALOG.filter((entry) => entry.facets.scene === 'usa').length);
+  await page.getByLabel('Search').fill('verplank');
   await expect(page.locator('.site-card')).toHaveCount(1);
-  await expect(page.locator('.site-card h2')).toHaveText('Nakagin');
+  await expect(page.locator('.site-card h2')).toHaveText('Xerox Star');
   await page.reload();
-  await expect(page.getByLabel('Search')).toHaveValue('中銀');
+  await expect(page.getByLabel('Search')).toHaveValue('verplank');
   await expect(page.locator('.site-card')).toHaveCount(1);
   await page.getByRole('button', { name: 'Clear filters' }).click();
   await expect(page).toHaveURL(/#\/en\/atlas$/);
@@ -148,17 +153,17 @@ test('atlas: every theme as a card; facets and search live in the URL', async ({
 test('atlas: typing replaces the address instead of stacking history, so Back leaves the atlas', async ({ page }) => {
   await page.goto('#/en/library');
   await page.goto('#/en/atlas');
-  await page.getByLabel('Search').pressSequentially('naka');
-  await expect(page).toHaveURL(/#\/en\/atlas\?q=naka$/);
+  await page.getByLabel('Search').pressSequentially('xero');
+  await expect(page).toHaveURL(/#\/en\/atlas\?q=xero$/);
   await page.goBack();
   await expect(page).toHaveURL(/#\/en\/library$/);
 });
 
 test('atlas: switching language keeps the filters', async ({ page }) => {
-  await page.goto('#/es/atlas?scene=japan&q=riso');
+  await page.goto('#/es/atlas?scene=origins&q=riso');
   await expect(page.locator('.site-card')).toHaveCount(1);
   await page.getByRole('link', { name: 'English' }).click();
-  await expect(page).toHaveURL(/#\/en\/atlas\?scene=japan&q=riso$/);
+  await expect(page).toHaveURL(/#\/en\/atlas\?scene=origins&q=riso$/);
   await expect(page.locator('.site-card h2')).toHaveText(['Riso']);
 });
 
@@ -166,10 +171,10 @@ test('atlas cards paint with their own tokens without fetching any study stylesh
   const requested: string[] = [];
   page.on('request', (request) => requested.push(request.url()));
   await page.goto('#/en/atlas');
-  const card = page.locator('[data-theme="sesc-pompeia"] .site-card');
+  const card = page.locator('[data-theme="mac-os-classic"] .site-card');
   await expect(card).toBeVisible();
-  expect(await card.evaluate((el) => getComputedStyle(el).borderTopColor)).toBe('rgb(27, 26, 25)');
-  expect(requested.filter((url) => /\/(nakagin|maeusebunker|sesc-pompeia|classifieds)-[\w-]+\.css/.test(url))).toEqual([]);
+  expect(await card.evaluate((el) => getComputedStyle(el).borderTopColor)).toBe('rgb(17, 17, 17)');
+  expect(requested.filter((url) => /\/(xerox-star|win31|mac-os-classic|classifieds)-[\w-]+\.css/.test(url))).toEqual([]);
 });
 
 
@@ -180,9 +185,8 @@ const THEME_PAGES: [id: string, native: 'light' | 'dark'][] = [
   ['swiss', 'light'],
   ['y2k', 'light'],
   ['riso', 'light'],
-  ['maeusebunker', 'dark'],
-  ['nakagin', 'light'],
-  ['sesc-pompeia', 'light'],
+  ['xerox-star', 'light'],
+  ['mac-os-classic', 'light'],
   ['classifieds', 'light'],
 ];
 
@@ -207,77 +211,69 @@ test('theme page: a study theme renders in its own stylesheet, fetched only for 
   const requested: string[] = [];
   page.on('request', (request) => requested.push(request.url()));
   await page.goto('#/en/atlas');
-  await page.getByRole('link', { name: 'Nakagin' }).click();
-  await expect(page).toHaveURL(/#\/en\/theme\/nakagin$/);
-  await expect(page.locator('main h1')).toHaveText('Nakagin');
-  await expect(page.locator('main [lang="ja"]').first()).toHaveText('中銀カプセルタワービル');
+  await page.getByRole('link', { name: 'Xerox Star' }).click();
+  await expect(page).toHaveURL(/#\/en\/theme\/xerox-star$/);
+  await expect(page.locator('main h1')).toHaveText('Xerox Star');
   const image = page.locator('.site-themepage__figure img');
   await expect(image).toHaveAttribute('loading', 'lazy');
   await expect(image).toHaveAttribute('width', /^\d+$/);
   await expect(image).toHaveAttribute('height', /^\d+$/);
   const radius = await page.locator('.site-themepage .nbc-button--primary').first().evaluate((el) => getComputedStyle(el).borderTopLeftRadius);
-  expect(radius).toBe('999px');
-  expect(requested.filter((url) => /\/nakagin-[\w-]+\.css/.test(url))).toHaveLength(1);
-  expect(requested.filter((url) => /\/(maeusebunker|sesc-pompeia|classifieds)-[\w-]+\.css/.test(url))).toEqual([]);
+  expect(radius).toBe('2px');
+  expect(requested.filter((url) => /\/xerox-star-[\w-]+\.css/.test(url))).toHaveLength(1);
+  expect(requested.filter((url) => /\/(win31|mac-os-classic|classifieds)-[\w-]+\.css/.test(url))).toEqual([]);
 });
 
 test('theme page: the theme’s stylesheet is downloaded once; its token tables read data the page already has', async ({ page }) => {
-  // Every response that carries Nakagin's token block, whatever its type: the
+  // Every response that carries Windows 3.1's token block, whatever its type: the
   // <link>'s CSS, or a JS chunk holding the same stylesheet as text.
   const carriers: Promise<string | null>[] = [];
   page.on('response', (response) => {
     carriers.push(
       response.text().then(
-        (body) => (/\[data-theme=["']?nakagin["']?\]\s*\{/.test(body) ? new URL(response.url()).pathname : null),
+        (body) => (/\[data-theme=["']?win31["']?\]\s*\{/.test(body) ? new URL(response.url()).pathname : null),
         () => null,
       ),
     );
   });
-  await page.goto('?theme=classic&mode=light#/en/theme/nakagin');
+  await page.goto('?theme=classic&mode=light#/en/theme/win31');
   const tokens = page.getByRole('table', { name: 'Color tokens, light scheme' });
-  await expect(tokens.getByRole('row', { name: /--nbc-bg\b/ })).toContainText('#d9d8d3');
+  await expect(tokens.getByRole('row', { name: /--nbc-bg\b/ })).toContainText('#c0c0c0');
   // An ink the compiler picks itself ('auto'): the light ink on the dark primary.
-  await expect(tokens.getByRole('row', { name: /--nbc-primary-fg\b/ })).toContainText('#ecebe6');
+  await expect(tokens.getByRole('row', { name: /--nbc-primary-fg\b/ })).toContainText('#ffffff');
   await page.waitForLoadState('networkidle');
   const sheets = (await Promise.all(carriers)).filter((path) => path !== null);
   expect(sheets, 'downloads of the theme’s stylesheet').toHaveLength(1);
-  expect(sheets[0]).toMatch(/\/nakagin-[\w-]+\.css$/);
+  expect(sheets[0]).toMatch(/\/win31-[\w-]+\.css$/);
 });
 
 test('theme page: use across the site applies the theme and survives a reload', async ({ page }) => {
-  await page.goto('?theme=classic#/en/theme/sesc-pompeia');
+  await page.goto('?theme=classic#/en/theme/mac-os-classic');
   await page.getByRole('button', { name: 'Use across the site' }).click();
-  await expect(page.locator('html')).toHaveAttribute('data-theme', 'sesc-pompeia');
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'mac-os-classic');
   await expect(page.getByRole('button', { name: 'In use across the site' })).toBeDisabled();
   await page.reload();
-  await expect(page.locator('html')).toHaveAttribute('data-theme', 'sesc-pompeia');
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'mac-os-classic');
 });
 
 test('theme page: mode flips a study theme both ways', async ({ page }) => {
-  await page.goto('?theme=classic&mode=dark#/en/theme/nakagin');
+  await page.goto('?theme=classic&mode=dark#/en/theme/xerox-star');
   await expect(page.locator('main h1')).toBeVisible();
-  expect(await page.locator('.site-themepage').evaluate((el) => getComputedStyle(el).backgroundColor)).toBe('rgb(22, 24, 27)');
-  await page.goto('?theme=classic&mode=light#/en/theme/maeusebunker');
+  expect(await page.locator('.site-themepage').evaluate((el) => getComputedStyle(el).backgroundColor)).toBe('rgb(17, 17, 17)');
+  await page.goto('?theme=classic&mode=light#/en/theme/xerox-star');
   await expect(page.locator('main h1')).toBeVisible();
-  expect(await page.locator('.site-themepage').evaluate((el) => getComputedStyle(el).backgroundColor)).toBe('rgb(207, 204, 197)');
+  expect(await page.locator('.site-themepage').evaluate((el) => getComputedStyle(el).backgroundColor)).toBe('rgb(255, 255, 255)');
 });
 
 test('theme page: a long one-word name stays on one line on a desktop', async ({ page }) => {
-  await page.goto('#/en/theme/maeusebunker');
+  await page.goto('#/en/theme/classifieds');
   const title = page.locator('.site-themepage h1');
-  await expect(title).toHaveText('Mäusebunker');
+  await expect(title).toHaveText('Classifieds');
   const { height, fontSize } = await title.evaluate((el) => ({
     height: el.getBoundingClientRect().height,
     fontSize: parseFloat(getComputedStyle(el).fontSize),
   }));
   expect(height).toBeLessThan(fontSize * 1.5);
-});
-
-test('theme page: a reference title that ends in a parenthesis takes its original inside it', async ({ page }) => {
-  await page.goto('#/es/theme/maeusebunker');
-  const reference = page.locator('.site-band__facts dd').first();
-  await expect(reference.locator('span[lang="de"]')).toHaveText('Zentrale Tierlaboratorien der Freien Universität Berlin');
-  await expect(reference).not.toContainText(') (');
 });
 
 test('theme page: core themes say they predate the study; unknown ids are not found', async ({ page }) => {
@@ -290,8 +286,8 @@ test('theme page: core themes say they predate the study; unknown ids are not fo
 
 
 test('theme page: when its data cannot load, it says so in an alert and links back to the atlas in its language', async ({ page }) => {
-  await page.route(/\/assets\/sesc-pompeia-[\w-]+\.js$/, (route) => route.abort());
-  await page.goto('#/es/theme/sesc-pompeia');
+  await page.route(/\/assets\/mac-os-classic-[\w-]+\.js$/, (route) => route.abort());
+  await page.goto('#/es/theme/mac-os-classic');
   await expect(page.getByRole('alert')).toContainText('No se pudo cargar este tema.');
   await page.getByRole('link', { name: 'Volver al atlas' }).click();
   await expect(page).toHaveURL(/#\/es\/atlas$/);
@@ -303,10 +299,10 @@ test('home: the monument names the gallery, offers every theme, and a chip repai
   await expect(page).toHaveTitle('La Galería — neobrutalistcomponents');
   const ribbon = page.getByRole('group', { name: 'Temas' });
   await expect(ribbon.getByRole('button')).toHaveCount(CATALOG.length);
-  await ribbon.getByRole('button', { name: 'Dragon Quest, 1986: usar este tema' }).click();
-  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dragon-quest');
-  await expect(page).toHaveURL(/[?&]theme=dragon-quest/);
-  await expect(page.locator('.monument__work')).toContainText('Dragon Quest · Yuji Horii, Koichi Nakamura y equipo · 1986');
+  await ribbon.getByRole('button', { name: 'Mac OS X Aqua, 2000: usar este tema' }).click();
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'aqua');
+  await expect(page).toHaveURL(/[?&]theme=aqua/);
+  await expect(page.locator('.monument__work')).toContainText('Mac OS X Aqua · Apple Computer · 2000');
 });
 
 test('home: the ribbon paints its chips without fetching a study stylesheet, and asks only for subsets of their fonts', async ({ page }) => {
@@ -315,8 +311,8 @@ test('home: the ribbon paints its chips without fetching a study stylesheet, and
   await page.goto('?theme=classic#/en/');
   await expect(page.locator('main h1')).toBeVisible();
   await page.waitForLoadState('networkidle');
-  expect(requested.filter((url) => /\/(nakagin|dragon-quest|win95|maeusebunker)-[\w-]+\.css$/.test(url))).toEqual([]);
-  const studyFonts = requested.filter((url) => url.includes('fonts.googleapis.com') && /DotGothic16|Dela\+Gothic/.test(url));
+  expect(requested.filter((url) => /\/(xerox-star|aqua|win95|win31)-[\w-]+\.css$/.test(url))).toEqual([]);
+  const studyFonts = requested.filter((url) => url.includes('fonts.googleapis.com') && /DotGothic16|Jersey\+10/.test(url));
   expect(studyFonts.length).toBeGreaterThan(0);
   expect(studyFonts.every((url) => url.includes('text='))).toBe(true);
 });
@@ -390,9 +386,9 @@ for (const width of [660, 800]) {
   });
 }
 
-test('home: at 1280px in dragon-quest the home passes axe', async ({ page }) => {
+test('home: at 1280px in aqua the home passes axe', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 800 });
-  await page.goto('?theme=dragon-quest#/es/');
+  await page.goto('?theme=aqua#/es/');
   await expect(page.locator('main h1')).toBeVisible();
   await page.evaluate(() => document.fonts.ready);
   const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
@@ -429,7 +425,7 @@ test.describe('home and menu on a phone', () => {
     await expect(menu).toBeFocused();
   });
 
-  for (const theme of ['dragon-quest', 'maeusebunker']) {
+  for (const theme of ['aqua', 'tech']) {
     test(`the home in ${theme} passes axe and never scrolls sideways`, async ({ page }) => {
       await page.setViewportSize({ width: 360, height: 800 });
       await page.goto(`?theme=${theme}#/es/`);
@@ -445,32 +441,35 @@ test.describe('home and menu on a phone', () => {
 test('about: the gallery essay, in its own page', async ({ page }) => {
   await page.goto('#/es/about');
   await expect(page.locator('main h1')).toHaveText('Sobre la galería');
-  await expect(page.locator('.study-essay__text h2').first()).toHaveText('De dónde viene el nombre');
+  await expect(page.locator('.study-essay__text h2').first()).toHaveText('Por qué se estudia así');
 });
 
 test('rooms: a world map with its legend, then each room lists its references in date order with their themes', async ({ page }) => {
   await page.goto('#/en/scenes');
   await expect(page.locator('main h1')).toHaveText('Rooms');
-  await expect(page.locator('.world-map__legend tbody tr')).toHaveCount(SCENES.length);
-  await expect(page.locator('.world-map__room')).toHaveCount(THEME_SCENES.length);
-  await page.locator('.world-map__room[data-scene="italy"] .world-map__label text').first().click();
-  await expect(page).toHaveURL(/#\/en\/scene\/italy$/);
+  await expect(page.locator('.world-map__legend tbody tr')).toHaveCount(OPEN_SCENES.length);
+  await expect(page.locator('.world-map__room')).toHaveCount(OPEN_THEME_SCENES.length);
+  await page.locator('.world-map__room[data-scene="usa"] .world-map__label text').first().click();
+  await expect(page).toHaveURL(/#\/en\/scene\/usa$/);
   await page.goto('#/en/scenes');
-  await page.locator('.world-map__legend').getByRole('link', { name: 'Japan' }).click();
-  await expect(page).toHaveURL(/#\/en\/scene\/japan$/);
-  await expect(page).toHaveTitle('Japan — neobrutalistcomponents');
-  await expect(page.locator('.study-timeline__year')).toHaveText(['1961', '1970', '1980', '1985', '1986', '1996']);
-  await expect(page.locator('.study-timeline .site-card h3')).toHaveText(['Tokyo 1964', 'Nakagin', 'Riso', 'Super Mario Bros.', 'Dragon Quest', 'Y2K']);
-  await expect(page.locator('nav .study-scenes__card')).toHaveCount(SCENES.length - 1);
+  await page.locator('.world-map__legend').getByRole('link', { name: 'United States' }).click();
+  await expect(page).toHaveURL(/#\/en\/scene\/usa$/);
+  await expect(page).toHaveTitle('United States — neobrutalistcomponents');
+  await expect(page.locator('.study-timeline__year')).toHaveText(['1981', '1985', '1988', '1989', '1991', '1992', '1995', '1995', '1996', '2000', '2000', '2001', '2007', '2014']);
+  await expect(page.locator('.study-timeline .site-card h3')).toHaveText([
+    'Xerox Star', 'Atari ST GEM', 'Amiga Workbench', 'NeXTSTEP', 'Mac OS System 7', 'Windows 3.1', 'Classifieds',
+    'Windows 95', 'Palm OS', 'Mac OS X Aqua', 'BeOS', 'Windows XP', 'iPhone OS 1', 'Material Design',
+  ]);
+  await expect(page.locator('nav .study-scenes__card')).toHaveCount(OPEN_SCENES.length - 1);
   await page.goto('#/en/origins');
   await expect(page.locator('.study-essay__text h2').first()).toHaveText('Béton brut');
-  await expect(page.locator('.study-timeline .site-card h3')).toHaveText(['Classic', 'Swiss']);
+  await expect(page.locator('.study-timeline .site-card h3')).toHaveText(['Classic', 'Swiss', 'Tech', 'Riso', 'Y2K']);
 });
 
 test('rooms: a focused legend row keeps its text and focus ring readable on the plate', async ({ page }) => {
-  for (const theme of ['classic', 'tech', 'whaam']) {
+  for (const theme of ['classic', 'tech', 'material-design']) {
     await page.goto(`?theme=${theme}#/en/scenes`);
-    await page.locator('.world-map__legend').getByRole('link', { name: 'Japan' }).focus();
+    await page.locator('.world-map__legend').getByRole('link', { name: 'United States' }).focus();
     const results = await new AxeBuilder({ page }).include('.world-map').withTags(['wcag2a', 'wcag2aa']).analyze();
     expect(results.violations.map((v) => `${theme} ${v.id}`)).toEqual([]);
   }
@@ -490,7 +489,26 @@ test('a study page whose essay cannot load says so instead of staying blank', as
   await page.route(/\/assets\/en-[\w-]+\.js$/, (route) => route.abort());
   await page.goto('#/en/origins');
   await expect(page.getByRole('alert')).toContainText('This content could not load.');
-  await expect(page.locator('.study-scenes__card')).toHaveCount(SCENES.length - 1);
+  await expect(page.locator('.study-scenes__card')).toHaveCount(OPEN_SCENES.length - 1);
+});
+
+test('a closed room and a retired work fall to the not-found page', async ({ page }) => {
+  for (const hash of ['#/en/scene/japan', '#/en/theme/nakagin']) {
+    await page.goto(hash);
+    await expect(page.locator('main h1')).toHaveText('Nothing at this address');
+  }
+});
+
+test('a stale atlas filter for a closed room is dropped, and the scene select offers only open rooms', async ({ page }) => {
+  await page.goto('#/en/atlas?scene=japan');
+  await expect(page.locator('.site-card')).toHaveCount(CATALOG.length);
+  await expect(page.getByLabel('Scene').locator('option', { hasText: 'Japan' })).toHaveCount(0);
+});
+
+test('a saved preference for a retired theme falls back to classic', async ({ page }) => {
+  await page.goto('?theme=nakagin#/en/library');
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'classic');
+  await expect(page.locator('main h1')).toHaveText('Components that hold their shape.');
 });
 
 test('method: the essay, the detail families from their own metadata and the contrast contract', async ({ page }) => {
@@ -508,12 +526,12 @@ test('credits: every photograph and every typeface, each with its licence', asyn
   await expect(page.locator('main h1')).toHaveText('Créditos');
   const photographs = page.locator('table[aria-labelledby="credits-photographs"] tbody tr');
   await expect(photographs).toHaveCount(CATALOG.filter((entry) => entry.image).length);
-  await expect(photographs.filter({ hasText: 'Nakagin' })).toContainText('CC BY-SA 4.0');
+  await expect(photographs.filter({ hasText: 'Xerox Star' })).toContainText(/CC BY-SA 2\.0/);
   const fonts = page.locator('table[aria-labelledby="credits-fonts"] tbody tr');
   await expect(fonts).toHaveCount(new Set(CATALOG.flatMap((entry) => entry.fonts)).size);
   await expect(fonts.filter({ hasText: 'Geist Mono' })).toContainText('Classic, Tech');
   // The credits come from the catalog: no theme's data chunk is fetched for them.
-  expect(requested.filter((url) => /\/assets\/(nakagin|maeusebunker|sesc-pompeia|classifieds|core-fichas)-[\w-]+\.js$/.test(url))).toEqual([]);
+  expect(requested.filter((url) => /\/assets\/(xerox-star|win31|mac-os-classic|classifieds|core-fichas)-[\w-]+\.js$/.test(url))).toEqual([]);
 });
 
 // The study's main pages and the library's, in both languages, at desktop
@@ -522,11 +540,7 @@ test('credits: every photograph and every typeface, each with its licence', asyn
 const MAIN_PAGES = [
   '/',
   '/scenes',
-  '/scene/japan',
-  '/scene/germany',
   '/scene/usa',
-  '/scene/latam',
-  '/scene/italy',
   '/origins',
   '/atlas',
   '/method',
@@ -569,7 +583,7 @@ test.describe('theme and component pages at 360px', () => {
   test.use({ viewport: { width: 360, height: 800 } });
   // Spanish strings run longer than English ones: the study pages are checked in Spanish.
   const STUDY_PAGES = CATALOG.filter((entry) => !entry.predatesStudy).map((entry) => `#/es/theme/${entry.id}`);
-  for (const hash of ['#/es/theme/tech', '#/en/theme/maeusebunker', '#/en/components/button', ...STUDY_PAGES]) {
+  for (const hash of ['#/es/theme/tech', '#/en/theme/win95', '#/en/components/button', ...STUDY_PAGES]) {
     test(`${hash} passes axe and never scrolls sideways`, async ({ page }) => {
       await page.goto(`?theme=classic${hash}`);
       await expect(page.locator('main h1')).toBeVisible();
@@ -586,7 +600,8 @@ test.describe('theme and component pages at 360px', () => {
 /** Study themes with a motion file, read from disk (the registry needs Vite). */
 const MOTION_THEMES = readdirSync(fileURLToPath(new URL('../src/study/themes', import.meta.url)), { recursive: true, encoding: 'utf8' })
   .filter((file) => file.endsWith('.motion.css'))
-  .map((file) => file.split(/[\\/]/).pop()!.replace(/\.motion\.css$/, ''));
+  .map((file) => file.split(/[\\/]/).pop()!.replace(/\.motion\.css$/, ''))
+  .filter((id) => CATALOG.some((entry) => entry.id === id));
 
 for (const reducedMotion of ['no-preference', 'reduce'] as const) {
   test.describe(`a theme's motion under prefers-reduced-motion: ${reducedMotion}`, () => {
