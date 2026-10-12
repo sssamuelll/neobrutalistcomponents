@@ -1,3 +1,5 @@
+This room holds the five themes the library was born with. Each reads a work, from Le Corbusier's concrete to a DEC terminal, and none of those works is a graphical interface. That is why they hang apart. This essay tells where the library's name comes from, a word that began in architecture.
+
 ## Béton brut
 
 Le Corbusier called concrete left as it comes out of the formwork *béton brut*, raw concrete. At the handover of the Unité d'habitation in Marseille, on 14 October 1952, he said he had come to value the marks the formwork leaves on that surface [1]. His use of the phrase is what spread the word brutalism [1][2], and the Fondation Le Corbusier counts the Unités d'habitation among his brutalist works [3].

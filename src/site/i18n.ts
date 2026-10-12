@@ -45,7 +45,7 @@ export const UI = {
   titleStudy: { es: 'La Galería', en: 'The Gallery' },
   titleScenes: { es: 'Salas', en: 'Rooms' },
   titleAtlas: { es: 'Archivo', en: 'Archive' },
-  titleOrigins: { es: 'Orígenes', en: 'Origins' },
+  titleOrigins: { es: 'La casa', en: 'The house' },
   titleMethod: { es: 'Método', en: 'Method' },
   titleCredits: { es: 'Créditos', en: 'Credits' },
   titleAbout: { es: 'Sobre la galería', en: 'About the gallery' },
@@ -281,8 +281,8 @@ export const SCENE_TEXT: Record<Scene, { readonly name: L10n; readonly summary: 
   usa: {
     name: { es: 'Estados Unidos', en: 'United States' },
     summary: {
-      es: 'Páginas web llanas, Emigre, Ray Gun y el neobrutalismo de producto.',
-      en: 'Plain web pages, Emigre, Ray Gun and product neobrutalism.',
+      es: 'Del Xerox Star a Material Design: el escritorio, la ventana, el bisel, el brillo y el tacto.',
+      en: 'From the Xerox Star to Material Design: the desktop, the window, the bevel, the gloss and touch.',
     },
   },
   latam: {
@@ -300,10 +300,10 @@ export const SCENE_TEXT: Record<Scene, { readonly name: L10n; readonly summary: 
     },
   },
   origins: {
-    name: { es: 'Orígenes', en: 'Origins' },
+    name: { es: 'La casa', en: 'The house' },
     summary: {
-      es: 'Béton brut, el New Brutalism británico, el estilo suizo y la web brutalista.',
-      en: 'Béton brut, British New Brutalism, the Swiss style and brutalist websites.',
+      es: 'Los cinco temas con los que nació la librería y el origen de su nombre: el béton brut, el New Brutalism y la web brutalista.',
+      en: 'The five themes the library was born with, and where its name comes from: béton brut, the New Brutalism and brutalist websites.',
     },
   },
 };

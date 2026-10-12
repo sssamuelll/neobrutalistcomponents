@@ -17,11 +17,11 @@ function renderLegend(active: ThemeScene | null = null) {
 }
 
 describe('the room legend', () => {
-  it('lists every open room, Origins last and without a place, with works that add up to the catalog', () => {
+  it('lists every open room, the house last and without a place, with works that add up to the catalog', () => {
     renderLegend();
     const rows = screen.getAllByRole('row').slice(1);
     expect(rows).toHaveLength(OPEN_SCENES.length);
-    expect(rows.at(-1)).toHaveTextContent('Orígenes');
+    expect(rows.at(-1)).toHaveTextContent('La casa');
     expect(rows.at(-1)).toHaveTextContent('sin lugar');
     const works = rows.map((row) => Number(within(row).getAllByRole('cell')[0].textContent));
     expect(works.reduce((a, b) => a + b, 0)).toBe(CATALOG.length);
@@ -40,15 +40,15 @@ describe('the room legend', () => {
     expect(onActive).toHaveBeenLastCalledWith(null);
   });
 
-  it('never activates Origins, which is not on the map', () => {
+  it('never activates the house, which is not on the map', () => {
     const onActive = renderLegend();
-    fireEvent.focus(screen.getByRole('link', { name: 'Orígenes' }));
+    fireEvent.focus(screen.getByRole('link', { name: 'La casa' }));
     expect(onActive).not.toHaveBeenCalled();
   });
 
   it('marks the active room’s row', () => {
     renderLegend('usa');
     expect(screen.getByRole('link', { name: 'Estados Unidos' }).closest('tr')).toHaveAttribute('data-active', 'true');
-    expect(screen.getByRole('link', { name: 'Orígenes' }).closest('tr')).not.toHaveAttribute('data-active');
+    expect(screen.getByRole('link', { name: 'La casa' }).closest('tr')).not.toHaveAttribute('data-active');
   });
 });
