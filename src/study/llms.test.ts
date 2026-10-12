@@ -9,7 +9,8 @@ const llms = read('public/llms.txt');
 const full = read('public/llms-full.txt');
 const skill = read('skills/neobrutalist-ui/SKILL.md');
 const readme = read('README.md');
-const study = CATALOG.filter((entry) => !entry.predatesStudy);
+const study = CATALOG.filter((entry) => !entry.predatesStudy && !entry.deprecated);
+const retired = CATALOG.filter((entry) => entry.deprecated);
 
 /** The rows between a file's study-themes markers (its header and separator left out). */
 const studyRows = (text: string) => {
@@ -31,7 +32,7 @@ describe('agent docs carry the study catalog', () => {
 
   it('llms-full.txt lists every study theme with its scene, scheme and stylesheets', () => {
     for (const entry of study) expect(full).toContain(`| \`${entry.id}\` |`);
-    expect(full).toContain('`themes/nakagin.css`, `themes/nakagin.fonts.css`');
+    expect(full).toContain('`themes/xerox-star.css`, `themes/xerox-star.fonts.css`');
     expect(full).toContain("import { STUDY_CATALOG } from 'neobrutalistcomponents/study'");
   });
 
@@ -48,9 +49,23 @@ describe('agent docs carry the study catalog', () => {
     expect(rows).toEqual(studyRows(skill));
   });
 
+  it('lists retired themes only apart, as retired', () => {
+    expect(retired).toHaveLength(15);
+    for (const doc of [llms, full]) {
+      const at = doc.indexOf('## Retired study themes');
+      expect(at).toBeGreaterThan(0);
+      for (const entry of retired) {
+        expect(doc.slice(at)).toContain(`\`${entry.id}\``);
+        expect(doc.slice(0, at)).not.toContain(`\`${entry.id}\``);
+      }
+    }
+    for (const doc of [skill, readme]) for (const entry of retired) expect(studyRows(doc)?.join('\n')).not.toContain(`\`${entry.id}\``);
+  });
+
   it('names a reference with its original title, never in a second parenthesis', () => {
-    for (const [name, text] of [['llms.txt', llms], ['llms-full.txt', full], ['SKILL.md', skill]]) {
-      expect(text, name).not.toMatch(/\) \(/);
+    for (const [name, text] of [['llms.txt', llms], ['llms-full.txt', full], ['SKILL.md', skill]]) expect(text, name).not.toMatch(/\) \(/);
+    // Only retired works carry an original title now; their section shows it.
+    for (const [name, text] of [['llms.txt', llms], ['llms-full.txt', full]]) {
       // A title that already ends in a parenthesis takes the original inside it.
       expect(text, name).toContain(
         'Mäusebunker (former Central Animal Laboratories of the Free University of Berlin; Zentrale Tierlaboratorien der Freien Universität Berlin)',

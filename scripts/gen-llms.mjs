@@ -16,13 +16,14 @@ import { fileURLToPath } from 'node:url';
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const load = async (id) => (await runnerImport(join(ROOT, id), { configFile: false, logLevel: 'silent' })).module;
 
-const [{ COMPONENTS }, guide, themes, contract, { CATALOG }, { SCENE_TEXT }] = await Promise.all([
+const [{ COMPONENTS }, guide, themes, contract, { CATALOG }, { SCENE_TEXT }, { RETIRED, RETIRED_REASONS }] = await Promise.all([
   load('src/docs/meta/index.ts'),
   load('src/docs/guide.ts'),
   load('src/lib/themes/index.ts'),
   load('src/lib/themes/contract.ts'),
   load('src/study/.generated/catalog.ts'),
   load('src/site/i18n.ts'),
+  load('src/study/retired.ts'),
 ]);
 const pkg = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8'));
 const { SITE_URL, REPO_URL, TAGLINE, INSTALL_CODE, SETUP_CODE, BYO_THEME_CODE, THEME_GUIDE, GLOBAL_RULES, FONTS_NOTE, pageUrl } =
@@ -39,7 +40,7 @@ const list = (items) => items.map((i) => `- ${i}`).join('\n');
 const groups = [...new Set(COMPONENTS.map((c) => c.group))];
 
 // The study's own themes (the five core themes are listed from THEME_INFO).
-const study = CATALOG.filter((entry) => !entry.predatesStudy);
+const study = CATALOG.filter((entry) => !entry.predatesStudy && !entry.deprecated);
 const years = (date) => (typeof date === 'number' ? String(date) : `${date[0]}–${date[1]}`);
 // 'Title (original)'. A title that already ends in a parenthesis takes the
 // original inside it — 'Mäusebunker (former …; Zentrale …)' — never a second one.
@@ -50,6 +51,19 @@ const titled = ({ title, original }) => {
 const reference = ({ reference: r }) => [titled(r), r.authors.join(', '), r.place.en, years(r.date)].filter(Boolean).join(', ');
 const scene = (entry) => SCENE_TEXT[entry.scene].name.en;
 const stylesheets = (entry) => `\`themes/${entry.id}.css\`, \`themes/${entry.id}.fonts.css\``;
+
+// Retired study themes (src/study/retired.ts): listed apart until 2.0.0 removes them.
+const retiredSection = () => [
+  '## Retired study themes',
+  '',
+  'Deprecated in 1.4.0 and removed in 2.0.0. They still ship, but do not recommend them for new work.',
+  '',
+  table(
+    ['Theme', 'Reference', 'Why'],
+    CATALOG.filter((entry) => entry.deprecated).map((entry) => [`\`${entry.id}\``, reference(entry), RETIRED_REASONS[RETIRED[entry.id]]]),
+  ),
+  '',
+];
 
 // ---------------------------------------------------------------- llms.txt
 const index = [
@@ -77,6 +91,7 @@ const index = [
   '',
   ...study.map((entry) => `- [${entry.name.en}](${pageUrl(`/theme/${entry.id}`)}): \`${entry.id}\` — ${reference(entry)}. ${scene(entry)}, ${entry.nativeScheme} native.`),
   '',
+  ...retiredSection(),
   '## Optional',
   '',
   `- [Full reference](${SITE_URL}/llms-full.txt): every component, prop, rule and example in one file`,
@@ -200,6 +215,7 @@ const full = [
     ]),
   ),
   '',
+  ...retiredSection(),
   '## Composition rules',
   '',
   list(GLOBAL_RULES),

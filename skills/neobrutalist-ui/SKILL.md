@@ -37,20 +37,6 @@ Each reads one documented work — a building, a magazine, a terminal, a website
 <!-- study-themes:start -->
 | Theme | Reference | Scene | Native scheme |
 | --- | --- | --- | --- |
-| `bauhaus-dessau` | Bauhaus Building, Dessau (Bauhausgebäude Dessau), Walter Gropius, Dessau, Germany, 1925–1926 | Germany | light |
-| `din-1451` | DIN 1451, the German standard lettering (DIN-Schrift), Ludwig Goller, Germany, 1931–1936 | Germany | light |
-| `maeusebunker` | Mäusebunker (former Central Animal Laboratories of the Free University of Berlin; Zentrale Tierlaboratorien der Freien Universität Berlin), Gerd Hänska, Magdalena Hänska, Kurt Schmersow, Lichterfelde, Berlin, Germany, 1971–1982 | Germany | dark |
-| `munich-72` | Visual design of the 1972 Munich Olympic Games (Visuelles Erscheinungsbild der Olympischen Spiele München 1972), Otl Aicher, Gerhard Joksch, Munich, Germany, 1966–1972 | Germany | light |
-| `carlton` | Carlton room divider, Ettore Sottsass, Milan, Italy, 1981 | Italy | light |
-| `lettera-22` | Olivetti Lettera 22 portable typewriter, Marcello Nizzoli, Giuseppe Beccio, Ivrea, Italy, 1950 | Italy | light |
-| `dragon-quest` | Dragon Quest (Famicom; ドラゴンクエスト), Yuji Horii, Koichi Nakamura, Akira Toriyama, Koichi Sugiyama, Japan, 1986 | Japan | dark |
-| `nakagin` | Nakagin Capsule Tower (中銀カプセルタワービル), Kisho Kurokawa, Ginza, Tokyo, Japan, 1970–1972 | Japan | light |
-| `super-mario-bros` | Super Mario Bros. (Famicom; スーパーマリオブラザーズ), Shigeru Miyamoto, Japan, 1985 | Japan | light |
-| `tokyo-1964` | Poster for the Tokyo 1964 Olympic Games, Yusaku Kamekura, Tokyo, Japan, 1961 | Japan | light |
-| `caracas-signage` | Signage and graphic identity of the Caracas metro (Metro de Caracas), Max Pedemonte, BMPT, Caracas, Venezuela, 1983 | Latin America | light |
-| `create-two-three-many-vietnams` | Create two, three… many Vietnams (OSPAAAL poster), Alfredo Rostgaard, Cuba, 1967 | Latin America | light |
-| `loteria` | Mexican lotería (the Don Clemente deck), Clemente Jacques, Mexico, 1887 | Latin America | light |
-| `sesc-pompeia` | SESC Pompéia (Centro de Lazer Fábrica da Pompéia), Lina Bo Bardi, André Vainer, Marcelo Carvalho Ferraz, Pompeia, São Paulo, Brazil, 1977–1986 | Latin America | light |
 | `amiga-os` | Amiga Workbench 1.3, Commodore-Amiga, RJ Mical, United States, 1988 | United States | light |
 | `aqua` | Mac OS X (Aqua interface), Apple Computer, Cupertino, United States, 2000 | United States | light |
 | `atari-gem` | The GEM desktop on the Atari ST (TOS 1.0), Digital Research, United States, 1985 | United States | light |
@@ -61,7 +47,6 @@ Each reads one documented work — a building, a magazine, a terminal, a website
 | `material-design` | Material Design (version 1), Google, Mountain View, United States, 2014 | United States | light |
 | `nextstep` | NeXTSTEP, NeXT Computer, Keith Ohlfs, California, United States, 1989 | United States | light |
 | `palm-os` | Palm OS on the Pilot 1000, Palm Computing, Rob Haitani, United States, 1996 | United States | light |
-| `whaam` | Whaam!, Roy Lichtenstein, New York, United States, 1963 | United States | light |
 | `win-xp` | Windows XP (Luna visual style), Microsoft, Redmond, United States, 2001 | United States | light |
 | `win31` | Windows 3.1, Microsoft, United States, 1992 | United States | light |
 | `win95` | Windows 95 (graphical user interface), Microsoft, Redmond, United States, 1995 | United States | light |

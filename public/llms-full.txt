@@ -47,20 +47,6 @@ Each study theme reads one documented work; its page (https://sssamuelll.github.
 
 | Theme | Reference | Scene | Native scheme | Fonts | Stylesheets |
 | --- | --- | --- | --- | --- | --- |
-| `bauhaus-dessau` | Bauhaus Building, Dessau (Bauhausgebäude Dessau), Walter Gropius, Dessau, Germany, 1925–1926 | Germany | light | Jost | `themes/bauhaus-dessau.css`, `themes/bauhaus-dessau.fonts.css` |
-| `din-1451` | DIN 1451, the German standard lettering (DIN-Schrift), Ludwig Goller, Germany, 1931–1936 | Germany | light | Barlow, Barlow Condensed | `themes/din-1451.css`, `themes/din-1451.fonts.css` |
-| `maeusebunker` | Mäusebunker (former Central Animal Laboratories of the Free University of Berlin; Zentrale Tierlaboratorien der Freien Universität Berlin), Gerd Hänska, Magdalena Hänska, Kurt Schmersow, Lichterfelde, Berlin, Germany, 1971–1982 | Germany | dark | Barlow, Barlow Condensed, DM Mono | `themes/maeusebunker.css`, `themes/maeusebunker.fonts.css` |
-| `munich-72` | Visual design of the 1972 Munich Olympic Games (Visuelles Erscheinungsbild der Olympischen Spiele München 1972), Otl Aicher, Gerhard Joksch, Munich, Germany, 1966–1972 | Germany | light | Inter | `themes/munich-72.css`, `themes/munich-72.fonts.css` |
-| `carlton` | Carlton room divider, Ettore Sottsass, Milan, Italy, 1981 | Italy | light | system fonts | `themes/carlton.css`, `themes/carlton.fonts.css` |
-| `lettera-22` | Olivetti Lettera 22 portable typewriter, Marcello Nizzoli, Giuseppe Beccio, Ivrea, Italy, 1950 | Italy | light | Cutive Mono | `themes/lettera-22.css`, `themes/lettera-22.fonts.css` |
-| `dragon-quest` | Dragon Quest (Famicom; ドラゴンクエスト), Yuji Horii, Koichi Nakamura, Akira Toriyama, Koichi Sugiyama, Japan, 1986 | Japan | dark | DotGothic16 | `themes/dragon-quest.css`, `themes/dragon-quest.fonts.css` |
-| `nakagin` | Nakagin Capsule Tower (中銀カプセルタワービル), Kisho Kurokawa, Ginza, Tokyo, Japan, 1970–1972 | Japan | light | Zen Kaku Gothic New, Dela Gothic One, M PLUS 1 Code | `themes/nakagin.css`, `themes/nakagin.fonts.css` |
-| `super-mario-bros` | Super Mario Bros. (Famicom; スーパーマリオブラザーズ), Shigeru Miyamoto, Japan, 1985 | Japan | light | DotGothic16, Press Start 2P | `themes/super-mario-bros.css`, `themes/super-mario-bros.fonts.css` |
-| `tokyo-1964` | Poster for the Tokyo 1964 Olympic Games, Yusaku Kamekura, Tokyo, Japan, 1961 | Japan | light | Noto Sans, Anton | `themes/tokyo-1964.css`, `themes/tokyo-1964.fonts.css` |
-| `caracas-signage` | Signage and graphic identity of the Caracas metro (Metro de Caracas), Max Pedemonte, BMPT, Caracas, Venezuela, 1983 | Latin America | light | Arimo | `themes/caracas-signage.css`, `themes/caracas-signage.fonts.css` |
-| `create-two-three-many-vietnams` | Create two, three… many Vietnams (OSPAAAL poster), Alfredo Rostgaard, Cuba, 1967 | Latin America | light | Barlow, Barlow Condensed | `themes/create-two-three-many-vietnams.css`, `themes/create-two-three-many-vietnams.fonts.css` |
-| `loteria` | Mexican lotería (the Don Clemente deck), Clemente Jacques, Mexico, 1887 | Latin America | light | Noto Sans, Libre Franklin | `themes/loteria.css`, `themes/loteria.fonts.css` |
-| `sesc-pompeia` | SESC Pompéia (Centro de Lazer Fábrica da Pompéia), Lina Bo Bardi, André Vainer, Marcelo Carvalho Ferraz, Pompeia, São Paulo, Brazil, 1977–1986 | Latin America | light | Chivo, Chivo Mono | `themes/sesc-pompeia.css`, `themes/sesc-pompeia.fonts.css` |
 | `amiga-os` | Amiga Workbench 1.3, Commodore-Amiga, RJ Mical, United States, 1988 | United States | light | Workbench, DM Mono | `themes/amiga-os.css`, `themes/amiga-os.fonts.css` |
 | `aqua` | Mac OS X (Aqua interface), Apple Computer, Cupertino, United States, 2000 | United States | light | Open Sans | `themes/aqua.css`, `themes/aqua.fonts.css` |
 | `atari-gem` | The GEM desktop on the Atari ST (TOS 1.0), Digital Research, United States, 1985 | United States | light | VT323 | `themes/atari-gem.css`, `themes/atari-gem.fonts.css` |
@@ -71,11 +57,32 @@ Each study theme reads one documented work; its page (https://sssamuelll.github.
 | `material-design` | Material Design (version 1), Google, Mountain View, United States, 2014 | United States | light | Roboto | `themes/material-design.css`, `themes/material-design.fonts.css` |
 | `nextstep` | NeXTSTEP, NeXT Computer, Keith Ohlfs, California, United States, 1989 | United States | light | Arimo | `themes/nextstep.css`, `themes/nextstep.fonts.css` |
 | `palm-os` | Palm OS on the Pilot 1000, Palm Computing, Rob Haitani, United States, 1996 | United States | light | Tiny5, Pixelify Sans | `themes/palm-os.css`, `themes/palm-os.fonts.css` |
-| `whaam` | Whaam!, Roy Lichtenstein, New York, United States, 1963 | United States | light | Comic Neue, Bangers | `themes/whaam.css`, `themes/whaam.fonts.css` |
 | `win-xp` | Windows XP (Luna visual style), Microsoft, Redmond, United States, 2001 | United States | light | Noto Sans, Libre Franklin | `themes/win-xp.css`, `themes/win-xp.fonts.css` |
 | `win31` | Windows 3.1, Microsoft, United States, 1992 | United States | light | Jersey 10 | `themes/win31.css`, `themes/win31.fonts.css` |
 | `win95` | Windows 95 (graphical user interface), Microsoft, Redmond, United States, 1995 | United States | light | DotGothic16 | `themes/win95.css`, `themes/win95.fonts.css` |
 | `xerox-star` | Xerox Star (8010 Information System), David Canfield Smith, Charles Irby, Ralph Kimball, Bill Verplank, Eric Harslem, El Segundo and Palo Alto, United States, 1981 | United States | light | system fonts | `themes/xerox-star.css`, `themes/xerox-star.fonts.css` |
+
+## Retired study themes
+
+Deprecated in 1.4.0 and removed in 2.0.0. They still ship, but do not recommend them for new work.
+
+| Theme | Reference | Why |
+| --- | --- | --- |
+| `bauhaus-dessau` | Bauhaus Building, Dessau (Bauhausgebäude Dessau), Walter Gropius, Dessau, Germany, 1925–1926 | the gallery keeps only graphical interfaces, and this work is not one |
+| `din-1451` | DIN 1451, the German standard lettering (DIN-Schrift), Ludwig Goller, Germany, 1931–1936 | the gallery keeps only graphical interfaces, and this work is not one |
+| `maeusebunker` | Mäusebunker (former Central Animal Laboratories of the Free University of Berlin; Zentrale Tierlaboratorien der Freien Universität Berlin), Gerd Hänska, Magdalena Hänska, Kurt Schmersow, Lichterfelde, Berlin, Germany, 1971–1982 | the gallery keeps only graphical interfaces, and this work is not one |
+| `munich-72` | Visual design of the 1972 Munich Olympic Games (Visuelles Erscheinungsbild der Olympischen Spiele München 1972), Otl Aicher, Gerhard Joksch, Munich, Germany, 1966–1972 | the gallery keeps only graphical interfaces, and this work is not one |
+| `carlton` | Carlton room divider, Ettore Sottsass, Milan, Italy, 1981 | the gallery keeps only graphical interfaces, and this work is not one |
+| `lettera-22` | Olivetti Lettera 22 portable typewriter, Marcello Nizzoli, Giuseppe Beccio, Ivrea, Italy, 1950 | the gallery keeps only graphical interfaces, and this work is not one |
+| `dragon-quest` | Dragon Quest (Famicom; ドラゴンクエスト), Yuji Horii, Koichi Nakamura, Akira Toriyama, Koichi Sugiyama, Japan, 1986 | the gallery keeps only graphical interfaces, and video games are outside it |
+| `nakagin` | Nakagin Capsule Tower (中銀カプセルタワービル), Kisho Kurokawa, Ginza, Tokyo, Japan, 1970–1972 | the gallery keeps only graphical interfaces, and this work is not one |
+| `super-mario-bros` | Super Mario Bros. (Famicom; スーパーマリオブラザーズ), Shigeru Miyamoto, Japan, 1985 | the gallery keeps only graphical interfaces, and video games are outside it |
+| `tokyo-1964` | Poster for the Tokyo 1964 Olympic Games, Yusaku Kamekura, Tokyo, Japan, 1961 | the gallery keeps only graphical interfaces, and this work is not one |
+| `caracas-signage` | Signage and graphic identity of the Caracas metro (Metro de Caracas), Max Pedemonte, BMPT, Caracas, Venezuela, 1983 | the gallery keeps only graphical interfaces, and this work is not one |
+| `create-two-three-many-vietnams` | Create two, three… many Vietnams (OSPAAAL poster), Alfredo Rostgaard, Cuba, 1967 | the gallery keeps only graphical interfaces, and this work is not one |
+| `loteria` | Mexican lotería (the Don Clemente deck), Clemente Jacques, Mexico, 1887 | the gallery keeps only graphical interfaces, and this work is not one |
+| `sesc-pompeia` | SESC Pompéia (Centro de Lazer Fábrica da Pompéia), Lina Bo Bardi, André Vainer, Marcelo Carvalho Ferraz, Pompeia, São Paulo, Brazil, 1977–1986 | the gallery keeps only graphical interfaces, and this work is not one |
+| `whaam` | Whaam!, Roy Lichtenstein, New York, United States, 1963 | the gallery keeps only graphical interfaces, and this work is not one |
 
 ## Composition rules
 
