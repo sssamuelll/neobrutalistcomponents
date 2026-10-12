@@ -1,8 +1,14 @@
 # Changelog
 
-## Unreleased
+## 1.4.0 — 2026-10-13
+
+The gallery studies the history of the graphical user interface, and keeps only graphical interfaces.
+
+### Deprecated
+- Fifteen study themes leave the gallery: `bauhaus-dessau`, `maeusebunker`, `nakagin`, `sesc-pompeia`, `carlton`, `lettera-22`, `din-1451`, `munich-72`, `tokyo-1964`, `caracas-signage`, `create-two-three-many-vietnams`, `loteria`, `whaam`, and the video games `dragon-quest` and `super-mario-bros`. Their stylesheets still ship and open with a deprecation comment; 2.0.0 removes them. `STUDY_CATALOG` entries gain `deprecated`, and `llms.txt` lists these themes apart, as retired.
 
 ### Changed
+- Study: the gallery essay and the United States room's essay are rewritten around the history of the graphical interface, from the Xerox Star to Material Design. The Germany, Italy, Japan and Latin America rooms close, with their essays, until they hold interfaces. The five core themes hang together in one room, the house, whose essay tells where the library's name comes from.
 - Docs site: the home page is a monument. One plate in the active theme carries the gallery's name, fitted to the width in the theme's own display face, a drifting ribbon of every theme (each chip painted in its own tokens; pressing one repaints the whole site) and the work it is painted in. Below it: a wall of all sixteen components in that theme, the work's card (photo or documentary plate, authors, date, sources) and how to take the theme.
 - Docs site: on phones the header is one 48 px bar with a menu sheet. On the home, the desktop bar appears once the monument has scrolled away.
 
