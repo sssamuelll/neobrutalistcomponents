@@ -70,7 +70,7 @@ A retired work's URL (`#/…/study/bauhaus-dessau`) and a switched-off room's UR
 
 ### 4.2 What the list does in 1.4
 
-- **Site:** the site catalog filters retired ids out. They leave the atlas, the home ribbon and wall, the rooms, the theme picker and the Credits page. Their photographs leave the site (they live in the site, never in the package).
+- **Site:** the site catalog filters retired ids out. They leave the atlas, the home ribbon and wall, the rooms, the theme picker and the Credits page. Their photographs leave every page (they live in the site, never in the package). Until 2.0 deletes the files, the build may still emit their stylesheets and photographs as unlinked assets; no page references them.
 - **Package:** the 15 stylesheets still compile into `dist/themes/`, each opening with `/* Deprecated in 1.4.0, removed in 2.0.0: <reason>. */`.
 - **`./study` module:** retired entries carry `deprecated: true`.
 - **`llms.txt` / `llms-full.txt`:** retired themes are listed apart, as retired, so no agent recommends them.
@@ -90,7 +90,7 @@ Deletes the 15 theme files, their signature and motion CSS, their images and `re
 |---|---|
 | `home` (es, en) | **Rewritten** from the object of study: what counts here as a graphical interface, why it is studied, how the gallery is walked. Neobrutalism becomes the latest chapter. Every historical claim carries its source. The draft is shown to the owner before it is committed — it is the site's voice. |
 | `method` | Only the paragraph on what counts as a work: "un edificio, una publicación, un objeto, un sitio web" becomes interfaces. Source, image and contrast rules unchanged. |
-| `scene-usa` | Reviewed; anything about retired works (Whaam!) is removed. |
+| `scene-usa` | **Rewritten** as the essay of the United States room of interfaces, same process as `home`. *Changed while planning:* §5 was approved as "reviewed; Whaam! removed", but the essay's sections are «Brutalismo vernáculo», «La letra suelta» (Emigre, Ray Gun) and «El neobrutalismo de producto» — none is about interfaces, so a cut would leave nothing. |
 | `origins` | Moves into the house (§3.2); no change of substance. |
 | `scene-germany`, `scene-italy`, `scene-japan`, `scene-latam` | Leave the site (§3.4). |
 
