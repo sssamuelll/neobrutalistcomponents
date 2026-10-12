@@ -110,8 +110,8 @@ export const UI = {
 
   // Study home
   studyLead: {
-    es: 'Un museo de la historia gráfica del software, con el neobrutalismo como sala principal. Cada obra es un tema vivo: los mismos componentes, pintados con el lenguaje de su época.',
-    en: 'A museum of the graphic history of software, with neobrutalism as its main room. Every work is a living theme: the same components, painted in the language of their era.',
+    es: 'Un museo de la historia de la interfaz gráfica de usuario. Cada obra es un tema vivo: los mismos componentes, pintados con el lenguaje de su época.',
+    en: 'A museum of the history of the graphical user interface. Every work is a living theme: the same components, painted in the language of their era.',
   },
   scenesHeading: { es: 'Salas', en: 'Rooms' },
   openAtlas: { es: 'Abrir el atlas', en: 'Open the atlas' },

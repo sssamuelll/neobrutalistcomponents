@@ -76,3 +76,14 @@ describe('fill and sourceCount', () => {
     expect([sourceCount('es', 1), sourceCount('es', 4), sourceCount('en', 1), sourceCount('en', 4)]).toEqual(['1 fuente', '4 fuentes', '1 source', '4 sources']);
   });
 });
+
+describe('the study’s object', () => {
+  it('is the history of the graphical interface, not neobrutalism as its main room', async () => {
+    const { readFileSync } = await import('node:fs');
+    const lead = UI.studyLead;
+    expect(lead.es).toContain('interfaz gráfica');
+    expect(lead.en).toContain('graphical user interface');
+    expect(`${lead.es} ${lead.en}`).not.toMatch(/sala principal|main room/);
+    expect(readFileSync('index.html', 'utf8')).not.toContain('a study of neobrutalism');
+  });
+});

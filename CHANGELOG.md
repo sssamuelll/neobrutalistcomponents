@@ -9,6 +9,7 @@ The gallery studies the history of the graphical user interface, and keeps only 
 
 ### Changed
 - Study: the gallery essay and the United States room's essay are rewritten around the history of the graphical interface, from the Xerox Star to Material Design. The Germany, Italy, Japan and Latin America rooms close, with their essays, until they hold interfaces. The five core themes hang together in one room, the house, whose essay tells where the library's name comes from.
+- `STUDY_CATALOG`: the core themes `tech` (was `usa`), `y2k` and `riso` (were `japan`) now have scene `origins`, in `scene` and `facets.scene`.
 - Docs site: the home page is a monument. One plate in the active theme carries the gallery's name, fitted to the width in the theme's own display face, a drifting ribbon of every theme (each chip painted in its own tokens; pressing one repaints the whole site) and the work it is painted in. Below it: a wall of all sixteen components in that theme, the work's card (photo or documentary plate, authors, date, sources) and how to take the theme.
 - Docs site: on phones the header is one 48 px bar with a menu sheet. On the home, the desktop bar appears once the monument has scrolled away.
 
